@@ -1,2 +1,2 @@
 # UCSB-Rideshare-App
-Rideshare App fro UCSB students
+Rideshare App for UCSB students
