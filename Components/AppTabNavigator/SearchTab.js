@@ -8,8 +8,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 class SearchTab extends Component{
 	static navigationOptions = {
-		tabBarIonicons: ({ tintColor}) => (
-			<Ionicons name="md-checkmark-circle" style={{ color: tintColor }} />
+		tabBarIcon: ({ tintColor}) => (
+			<Ionicons name="ios-search" style={{ color: tintColor }} />
 		)
 
 	}

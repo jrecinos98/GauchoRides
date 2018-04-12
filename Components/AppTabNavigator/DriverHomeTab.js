@@ -9,8 +9,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 class DriverHomeTab extends Component{
 	static navigationOptions = {
-		tabBarIonicons: ({ tintColor}) => (
-			<Ionicons name="ios-send-outline" style={{ color: tintColor }} />
+		tabBarIcon: ({ tintColor}) => (
+			<Ionicons name="ios-car" style={{ color: tintColor }} />
 		)
 
 	}

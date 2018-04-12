@@ -10,8 +10,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 class ProfileTab extends Component{
 	static navigationOptions = {
-		tabBarIonicons: ({ tintColor}) => (
-			<Ionicons name="md-checkmark-circle" style={{ color: tintColor }} />
+		tabBarIcon: ({ tintColor}) => (
+			<Ionicons name="ios-contact-outline" style={{ color: tintColor }} />
 		)
 
 	}

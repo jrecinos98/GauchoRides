@@ -22,7 +22,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 class MainScreen extends Component{
 	static navigationOptions = {
-		headerLeft: <Ionicons name="md-checkmark-circle" style={{paddingLeft:10}} />,
+		headerLeft: <Ionicons name="ios-map" style={{paddingLeft:10}} />,
 		title: "GauchoRides",
 		headerRight: <Ionicons style = {{ paddingRight: 10 }}
 		name="ios-send-outline" />
@@ -67,8 +67,9 @@ const AppTabNavigator = TabNavigator({
 		},
 		activeTintColor:'#000',
 		inactiveTintColor:'#d1cece',
-		showLabel:true, //set to false if don't want name
-		showIcon:true
+		showIcon:true,
+		showLabel:true //set to false if don't want name
+	
 
 	}
 
