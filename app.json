@@ -1,5 +1,7 @@
 {
+  "name": "GauchoRides",
+  "displayName": "GauchoRides",
   "expo": {
-    "sdkVersion": "26.0.0"
-  }
+  "sdkVersion": "26.0.0"
+ }
 }
