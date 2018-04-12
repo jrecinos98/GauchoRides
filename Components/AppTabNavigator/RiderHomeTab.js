@@ -66,7 +66,10 @@ class RiderHomeTab extends Component{
                     }}>
 
                     <MapView.Marker
-                
+                        coordinate={{
+                            latitude: 34.4133,
+                            longitude: -119.8610
+                        }}
                         pinColor="blue"
                     />
 
