@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps'
 
 
+//Should create another class for this
 const mode = 'driving'; // 'walking';
 const origin = 'Isla Vista, CA';
 const destination = 'San Jose, CA';
