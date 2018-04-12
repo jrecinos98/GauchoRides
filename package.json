@@ -21,9 +21,11 @@
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
     "expo": "^26.0.0",
+    "npm-install-peers": "^1.2.1",
+    "react": "^16.3.0",
+    "react-native": "^0.54.0",
+    "react-native-maps": "^0.21.0",
     "native-base": "^2.4.1",
-    "react": "16.3.0-alpha.1",
-    "react-native": "0.54.0",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11"
   }

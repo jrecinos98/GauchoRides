@@ -6,6 +6,8 @@ import { StackNavigator } from 'react-navigation'
 import MainScreen from './Components/MainScreen'
 
 
+// Map Tutorial: https://www.youtube.com/watch?v=RjW1hMOA9M0&t=178s
+// Route Tutorial: https://github.com/react-community/react-native-maps/issues/929 (Look for the super upvoted answer)
 export default class App extends React.Component {
 
   //state = { fontsAreLoaded: false };
@@ -38,12 +40,15 @@ const AppStackNavigator = StackNavigator({
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    }
 });
 
 //Expo.registerRootComponent(App);
