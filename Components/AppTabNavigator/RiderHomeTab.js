@@ -5,14 +5,13 @@ import {
 	StyleSheet
 } from "react-native";
 
-import { Icon } from 'native-base'
-//import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 
 class RiderHomeTab extends Component{
 	static navigationOptions = {
-		tabBarIcon: ({ tintColor}) => (
-			<Icon name="pizza" style={{ color: tintColor }} />
+		tabBarIonicons: ({ tintColor}) => (
+			<Ionicons name="md-checkmark-circle" style={{ color: tintColor }} />
 		)
 
 	}

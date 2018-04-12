@@ -15,16 +15,16 @@ import ProfileTab from './AppTabNavigator/ProfileTab'
 
 
 import {TabNavigator} from 'react-navigation'
-import { Icon } from 'native-base'
-//import { Ionicons } from '@expo/vector-icons';
+
+import { Ionicons } from '@expo/vector-icons';
 
 
 
 class MainScreen extends Component{
 	static navigationOptions = {
-		headerLeft: <Icon name="pizza" style={{paddingLeft:10}} />,
+		headerLeft: <Ionicons name="md-checkmark-circle" style={{paddingLeft:10}} />,
 		title: "GauchoRides",
-		headerRight: <Icon style = {{ paddingRight: 10 }}
+		headerRight: <Ionicons style = {{ paddingRight: 10 }}
 		name="ios-send-outline" />
 	}
 	render(){
@@ -67,7 +67,7 @@ const AppTabNavigator = TabNavigator({
 		},
 		activeTintColor:'#000',
 		inactiveTintColor:'#d1cece',
-		showLabel:false,
+		showLabel:true, //set to false if don't want name
 		showIcon:true
 
 	}

@@ -5,13 +5,12 @@ import {
 	StyleSheet
 } from "react-native";
 
-import { Icon } from 'native-base'
-//import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 class DriverHomeTab extends Component{
 	static navigationOptions = {
-		tabBarIcon: ({ tintColor}) => (
-			<Icon name="pizza" style={{ color: tintColor }} />
+		tabBarIonicons: ({ tintColor}) => (
+			<Ionicons name="ios-send-outline" style={{ color: tintColor }} />
 		)
 
 	}
