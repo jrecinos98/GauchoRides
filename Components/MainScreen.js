@@ -15,8 +15,8 @@ import ProfileTab from './AppTabNavigator/ProfileTab'
 
 
 import {TabNavigator} from 'react-navigation'
-//import { Icon } from 'native-base'
-import { Ionicons } from '@expo/vector-icons';
+import { Icon } from 'native-base'
+//import { Ionicons } from '@expo/vector-icons';
 
 
 

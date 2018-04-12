@@ -5,8 +5,8 @@ import {
 	StyleSheet
 } from "react-native";
 
-//import { Icon } from 'native-base'
-import { Ionicons } from '@expo/vector-icons';
+import { Icon } from 'native-base'
+//import { Ionicons } from '@expo/vector-icons';
 
 
 class ProfileTab extends Component{
