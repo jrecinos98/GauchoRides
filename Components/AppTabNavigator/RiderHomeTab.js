@@ -3,7 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
+
 import SearchBox from "../SearchBox";
+import SearchResults from "../SearchResults";
 //import styles from "./SearchBoxStyles.js";
 
 //Should create another class for this

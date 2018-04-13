@@ -6,6 +6,7 @@ import RNGooglePlaces from "react-native-google-places";
 //--------------------
 //Constants
 //--------------------
+const {GET_CURRENT_LOCATION, GET_INPUT } = constants;
 const { 
 	GET_CURRENT_LOCATION,
 	GET_INPUT, 
