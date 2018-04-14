@@ -6,6 +6,7 @@ import {
 } from "react-native";
 
 import { Ionicons } from '@expo/vector-icons';
+import { MapContainer } from "../MapContainer/index.js"; //adding map
 
 class DriverHomeTab extends Component{
 	static navigationOptions = {

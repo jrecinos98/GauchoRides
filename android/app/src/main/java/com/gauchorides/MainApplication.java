@@ -12,8 +12,11 @@ import com.facebook.CallbackManager;
 
 import com.facebook.react.ReactApplication;
 
+
 import io.invertase.firebase.RNFirebasePackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
+
 import com.oblador.vectoricons.VectorIconsPackage;
 
 import com.facebook.react.ReactNativeHost;
@@ -46,6 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
           new FacebookLoginPackage(),
           new FBSDKPackage(mCallbackManager),
           new VectorIconsPackage()
+
       );
     }
 
