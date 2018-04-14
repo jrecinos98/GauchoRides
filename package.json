@@ -26,12 +26,30 @@
     "react": "16.3.0-alpha.1",
     "react-addons-update": "^15.6.2",
     "react-native": "0.54.0",
-    "react-native-google-places": "^2.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
+    "react-native-elements": "^0.19.1",
+    "react-native-facebook-login": "^1.6.1",
+    "react-native-fbsdk": "^0.7.0",
+    "react-native-fbsdklogin": "0.0.8",
+    "react-native-firebase": "^4.0.2",
+    "firebase": "^4.12.1",
+    "react-native-keyboard-spacer": "^0.4.1",
+    "react-native-loading-spinner-overlay": "^0.5.2",
+    "react-native-navigation": "^1.1.440",
+    "react-native-redux-listener": "^0.3.0",
     "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-size-matters": "^0.1.0",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^1.5.11",
+    "redux-thunk": "^2.2.0",
+    "save": "^2.3.2"
+
+    "react-native-google-places": "^2.5.0",
+    
+
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    
+
   }
 }

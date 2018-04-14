@@ -24,6 +24,7 @@ class MainScreen extends Component{
 	static navigationOptions = {
 		headerLeft: <Ionicons name="ios-map" style={{paddingLeft:10}} />,
 		title: "GauchoRides",
+		backgroundColor: '#4db6ac',
 		headerRight: <Ionicons style = {{ paddingRight: 10 }}
 		name="ios-send-outline" />
 	}
@@ -60,12 +61,12 @@ const AppTabNavigator = TabNavigator({
 		style:{
 			...Platform.select({
 				android:{
-					backgroundColor:'white'
+					backgroundColor:'#4db6ac'
 				}
 			})
 
 		},
-		activeTintColor:'#000',
+		activeTintColor:'#212121',
 		inactiveTintColor:'#d1cece',
 		showIcon:true,
 		showLabel:true //set to false if don't want name
@@ -73,7 +74,7 @@ const AppTabNavigator = TabNavigator({
 
 	}
 
-})
+});
 
 const styles = StyleSheet.create({
 	container: {

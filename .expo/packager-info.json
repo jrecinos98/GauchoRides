@@ -1,4 +1,8 @@
 {
+
+  "expoServerNgrokUrl": "https://x2-3mw.thehulkrecinos.gaucho-rides.exp.direct",
+  "packagerNgrokUrl": "https://packager.x2-3mw.thehulkrecinos.gaucho-rides.exp.direct",
+  "ngrokPid": 8444
   "expoServerPort": 19000,
   "packagerPort": 19001,
   "packagerPid": 12484
