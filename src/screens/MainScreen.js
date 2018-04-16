@@ -7,7 +7,8 @@ import DriverMain from './DriverScreen/Main'
 import RiderMain from './RiderScreen/Main'
 import ProfileMain from './ProfileScreen/Main'
 
-class MainScreen extends Component{
+
+export default class MainScreen extends Component{
 	static navigationOptions = {
 		headerLeft: <Ionicons name="ios-map" style={{paddingLeft:10}} />,
 		title: "GauchoRides",
@@ -23,7 +24,6 @@ class MainScreen extends Component{
 	}
 }
 
-export default MainScreen;
 
 const AppTabNavigator = TabNavigator(
 	{
@@ -56,6 +56,7 @@ const AppTabNavigator = TabNavigator(
 		}
 	}
 );
+
 
 const styles = StyleSheet.create({
 	container: {

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
+
 
 import SearchBox from 'Gaucho-Rides/src/components/SearchBox';
 import SearchResults from 'Gaucho-Rides/src/components/SearchResults';
 //import styles from "./SearchBoxStyles.js";
 
-//Should create another class for this
+
+//Should move to components
 const mode = 'driving'; // 'walking';
 const origin = 'Isla Vista, CA';
 const destination = 'San Jose, CA';
@@ -16,7 +17,7 @@ const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
 const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
 
 
-class RiderMain extends Component{
+export default class RiderMain extends Component {
 	static navigationOptions = {
 		tabBarIcon: ({ tintColor}) => (
 			<Ionicons name="md-body" style={{ color: tintColor }} />
@@ -98,7 +99,6 @@ class RiderMain extends Component{
     }
 }
 
-export default RiderMain;
 
 const styles = StyleSheet.create({
 	container: {

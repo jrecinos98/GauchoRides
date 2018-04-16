@@ -1,27 +1,23 @@
 import React, { Component } from "react";
-import {
-	View,
-	Text,
-	StyleSheet
-} from "react-native";
-
+import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import * as fireBase from 'firebase';
 import {Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+import * as fireBase from 'firebase';
+
 
 const fireBaseConfig = {
-
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
     authDomain: "ucsb-rideshare-app.firebaseapp.com",
     databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
     projectId: "ucsb-rideshare-app",
     storageBucket: "ucsb-rideshare-app.appspot.com",
-
 };
 
 fireBase.initializeApp(fireBaseConfig);
 
-class ProfileMain extends React.Component {
+
+export default class ProfileMain extends React.Component {
+
     constructor(props){
         super(props);
 
@@ -31,6 +27,7 @@ class ProfileMain extends React.Component {
         })
 
     }
+
     componentDidMount(){
         fireBase.auth().onAuthStateChanged((user) => {
             if(user != null){
@@ -39,6 +36,7 @@ class ProfileMain extends React.Component {
 
         })
     }
+
     signUpUser= (email, password) => {
         try{
             if(this.state.password.length < 6){
@@ -53,6 +51,7 @@ class ProfileMain extends React.Component {
            // console.log(error.toString())
         }
     };
+
     logInUser = (email,password) => {
         try{
             fireBase.auth().signInWithEmailAndPassword(email,password).then(function (user){
@@ -65,12 +64,14 @@ class ProfileMain extends React.Component {
             //console.log(error.toString())
         }
     };
+
 	static navigationOptions = {
 		tabBarIcon: ({ tintColor}) => (
 			<Ionicons name="ios-contact-outline" style={{ color: tintColor }} />
 		)
 
 	};
+
 	async loginWithFacebook() {
         const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
         ('615345508804840', {permissions: ['public_profile', 'email'],
@@ -91,8 +92,7 @@ class ProfileMain extends React.Component {
                     <Input
                         autoCorrect={false}
                         autoCapitalize={"none"}
-                        onChangeText={(email)=> this.setState({email})}
-                    />
+                        onChangeText={(email)=> this.setState({email})}/>
                 </Item>
                 <Item floatingLabel>
                     <Label>Password</Label>
@@ -100,33 +100,24 @@ class ProfileMain extends React.Component {
                         secureTextEntry={true}
                         autoCorrect={false}
                         autoCapitalize={"none"}
-                        onChangeText={(password)=> this.setState({password})}
-                    />
+                        onChangeText={(password)=> this.setState({password})}/>
                 </Item>
-
-
                 <Button style={ {marginTop: 10, height:50, width: 100} }
                         full
-                        // rounded
                         success
-                        onPress={()=> this.logInUser(this.state.email, this.state.password)}
-                >
+                        onPress={()=> this.logInUser(this.state.email, this.state.password)}>
                     <Text style={{color: 'white'}}>Login</Text>
                 </Button>
                 <Button style={ {marginTop: 10, height: 50, width: 100} }
                         full
-                        // rounded
                         success
-                        onPress={()=> this.signUpUser(this.state.email, this.state.password)}
-                >
+                        onPress={()=> this.signUpUser(this.state.email, this.state.password)}>
                     <Text style={{color: 'white'}}>Sign Up</Text>
                 </Button>
                 <Button style={ {marginTop: 10, height: 50, width: 100} }
                         full
-                        // rounded
                         success
-                        onPress={()=> this.loginWithFacebook()}
-                >
+                        onPress={()=> this.loginWithFacebook()}>
                     <Text style={{color: 'white'}}>Login with Facebook</Text>
                 </Button>
 			</View>
@@ -134,7 +125,6 @@ class ProfileMain extends React.Component {
 	}
 }
 
-export default ProfileMain;
 
 const styles = StyleSheet.create({
 	container: {
