@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { MapContainer } from 'Gaucho-Rides/src/components/MapContainer'; //adding map
+import { RideMap } from 'Gaucho-Rides/src/components/RideMap'; //adding map
 
 
 export default class DriverMain extends Component {
