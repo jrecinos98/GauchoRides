@@ -1,17 +1,48 @@
+
+//import Expo from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { StackNavigator } from 'react-navigation'
+import MainScreen from './src/screens/MainScreen'
+import { YellowBox } from 'react-native';
+
+//Ignore those annoying deprecated warnings.
+YellowBox.ignoreWarnings([
+  'Warning: componentWillMount is deprecated',
+  'Warning: componentWillReceiveProps is deprecated',
+  'Warning: componentWillUpdate is deprecated'
+]);
 
 export default class App extends React.Component {
+
+  //state = { fontsAreLoaded: false };
+
+  //async componentWillMount() {
+   // await Expo.Font.loadAsync({
+    //  'Roboto': require('native-base/Fonts/Roboto.ttf'),
+    //  'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+  // });
+  //this.setState({fontsAreLoaded: true});
+ // }
+
   render() {
+  //  if (this.state.fontsAreLoaded) {
+   //   return <Exponent.Components.AppLoading/>;
+ //   }
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <AppStackNavigator/>
     );
   }
 }
+
+
+const AppStackNavigator = StackNavigator({
+  Main:{
+    screen: MainScreen
+  }
+
+})
+
 
 const styles = StyleSheet.create({
   container: {
@@ -21,3 +52,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+//Expo.registerRootComponent(App);
