@@ -1,28 +1,23 @@
 import React, { Component } from "react";
-import {
-	View,
-	Text,
-	StyleSheet
-} from "react-native";
-
+import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import * as fireBase from 'firebase'
-import {Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base'
+import {Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+import * as fireBase from 'firebase';
+
 
 const fireBaseConfig = {
-
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
     authDomain: "ucsb-rideshare-app.firebaseapp.com",
     databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
     projectId: "ucsb-rideshare-app",
     storageBucket: "ucsb-rideshare-app.appspot.com",
-
 };
 
 fireBase.initializeApp(fireBaseConfig);
 
 
-class ProfileTab extends React.Component{
+export default class ProfileMain extends React.Component {
+
     constructor(props){
         super(props);
 
@@ -32,7 +27,7 @@ class ProfileTab extends React.Component{
         })
 
     }
-    //Part of the Activity lifecycle
+
     componentDidMount(){
         fireBase.auth().onAuthStateChanged((user) => {
             if(user != null){
@@ -41,6 +36,7 @@ class ProfileTab extends React.Component{
 
         })
     }
+
     signUpUser= (email, password) => {
         try {
             if (email === "" || password === "") {
@@ -60,6 +56,7 @@ class ProfileTab extends React.Component{
            console.log(error.toString())
         }
     };
+
     logInUser = (email,password) => {
         if(email !== "") {
             try {
@@ -77,12 +74,14 @@ class ProfileTab extends React.Component{
             alert("Please enter a registered emailed and password.")
         }
     };
+
 	static navigationOptions = {
 		tabBarIcon: ({ tintColor}) => (
 			<Ionicons name="ios-contact-outline" style={{ color: tintColor }} />
 		)
 
 	};
+
 	async loginWithFacebook() {
         const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
         ('615345508804840', {permissions: ['public_profile', 'email'],
@@ -103,8 +102,7 @@ class ProfileTab extends React.Component{
                     <Input
                         autoCorrect={false}
                         autoCapitalize={"none"}
-                        onChangeText={(email)=> this.setState({email})}
-                    />
+                        onChangeText={(email)=> this.setState({email})}/>
                 </Item>
                 <Item floatingLabel>
                     <Label>Password</Label>
@@ -112,41 +110,31 @@ class ProfileTab extends React.Component{
                         secureTextEntry={true}
                         autoCorrect={false}
                         autoCapitalize={"none"}
-                        onChangeText={(password)=> this.setState({password})}
-                    />
+                        onChangeText={(password)=> this.setState({password})}/>
                 </Item>
-
-
                 <Button style={ {marginTop: 10, height:50, width: 100} }
                         full
-                        // rounded
                         success
-                        onPress={()=> this.logInUser(this.state.email, this.state.password)}
-                >
+                        onPress={()=> this.logInUser(this.state.email, this.state.password)}>
                     <Text style={{color: 'white'}}>Login</Text>
-                </Button >
+                </Button>
                 <Button style={ {marginTop: 10, height: 50, width: 100} }
                         full
-                        // rounded
                         success
-                        onPress={()=> this.signUpUser(this.state.email, this.state.password)}
-                >
+                        onPress={()=> this.signUpUser(this.state.email, this.state.password)}>
                     <Text style={{color: 'white'}}>Sign Up</Text>
                 </Button>
                 <Button style={ {marginTop: 10, height: 50, width: 100} }
                         full
-                        // rounded
                         success
-                        onPress={()=> this.loginWithFacebook()}
-                >
+                        onPress={()=> this.loginWithFacebook()}>
                     <Text style={{color: 'white'}}>Login with Facebook</Text>
                 </Button>
 			</View>
-			);
+		);
 	}
 }
 
-export default ProfileTab;
 
 const styles = StyleSheet.create({
 	container: {
