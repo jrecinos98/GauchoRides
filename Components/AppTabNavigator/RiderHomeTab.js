@@ -11,7 +11,7 @@ import SearchResults from "../SearchResults";
 //Should create another class for this
 const mode = 'driving'; // 'walking';
 const origin = 'Isla Vista, CA';
-const destination = 'San Jose, CA';
+const destination = 'Las Vegas, Nevada';
 const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
 const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
 

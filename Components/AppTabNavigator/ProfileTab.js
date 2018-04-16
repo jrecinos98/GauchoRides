@@ -32,38 +32,49 @@ class ProfileTab extends React.Component{
         })
 
     }
+    //Part of the Activity lifecycle
     componentDidMount(){
         fireBase.auth().onAuthStateChanged((user) => {
             if(user != null){
-                console.log(user)
+                alert("You have already registered.")
             }
 
         })
     }
     signUpUser= (email, password) => {
-        try{
-            if(this.state.password.length < 6){
+        try {
+            if (email === "" || password === "") {
+                alert("enter valid email and password.")
+            }
+            else if (this.state.password.length < 6) {
                 alert("Please enter at least 6 characters");
                 return;
             }
-            fireBase.auth().createUserWithEmailAndPassword(email,password).then(function(user){
-
-            })
+            if(email !== "" && password !== "") {
+                fireBase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
+                    console.log(user);
+                })
+            }
         }
         catch(error){
-           // console.log(error.toString())
+           console.log(error.toString())
         }
     };
     logInUser = (email,password) => {
-        try{
-            fireBase.auth().signInWithEmailAndPassword(email,password).then(function (user){
-               console.log(user)
-               alert("Login successful.")
-            })
+        if(email !== "") {
+            try {
+                fireBase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+                    console.log(user);
+                    alert("Login successful.")
+                })
+            }
+            catch (error) {
+                alert("An error occurred please try again. Make sure you use a verified email and password.")
+                //console.log(error.toString())
+            }
         }
-        catch(error){
-            alert("An error occurred please try again. Make sure you use a verified email and password.")
-            //console.log(error.toString())
+        else{
+            alert("Please enter a registered emailed and password.")
         }
     };
 	static navigationOptions = {
