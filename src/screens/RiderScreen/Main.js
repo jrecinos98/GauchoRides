@@ -23,7 +23,7 @@ export default class RiderMain extends Component {
 
         let mode = 'driving'; // 'walking';
         let origin = 'Isla Vista, CA';
-        let destination = 'San Jose, CA';
+        let destination = 'Las Vegas, Nevada';
         let APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
         this.url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
     }
