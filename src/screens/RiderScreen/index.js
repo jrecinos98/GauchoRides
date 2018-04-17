@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     TimeDateWrapper:{
         marginLeft:15,
         marginRight:10,
-        marginTop:100,
+        marginTop:46.34,
         backgroundColor:"#fff",
         opacity:0.9,
         borderRadius:7
