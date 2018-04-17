@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 GAUCHO-RIDES APP
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
@@ -206,7 +205,6 @@ If this works, but you're still unable to load your app by scanning the QR code,
 If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager. If you are using a VPN you may need to disable it.
 
 
-=======
 # Gaucho Rides
 Rideshare App for UCSB students
->>>>>>> d98aba1e38e9c6fd005481a7f16ed4fe504d66a3
+
