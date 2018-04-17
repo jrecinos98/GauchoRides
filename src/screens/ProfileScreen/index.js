@@ -142,4 +142,15 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	}
+
+    //backgroundImage: {
+    //    flex: 1,
+    //    alignSelf: 'stretch',
+    //    width: null,
+    //    justifyContent: 'center'
+    //}
+
+
+
+
 })

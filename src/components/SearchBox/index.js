@@ -16,6 +16,8 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
 		getAddressPredictions();
 	}
 
+
+
 		return(
 			<View style={styles.searchBox}>
 				<View style={styles.inputWrapper}>
@@ -32,9 +34,11 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
 						<Input onFocus={()=>toggleSearchResultModal("dropOff")}  style={styles.inputSearch} placeholder="Choose drop-off location" onChangeText={handleInput.bind(this, "dropOff")}/>
 					</InputGroup>
 				</View>
+
+
+
 				<View style={styles.secondInputWrapper}>
 					<Text style={styles.label}>Direct Rides Only</Text>
-
 					<Switch
 						value={true}
 						onValueChange={(val) => console.log(val)}

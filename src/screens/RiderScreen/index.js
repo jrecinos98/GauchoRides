@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS} from "react-native";
+import { View, Text, StyleSheet, DatePickerIOS, TouchableOpacity} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
-
 
 import SearchBox from 'Gaucho-Rides/src/components/SearchBox';
 import SearchResults from 'Gaucho-Rides/src/components/SearchResults';
 import RideMap from 'Gaucho-Rides/src/components/RideMap';
-//import styles from "./SearchBoxStyles.js";
+
 
 export default class RiderMain extends Component {
 
@@ -84,10 +83,26 @@ export default class RiderMain extends Component {
             <View style={styles.container}>
                 <RideMap coords={this.state.coords}/>
                 <SearchBox/>
-                <DatePickerIOS
-                    date={this.state.chosenDate}
-                    onDateChange={this.setDate}
-                />
+                <View style={styles.searchBox}>
+                    <View style={styles.secondinputWrapper}>
+                        <DatePickerIOS
+                            date={this.state.chosenDate}
+                            onDateChange={this.setDate}
+                        />
+                    </View>
+
+
+                    <View style={styles.secondInputWrapper}>
+                        <TouchableOpacity onPress={this.login}>
+                            <Text style={styles.buttonText}>Find Ride!</Text>
+                         </TouchableOpacity>
+                    </View>
+
+                </View>
+
+
+
+
             </View>
         );
         
