@@ -24,7 +24,6 @@ export default class RiderMain extends Component {
             latitude: null,
             longitude: null,
             error: null,
-            url: null,
             coords: null
         }
     }
@@ -36,9 +35,10 @@ export default class RiderMain extends Component {
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
               error: null,
-              //url: this.createRoute()
               coords: null
             });
+
+            this.createRoute();
           },
           (error) => this.setState({ error: error.message }),
           { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -46,14 +46,13 @@ export default class RiderMain extends Component {
         
     }
 
-    createRoute () {
+    createRoute() {
         let mode = 'driving'; // 'walking';
         let origin = this.state.latitude + ',' + this.state.longitude;
         let destination = 'Las Vegas, Nevada';
         let APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
         let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
         
-        console.log("I'm fetching")
         fetch(url)
         .then(response => response.json())
         .then(responseJson => {
@@ -76,9 +75,6 @@ export default class RiderMain extends Component {
     }
 
     render() {
-        console.log("1")
-        console.log(this.state.url)
-        console.log("2")
         return (
             <View style={styles.container}>
                 <RideMap coords={this.state.coords}/>
