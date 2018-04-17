@@ -32,6 +32,11 @@ const styles = {
         marginLeft:10,
         marginTop:10,
         marginBottom:0
+    },
+    container: {
+        flex: 1,
+        //alignItems: 'center',
+        justifyContent: 'center'
     }
 };
 
