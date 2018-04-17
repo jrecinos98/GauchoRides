@@ -110,12 +110,13 @@ export default class RiderMain extends Component {
     }
 }
 
-
+//var width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		//alignItems: 'center',
 		justifyContent: 'center'
+
         
 	},
     buttonContainer: {
@@ -124,17 +125,18 @@ const styles = StyleSheet.create({
         padding: 10,
         shadowColor: '#000000',
         shadowOffset: {
-          width: 0,
+         width: 0,
          height: 3
         },
         shadowRadius: 10,
-        shadowOpacity: 0.25
+        shadowOpacity: 0.25,
+
     
     },
     TimeDateWrapper:{
         marginLeft:15,
         marginRight:10,
-        marginTop:0,
+        marginTop:100,
         backgroundColor:"#fff",
         opacity:0.9,
         borderRadius:7
