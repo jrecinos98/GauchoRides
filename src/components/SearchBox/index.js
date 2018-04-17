@@ -34,6 +34,7 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
 				</View>
 				<View style={styles.secondInputWrapper}>
 					<Text style={styles.label}>Direct Rides Only</Text>
+
 					<Switch
 						value={true}
 						onValueChange={(val) => console.log(val)}

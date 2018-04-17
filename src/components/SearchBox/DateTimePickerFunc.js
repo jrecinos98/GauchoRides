@@ -1,39 +1,37 @@
-import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import React, { Component } from 'react'
+import {
+  DatePickerIOS,
+  View,
+  StyleSheet,
+} from 'react-native'
 
-export default class DateTimePicker extends Component {
-  state = {
-        switchValue: true
-        isDateTimePickerVisible: false,
-    }
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { chosenDate: new Date() };
 
-    _handleToggleSwitch = () => this.setState(state => ({
-        switchValue: !state.switchValue
-    }));
-
-  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-
-  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-  _handleDatePicked = (date) => {
-    console.log('A date has been picked: ', date);
-    this._hideDateTimePicker();
-  };
-
-  render () {
-    return (
-      <View style={{ flex: 1 }}>
-        <TouchableOpacity onPress={this._showDateTimePicker}>
-          <Text>Show DatePicker</Text>
-        </TouchableOpacity>
-        <DateTimePicker
-          isVisible={this.state.isDateTimePickerVisible}
-          onConfirm={this._handleDatePicked}
-          onCancel={this._hideDateTimePicker}
-        />
-      </View>
-    );
+    this.setDate = this.setDate.bind(this);
   }
 
+  setDate(newDate) {
+    this.setState({chosenDate: newDate})
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <DatePickerIOS
+          date={this.state.chosenDate}
+          onDateChange={this.setDate}
+        />
+      </View>
+    )
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+})
