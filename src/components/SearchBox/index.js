@@ -1,6 +1,7 @@
 import React from "react";
 import {Text} from "react-native";
 import { View, InputGroup, Input } from "native-base";
+import { Switch } from 'react-native-switch';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -31,7 +32,20 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
 						<Input onFocus={()=>toggleSearchResultModal("dropOff")}  style={styles.inputSearch} placeholder="Choose drop-off location" onChangeText={handleInput.bind(this, "dropOff")}/>
 					</InputGroup>
 				</View>
+				<View style={styles.secondInputWrapper}>
+					<Text style={styles.label}>Direct Rides Only</Text>
+					<Switch
+						value={true}
+						onValueChange={(val) => console.log(val)}
+						disabled={false}
+						backgroundActive={'green'}
+   	 					backgroundInactive={'gray'}
+					 />
+
+				</View>
 			</View>
+
+
 
 		);
 };
