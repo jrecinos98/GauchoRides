@@ -3,9 +3,9 @@ import{ View, Test, StyleSheet, Platform } from "react-native";
 import { TabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 
-import DriverMain from './DriverScreen/Main'
-import RiderMain from './RiderScreen/Main'
-import ProfileMain from './ProfileScreen/Main'
+import DriverMain from './DriverScreen'
+import RiderMain from './RiderScreen'
+import ProfileMain from './ProfileScreen'
 
 
 export default class MainScreen extends Component{
