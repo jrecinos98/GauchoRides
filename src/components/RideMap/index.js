@@ -8,37 +8,22 @@ import styles from "./MapStyles";
 
 export default class RideMap extends Component {
 
+
 	constructor(props) {
 
         super(props);
 
+        /*
         this.state = {
             coords: null
         };
-
-        fetch(props.url)
-            .then(response => response.json())
-            .then(responseJson => {
-                if (responseJson.routes.length) {
-                    this.setState({
-                        coords: this.decode(responseJson.routes[0].overview_polyline.points)
-                    });
-                }
-            }).catch(e => {console.warn(e)});
-    }
-
-
-    // Transforms something like this geocFltrhVvDsEtA}ApSsVrDaEvAcBSYOS_@... to an array of coordinates
-    decode(t, e) {
-        for(var n,o,u=0,l=0,r=0,d= [],h=0,i=0,a=null,c=Math.pow(10,e||5);u<t.length;){
-            a=null,h=0,i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);
-            n=1&i?~(i>>1):i>>1,h=i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);
-            o=1&i?~(i>>1):i>>1,l+=n,r+=o,d.push([l/c,r/c])
-        }
-        return d=d.map(function(t){return{latitude:t[0],longitude:t[1]}})
+        
+        console.log("RideMap URL: " + props.url)
+        */
     }
 
     render() {
+        console.log("this is the index render")
         return (
 
             <MapView
@@ -59,7 +44,7 @@ export default class RideMap extends Component {
                     pinColor="blue"/>
 
                 <Polyline
-                    coordinates={this.state.coords}
+                    coordinates={this.props.coords}
                     strokeColor="#000"
                     strokeColors={[
                         '#7F0000',
