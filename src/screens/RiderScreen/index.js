@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, DatePickerIOS} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 
@@ -24,8 +24,13 @@ export default class RiderMain extends Component {
             latitude: null,
             longitude: null,
             error: null,
-            coords: null
+            coords: null,
+            chosenDate: new Date()
         }
+        this.setDate = this.setDate.bind(this);
+    }
+    setDate(newDate) {
+    this.setState({chosenDate: newDate})
     }
 
     componentDidMount() {
@@ -79,6 +84,10 @@ export default class RiderMain extends Component {
             <View style={styles.container}>
                 <RideMap coords={this.state.coords}/>
                 <SearchBox/>
+                <DatePickerIOS
+                    date={this.state.chosenDate}
+                    onDateChange={this.setDate}
+                />
             </View>
         );
         
@@ -89,7 +98,7 @@ export default class RiderMain extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
+		//alignItems: 'center',
 		justifyContent: 'center'
-	}
+	},
 })
