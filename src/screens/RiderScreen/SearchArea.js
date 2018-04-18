@@ -9,21 +9,35 @@ export default class RiderMain extends Component {
         super(props);
 
         this.state = {
-            chosenDate: new Date()
+            chosenDate: new Date(),
+            status: true
+           
         }
         this.setDate = this.setDate.bind(this);
+        
     }
 
     setDate(newDate) {
         this.setState({chosenDate: newDate})
     }
     
+    ShowHideTextComponentView = () =>{
+        if(this.state.status==true){
+            this.setState({status: false})
+        }
+        else
+        {
+            this.setState({status: true})
+        }
+    }
+
     _onPress() { //for done button
-       Alert.alert('on Press!');
+      
     }
 
     render() {
         return (
+            this.state.status ? 
             <View style={styles.container}>
                 <SearchBox/>
 
@@ -35,10 +49,12 @@ export default class RiderMain extends Component {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <Button onPress={this._onPress} title="Find Ride!" color="#FFFFFF" accessibilityLabel="Tap on Me"/>
+                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!" color="#FFFFFF" />
                 </View>
 
             </View>
+
+            : null
         );
         
     }
