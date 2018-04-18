@@ -10,10 +10,10 @@ import ProfileMain from './ProfileScreen'
 
 export default class MainScreen extends Component{
 	static navigationOptions = {
-		headerLeft: <Ionicons name="ios-map" style={{paddingLeft:10}} />,
+		headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20}} />,
 		title: "GauchoRides",
 		backgroundColor: '#4db6ac',
-		headerRight: <Ionicons style = {{ paddingRight: 10 }}
+		headerRight: <Ionicons style = {{ paddingRight: 10, fontSize: 20 }}
 		name="ios-send-outline" />
 	}
 	render(){

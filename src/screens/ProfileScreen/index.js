@@ -77,7 +77,7 @@ export default class ProfileMain extends React.Component {
 
 	static navigationOptions = {
 		tabBarIcon: ({ tintColor}) => (
-			<Ionicons name="ios-contact-outline" style={{ color: tintColor }} />
+			<Ionicons name="ios-contact-outline" style={{ color: tintColor, fontSize: 20 }} />
 		)
 
 	};

@@ -8,7 +8,7 @@ export default class RiderMain extends Component {
 
 	static navigationOptions = {
 		tabBarIcon: ({ tintColor}) => (
-			<Ionicons name="md-body" style={{ color: tintColor }} />
+			<Ionicons name="md-body" style={{ color: tintColor, fontSize: 20 }} />
 		)
 	}
 

@@ -31,30 +31,25 @@ export default class RiderMain extends Component {
         }
     }
 
-    _onPress() { //for done button
-      
-    }
 
-    render() {
+     render() {
         return (
             this.state.status ? 
             <View style={styles.container}>
-                <SearchBox/>
-
+                <SearchBox/> 
                 <View style={styles.TimeDateWrapper}>
                     <DatePickerIOS
                         date={this.state.chosenDate}
                         onDateChange={this.setDate}
-                    />
+                    /> 
                 </View>
 
                 <View style={styles.buttonContainer}>
                     <Button onPress={this.ShowHideTextComponentView} title="Find Ride!" color="#FFFFFF" />
                 </View>
+                
+            </View> : null 
 
-            </View>
-
-            : null
         );
         
     }

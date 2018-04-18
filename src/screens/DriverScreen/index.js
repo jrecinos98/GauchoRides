@@ -8,7 +8,7 @@ export default class DriverMain extends Component {
 
 	static navigationOptions = {
 		tabBarIcon: ({ tintColor}) => (
-			<Ionicons name="ios-car" style={{ color: tintColor }} />
+			<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }}  />
 		)
 	}
 
