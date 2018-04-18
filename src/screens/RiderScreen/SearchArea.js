@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions } from "react-native";
+import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions } from "react-native";
 import SearchBox from 'Gaucho-Rides/src/components/SearchBox';
 import SearchResults from 'Gaucho-Rides/src/components/SearchResults';
 
-export default class RiderMain extends Component {
+export default class SearchArea extends Component {
 
 	constructor(props) {
         super(props);
@@ -14,7 +14,7 @@ export default class RiderMain extends Component {
            
         }
         this.setDate = this.setDate.bind(this);
-        
+        // this.pickAndroidDate();
     }
 
     setDate(newDate) {
@@ -31,8 +31,21 @@ export default class RiderMain extends Component {
         }
     }
 
+    async pickAndroidDate() {
+        try {
+            const {action, year, month, day} = await DatePickerAndroid.open({
+                date: this.state.chosenDate
+            });
+            if (action !== DatePickerAndroid.dismissedAction) {
+                this.setDate(new Date(year, month, day));
+            }
+        } catch ({code, message}) {
+            console.warn('Cannot open date picker', message);
+        }
+    }
 
-     render() {
+    render() {
+
         return (
             this.state.status ? 
             <View style={styles.container}>
