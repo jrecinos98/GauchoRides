@@ -1,0 +1,312 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Java/Ant.sublime-build",
+					""
+				],
+				[
+					"Packages/Java/JavaC.sublime-build",
+					""
+				]
+			],
+			[
+				"Packages/Java/JavaC.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/Matt/cs48/Gaucho-Rides/src/actors/Ride.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/components/SearchResults/SearchResultsStyles.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/components/SearchResults/index.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/components/RideMap/index.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/actors/User.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/components/RideMap/MapStyles.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/Constants.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/screens/DriverScreen/Main.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/screens/ProfileScreen/Main.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/Home.js",
+		"/Users/Matt/cs48/Gaucho-Rides/modules/actionConstants.js",
+		"/Users/Matt/cs48/Gaucho-Rides/modules/home.js",
+		"/Users/Matt/cs48/Gaucho-Rides/store/createStore.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/screens/MainScreen.js",
+		"/Users/Matt/cs48/Gaucho-Rides/App.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/MainScreen.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/MapContainer/index.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/SearchBox/index.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/AppTabNavigator/RiderHomeTab.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/AppTabNavigator/SearchTab.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/SearchResults/index.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/SearchResults/SearchResultsStyles.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Containers/HomeContainer.js",
+		"/Users/Matt/cs48/Gaucho-Rides/AppContainer/index.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/MapContainer/MapContainerStyles.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/AppTabNavigator/DriverHomeTab.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/SearchBox/SearchBoxStyles.js",
+		"/Users/Matt/cs48/Gaucho-Rides/ios/Podfile",
+		"/Users/Matt/cs48/Gaucho-Rides/node_modules/react-native/Libraries/Renderer/ReactNativeRenderer-dev.js",
+		"/Users/Matt/cs48/Gaucho-Rides/README.md",
+		"/Users/Matt/cs48/Gaucho-Rides/store/reducers.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/AppTabNavigator/ProfileTab.js",
+		"/Users/Matt/cs48/Gaucho-Rides/package.json",
+		"/Users/Matt/cs48/Gaucho-Rides/app.json",
+		"/Users/Matt/cs48/Gaucho-Rides/main.js",
+		"/Users/Matt/cs48/Gaucho-Rides/node_modules/expo/src/Font.js",
+		"/Users/Matt/cs48/Gaucho-Rides/node_modules/expo/src/logs/RemoteConsole.js",
+		"/Users/Matt/cs48/Gaucho-Rides/node_modules/react-native/Libraries/ReactNative/YellowBox.js",
+		"/Users/Matt/cs48/Gaucho-Rides/Components/HomeTab.js",
+		"/Users/Matt/cs48/Gaucho-Rides/App.test.js",
+		"/Users/Matt/cs48/Gaucho-Rides/index.android.js",
+		"/Users/Matt/cs48/Gaucho-Rides/index.ios.js",
+		"/Users/Matt/cs48/Gaucho-Rides/MainMenu.js",
+		"/Users/Matt/cs48/Gaucho-Rides/package-lock.json",
+		"/Users/Matt/cs48/Gaucho-Rides/src/App.js",
+		"/Users/Matt/cs48/Gaucho-Rides/src/App.css",
+		"/Users/Matt/cs48/Gaucho-Rides/src/index.js",
+		"/Users/Matt/cs48/rideshareapp/App.js",
+		"/Users/Matt/Downloads/a0d2812a342e145a0c46f094f4e8a394.fb2",
+		"/Volumes/boot/ssh",
+		"/Volumes/boot/octopi.txt",
+		"/Volumes/boot/cmdline.txt",
+		"/Volumes/boot/config.txt",
+		"/Volumes/boot/ssh.txt",
+		"/Volumes/boot/octopi-network.txt",
+		"/Volumes/boot/octopi-wpa-supplicant.txt",
+		"/Users/Matt/cs64/FinalPractice/finalpracnum8.asm",
+		"/Users/Matt/cs56/FinalStudy/Convertingfromaddressoutput/StudentSort.java",
+		"/Users/Matt/cs56/FinalStudy/Convertingfromaddressoutput/Student2.java",
+		"/Users/Matt/cs56/FinalStudy/ComparatorandComparable/Student.java",
+		"/Users/Matt/cs56/FinalStudy/Convertingfromaddressoutput/Student.java",
+		"/Users/Matt/cs56/FinalStudy/Convertingfromaddressoutput/Student.jav",
+		"/Users/Matt/cs56/FinalStudy/ComparatorandComparable/TediousPermComparator.java",
+		"/Users/Matt/cs56/FinalStudy/ComparatorandComparable/TediousPermComparator",
+		"/Users/Matt/cs56/FinalStudy/ComparatorandComparable/TediousNameComparator.java",
+		"/Users/Matt/cs56/FinalStudy/ComparatorandComparable/TediousNameComparator",
+		"/Users/Matt/cs56/FinalStudy/ComparatorandComparable/Main.java",
+		"/Users/Matt/cs56/FinalStudy/MidtermQ123/Beverage.java",
+		"/Users/Matt/cs56/FinalStudy/MidtermQ123/TraderBobs.java",
+		"/Users/Matt/cs56/FinalStudy/GarbageCollection/Dogf17.java",
+		"/Users/Matt/cs56/FinalStudy/betterchatclient/SimpleChatClient.java",
+		"/Users/Matt/cs56/FinalStudy/betterchatclient/VerySimpleChatServer.java",
+		"/Users/Matt/cs56/FinalStudy/betterchatclient/instructions.txt",
+		"/Users/Matt/cs56/FinalStudy/DailyAdvice/DailyAdviceServer.java",
+		"/Users/Matt/cs56/FinalStudy/chatclient/SimpleChatClientA.java",
+		"/Users/Matt/cs56/FinalStudy/chatclient/VerySimpleChatServer.java",
+		"/Users/Matt/cs64/FinalPractice/tail_recursive_factorial.asm",
+		"/Users/Matt/cs64/FinalPractice/save_registers.asm",
+		"/Users/Matt/cs56/FinalStudy/MidtermQ123/Diuretic.java",
+		"/Users/Matt/cs56/HelloWorld.java",
+		"/Users/Matt/cs56/FinalStudy/MidtermQ123/diuretic.java",
+		"/Users/Matt/cs56/Animal.java",
+		"/Users/Matt/cs56/FinalStudy/MidtermQ123/Product.java",
+		"/Users/Matt/cs56/FinalStudy/MidtermQ123/FreeCandy.java",
+		"/Users/Matt/cs56/FinalStudy/MidtermQ123/Edible.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/frames/GameFrame.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/gamelogic/Grid.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/frames/MainMenu.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/frames/HelpScreen.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/gamelogic/GridComponent.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/gui/MineGUI.java",
+		"/Users/Matt/cs64/FinalPractice/finalpracnum7.asm",
+		"/Users/Matt/cs64/finalprac.cpp",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/gamelogic/PathFinder.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/main/MainEntry.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/gamelogic/grid",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/constants/Constants.java",
+		"/Users/Matt/cs64/lab7/lab7problems.txt",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/tests/TextTest.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/tests/GuiTest.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/text/TextGame.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/src/edu/ucsb/cs56/projects/games/minesweeper/tests/GridTest.java",
+		"/Users/Matt/Desktop/MainMenuextra.java",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/README.md",
+		"/Users/Matt/cs56/ProgProj/cs56-games-minesweeper/sources",
+		"/Users/Matt/Downloads/functions.asm",
+		"/Users/Matt/cs64/Midterm1Prac/practice1.asm",
+		"/Users/Matt/cs56/lab02/lab02-Mgla96/src/Polynomial.java",
+		"/Users/Matt/cs56/Practice/Dog.java",
+		"/Users/Matt/cs56/Practice/Dog2.java",
+		"/Users/Matt/cs56/Practice/IndexEntry.java",
+		"/Users/Matt/Desktop/lab01-Mgla96-MoSBanapple-master/src/Rational.java",
+		"/Users/Matt/cs56/Proj00/cs56-games-snake/build.xml",
+		"/Users/Matt/cs56/Practice/UseDog.java",
+		"/Users/Matt/cs56/lab02/lab02-Mgla96/src/PolynomialTest.java",
+		"/Users/Matt/cs56/Practice/test.java",
+		"/Users/Matt/cs56/lab02/lab02-Mgla96/src/Polynomial",
+		"/Users/Matt/Desktop/UCSB 3rd Year/Winter Quarter/CS56/testing.java",
+		"/Users/Matt/Downloads/lab02-MoSBanapple-master 2/src/Polynomial.java",
+		"/Users/Matt/Desktop/Polynomial.java",
+		"/Users/Matt/Desktop/lab02-MoSBanapple-master/README.md",
+		"/Users/Matt/Desktop/lab02-MoSBanapple-master/src/Polynomial.java",
+		"/Users/Matt/Desktop/Terasology-develop/intellij-setup.bat",
+		"/Users/Matt/cs56/Proj00/cs56-games-snake/src/edu/ucsb/cs56/projects/games/snake/GameObjectHandler.java",
+		"/Users/Matt/cs56/Proj00/cs56-games-snake/src/edu/ucsb/cs56/projects/games/snake/SnakeFrame.java",
+		"/Users/Matt/Desktop/UCSB 3rd Year/Winter Quarter/polynomialstring.java",
+		"/Users/Matt/cs56/Proj00/cs56-games-snake/src/edu/ucsb/cs56/projects/games/snake/SpeedFruit.java",
+		"/Users/Matt/cs56/Proj00/cs56-games-snake/src/edu/ucsb/cs56/projects/games/snake/HighScore.java"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 18.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 102.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "App.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

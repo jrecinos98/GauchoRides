@@ -78,7 +78,7 @@ export default class ProfileMain extends React.Component {
 
 	static navigationOptions = {
 		tabBarIcon: ({ tintColor}) => (
-			<Ionicons name="ios-contact-outline" style={{ color: tintColor }} />
+			<Ionicons name="ios-contact-outline" style={{ color: tintColor, fontSize: 20 }} />
 		)
 
 	};
@@ -143,4 +143,15 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	}
+
+    //backgroundImage: {
+    //    flex: 1,
+    //    alignSelf: 'stretch',
+    //    width: null,
+    //    justifyContent: 'center'
+    //}
+
+
+
+
 })
