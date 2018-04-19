@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions } from "react-native";
-import SearchBox from 'Gaucho-Rides/src/components/SearchBox';
+import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions, Platform} from "react-native";
+import SearchBox from '../../components/SearchBox';
+import {COLOR_APP_BACKGROUND, COLOR_APP_FOCUS} from "../../Constants"
 import SearchResults from 'Gaucho-Rides/src/components/SearchResults';
 
 export default class SearchArea extends Component {
@@ -14,7 +15,7 @@ export default class SearchArea extends Component {
 
         };
         this.setDate = this.setDate.bind(this);
-        this.pickAndroidDate();
+       // this.pickAndroidDate();
     }
 
     setDate(newDate) {
@@ -51,18 +52,21 @@ export default class SearchArea extends Component {
             <View style={styles.container}>
 
                 <SearchBox/>
-
-                <DatePickerIOS
-                    style={styles.TimeDateWrapper}
-                    date={this.state.chosenDate}
-                    onDateChange={this.setDate}/>
+                
+                {
+                    (Platform.OS === 'ios') ?
+                    <View style={styles.TimeDateWrapper}>
+                        <DatePickerIOS
+                            date={this.state.chosenDate}
+                            onDateChange={this.setDate}/>
+                    </View> : 
+                    <Text style= {styles.TextStyle}> This is Android Device. </Text>
+                }
 
                 <View style={styles.buttonContainer}>
-
-                    <Button
-                        onPress={this.ShowHideTextComponentView}
-                        title="Find Ride!"
-                        color="#FFFFFF"/>
+                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!">
+                        <Text> Find Ride! </Text>
+                    </Button>
                 </View>
 
             </View> : null
@@ -80,10 +84,10 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
     buttonContainer: {
-        backgroundColor: '#2E9298',
+        backgroundColor: COLOR_APP_BACKGROUND,
         borderRadius: 10,
         padding: 10,
-        shadowColor: '#000000',
+        shadowColor: COLOR_APP_FOCUS,
         shadowOffset: {
             width: 0,
             height: 3

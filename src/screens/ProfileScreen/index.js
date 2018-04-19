@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import {Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
+import {Container, Content, Header, Form, Input, Item, Button, Label, Card } from 'native-base';
 import * as fireBase from 'firebase';
 
 
@@ -98,39 +98,41 @@ export default class ProfileMain extends React.Component {
 	render(){
 		return(
 			<View style = {styles.container}>
-                <Item floatingLabel>
-                    <Label>Email</Label>
-                    <Input
-                        autoCorrect={false}
-                        autoCapitalize={"none"}
-                        onChangeText={(email)=> this.setState({email})}/>
-                </Item>
-                <Item floatingLabel>
-                    <Label>Password</Label>
-                    <Input
-                        secureTextEntry={true}
-                        autoCorrect={false}
-                        autoCapitalize={"none"}
-                        onChangeText={(password)=> this.setState({password})}/>
-                </Item>
-                <Button style={ {marginTop: 10, height:50, width: 100} }
-                        full
-                        success
-                        onPress={()=> this.logInUser(this.state.email, this.state.password)}>
-                    <Text style={{color: 'white'}}>Login</Text>
-                </Button>
-                <Button style={ {marginTop: 10, height: 50, width: 100} }
-                        full
-                        success
-                        onPress={()=> this.signUpUser(this.state.email, this.state.password)}>
-                    <Text style={{color: 'white'}}>Sign Up</Text>
-                </Button>
-                <Button style={ {marginTop: 10, height: 50, width: 100} }
-                        full
-                        success
-                        onPress={()=> this.loginWithFacebook()}>
-                    <Text style={{color: 'white'}}>Login with Facebook</Text>
-                </Button>
+                <Card>
+                    <Item floatingLabel>
+                        <Label>Email</Label>
+                        <Input
+                            autoCorrect={false}
+                            autoCapitalize={"none"}
+                            onChangeText={(email) => this.setState({email})}/>
+                    </Item>
+                    <Item floatingLabel>
+                        <Label>Password</Label>
+                        <Input
+                            secureTextEntry={true}
+                            autoCorrect={false}
+                            autoCapitalize={"none"}
+                            onChangeText={(password) => this.setState({password})}/>
+                    </Item>
+                    <Button style={{marginTop: 10, height: 50, width: 100}}
+                            full
+                            success
+                            onPress={() => this.logInUser(this.state.email, this.state.password)}>
+                        <Text style={{color: 'white'}}>Login</Text>
+                    </Button>
+                    <Button style={{marginTop: 10, height: 50, width: 100}}
+                            full
+                            success
+                            onPress={() => this.signUpUser(this.state.email, this.state.password)}>
+                        <Text style={{color: 'white'}}>Sign Up</Text>
+                    </Button>
+                    <Button style={{marginTop: 10, height: 50, width: 100}}
+                            full
+                            success
+                            onPress={() => this.loginWithFacebook()}>
+                        <Text style={{color: 'white'}}>Login with Facebook</Text>
+                    </Button>
+                </Card>
 			</View>
 		);
 	}
@@ -140,7 +142,7 @@ export default class ProfileMain extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
+		//alignItems: 'center',
 		justifyContent: 'center'
 	}
 

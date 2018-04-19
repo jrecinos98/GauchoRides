@@ -37,6 +37,9 @@ const styles = {
         flex: 1,
         //alignItems: 'center',
         justifyContent: 'center'
+    },
+    switchWrapper: {
+        margin: 10
     }
 };
 

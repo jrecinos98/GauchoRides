@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../Constants';
+
 
 import DriverMain from './DriverScreen'
 import RiderMain from './RiderScreen'
@@ -63,6 +65,7 @@ const AppTabNavigator = TabNavigator(
                     }
 				})
 			},
+
             activeTintColor: COLOR_APP_FOCUS,
 			inactiveTintColor: COLOR_APP_UNFOCUS,
 			showIcon:true,
