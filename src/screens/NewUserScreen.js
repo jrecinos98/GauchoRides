@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 import {LoginForm} from "./LogInScreen/LoginForm";
 import {LogInBackgroundImage} from "../components/LogInBackground/BackgroundImage"
 import {LoginButtons} from "./LogInScreen/LoginButtons";
-import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE} from "../Constants";
+import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE, FIREDIR_USERS} from "../Constants";
 import User from '../actors/User'
 
 
@@ -33,10 +33,20 @@ export default class NewUserScreen extends Component {
 
     componentDidMount(){
         firebase.auth().onAuthStateChanged((user) => {
-            if(user != null){
+
+            if(user != null) {
                 alert("You have already registered.");
-                console.log(user);
+                firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
+                    User.currentUser = new User(snapshot.val(), false);
+                    console.log("CurUser: ", User.currentUser);
+
+                    //Now, do something with user object User.currentUser
+                });
             }
+            else {
+                this.signUpUser(this.state.email, this.state.password);
+            }
+
         });
     }
 
@@ -51,9 +61,8 @@ export default class NewUserScreen extends Component {
             }
             if(email !== "" && password !== "") {
                 firebase.auth().createUserWithEmailAndPassword(email, password).then(function(fbUser){
-                    console.log(fbUser);
-                    let newUser = new User(fbUser);
-                    firebase.database().ref('users/' + newUser.id).set(newUser);
+                    let newUser = new User(fbUser, true);
+                    firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
                 })
             }
         }

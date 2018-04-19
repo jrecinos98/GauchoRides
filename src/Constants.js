@@ -1,7 +1,10 @@
+// Firebase
+export const FIREDIR_USERS = 'users';
+
+
 
 
 // Jose
-
 //export const COLOR_APP_BACKGROUND = '#011a42';
 //export const COLOR_APP_FOCUS = '#6ec6ff';
 //export const COLOR_APP_UNFOCUS = '#6ec6ff';
