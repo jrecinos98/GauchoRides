@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView} from "react-native";
-import * as fireBase from 'firebase';
+import * as firebase from 'firebase';
 import {LoginForm} from "./LogInScreen/LoginForm";
 import {LogInBackgroundImage} from "../components/LogInBackground/BackgroundImage"
 import {LoginButtons} from "./LogInScreen/LoginButtons";
 import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE} from "../Constants";
+import User from '../actors/User'
 
 
-const fireBaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
     authDomain: "ucsb-rideshare-app.firebaseapp.com",
     databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
@@ -15,7 +16,7 @@ const fireBaseConfig = {
     storageBucket: "ucsb-rideshare-app.appspot.com",
 };
 
-fireBase.initializeApp(fireBaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 
 export default class NewUserScreen extends Component {
@@ -31,13 +32,12 @@ export default class NewUserScreen extends Component {
     }
 
     componentDidMount(){
-        fireBase.auth().onAuthStateChanged((user) => {
+        firebase.auth().onAuthStateChanged((user) => {
             if(user != null){
-                //alert("You have already registered.")
-                console.log(user)
+                alert("You have already registered.");
+                console.log(user);
             }
-
-        })
+        });
     }
 
     signUpUser= (email, password) => {
@@ -50,8 +50,10 @@ export default class NewUserScreen extends Component {
                 return;
             }
             if(email !== "" && password !== "") {
-                fireBase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
-                    console.log(user);
+                firebase.auth().createUserWithEmailAndPassword(email, password).then(function(fbUser){
+                    console.log(fbUser);
+                    let newUser = new User(fbUser);
+                    firebase.database().ref('users/' + newUser.id).set(newUser);
                 })
             }
         }
@@ -63,7 +65,7 @@ export default class NewUserScreen extends Component {
     logInUser = (email,password) => {
         if(email !== "") {
             try {
-                fireBase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+                firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
                     console.log(user);
                     alert("Login successful.")
                 })
@@ -99,8 +101,8 @@ export default class NewUserScreen extends Component {
             permissions: ['public_profile', 'email'],
         });
         if (type === 'success') {
-            const credential = fireBase.auth.FacebookAuthProvider.credential(token);
-            fireBase.auth().signInWithCredential(credential).catch((error) => {
+            const credential = firebase.auth.FacebookAuthProvider.credential(token);
+            firebase.auth().signInWithCredential(credential).catch((error) => {
                 console.log(error);
             })
         }
