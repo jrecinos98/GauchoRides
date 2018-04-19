@@ -48,8 +48,11 @@ export default class SearchArea extends Component {
     render() {
         return (
             this.state.status ?
+
             <View style={styles.container}>
+
                 <SearchBox/>
+
                 {(Platform.OS === 'ios')?
                 <View style={styles.TimeDateWrapper}>
                     <DatePickerIOS
@@ -60,7 +63,6 @@ export default class SearchArea extends Component {
                         marginRight:10,
                         marginTop:30,
                         marginBottom:0}}> This is Android Device. </Text>  }
-
                 <View style={styles.buttonContainer}>
                     <Button onPress={this.ShowHideTextComponentView} title="Find Ride!">
                         <Text > Find Ride! </Text>
@@ -78,7 +80,7 @@ export default class SearchArea extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		//alignItems: 'center',
+		// alignItems: 'center',
 		justifyContent: 'center'
 	},
     buttonContainer: {
@@ -92,18 +94,16 @@ const styles = StyleSheet.create({
         padding: 10,
         shadowColor: COLOR_APP_FOCUS,
         shadowOffset: {
-         width: 0,
-         height: 3
+            width: 0,
+            height: 3
         },
         shadowRadius: 10,
-        shadowOpacity: 0.25,
-
-    
+        shadowOpacity: 0.25
     },
     TimeDateWrapper:{
         marginLeft:15,
         marginRight:10,
-        marginTop:46.34,
+        marginTop:150,
         backgroundColor:"#fff",
         opacity:0.9,
         borderRadius:7

@@ -38,17 +38,18 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
 
 				<View style={styles.secondInputWrapper}>
 					<Text style={styles.label}>Direct Rides Only</Text>
-					<Switch
-						value={true}
-						onValueChange={(val) => console.log(val)}
-						disabled={false}
-						activeText={"ON"}
-						inActiveText={"OFF"}
-						circleSize={20}
-						backgroundActive={'green'}
-   	 					backgroundInactive={'gray'}
-						changeValueImmediately={true}
-					 />
+
+					<View style={styles.switchWrapper}>
+						<Switch
+							value={true}
+							onValueChange={(val) => console.log(val)}
+							disabled={false}
+							activeText={"ON"}
+							inActiveText={"OFF"}
+							backgroundActive={'green'}
+	   	 					backgroundInactive={'gray'}
+							changeValueImmediately={true}/>
+					 </View>
 
 				</View>
 
