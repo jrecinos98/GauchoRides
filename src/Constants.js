@@ -15,6 +15,9 @@
 
 //Matt 1
 export const COLOR_APP_BACKGROUND = '#011a42';
+export const COLOR_APP_BACKGROUND_OPAQUE='rgba(1,26,66,0.4)';
+
+
 export const COLOR_APP_FOCUS = '#6ec6ff';
 export const COLOR_APP_UNFOCUS = '#3498db';
 export const COLOR_APP_TITLE = '#3498db';

@@ -10,7 +10,7 @@ export default class RiderMain extends Component {
 		tabBarIcon: ({ tintColor}) => (
 			<Ionicons name="md-body" style={{ color: tintColor, fontSize: 20 }} />
 		)
-	}
+	};
 
     render() {
         return (

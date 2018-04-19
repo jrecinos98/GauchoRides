@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import RideMap from 'Gaucho-Rides/src/components/RideMap';
+import RideMap from '../../components/RideMap';
 
 export default class MapArea extends Component {
 

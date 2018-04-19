@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image} from "react-native";
-import {Input, Item, Label, Card } from 'native-base';
+import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView} from "react-native";
 import * as fireBase from 'firebase';
-import {COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE} from "../Constants";
+import {LoginForm} from "./LogInScreen/LoginForm";
+import {LogInBackgroundImage} from "../components/LogInBackground/BackgroundImage"
+import {LoginButtons} from "./LogInScreen/LoginButtons";
+import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE} from "../Constants";
 
 
 const fireBaseConfig = {
@@ -107,33 +109,63 @@ export default class NewUserScreen extends Component {
     render() {
         const {navigate} = this.props.navigation;
         return (
-            <BackgroundImage>
-                <View style={styles.container}>
+            <LogInBackgroundImage>
+                <LoginForm/>
+                <LoginButtons/>
+                <KeyboardAvoidingView behavior="padding" style={styles.buttonContainer}>
+                    <Button
+                        style={styles.buttonStyle}
+                        title="Launch Main Screen"
+                        onPress={() =>
+                            navigate('Main', {name: "MainScreen"})}>
+                        <Text style={{color: 'white'}}>Launch MainScreen </Text>
+                    </Button>
 
-                    <Item floatingLabel>
-                        <Label style={{color: 'white'}}>Email</Label>
-                        <TextInput
-                            autoCorrect={false}
-                            autoCapitalize={"none"}
-                            onChangeText={(email) => this.setState({email})}/>
-                    </Item>
-                    <Item floatingLabel>
-                        <Label style={{color: 'white'}}>Password</Label>
-                        <TextInput
-                            secureTextEntry={true}
-                            autoCorrect={false}
-                            autoCapitalize={"none"}
-                            onChangeText={(password) => this.setState({password})}/>
-                    </Item>
-                    <View style={styles.buttonContainer}>
-                        <Button
-                            style={styles.buttonStyle}
-                            title="Launch Main Screen"
-                            onPress={() =>
-                                navigate('Main', {name: "MainScreen"})}>
-                            <Text style={{color: 'white'}}>Launch MainScreen </Text>
-                        </Button>
-                        <Button
+                </KeyboardAvoidingView>
+            </LogInBackgroundImage>
+        );
+    }
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: 100,
+        marginBottom: 10,
+        alignItems: undefined,
+
+    },
+    buttonContainer: {
+        marginLeft: 15,
+        marginRight: 10,
+        marginTop: 50,
+        marginBottom: 0,
+        backgroundColor: COLOR_APP_BACKGROUND_OPAQUE,
+        borderRadius: 10,
+        padding: 10,
+        shadowColor: COLOR_APP_FOCUS,
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 10,
+        shadowOpacity: 0.25,
+    },
+    buttonStyle: {
+        marginTop: 100,
+        marginBottom: 5
+    },
+    cardContainer: {
+        flex: 1,
+
+        opacity: 0.5,
+
+    }
+
+
+});
+/*
+   <Button
                             style={styles.buttonStyle}
                             title="Continue with Facebook"
                             onPress={() => this.loginWithFacebook()}>
@@ -158,79 +190,4 @@ export default class NewUserScreen extends Component {
                             </Image>
 
                         </Button>
-
-
-
-
-
-                    </View>
-                </View>
-            </BackgroundImage>
-        );
-    }
-}
-
-class BackgroundImage extends Component {
-
-    render() {
-        return (
-            <ImageBackground source={require("../../public/assets/ucsb_background.jpg")}
-                             style={styles.backgroundImage}
-                //imageStyle is used because we only want to apply the stretch to the image
-                // not the entire view hierarchy
-                             imageStyle={{resizeMode: 'stretch'}}
-            >
-
-                {this.props.children}
-
-            </ImageBackground>
-        )
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 100,
-        marginBottom: 10,
-        alignItems: undefined,
-
-    },
-    buttonContainer: {
-        marginLeft: 15,
-        marginRight: 10,
-        marginTop: 10,
-        marginBottom: 0,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        backgroundColor: COLOR_APP_BACKGROUND,
-        opacity: 0.6,
-        borderRadius: 10,
-        padding: 10,
-        shadowColor: COLOR_APP_FOCUS,
-        shadowOffset: {
-            width: 0,
-            height: 3
-        },
-        shadowRadius: 10,
-        shadowOpacity: 0.25,
-    },
-    buttonStyle: {
-        marginTop: 5,
-        marginBottom: 5
-    },
-    backgroundImage: {
-        flex: 1,
-        //alignSelf: 'stretch',
-        width: undefined,
-        height: undefined,
-    },
-    cardContainer: {
-        flex: 1,
-
-        opacity: 0.5,
-
-    }
-
-
-});
+ */
