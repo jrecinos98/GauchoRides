@@ -26,7 +26,7 @@ export default class MainScreen extends Component{
 			fontWeight: 'normal'
         },
 		headerRight: <Ionicons style = {{ paddingRight: 10, fontSize: 20,color: COLOR_APP_UNFOCUS }}/>
-	}
+	};
 
 	render(){
 		return(

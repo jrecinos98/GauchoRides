@@ -1,5 +1,5 @@
 import { Dimensions } from "react-native";
-var width = Dimensions.get("window").width; //full width
+let width = Dimensions.get("window").width; //full width
 const styles = {
     searchBox:{
         top:0,
@@ -12,7 +12,7 @@ const styles = {
         marginTop:10,
         marginBottom:0,
         backgroundColor:"#fff",
-        opacity:0.9,
+        opacity:0.7,
         borderRadius:7
     },
     secondInputWrapper:{
@@ -20,7 +20,7 @@ const styles = {
         marginRight:10,
         marginTop:0,
         backgroundColor:"#fff",
-        opacity:0.9,
+        opacity:0.7,
         borderRadius:7
     },
     inputSearch:{

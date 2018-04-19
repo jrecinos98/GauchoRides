@@ -30,7 +30,7 @@ export default class SearchArea extends Component {
         {
             this.setState({status: true})
         }
-    }
+    };
 
     async pickAndroidDate() {
         try {
@@ -56,11 +56,14 @@ export default class SearchArea extends Component {
                         date={this.state.chosenDate}
                         onDateChange={this.setDate}
                     />
-                </View> : <Text style= {styles.TextStyle}> This is Android Device. </Text>  }
+                </View> : <Text style={{ marginLeft:15,
+                        marginRight:10,
+                        marginTop:30,
+                        marginBottom:0}}> This is Android Device. </Text>  }
 
                 <View style={styles.buttonContainer}>
                     <Button onPress={this.ShowHideTextComponentView} title="Find Ride!">
-                        <Text> Find Ride! </Text>
+                        <Text > Find Ride! </Text>
                     </Button>
                 </View>
 
@@ -77,11 +80,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		//alignItems: 'center',
 		justifyContent: 'center'
-
-        
 	},
     buttonContainer: {
+        marginLeft:15,
+        marginRight:10,
+        marginTop:10,
+        marginBottom:0,
         backgroundColor: COLOR_APP_BACKGROUND,
+        opacity:0.9,
         borderRadius: 10,
         padding: 10,
         shadowColor: COLOR_APP_FOCUS,
