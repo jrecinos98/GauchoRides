@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { appMainColor, appTintColor} from '../Constants';
+import { appMainColor, appTintColor, appInactiveTintColor} from '../Constants';
 
 import DriverMain from './DriverScreen'
 import RiderMain from './RiderScreen'
@@ -62,7 +62,7 @@ const AppTabNavigator = TabNavigator(
 				})
 			},
             activeTintColor: appTintColor,
-			inactiveTintColor:'#d1cece',
+			inactiveTintColor:appInactiveTintColor,
 			showIcon:true,
 			showLabel:true //set to false if don't want name
 		}

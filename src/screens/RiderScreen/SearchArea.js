@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions } from "react-native";
-import SearchBox from 'Gaucho-Rides/src/components/SearchBox';
+import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions, Platform} from "react-native";
+import SearchBox from '../../components/SearchBox';
+import {appTintColor, appInactiveTintColor, appMainColor} from "../../Constants"
 import SearchResults from 'Gaucho-Rides/src/components/SearchResults';
 
 export default class SearchArea extends Component {
@@ -14,7 +15,7 @@ export default class SearchArea extends Component {
 
         };
         this.setDate = this.setDate.bind(this);
-        this.pickAndroidDate();
+       // this.pickAndroidDate();
     }
 
     setDate(newDate) {
@@ -49,15 +50,18 @@ export default class SearchArea extends Component {
             this.state.status ?
             <View style={styles.container}>
                 <SearchBox/>
+                {(Platform.OS === 'ios')?
                 <View style={styles.TimeDateWrapper}>
                     <DatePickerIOS
                         date={this.state.chosenDate}
                         onDateChange={this.setDate}
                     />
-                </View>
+                </View> : <Text style= {styles.TextStyle}> This is Android Device. </Text>  }
 
                 <View style={styles.buttonContainer}>
-                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!" color="#FFFFFF" />
+                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!">
+                        <Text> Find Ride! </Text>
+                    </Button>
                 </View>
 
             </View> : null
@@ -77,10 +81,10 @@ const styles = StyleSheet.create({
         
 	},
     buttonContainer: {
-        backgroundColor: '#2E9298',
+        backgroundColor: appMainColor,
         borderRadius: 10,
         padding: 10,
-        shadowColor: '#000000',
+        shadowColor: appTintColor,
         shadowOffset: {
          width: 0,
          height: 3
