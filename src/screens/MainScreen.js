@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import{ View, Test, StyleSheet, Platform } from "react-native";
+import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+import { appMainColor, appTintColor} from '../Constants';
 
 import DriverMain from './DriverScreen'
 import RiderMain from './RiderScreen'
@@ -9,13 +10,20 @@ import ProfileMain from './ProfileScreen'
 
 
 export default class MainScreen extends Component{
+
 	static navigationOptions = {
-		headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20}} />,
-		title: "GauchoRides",
-		backgroundColor: '#4db6ac',
-		headerRight: <Ionicons style = {{ paddingRight: 10, fontSize: 20 }}
+		headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: appTintColor}} />,
+        title: <Text style={{color: appTintColor }}>GauchoRides</Text>,
+        headerStyle: {
+            backgroundColor: appMainColor,
+            height: 56,
+            elevation: null,
+        },
+        activeTintColor:'#FFD700',
+        inactiveTintColor:'#d1cece',
+		headerRight: <Ionicons style = {{ paddingRight: 10, fontSize: 20,color: appTintColor }}
 		name="ios-send-outline" />
-	}
+	};
 	render(){
 		return(
 			<AppTabNavigator />
@@ -30,7 +38,7 @@ const AppTabNavigator = TabNavigator(
 		Driver: {
 			screen: DriverMain
 		},
-		Rider: {
+		Passenger: {
 			screen: RiderMain
 		},
 		Profile:{
@@ -45,11 +53,15 @@ const AppTabNavigator = TabNavigator(
 			style:{
 				...Platform.select({
 					android:{
-						backgroundColor:'#4db6ac'
-					}
+						backgroundColor:appMainColor,
+
+					},
+					ios:{
+                        backgroundColor:'#FFFFFF',
+                    }
 				})
 			},
-			activeTintColor:'#212121',
+            activeTintColor: appTintColor,
 			inactiveTintColor:'#d1cece',
 			showIcon:true,
 			showLabel:true //set to false if don't want name
