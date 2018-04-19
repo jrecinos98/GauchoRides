@@ -32,6 +32,7 @@ export default class ProfileMain extends React.Component {
         fireBase.auth().onAuthStateChanged((user) => {
             if(user != null){
                 alert("You have already registered.")
+                console.log(user)
             }
 
         })

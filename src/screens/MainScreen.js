@@ -1,27 +1,31 @@
 import React, { Component } from "react";
-import{ View, Test, StyleSheet, Platform } from "react-native";
+import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
+import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../Constants';
 
 import DriverMain from './DriverScreen'
 import RiderMain from './RiderScreen'
 import ProfileMain from './ProfileScreen'
 
 export default class MainScreen extends Component{
-	static navigationOptions = {
 
-		title: "Gaucho Rides",
+	static navigationOptions = {
+		headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
+        title: 'Gaucho Rides',
 		headerStyle: {
-			backgroundColor: color_background
+			backgroundColor: COLOR_APP_BACKGROUND
 		},
 		headerTitleStyle: {
-			color: color_middground,
+			color: COLOR_APP_TITLE,
 			textAlign: 'center',
 			alignSelf: 'center',
 			flex: 1,
 			fontWeight: 'normal'
-        }
+        },
+		headerRight: <Ionicons style = {{ paddingRight: 10, fontSize: 20,color: COLOR_APP_UNFOCUS }}/>
 	}
+
 	render(){
 		return(
 			<AppTabNavigator />
@@ -36,7 +40,7 @@ const AppTabNavigator = TabNavigator(
 		Driver: {
 			screen: DriverMain
 		},
-		Rider: {
+		Passenger: {
 			screen: RiderMain
 		},
 		Profile:{
@@ -51,12 +55,16 @@ const AppTabNavigator = TabNavigator(
 			style:{
 				...Platform.select({
 					android:{
-						backgroundColor:'#4db6ac'
-					}
+						backgroundColor: COLOR_APP_BACKGROUND,
+
+					},
+					ios:{
+                        backgroundColor: COLOR_APP_BACKGROUND,
+                    }
 				})
 			},
-			activeTintColor:'#212121',
-			inactiveTintColor:'#d1cece',
+            activeTintColor: COLOR_APP_FOCUS,
+			inactiveTintColor: COLOR_APP_UNFOCUS,
 			showIcon:true,
 			showLabel:true //set to false if don't want name
 		}

@@ -11,18 +11,18 @@ export default class SearchArea extends Component {
         this.state = {
             chosenDate: new Date(),
             status: true
-           
-        }
+
+        };
         this.setDate = this.setDate.bind(this);
-        // this.pickAndroidDate();
+        this.pickAndroidDate();
     }
 
     setDate(newDate) {
         this.setState({chosenDate: newDate})
     }
-    
+
     ShowHideTextComponentView = () =>{
-        if(this.state.status==true){
+        if(this.state.status === true){
             this.setState({status: false})
         }
         else
@@ -45,26 +45,25 @@ export default class SearchArea extends Component {
     }
 
     render() {
-
         return (
-            this.state.status ? 
+            this.state.status ?
             <View style={styles.container}>
-                <SearchBox/> 
+                <SearchBox/>
                 <View style={styles.TimeDateWrapper}>
                     <DatePickerIOS
                         date={this.state.chosenDate}
                         onDateChange={this.setDate}
-                    /> 
+                    />
                 </View>
 
                 <View style={styles.buttonContainer}>
                     <Button onPress={this.ShowHideTextComponentView} title="Find Ride!" color="#FFFFFF" />
                 </View>
-                
-            </View> : null 
+
+            </View> : null
 
         );
-        
+
     }
 }
 

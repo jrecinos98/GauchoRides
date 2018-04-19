@@ -4,6 +4,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 import MainScreen from './src/screens/MainScreen'
+import NewUserScreen from './src/screens/NewUserScreen'
 import { YellowBox } from 'react-native';
 
 //Ignore those annoying deprecated warnings.
@@ -37,11 +38,13 @@ export default class App extends React.Component {
 
 
 const AppStackNavigator = StackNavigator({
-  Main:{
-    screen: MainScreen
-  }
-
-})
+    Login: {screen: NewUserScreen},
+    Main: {
+        screen: MainScreen
+    },
+}, {
+    initialRouteName: "Login",
+});
 
 
 
