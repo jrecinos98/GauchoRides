@@ -47,17 +47,22 @@ export default class SearchArea extends Component {
     render() {
         return (
             this.state.status ?
+
             <View style={styles.container}>
+
                 <SearchBox/>
-                <View style={styles.TimeDateWrapper}>
-                    <DatePickerIOS
-                        date={this.state.chosenDate}
-                        onDateChange={this.setDate}
-                    />
-                </View>
+
+                <DatePickerIOS
+                    style={styles.TimeDateWrapper}
+                    date={this.state.chosenDate}
+                    onDateChange={this.setDate}/>
 
                 <View style={styles.buttonContainer}>
-                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!" color="#FFFFFF" />
+
+                    <Button
+                        onPress={this.ShowHideTextComponentView}
+                        title="Find Ride!"
+                        color="#FFFFFF"/>
                 </View>
 
             </View> : null
@@ -71,10 +76,8 @@ export default class SearchArea extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		//alignItems: 'center',
+		// alignItems: 'center',
 		justifyContent: 'center'
-
-        
 	},
     buttonContainer: {
         backgroundColor: '#2E9298',
@@ -82,18 +85,16 @@ const styles = StyleSheet.create({
         padding: 10,
         shadowColor: '#000000',
         shadowOffset: {
-         width: 0,
-         height: 3
+            width: 0,
+            height: 3
         },
         shadowRadius: 10,
-        shadowOpacity: 0.25,
-
-    
+        shadowOpacity: 0.25
     },
     TimeDateWrapper:{
         marginLeft:15,
         marginRight:10,
-        marginTop:46.34,
+        marginTop:150,
         backgroundColor:"#fff",
         opacity:0.9,
         borderRadius:7
