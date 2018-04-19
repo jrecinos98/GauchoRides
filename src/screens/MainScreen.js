@@ -7,19 +7,25 @@ import DriverMain from './DriverScreen'
 import RiderMain from './RiderScreen'
 import ProfileMain from './ProfileScreen'
 
-
 export default class MainScreen extends Component{
 	static navigationOptions = {
-		headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20}} />,
-		title: "GauchoRides",
-		backgroundColor: '#4db6ac',
-		headerRight: <Ionicons style = {{ paddingRight: 10, fontSize: 20 }}
-		name="ios-send-outline" />
+
+		title: "Gaucho Rides",
+		headerStyle: {
+			backgroundColor: color_background
+		},
+		headerTitleStyle: {
+			color: color_middground,
+			textAlign: 'center',
+			alignSelf: 'center',
+			flex: 1,
+			fontWeight: 'normal'
+        }
 	}
 	render(){
 		return(
 			<AppTabNavigator />
-			);
+		);
 
 	}
 }
