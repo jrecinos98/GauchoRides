@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions, Platform} from "react-native";
 import SearchBox from '../../components/SearchBox';
-import {appTintColor, appInactiveTintColor, appMainColor} from "../../Constants"
+import {COLOR_APP_BACKGROUND, COLOR_APP_FOCUS} from "../../Constants"
 import SearchResults from 'Gaucho-Rides/src/components/SearchResults';
 
 export default class SearchArea extends Component {
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
         
 	},
     buttonContainer: {
-        backgroundColor: appMainColor,
+        backgroundColor: COLOR_APP_BACKGROUND,
         borderRadius: 10,
         padding: 10,
-        shadowColor: appTintColor,
+        shadowColor: COLOR_APP_FOCUS,
         shadowOffset: {
          width: 0,
          height: 3
