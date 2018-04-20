@@ -42,28 +42,33 @@ export default class NewUserScreen extends Component {
         this.state=({
             email: "",
             password: "",
-            displayLogIn: false
+            displayLogIn: false,
         });
     }
-
+    //For the transition to be smooth
     componentDidMount(){
+
         firebase.auth().onAuthStateChanged((user) => {
 
-            if(user != null) {
+            if (user != null) {
+                setTimeout(() => {
+                    this.props.navigation.navigate('Main', {name: "MainScreen"});
+                }, 2500);
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
+
                     //Either login or signup if logged into facebook
                     User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), !User.isFB) : this.storeNewUser(user);
                     //Debug purpose
                     //Alert.alert(User.currentUser.name, "You have logged in!");
                     console.log("CurUser: ", User.currentUser);
                     //Now, do something with user object User.currentUser
-                    this.props.navigation.navigate('Main', {name: "MainScreen"});
+
 
                 });
             }
             else {
                 this.setState(oldValue => {
-                    return { displayLogIn: !oldValue.displayLogIn}
+                    return {displayLogIn: !oldValue.displayLogIn}
                 });
                 alert("Facebook account not found.");
 
