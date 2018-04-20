@@ -6,7 +6,16 @@ import {LogInBackgroundImage} from "../components/Background/BackgroundImage"
 import {LoginButtons} from "./LogInScreen/LoginButtons";
 import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE, FIREDIR_USERS} from "../Constants";
 import User from '../actors/User'
+import { YellowBox } from 'react-native';
+import _ from 'lodash';
 
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+    if (message.indexOf('Setting a timer') <= -1) {
+        _console.warn(message);
+    }
+};
 
 const firebaseConfig = {
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
@@ -39,7 +48,7 @@ export default class NewUserScreen extends Component {
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
 
                     //Either login or signup if logged into facebook
-                    User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), false) : storeNewUser(user);
+                    User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), false) : this.storeNewUser(user);
 
                     //Debug purpose
                     Alert.alert(User.currentUser.name, "You have logged in!");
@@ -73,7 +82,7 @@ export default class NewUserScreen extends Component {
             }
             if(email !== "" && password !== "") {
                 firebase.auth().createUserWithEmailAndPassword(email, password).then(function(fbUser){
-                    User.currentUser = storeNewUser(fbUser);
+                    User.currentUser = this.storeNewUser(fbUser);
                 });
             }
         }
@@ -132,9 +141,7 @@ export default class NewUserScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <LogInBackgroundImage>
-
                 <LoginForm/>
-
                 <LoginButtons
                     title="LOGIN"
                     callback={() => {

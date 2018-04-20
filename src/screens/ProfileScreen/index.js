@@ -1,38 +1,25 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+    View,
+    Text,
+    StyleSheet
+} from "react-native";
 
-export default class ProfileMain extends React.Component {
+import { Ionicons } from '@expo/vector-icons';
 
-    constructor(props){
-        super(props);
 
-    }
+export default class ProfileMain extends Component{
+    static navigationOptions = {
+        tabBarIcon: ({ tintColor}) => (
+            <Ionicons name="ios-contact-outline" style={{ color: tintColor }} />
+        )
 
-	render(){
-		return(
-			<View style = {styles.container}>
-
+    };
+    render(){
+		return (
+			<View>
+		<Text>Profile</Text>
 			</View>
 		);
-	}
+    }
 }
-
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		//alignItems: 'center',
-		justifyContent: 'center'
-	}
-
-    //backgroundImage: {
-    //    flex: 1,
-    //    alignSelf: 'stretch',
-    //    width: null,
-    //    justifyContent: 'center'
-    //}
-
-
-
-
-})
