@@ -1,5 +1,6 @@
 // Firebase
 export const FIREDIR_USERS = 'users';
+export const FIREDIR_RIDES = 'rides';
 
 
 

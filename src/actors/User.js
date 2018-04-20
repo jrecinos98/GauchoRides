@@ -39,3 +39,4 @@ export default class User {
 }
 
 User.currentUser = null;
+User.isFB = true;

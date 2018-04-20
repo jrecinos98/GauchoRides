@@ -5,7 +5,7 @@ import {LoginForm} from "./LogInScreen/LoginForm";
 import {LogInBackgroundImage} from "../components/Background/BackgroundImage"
 import {LoginButtons} from "./LogInScreen/LoginButtons";
 import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE, FIREDIR_USERS} from "../Constants";
-import User from '../actors/User'
+
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 
@@ -16,6 +16,12 @@ console.warn = message => {
         _console.warn(message);
     }
 };
+
+import User from 'Gaucho-Rides/src/actors/User';
+import Ride from 'Gaucho-Rides/src/actors/Ride';
+import Area from 'Gaucho-Rides/src/actors/Area';
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
@@ -36,8 +42,7 @@ export default class NewUserScreen extends Component {
         this.state=({
             email: "",
             password: ""
-        })
-
+        });
     }
 
     componentDidMount(){
@@ -48,7 +53,8 @@ export default class NewUserScreen extends Component {
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
 
                     //Either login or signup if logged into facebook
-                    User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), false) : this.storeNewUser(user);
+                    User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), !User.isFB) : this.storeNewUser(user);
+
 
                     //Debug purpose
                     Alert.alert(User.currentUser.name, "You have logged in!");
@@ -65,8 +71,10 @@ export default class NewUserScreen extends Component {
         });
     }
 
+
+
     storeNewUser(fbUser) {
-        let newUser = new User(fbUser, true);
+        let newUser = new User(fbUser, User.isFB);
         firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
         return newUser;
     }
@@ -139,6 +147,7 @@ export default class NewUserScreen extends Component {
 
     render() {
         const {navigate} = this.props.navigation;
+
         return (
             <LogInBackgroundImage>
                 <LoginForm/>

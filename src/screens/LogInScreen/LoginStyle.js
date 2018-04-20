@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         marginLeft: 15,
         marginRight: 15,
+        marginTop: 10,
+        marginBottom: 10,
         backgroundColor:'#0d47a1',
         borderRadius: 10,
         shadowColor: COLOR_APP_FOCUS,
