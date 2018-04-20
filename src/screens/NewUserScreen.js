@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView} from "react-native";
 import * as fireBase from 'firebase';
 import {LoginForm} from "./LogInScreen/LoginForm";
-import {LogInBackgroundImage} from "../components/LogInBackground/BackgroundImage"
+import {LogInBackgroundImage} from "../components/Background/BackgroundImage"
 import {LoginButtons} from "./LogInScreen/LoginButtons";
 import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE} from "../Constants";
 

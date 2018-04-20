@@ -34,7 +34,7 @@ export default class RideMap extends Component {
                         latitude: origin.latitude,
                         longitude: origin.longitude
                     }}
-                    pinColor="blue"/>
+                    pinColor="black"/>
 
                 <MapView.Marker
                     coordinate={{
