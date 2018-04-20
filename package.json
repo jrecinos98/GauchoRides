@@ -1,5 +1,5 @@
 {
-  "name": "Gaucho Rides",
+  "name": "GauchoRides",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -34,9 +34,11 @@
     "react-native-google-places": "^2.5.0",
     "react-native-keyboard-spacer": "^0.4.1",
     "react-native-loading-spinner-overlay": "^0.5.2",
+    "react-native-maps": "^0.21.0",
     "react-native-modal-datetime-picker": "^5.1.0",
     "react-native-navigation": "^1.1.440",
     "react-native-redux-listener": "^0.3.0",
+    "react-native-rename": "^2.2.2",
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-size-matters": "^0.1.0",
     "react-native-switch": "^1.4.0",

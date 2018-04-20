@@ -49,17 +49,12 @@ export default class NewUserScreen extends Component {
         firebase.auth().onAuthStateChanged((user) => {
 
             if(user != null) {
-
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
-
                     //Either login or signup if logged into facebook
                     User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), !User.isFB) : this.storeNewUser(user);
-
-
                     //Debug purpose
-                    Alert.alert(User.currentUser.name, "You have logged in!");
+                    //Alert.alert(User.currentUser.name, "You have logged in!");
                     console.log("CurUser: ", User.currentUser);
-
                     //Now, do something with user object User.currentUser
                     this.props.navigation.navigate('Main', {name: "MainScreen"});
                 });
@@ -147,7 +142,11 @@ export default class NewUserScreen extends Component {
 
     render() {
         const {navigate} = this.props.navigation;
-
+        if (User.currentUser===null){
+            return(
+                <LogInBackgroundImage/>
+            )
+        }
         return (
             <LogInBackgroundImage>
                 <LoginForm/>
@@ -168,7 +167,7 @@ export default class NewUserScreen extends Component {
                         style={styles.buttonStyle}
                         title="Launch Main Screen"
                         onPress={() => {
-                            navigate('Main', {name: "MainScreen"})
+                            navigate('Main', {name: "MainScreen"});
                             console.log("hi");
                         }}>
                         <Text style={{color: 'white'}}>Launch MainScreen </Text>

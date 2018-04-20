@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { View } from "native-base";
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 
-import SearchBox from "../SearchBox";
-import SearchResults from "../SearchResults";
 import styles from "./MapStyles";
 
 export default class RideMap extends Component {

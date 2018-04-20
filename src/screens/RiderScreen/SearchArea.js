@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions, Platform} from "react-native";
 import SearchBox from '../../components/SearchBox';
-import {COLOR_APP_BACKGROUND, COLOR_APP_FOCUS} from "../../Constants"
+import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS} from "../../Constants"
 
 export default class SearchArea extends Component {
 
@@ -51,7 +51,6 @@ export default class SearchArea extends Component {
             <View style={styles.container}>
 
                 <SearchBox/>
-
                 {(Platform.OS === 'ios')?
                 <View style={styles.TimeDateWrapper}>
                     <DatePickerIOS
@@ -88,10 +87,9 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginBottom:0,
         backgroundColor: COLOR_APP_BACKGROUND,
-        opacity:0.9,
         borderRadius: 10,
         padding: 10,
-        shadowColor: COLOR_APP_FOCUS,
+        shadowColor: COLOR_APP_UNFOCUS,
         shadowOffset: {
             width: 0,
             height: 3

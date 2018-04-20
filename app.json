@@ -1,6 +1,6 @@
 {
   "name": "GauchoRides",
-  "displayName": "GauchoRides",
+  "displayName": "Gaucho Rides",
   "expo": {
   	"sdkVersion": "26.0.0",
   	"icon": "./public/assets/app_icon_lightblue2.png",

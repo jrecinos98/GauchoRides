@@ -35,9 +35,6 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
                 </InputGroup>
             </View>
 
-
-
-
             <View style={styles.secondInputWrapper}>
                 <Text style={styles.label}>Direct Rides Only</Text>
                 <Switch
@@ -47,10 +44,7 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
                     backgroundActive={'green'}
                     backgroundInactive={'gray'}
                 />
-
             </View>
-
-
 
         </View>
 
