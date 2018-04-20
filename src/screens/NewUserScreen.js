@@ -20,9 +20,10 @@ console.warn = message => {
 import User from '../actors/User';
 import Ride from '../actors/Ride';
 import Area from '../actors/Area';
+import { NavigationActions } from 'react-navigation'
 
 
-
+//Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
     authDomain: "ucsb-rideshare-app.firebaseapp.com",
@@ -33,7 +34,15 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-var loggedIn=true;
+
+const wipeLogin = NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({ routeName: 'Main'})
+    ]
+});
+
+
 export default class NewUserScreen extends Component {
 
     constructor(props){
@@ -43,34 +52,49 @@ export default class NewUserScreen extends Component {
             email: "",
             password: "",
             displayLogIn: false,
+            newUser: false,
         });
     }
+
+
+
     //For the transition to be smooth
     componentDidMount(){
 
         firebase.auth().onAuthStateChanged((user) => {
 
             if (user != null) {
-                setTimeout(() => {
-                    this.props.navigation.navigate('Main', {name: "MainScreen"});
-                }, 2500);
+                //Sets a timer to show the background image for three seconds.
+                if(!this.state.newUser) {
+                    setTimeout(() => {
+                        this.props.navigation.dispatch(wipeLogin);
+                    }, 2500);
+                }
+
+                //Retrieves the data (a snapshot) from firebase once and assigns it to User.currentUser
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
 
-                    //Either login or signup if logged into facebook
+                    //If the snapshot value exists then we create a new user object and assign it. Else we create a reference in Firebase and return a new user.
                     User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), !User.isFB) : this.storeNewUser(user);
+
+
                     //Debug purpose
                     //Alert.alert(User.currentUser.name, "You have logged in!");
                     console.log("CurUser: ", User.currentUser);
                     //Now, do something with user object User.currentUser
-
-
                 });
+                if(this.state.newUser){
+                    this.props.navigation.dispatch(wipeLogin);
+                }
             }
             else {
+
+                //If the User is not logged in we show the login screen.
                 this.setState(oldValue => {
-                    return {displayLogIn: !oldValue.displayLogIn}
+                    return {displayLogIn: !oldValue.displayLogIn , newUser: !oldValue.newUser}
                 });
-                alert("Facebook account not found.");
+                console.log("newUser:" + this.state.newUser);
+                //alert("Facebook account not found.");
 
             }
 
@@ -78,7 +102,7 @@ export default class NewUserScreen extends Component {
     }
 
 
-
+    //Creates a new user in Firebase. (For now they can only be Facebook users)
     storeNewUser(fbUser) {
         let newUser = new User(fbUser, User.isFB);
         firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
@@ -124,7 +148,7 @@ export default class NewUserScreen extends Component {
     };
 
     static navigationOptions = {
-        title: "Welcome, Gaucho",
+        title:"Welcome",
         headerStyle: {
             backgroundColor: COLOR_APP_BACKGROUND
         },
@@ -138,6 +162,7 @@ export default class NewUserScreen extends Component {
 
     };
 
+    //Log in user with facebook
     async loginWithFacebook() {
         const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
         ('615345508804840', {
@@ -155,79 +180,53 @@ export default class NewUserScreen extends Component {
         const {navigate} = this.props.navigation;
         console.log(this.state.displayLogIn);
         if (!this.state.displayLogIn){
-            return(
+            return (
                 <LogInBackgroundImage/>
             )
         }
         return (
             <LogInBackgroundImage>
                 <LoginForm/>
-                <LoginButtons
-                    title="LOGIN"
-                    callback={() => {
-                        this.logInUser(this.state.email, this.state.password);
-                    }}/>
+                <KeyboardAvoidingView behavior="padding">
+                    <View style={loginStyle.buttonContainer}>
+                        <LoginButtons
+                            title="LOGIN"
+                            callback={() => {
+                                this.logInUser(this.state.email, this.state.password);
+                            }}/>
 
-                <LoginButtons
-                    title="CONTINUE WITH FACEBOOK"
-                    callback={() => {
-                        this.loginWithFacebook();
-                    }}/>
-
-                <KeyboardAvoidingView behavior="padding" style={styles.buttonContainer}>
-                    <Button
-                        style={styles.buttonStyle}
-                        title="Launch Main Screen"
-                        onPress={() => {
-                            navigate('Main', {name: "MainScreen"});
-                            console.log("hi");
-                        }}>
-                        <Text style={{color: 'white'}}>Launch MainScreen </Text>
-                    </Button>
-
+                        <LoginButtons
+                            title="CONTINUE WITH FACEBOOK"
+                            callback={() => {
+                                this.loginWithFacebook();
+                            }}/>
+                        <Text style={loginStyle.signUpText}>Don't have an account? Sign Up</Text>
+                    </View>
                 </KeyboardAvoidingView>
             </LogInBackgroundImage>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        marginTop: 100,
-        marginBottom: 10,
-        alignItems: undefined,
-
-    },
-    buttonContainer: {
+const loginStyle= StyleSheet.create({
+    signUpText:{
+        color:'white',
+        textShadowColor:'rgba(0, 0, 0, 0.9)',
+        textShadowOffset: {width: -2, height: 2},
+        textShadowRadius: 10,
+        justifyContent: 'center',
         marginLeft: 15,
-        marginRight: 10,
-        marginTop: 50,
-        marginBottom: 0,
-        backgroundColor: COLOR_APP_BACKGROUND_OPAQUE,
-        borderRadius: 10,
-        padding: 10,
-        shadowColor: COLOR_APP_FOCUS,
-        shadowOffset: {
-            width: 0,
-            height: 3
-        },
-        shadowRadius: 10,
-        shadowOpacity: 0.25,
+        marginRight: 15,
+        textAlign: 'center'
     },
-    buttonStyle: {
-        marginTop: 100,
-        marginBottom: 5
-    },
-    cardContainer: {
-        flex: 1,
-
-        opacity: 0.5,
-
+    buttonContainer:{
+        paddingTop: 30,
+        paddingBottom: 100
     }
 
-
 });
+
+
 /*
    <Button
                             style={styles.buttonStyle}
