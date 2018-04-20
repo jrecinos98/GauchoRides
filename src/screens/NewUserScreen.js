@@ -17,9 +17,9 @@ console.warn = message => {
     }
 };
 
-import User from 'Gaucho-Rides/src/actors/User';
-import Ride from 'Gaucho-Rides/src/actors/Ride';
-import Area from 'Gaucho-Rides/src/actors/Area';
+import User from '../actors/User';
+import Ride from '../actors/Ride';
+import Area from '../actors/Area';
 
 
 

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { RideMap } from 'Gaucho-Rides/src/components/RideMap'; //adding map
+import { RideMap } from '../../components/RideMap'; //adding map
 import * as firebase from 'firebase';
-import User from 'Gaucho-Rides/src/actors/User';
-import Ride from 'Gaucho-Rides/src/actors/Ride';
-import Area from 'Gaucho-Rides/src/actors/Area';
+import User from '../../actors/User';
+import Ride from '../../actors/Ride';
+import Area from '../../actors/Area';
 import { FIREDIR_RIDES, FIREDIR_USERS } from "../../Constants";
 
 

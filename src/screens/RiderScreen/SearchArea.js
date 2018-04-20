@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions, Platform} from "react-native";
 import SearchBox from '../../components/SearchBox';
 import {COLOR_APP_BACKGROUND, COLOR_APP_FOCUS} from "../../Constants"
-import SearchResults from 'Gaucho-Rides/src/components/SearchResults';
 
 export default class SearchArea extends Component {
 
