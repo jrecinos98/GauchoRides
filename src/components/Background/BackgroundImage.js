@@ -22,11 +22,10 @@ export class LogInBackgroundImage extends Component {
 const styles = StyleSheet.create({
     backgroundImage: {
         flex: 1,
-        padding: 10,
+        padding: 5,
         flexDirection: "column",
         justifyContent: 'flex-end',
-        //alignItems: "flex-end",
-        //justifyContent: "space-between"
+
 
     }
 });

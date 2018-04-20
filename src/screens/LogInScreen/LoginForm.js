@@ -18,8 +18,8 @@ export class LoginForm extends Component {
             <View style={styles.textContainer}>
                 <TextInput style={styles.input}
                            keyboardType="email-address"
-                           placeholder="Email"
                            placeholderTextColor='white'
+                           placeholder="Email"
                            returnKeyType="next"
                            autoCorrect={false}
                            autoCapitalize={"none"}
