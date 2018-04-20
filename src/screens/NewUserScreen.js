@@ -33,7 +33,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
+var loggedIn=true;
 export default class NewUserScreen extends Component {
 
     constructor(props){
@@ -41,7 +41,8 @@ export default class NewUserScreen extends Component {
 
         this.state=({
             email: "",
-            password: ""
+            password: "",
+            displayLogIn: false
         });
     }
 
@@ -57,10 +58,15 @@ export default class NewUserScreen extends Component {
                     console.log("CurUser: ", User.currentUser);
                     //Now, do something with user object User.currentUser
                     this.props.navigation.navigate('Main', {name: "MainScreen"});
+
                 });
             }
             else {
+                this.setState(oldValue => {
+                    return { displayLogIn: !oldValue.displayLogIn}
+                });
                 alert("Facebook account not found.");
+
             }
 
         });
@@ -142,7 +148,8 @@ export default class NewUserScreen extends Component {
 
     render() {
         const {navigate} = this.props.navigation;
-        if (User.currentUser===null){
+        console.log(this.state.displayLogIn);
+        if (!this.state.displayLogIn){
             return(
                 <LogInBackgroundImage/>
             )
