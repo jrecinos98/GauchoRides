@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView} from "react-native";
+import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView, Alert } from "react-native";
 import * as firebase from 'firebase';
 import {LoginForm} from "./LogInScreen/LoginForm";
 import {LogInBackgroundImage} from "../components/Background/BackgroundImage"
@@ -35,19 +35,31 @@ export default class NewUserScreen extends Component {
         firebase.auth().onAuthStateChanged((user) => {
 
             if(user != null) {
-                alert("You have already registered.");
+
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
-                    User.currentUser = new User(snapshot.val(), false);
+
+                    //Either login or signup if logged into facebook
+                    User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), false) : storeNewUser(user);
+
+                    //Debug purpose
+                    Alert.alert(User.currentUser.name, "You have logged in!");
                     console.log("CurUser: ", User.currentUser);
 
                     //Now, do something with user object User.currentUser
+                    this.props.navigation.navigate('Main', {name: "MainScreen"});
                 });
             }
             else {
-                this.signUpUser(this.state.email, this.state.password);
+                alert("Facebook account not found.");
             }
 
         });
+    }
+
+    storeNewUser(fbUser) {
+        let newUser = new User(fbUser, true);
+        firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
+        return newUser;
     }
 
     signUpUser= (email, password) => {
@@ -61,9 +73,8 @@ export default class NewUserScreen extends Component {
             }
             if(email !== "" && password !== "") {
                 firebase.auth().createUserWithEmailAndPassword(email, password).then(function(fbUser){
-                    let newUser = new User(fbUser, true);
-                    firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
-                })
+                    User.currentUser = storeNewUser(fbUser);
+                });
             }
         }
         catch(error){
@@ -121,14 +132,29 @@ export default class NewUserScreen extends Component {
         const {navigate} = this.props.navigation;
         return (
             <LogInBackgroundImage>
+
                 <LoginForm/>
-                <LoginButtons/>
+
+                <LoginButtons
+                    title="LOGIN"
+                    callback={() => {
+                        this.logInUser(this.state.email, this.state.password);
+                    }}/>
+
+                <LoginButtons
+                    title="CONTINUE WITH FACEBOOK"
+                    callback={() => {
+                        this.loginWithFacebook();
+                    }}/>
+
                 <KeyboardAvoidingView behavior="padding" style={styles.buttonContainer}>
                     <Button
                         style={styles.buttonStyle}
                         title="Launch Main Screen"
-                        onPress={() =>
-                            navigate('Main', {name: "MainScreen"})}>
+                        onPress={() => {
+                            navigate('Main', {name: "MainScreen"})
+                            console.log("hi");
+                        }}>
                         <Text style={{color: 'white'}}>Launch MainScreen </Text>
                     </Button>
 
