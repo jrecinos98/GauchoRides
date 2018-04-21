@@ -16,6 +16,17 @@ YellowBox.ignoreWarnings([
   'Warning: componentWillUpdate is deprecated'
 ]);
 
+//Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
+    authDomain: "ucsb-rideshare-app.firebaseapp.com",
+    databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
+    projectId: "ucsb-rideshare-app",
+    storageBucket: "ucsb-rideshare-app.appspot.com",
+};
+
+firebase.initializeApp(firebaseConfig);
+
 export default class App extends React.Component {
 
     constructor(props) {
@@ -29,49 +40,47 @@ export default class App extends React.Component {
 
     componentDidMount(){
 
+        // Called everytime firebase authentication is changed (login or logout)
         firebase.auth().onAuthStateChanged((user) => {
             if (user != null) {
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
-                    //If the snapshot value exists then we create a new user object and assign it. Else we create a reference in Firebase and return a new user.
-                    User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), !User.isFB) : this.storeNewUser(user);
-
-
-                    //Debug purpose
-
-                   // console.log("CurUser: ", User.currentUser);
-                    //Now, do something with user object User.currentUser
+                    
+                    // If user doesn't exist, we create a reference in Firebase and retrieve the new user.
+                    // Otherwise, we initialize a local user object for current user.
+                    if (snapshot.val() == null)
+                        this.createNewUser(user);
+                    else
+                        User.currentUser = new User(snapshot.val(), !User.isFB);
 
                     //NEEDED TO NOT GET CAUGHT IN BACKGROUND SCREEN
-                    this.setState(
-                        {
-                            loaded: true,
-                            loggedIn: true,
+                    this.setState({
+                        loaded: true,
+                        loggedIn: true,
                     });
-
 
                 });
             }
-            else{
+            else {
+
                 //DO NOT CHANGE THIS NEEDED FOR LOGOUT
-                console.log("Component Called\n")
+                console.log("Component Called\n");
                 this.setState({
                     loaded: true,
                     loggedIn: false,
                 });
-                User.currentUser=null;
+                User.currentUser = null;
             }
         });
+
     }
 
-    storeNewUser(fbUser) {
+    createNewUser(fbUser) {
         let newUser = new User(fbUser, User.isFB);
         firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
-        return newUser;
+        User.currentUser = newUser;
     }
 
     render() {
-        //console.log(User.currentUser);
-        //console.log(this.state.loaded);
         if (!this.state.loaded) {
             //console.log("Not Loaded");
             return (

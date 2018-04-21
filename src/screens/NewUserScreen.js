@@ -5,7 +5,6 @@ import {LoginForm} from "./LogInScreen/LoginForm";
 import {LogInBackgroundImage} from "../components/Background/BackgroundImage"
 import {LoginButtons} from "./LogInScreen/LoginButtons";
 import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE, FIREDIR_USERS} from "../Constants";
-
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 
@@ -20,19 +19,7 @@ console.warn = message => {
 import User from '../actors/User';
 import Ride from '../actors/Ride';
 import Area from '../actors/Area';
-import { NavigationActions } from 'react-navigation'
-
-
-//Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
-    authDomain: "ucsb-rideshare-app.firebaseapp.com",
-    databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
-    projectId: "ucsb-rideshare-app",
-    storageBucket: "ucsb-rideshare-app.appspot.com",
-};
-
-firebase.initializeApp(firebaseConfig);
+import { NavigationActions } from 'react-navigation';
 
 
 export default class NewUserScreen extends Component {
@@ -48,40 +35,6 @@ export default class NewUserScreen extends Component {
         });
     }
 
-
-    //For the transition to be smooth
-    componentDidMount(){
-
-        firebase.auth().onAuthStateChanged((user) => {
-
-            if (user != null) {
-                //Needed to make it display background image with loading. CAUSES A WARNING
-                this.setState({loggedIn: true});
-                //Retrieves the data (a snapshot) from firebase once and assigns it to User.currentUser
-                firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
-
-                    //If the snapshot value exists then we create a new user object and assign it. Else we create a reference in Firebase and return a new user.
-                    User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), !User.isFB) : this.storeNewUser(user);
-
-                   // this.props.navigation.dispatch(wipeLogin);
-                    console.log("TO MAIN");
-
-                   // this.props.navigation.dispatch(wipeLogout);
-                });
-
-            }
-
-        });
-    }
-
-
-    //Creates a new user in Firebase. (For now they can only be Facebook users)
-    storeNewUser(fbUser) {
-        let newUser = new User(fbUser, User.isFB);
-        firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
-        return newUser;
-    }
-
     signUpUser= (email, password) => {
         try {
             if (email === "" || password === "") {
@@ -92,8 +45,12 @@ export default class NewUserScreen extends Component {
                 return;
             }
             if(email !== "" && password !== "") {
-                firebase.auth().createUserWithEmailAndPassword(email, password).then(function(fbUser){
-                    User.currentUser = this.storeNewUser(fbUser);
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(function(fbUser){
+                    alert("Account created.");
+                })
+                .catch(function(error) {
+                    alert("Account already existed.")
                 });
             }
         }
@@ -104,16 +61,14 @@ export default class NewUserScreen extends Component {
 
     logInUser = (email,password) => {
         if(email !== "") {
-            try {
-                firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-                    console.log(user);
-                    alert("Login successful.")
-                })
-            }
-            catch (error) {
+            firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(function (user) {
+                console.log(user);
+                alert("Login successful.")
+            })
+            .catch(function(error) {
                 alert("An error occurred please try again. Make sure you use a verified email and password.")
-                //console.log(error.toString())
-            }
+            })
         }
         else{
             alert("Please enter a registered emailed and password.")
@@ -144,7 +99,7 @@ export default class NewUserScreen extends Component {
         if (type === 'success') {
             const credential = firebase.auth.FacebookAuthProvider.credential(token);
             firebase.auth().signInWithCredential(credential).catch((error) => {
-                console.log(error);
+                alert(error);
             })
         }
     }
@@ -156,7 +111,19 @@ export default class NewUserScreen extends Component {
         }
         return (
             <LogInBackgroundImage>
-                <LoginForm/>
+
+                <LoginForm
+                    callback= {(email, password) => {
+                        this.setState({
+                            email: email,
+                            password: password
+                        });
+                    }}
+                    onSubmit= {(email, password) => {
+                        this.logInUser(email, password);
+                    }}
+                    />
+
                 <KeyboardAvoidingView behavior="padding">
                     <View style={loginStyle.buttonContainer}>
                         <LoginButtons
@@ -170,7 +137,13 @@ export default class NewUserScreen extends Component {
                             callback={() => {
                                 this.loginWithFacebook();
                             }}/>
-                        <Text style={loginStyle.signUpText}>Don't have an account? Sign Up</Text>
+                        <Text
+                            style={loginStyle.signUpText}
+                            onPress={() => {
+                                this.signUpUser(this.state.email, this.state.password);
+                            }}>
+                            Don't have an account? Sign Up
+                        </Text>
                     </View>
                 </KeyboardAvoidingView>
             </LogInBackgroundImage>
