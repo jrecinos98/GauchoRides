@@ -47,7 +47,6 @@ class DriverMain extends Component {
 	createTestRide() {
 		let ride = new Ride(
 			0,
-			"Awesome Ride",
 			"Really Really Awesome Ride",
 			0,
 			User.currentUser.id,
