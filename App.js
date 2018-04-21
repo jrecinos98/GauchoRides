@@ -14,14 +14,34 @@ YellowBox.ignoreWarnings([
 ]);
 
 export default class App extends React.Component {
+
+    componentDidMount(){
+
+        firebase.auth().onAuthStateChanged((user) => {
+
+            if (user != null) {
+            }
+            else {
+
+            }
+
+        });
+    }
+
     render() {
-        return(<SignedOutStackNavigator/>);
+        return(<LoggedoutStack/>);
     }
 }
 
-const SignedOutStackNavigator = StackNavigator({
+const LoggedoutStack = StackNavigator({
     Login: {screen: NewUserScreen},
-    Main: {screen: MainScreen},
-}, {
+    Main: {screen: MainScreen}
+    },{
     initialRouteName: "Login",
+});
+
+const LoggedinStack = StackNavigator({
+    Main: {screen: MainScreen},
+    },{
+    initialRouteName: "Main",
 });
