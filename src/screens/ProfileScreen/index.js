@@ -11,10 +11,10 @@ class ProfileMain extends Component{
     static navigationOptions = ({ navigation }) => {
         return {
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name="ios-contact-outline" style={{ color: tintColor, fontSize: 20 }} />
+                <Ionicons name="ios-settings" style={{ color: tintColor, fontSize: 20 }} />
             ),
             headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
-            title: 'Gaucho Rides',
+            title: 'Profile',
             headerStyle: {
              backgroundColor: COLOR_APP_BACKGROUND
             },

@@ -14,7 +14,7 @@ class RiderMain extends Component {
 				<Ionicons name="md-body" style={{ color: tintColor, fontSize: 20 }} />
 			),
             headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
-            title: 'Gaucho Rides',
+            title: 'Rider',
             headerStyle: {
              backgroundColor: COLOR_APP_BACKGROUND
             },

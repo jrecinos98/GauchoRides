@@ -19,9 +19,9 @@ class DriverMain extends Component {
 				<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }}  />
 			),
             headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
-            title: 'Gaucho Rides',
+            title: 'Driver',
             headerStyle: {
-             backgroundColor: COLOR_APP_BACKGROUND
+				backgroundColor: COLOR_APP_BACKGROUND
             },
             headerTitleStyle: {
              color: COLOR_APP_TITLE,
@@ -68,6 +68,7 @@ class DriverMain extends Component {
 	}
 
 	getTestRide() {
+		console.log("DriverTest: ", User.currentUser);
 		let key = Object.keys(User.currentUser.rides)[0];
 		firebase.database().ref(FIREDIR_RIDES + '/' + key).once('value').then(snapshot => {
 			console.log(snapshot.val());

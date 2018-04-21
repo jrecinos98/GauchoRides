@@ -64,12 +64,6 @@ export default class NewUserScreen extends Component {
         firebase.auth().onAuthStateChanged((user) => {
 
             if (user != null) {
-                //Sets a timer to show the background image for three seconds.
-                if(!this.state.newUser) {
-                    setTimeout(() => {
-                        this.props.navigation.dispatch(wipeLogin);
-                    }, 2500);
-                }
 
                 //Retrieves the data (a snapshot) from firebase once and assigns it to User.currentUser
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
@@ -82,10 +76,21 @@ export default class NewUserScreen extends Component {
                     //Alert.alert(User.currentUser.name, "You have logged in!");
                     console.log("CurUser: ", User.currentUser);
                     //Now, do something with user object User.currentUser
+
+
+                    //Sets a timer to show the background image for three seconds.
+                    if(!this.state.newUser) {
+                        setTimeout(() => {
+                            this.props.navigation.dispatch(wipeLogin);
+                        }, 2500);
+                    }
+                    else {
+                        this.props.navigation.dispatch(wipeLogin);
+                    }
+
                 });
-                if(this.state.newUser){
-                    this.props.navigation.dispatch(wipeLogin);
-                }
+                // if(this.state.newUser){
+                // }
             }
             else {
 
