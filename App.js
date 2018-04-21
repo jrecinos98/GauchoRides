@@ -42,20 +42,23 @@ export default class App extends React.Component {
                     //Now, do something with user object User.currentUser
 
                     //NEEDED TO NOT GET CAUGHT IN BACKGROUND SCREEN
-                    this.setState({loaded: true
+                    this.setState(
+                        {
+                            loaded: true,
+                            loggedIn: true,
                     });
-                    this.setState(oldState =>{
-                       return {loggedIn:!oldState.loggedIn}
-                    });
+
 
                 });
             }
             else{
                 //DO NOT CHANGE THIS NEEDED FOR LOGOUT
+                console.log("Component Called\n")
                 this.setState({
                     loaded: true,
                     loggedIn: false,
                 });
+                User.currentUser=null;
             }
         });
     }
@@ -77,29 +80,23 @@ export default class App extends React.Component {
         }
         else {
             //console.log(this.state.loaded);
-            if (this.state.loggedIn && User.currentUser != null) {
-                console.log("Logged in");
+            if (this.state.loggedIn ) {
+                console.log(User.currentUser);
+                console.log("Logged in: "+ this.state.loggedIn );
                 return (
                     <LoggedInStack/>
                 );
             }
             console.log("Not Logged in");
-            return <LoggedOutStack/>
+            return <NewUserScreen/>
         }
     }
 
 
 }
 
-const LoggedOutStack = StackNavigator({
-    Login: {screen: NewUserScreen},
-    Main: {screen: MainScreen}
-}, {
-    initialRouteName: "Login",
-});
-
 const LoggedInStack = StackNavigator({
-    Login: {screen: NewUserScreen},
+    //Login: {screen: NewUserScreen},
     Main: {screen: MainScreen},
 }, {
     initialRouteName: "Main",

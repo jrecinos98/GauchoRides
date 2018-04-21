@@ -35,14 +35,15 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 
-const wipeLogin = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'Main'})
-    ]
-});
 
-
+const wipeLogout ={
+    type: 'Navigation/NAVIGATE',
+    routeName: 'LoggedOutStack',
+    actions: {
+        type: 'Navigation/NAVIGATE',
+        routeName: "Login"
+    }
+};
 export default class NewUserScreen extends Component {
 
     constructor(props){
@@ -63,7 +64,7 @@ export default class NewUserScreen extends Component {
         firebase.auth().onAuthStateChanged((user) => {
 
             if (user != null) {
-                //Needed to make it display background image with loading.
+                //Needed to make it display background image with loading. CAUSES A WARNING
                 this.setState({loggedIn: true});
                 //Retrieves the data (a snapshot) from firebase once and assigns it to User.currentUser
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
@@ -74,7 +75,7 @@ export default class NewUserScreen extends Component {
                    // this.props.navigation.dispatch(wipeLogin);
                     console.log("TO MAIN");
 
-                    this.props.navigation.navigate('Main');
+                   // this.props.navigation.dispatch(wipeLogout);
                 });
 
             }
@@ -158,7 +159,7 @@ export default class NewUserScreen extends Component {
     }
 
     render() {
-        const {navigate} = this.props.navigation;
+        //const {navigate} = this.props.navigation;
         if(this.state.loggedIn){
             return <LogInBackgroundImage/>
         }
@@ -203,32 +204,3 @@ const loginStyle= StyleSheet.create({
     }
 
 });
-
-
-/*
-   <Button
-                            style={styles.buttonStyle}
-                            title="Continue with Facebook"
-                            onPress={() => this.loginWithFacebook()}>
-                            <Text style={{color: 'white'}}>Continue with Facebook</Text>
-                        </Button>
-
-
-                        <Button
-                            style={styles.buttonStyle}
-                            title="Login with umail account"
-                            onPress={() => this.logInUser(this.state.email, this.state.password)}>
-                            <Text style={{color: 'white'}}>Login</Text>
-                        </Button>
-
-
-                        <Button
-                            style={styles.buttonStyle}
-                            title="Sign Up"
-                            onPress={() => this.signUpUser(this.state.email, this.state.password)}>
-                            <Image source={require("../../public/assets/facebook_button.png") } >
-                            <Text style={{color: 'white'}}>Sign Up</Text>
-                            </Image>
-
-                        </Button>
- */
