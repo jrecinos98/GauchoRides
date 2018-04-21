@@ -35,15 +35,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 
-
-const wipeLogout ={
-    type: 'Navigation/NAVIGATE',
-    routeName: 'LoggedOutStack',
-    actions: {
-        type: 'Navigation/NAVIGATE',
-        routeName: "Login"
-    }
-};
 export default class NewUserScreen extends Component {
 
     constructor(props){
