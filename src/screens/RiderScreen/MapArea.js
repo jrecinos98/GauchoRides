@@ -71,7 +71,7 @@ export default class MapArea extends Component {
 
     render() {
         return (
-            <RideMap coords={this.state.coords}/>
+            <RideMap origin_latitude={this.state.latitude} origin_longitude={this.state.longitude} coords={this.state.coords}/>
         );
     }
 }

@@ -9,8 +9,23 @@ export default class RideMap extends Component {
     render() {
 
         // Temporary check for null value.
-        if (this.props.coords == null)
+        if (this.props.origin_latitude == null || this.props.origin_longitude == null)
             return null;
+
+        if (this.props.coords == null) {
+            return (
+                <MapView
+                    provider={PROVIDER_GOOGLE}
+                    style={styles.map}
+                    region={{
+                        latitude: this.props.origin_latitude,
+                        longitude: this.props.origin_longitude,
+                        latitudeDelta: 0.1,
+                        longitudeDelta: 0.1
+                    }}>
+                </MapView>
+            );
+        }
 
         let coords = this.props.coords;
         let origin = coords[0];
