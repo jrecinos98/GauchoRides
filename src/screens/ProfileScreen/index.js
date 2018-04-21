@@ -40,13 +40,14 @@ class ProfileMain extends Component{
 		return (
             <Text> Profile </Text>
 		);
+
     }
 }
 
 export default ProfileScreen = StackNavigator({
     ProfileMain: {screen: ProfileMain},
-    Settings: {screen: Settings},
-    NewUserScreen: {screen: NewUserScreen}
+    Settings: {screen: Settings}
+
 });
 
 const styles = StyleSheet.create({

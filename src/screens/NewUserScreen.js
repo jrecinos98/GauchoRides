@@ -51,11 +51,10 @@ export default class NewUserScreen extends Component {
         this.state=({
             email: "",
             password: "",
-            displayLogIn: false,
             newUser: false,
+            loggedIn: false
         });
     }
-
 
 
     //For the transition to be smooth
@@ -64,42 +63,19 @@ export default class NewUserScreen extends Component {
         firebase.auth().onAuthStateChanged((user) => {
 
             if (user != null) {
-
+                //Needed to make it display background image with loading.
+                this.setState({loggedIn: true});
                 //Retrieves the data (a snapshot) from firebase once and assigns it to User.currentUser
                 firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
 
                     //If the snapshot value exists then we create a new user object and assign it. Else we create a reference in Firebase and return a new user.
                     User.currentUser = (snapshot.val() != null) ? new User(snapshot.val(), !User.isFB) : this.storeNewUser(user);
 
+                   // this.props.navigation.dispatch(wipeLogin);
+                    console.log("TO MAIN");
 
-                    //Debug purpose
-                    //Alert.alert(User.currentUser.name, "You have logged in!");
-                    console.log("CurUser: ", User.currentUser);
-                    //Now, do something with user object User.currentUser
-
-
-                    //Sets a timer to show the background image for three seconds.
-                    if(!this.state.newUser) {
-                        setTimeout(() => {
-                            this.props.navigation.dispatch(wipeLogin);
-                        }, 2500);
-                    }
-                    else {
-                        this.props.navigation.dispatch(wipeLogin);
-                    }
-
+                    this.props.navigation.navigate('Main');
                 });
-                // if(this.state.newUser){
-                // }
-            }
-            else {
-
-                //If the User is not logged in we show the login screen.
-                this.setState(oldValue => {
-                    return {displayLogIn: !oldValue.displayLogIn , newUser: !oldValue.newUser}
-                });
-                console.log("newUser:" + this.state.newUser);
-                //alert("Facebook account not found.");
 
             }
 
@@ -183,11 +159,8 @@ export default class NewUserScreen extends Component {
 
     render() {
         const {navigate} = this.props.navigation;
-        console.log(this.state.displayLogIn);
-        if (!this.state.displayLogIn){
-            return (
-                <LogInBackgroundImage/>
-            )
+        if(this.state.loggedIn){
+            return <LogInBackgroundImage/>
         }
         return (
             <LogInBackgroundImage>

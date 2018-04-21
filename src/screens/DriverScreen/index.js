@@ -68,10 +68,10 @@ class DriverMain extends Component {
 	}
 
 	getTestRide() {
-		console.log("DriverTest: ", User.currentUser);
+		//console.log("DriverTest: ", User.currentUser);
 		let key = Object.keys(User.currentUser.rides)[0];
 		firebase.database().ref(FIREDIR_RIDES + '/' + key).once('value').then(snapshot => {
-			console.log(snapshot.val());
+			//console.log(snapshot.val());
 		});
 	}
 

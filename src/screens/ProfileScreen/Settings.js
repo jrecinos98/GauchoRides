@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 
+
 export default class Settings extends Component{
 
 	static navigationOptions = {
@@ -28,6 +29,7 @@ export default class Settings extends Component{
 				    try {
 				        await firebase.auth().signOut();
 				        this.props.navigation.dispatch(wipeLogout);
+                       // Exponent.Util.reload();
 				    } catch (e) {
 				        console.log(e);
 				    }
@@ -39,12 +41,14 @@ export default class Settings extends Component{
 	}
 }
 
-const wipeLogout = NavigationActions.reset({
-    index: 0,
-    actions: [
-        NavigationActions.navigate({ routeName: 'NewUserScreen' })
-    ]
-});
+const wipeLogout ={
+    type: 'Navigation/NAVIGATE',
+	routeName: 'LoggedInStack',
+    actions: {
+        type: 'Navigation/NAVIGATE',
+		routeName: "Login"
+    }
+};
 
 const styles = StyleSheet.create({
 	buttonLogout: {
