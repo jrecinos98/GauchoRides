@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { View } from "native-base";
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
-
+import DarkTheme from './DarkTheme.json';
 import styles from "./MapStyles";
 
 export default class RideMap extends Component {
+
 
     render() {
 
@@ -22,7 +23,8 @@ export default class RideMap extends Component {
                         longitude: this.props.origin_longitude,
                         latitudeDelta: 0.1,
                         longitudeDelta: 0.1
-                    }}>
+                    }}
+                    customMapStyle={DarkTheme}>
                 </MapView>
             );
         }
@@ -40,7 +42,8 @@ export default class RideMap extends Component {
                     longitude: origin.longitude,
                     latitudeDelta: 0.1,
                     longitudeDelta: 0.1
-                }}>
+                }}
+                customMapStyle={DarkTheme}>
 
                 <MapView.Marker
                     coordinate={{
