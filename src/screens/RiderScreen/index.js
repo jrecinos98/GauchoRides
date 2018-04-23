@@ -13,7 +13,6 @@ export default class RiderScreen extends Component {
             tabBarIcon: ({ tintColor}) => (
 				<Ionicons name="md-body" style={{ color: tintColor, fontSize: 20 }} />
 			),
-            headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
             title: 'Rider',
             headerStyle: {
              backgroundColor: COLOR_APP_BACKGROUND
@@ -24,14 +23,7 @@ export default class RiderScreen extends Component {
              alignSelf: 'center',
              flex: 1,
              fontWeight: 'normal'
-            },
-            headerRight: 
-                <Ionicons
-                    name='ios-settings'
-                    style={{ paddingRight: 10, fontSize: 20,color: COLOR_APP_UNFOCUS }}
-                    onPress={() => {
-                        navigation.navigate('Settings', {name: "Settings"});
-                    }}/>
+            }
         };
     };
 

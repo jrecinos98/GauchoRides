@@ -4,11 +4,15 @@ import * as firebase from 'firebase';
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import User from "../../../src/actors/User";
+import { Ionicons } from '@expo/vector-icons';
 
 
 export default class Settings extends Component{
 
 	static navigationOptions = {
+		tabBarIcon: ({ tintColor }) => (
+		    <Ionicons name="ios-settings" style={{ color: tintColor, fontSize: 20 }} />
+		),
         title: 'Settings',
 		headerStyle: {
 			backgroundColor: COLOR_APP_BACKGROUND
@@ -36,7 +40,7 @@ export default class Settings extends Component{
 				        console.log(e);
 				    }
 				}}>
-                <Text> Facebook Logout </Text>
+                <Text> Logout </Text>
             </TouchableOpacity>
 		);
 

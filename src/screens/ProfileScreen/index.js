@@ -12,9 +12,8 @@ export default class ProfileScreen extends Component{
     static navigationOptions = ({ navigation }) => {
         return {
             tabBarIcon: ({ tintColor }) => (
-                <Ionicons name="ios-settings" style={{ color: tintColor, fontSize: 20 }} />
+                <Ionicons name="ios-contact" style={{ color: tintColor, fontSize: 20 }} />
             ),
-            headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
             title: 'Profile',
             headerStyle: {
              backgroundColor: COLOR_APP_BACKGROUND
@@ -32,33 +31,25 @@ export default class ProfileScreen extends Component{
                     style={{ paddingRight: 10, fontSize: 20,color: COLOR_APP_UNFOCUS }}
                     onPress={() => {
                         navigation.navigate('Settings', {name: "Settings"});
-                    }}/>
+                    }}
+                />
         };
     };
 
     render(){
 		return (
-            <Text> Profile </Text>
+            <View style={styles.container}>
+                <Text> Profile </Text>
+            </View>
 		);
 
     }
 }
 
 const styles = StyleSheet.create({
-    settingsButton: {
-        paddingVertical: 15,
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 10,
-        marginBottom: 10,
-        backgroundColor:'#0d47a1',
-        borderRadius: 10,
-        shadowColor: COLOR_APP_FOCUS,
-        shadowOffset: {
-            width: 0,
-            height: 3
-        },
-        shadowRadius: 10,
-        shadowOpacity: 0.25,
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
