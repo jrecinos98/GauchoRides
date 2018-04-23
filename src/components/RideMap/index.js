@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { View } from "native-base";
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
+import LightTheme from './LightTheme.json';
 import DarkTheme from './DarkTheme.json';
+import OldTheme from './OldTheme.json';
 
 export default class RideMap extends Component {
 
@@ -22,7 +24,8 @@ export default class RideMap extends Component {
                         latitudeDelta: 0.1,
                         longitudeDelta: 0.1
                     }}
-                    customMapStyle={DarkTheme}>
+                    customMapStyle={OldTheme}
+                    mapType="hybrid">
                 </MapView>
             );
         }
@@ -41,7 +44,8 @@ export default class RideMap extends Component {
                     latitudeDelta: 0.1,
                     longitudeDelta: 0.1
                 }}
-                customMapStyle={DarkTheme}>
+                customMapStyle={OldTheme}
+                mapType="hybrid">
 
                 <MapView.Marker
                     coordinate={{
