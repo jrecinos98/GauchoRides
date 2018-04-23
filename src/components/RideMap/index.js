@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { View } from "native-base";
 import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
 import DarkTheme from './DarkTheme.json';
-import styles from "./MapStyles";
 
 export default class RideMap extends Component {
-
 
     render() {
 
@@ -75,5 +73,24 @@ export default class RideMap extends Component {
             </MapView>
 
         );
+    }
+}
+
+const styles = {
+    container: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    map: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
     }
 }

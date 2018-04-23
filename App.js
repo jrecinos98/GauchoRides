@@ -5,7 +5,7 @@ import MainScreen from './src/screens/MainScreen'
 import NewUserScreen from './src/screens/NewUserScreen'
 import { YellowBox } from 'react-native';
 import * as firebase from 'firebase';
-import {LogInBackgroundImage} from "./src/components/Background/BackgroundImage";
+import LoginBackground from "./src/components/LoginBackground";
 import User from "./src/actors/User";
 import {FIREDIR_USERS} from "./src/Constants";
 
@@ -84,7 +84,7 @@ export default class App extends React.Component {
         if (!this.state.loaded) {
             //console.log("Not Loaded");
             return (
-                <LogInBackgroundImage/>
+                <LoginBackground/>
             );
         }
         else {

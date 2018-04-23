@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView, Alert } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView, Alert, YellowBox } from "react-native";
+import { COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE, FIREDIR_USERS } from "../Constants";
+import { NavigationActions } from 'react-navigation';
 import * as firebase from 'firebase';
-import {LoginForm} from "./LogInScreen/LoginForm";
-import {LogInBackgroundImage} from "../components/Background/BackgroundImage"
-import {LoginButtons} from "./LogInScreen/LoginButtons";
-import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE, FIREDIR_USERS} from "../Constants";
-import { YellowBox } from 'react-native';
 import _ from 'lodash';
+import User from '../actors/User';
+import Ride from '../actors/Ride';
+import Area from '../actors/Area';
+import LoginForm from "../components/LoginForm";
+import LoginBackground from "../components/LoginBackground";
+import LoginButton from "../components/LoginButton";
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
@@ -15,12 +18,6 @@ console.warn = message => {
         _console.warn(message);
     }
 };
-
-import User from '../actors/User';
-import Ride from '../actors/Ride';
-import Area from '../actors/Area';
-import { NavigationActions } from 'react-navigation';
-
 
 export default class NewUserScreen extends Component {
 
@@ -107,10 +104,10 @@ export default class NewUserScreen extends Component {
     render() {
         //const {navigate} = this.props.navigation;
         if(this.state.loggedIn){
-            return <LogInBackgroundImage/>
+            return <LoginBackground/>
         }
         return (
-            <LogInBackgroundImage>
+            <LoginBackground>
 
                 <LoginForm
                     callback= {(email, password) => {
@@ -126,13 +123,13 @@ export default class NewUserScreen extends Component {
 
                 <KeyboardAvoidingView behavior="padding">
                     <View style={loginStyle.buttonContainer}>
-                        <LoginButtons
+                        <LoginButton
                             title="LOGIN"
                             callback={() => {
                                 this.logInUser(this.state.email, this.state.password);
                             }}/>
 
-                        <LoginButtons
+                        <LoginButton
                             title="CONTINUE WITH FACEBOOK"
                             callback={() => {
                                 this.loginWithFacebook();
@@ -146,7 +143,7 @@ export default class NewUserScreen extends Component {
                         </Text>
                     </View>
                 </KeyboardAvoidingView>
-            </LogInBackgroundImage>
+            </LoginBackground>
         );
     }
 }

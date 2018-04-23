@@ -1,21 +1,21 @@
-import {COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_BACKGROUND_LOGIN_BUTTON} from "../../Constants";
-import {StyleSheet} from "react-native";
+import React, { Component } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
+import { COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_BACKGROUND_LOGIN_BUTTON } from "../../Constants";
 
+export default class LoginButton extends Component{
+
+    render(){
+        return(
+            <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => this.props.callback()}>
+                <Text style={styles.buttonText}> {this.props.title} </Text>
+            </TouchableOpacity>
+        );
+    }
+}
 
 const styles = StyleSheet.create({
-    textContainer: {
-        backgroundColor: COLOR_APP_BACKGROUND_OPAQUE,
-        //alignItems: 'center',
-        //justifyContent: 'center',
-        //justifyContent: 'space-between'
-    },
-    input: {
-        height: 40,
-        marginBottom: 10,
-        marginTop:10,
-        color: '#FFF',
-        paddingHorizontal: 10
-    },
     buttonText:{
         textAlign: 'center',
         color: "#FFFFFF",
@@ -39,11 +39,5 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 10,
         shadowOpacity: 0.5,
-    },
-    LabelStyle: {
-        color: 'white'
-
     }
-
 });
-export default styles;

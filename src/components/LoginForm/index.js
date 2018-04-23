@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image} from "react-native";
-import styles from "./LoginStyle"
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
+import { COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_BACKGROUND_LOGIN_BUTTON } from "../../Constants";
 
-export class LoginForm extends Component {
+export default class LoginForm extends Component {
 
     constructor(props) {
         super(props);
@@ -52,3 +52,19 @@ export class LoginForm extends Component {
     }
 
 }
+
+const styles = StyleSheet.create({
+    textContainer: {
+        backgroundColor: COLOR_APP_BACKGROUND_OPAQUE,
+        //alignItems: 'center',
+        //justifyContent: 'center',
+        //justifyContent: 'space-between'
+    },
+    input: {
+        height: 40,
+        marginBottom: 10,
+        marginTop:10,
+        color: '#FFF',
+        paddingHorizontal: 10
+    }
+});

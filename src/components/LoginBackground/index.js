@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {ImageBackground, StyleSheet} from "react-native"
 
-export class LogInBackgroundImage extends Component {
+export default class LoginBackground extends Component {
 
     render() {
         return (
