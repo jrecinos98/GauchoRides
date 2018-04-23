@@ -11,39 +11,36 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
 
 
+//Main component for driver screen
 class DriverMain extends Component {
 
+	//Render driver screen tab icon and top bar.
 	static navigationOptions = ({ navigation }) => {
+
         return {
             tabBarIcon: ({ tintColor}) => (
-				<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }}  />
+				<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
 			),
-            headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
             title: 'Driver',
             headerStyle: {
 				backgroundColor: COLOR_APP_BACKGROUND
             },
             headerTitleStyle: {
-             color: COLOR_APP_TITLE,
-             textAlign: 'center',
-             alignSelf: 'center',
-             flex: 1,
-             fontWeight: 'normal'
-            },
-            headerRight: 
-                <Ionicons
-                    name='ios-settings'
-                    style={{ paddingRight: 10, fontSize: 20,color: COLOR_APP_UNFOCUS }}
-                    onPress={() => {
-                        navigation.navigate('Settings', {name: "Settings"});
-                    }}/>
+				color: COLOR_APP_TITLE,
+				textAlign: 'center',
+				alignSelf: 'center',
+				flex: 1,
+				fontWeight: 'normal'
+            }
         };
     };
 
+    //Called when component is mounted.
 	componentDidMount(){
 		this.getTestRide();
 	}
 
+	//Create a sample test ride on firebase.
 	createTestRide() {
 		let ride = new Ride(
 			0,
@@ -66,6 +63,7 @@ class DriverMain extends Component {
 		this.getTestRide();
 	}
 
+	//Get user's first ride from firebase.
 	getTestRide() {
 		//console.log("DriverTest: ", User.currentUser);
 		let key = Object.keys(User.currentUser.rides)[0];
@@ -74,7 +72,7 @@ class DriverMain extends Component {
 		});
 	}
 
-
+	//Render the component
 	render() {
 		return (
 			<View style = {styles.container}>
@@ -84,10 +82,12 @@ class DriverMain extends Component {
 	}
 }
 
+//Stack navigator for driver screen
 export default DriverScreen = StackNavigator({
     DriverMain: {screen: DriverMain}
 });
 
+//Style sheet for driver main screen.
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
