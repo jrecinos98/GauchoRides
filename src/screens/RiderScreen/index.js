@@ -6,7 +6,7 @@ import SearchArea from './SearchArea';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
 
-class RiderMain extends Component {
+export default class RiderScreen extends Component {
 
 	static navigationOptions = ({ navigation }) => {
         return {
@@ -45,17 +45,11 @@ class RiderMain extends Component {
     }
 }
 
-export default RiderScreen = StackNavigator({
-    RiderMain: {screen: RiderMain}
-});
-
 //var width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		//alignItems: 'center',
 		justifyContent: 'center'
-
-        
 	}
 });

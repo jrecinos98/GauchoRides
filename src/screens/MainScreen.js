@@ -1,53 +1,58 @@
 import React, { Component } from "react";
 import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../Constants';
 
+// import DriverStack from './DriverStack';
+import DriverScreen from './DriverScreen';
+import RiderScreen from './RiderScreen';
+import ProfileScreen from './ProfileScreen';
+import Settings from './ProfileScreen/Settings';
 
-import DriverScreen from './DriverScreen'
-import RiderScreen from './RiderScreen'
-import ProfileScreen from './ProfileScreen'
-
+//Main screen of the app.
 export default class MainScreen extends Component{
 
 	static navigationOptions = {
 		header: null
-		// headerLeft: <Ionicons name="ios-refresh" style={{paddingLeft:10, fontSize: 20, color: COLOR_APP_UNFOCUS}} />,
-  //       title: 'Gaucho Rides',
-		// headerStyle: {
-		// 	backgroundColor: COLOR_APP_BACKGROUND
-		// },
-		// headerTitleStyle: {
-		// 	color: COLOR_APP_TITLE,
-		// 	textAlign: 'center',
-		// 	alignSelf: 'center',
-		// 	flex: 1,
-		// 	fontWeight: 'normal'
-  //       },
-		// headerRight: <Ionicons style = {{ paddingRight: 10, fontSize: 20,color: COLOR_APP_UNFOCUS }}/>
 	};
 
 	render(){
 		return(
 			<AppTabNavigator />
 		);
-
 	}
 }
 
 
+//Stack navigator for driver screen
+const DriverStack = StackNavigator({
+    DriverScreen: {screen: DriverScreen}
+});
+
+//Stack navigator for rider screen
+const RiderStack = StackNavigator({
+    RiderScreen: {screen: RiderScreen}
+});
+
+//Stack navigator for profile screen
+const ProfileStack = StackNavigator({
+    ProfileScreen: {screen: ProfileScreen},
+    Settings: {screen: Settings}
+});
+
+
+//Tab navigator for main screen.
 const AppTabNavigator = TabNavigator(
 	{
 		Driver: {
-			screen: DriverScreen
+			screen: DriverStack
 		},
 		Passenger: {
-			screen: RiderScreen
+			screen: RiderStack
 		},
 		Profile:{
-			screen: ProfileScreen
+			screen: ProfileStack
 		}
 	},
 	{
@@ -74,7 +79,6 @@ const AppTabNavigator = TabNavigator(
 		}
 	}
 );
-
 
 const styles = StyleSheet.create({
 	container: {

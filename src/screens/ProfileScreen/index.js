@@ -7,7 +7,7 @@ import NewUserScreen from '../NewUserScreen';
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 
-class ProfileMain extends Component{
+export default class ProfileScreen extends Component{
 
     static navigationOptions = ({ navigation }) => {
         return {
@@ -43,12 +43,6 @@ class ProfileMain extends Component{
 
     }
 }
-
-export default ProfileScreen = StackNavigator({
-    ProfileMain: {screen: ProfileMain},
-    Settings: {screen: Settings}
-
-});
 
 const styles = StyleSheet.create({
     settingsButton: {

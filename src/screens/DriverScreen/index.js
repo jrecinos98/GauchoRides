@@ -12,7 +12,7 @@ import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TIT
 
 
 //Main component for driver screen
-class DriverMain extends Component {
+export default class DriverScreen extends Component {
 
 	//Render driver screen tab icon and top bar.
 	static navigationOptions = ({ navigation }) => {
@@ -82,11 +82,6 @@ class DriverMain extends Component {
 	}
 }
 
-//Stack navigator for driver screen
-export default DriverScreen = StackNavigator({
-    DriverMain: {screen: DriverMain}
-});
-
 //Style sheet for driver main screen.
 const styles = StyleSheet.create({
 	container: {
@@ -94,4 +89,4 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	}
-})
+});
