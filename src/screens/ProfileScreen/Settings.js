@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row'
 	},
 	titleText: {
-		fontSize: "20",
+		fontSize: 20,
 		color: COLOR_APP_FOCUS
 	},
 	divider: {
