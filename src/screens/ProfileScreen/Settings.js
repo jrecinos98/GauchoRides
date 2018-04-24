@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
 		marginRight: Dimensions.get('window').width / 16,
 		marginTop: 10,
 		marginBottom: 10,
-		outline: 1,
+		//outline: 1,
 		zIndex: 5
 	},
 	themeTab: {
@@ -151,7 +151,6 @@ const styles = StyleSheet.create({
 		shadowRadius: 10,
 		shadowOpacity: 0.25,
 		flex: 1,
-        textAlign: 'center',
 		justifyContent: 'center',
 		marginLeft: 5,
 		marginRight: 5
