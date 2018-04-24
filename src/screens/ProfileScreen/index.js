@@ -22,8 +22,14 @@ const Graph= new GraphRequest(
     _responseInfoCallback
 )*/
 
+var settings;
+
 export default class ProfileScreen extends Component{
 
+    constructor(props) {
+        super(props);
+        profileInstance = this;
+    }
 
     static navigationOptions = ({ navigation }) => {
         return {
@@ -47,7 +53,7 @@ export default class ProfileScreen extends Component{
                     name='ios-settings'
                     style={{ paddingRight: 25, paddingLeft: 0, fontSize: 32 ,color: COLOR_APP_UNFOCUS }}
                     onPress={() => {
-                        navigation.navigate('Settings', {name: "Settings"});
+                        settings.setModalVisible(true);
                     }}
                 />
         };
@@ -62,7 +68,7 @@ export default class ProfileScreen extends Component{
                 style={{alignItems: 'center', justifyContent: 'center', width: 150, height: 150}}/>
                 <Text>Profile Picture</Text>
 
-
+                <Settings ref={(instance) => {settings = instance;}}/>
             </View>
 		);
 

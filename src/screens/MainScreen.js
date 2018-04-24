@@ -38,7 +38,7 @@ const RiderStack = StackNavigator({
 //Stack navigator for profile screen
 const ProfileStack = StackNavigator({
     ProfileScreen: {screen: ProfileScreen},
-    Settings: {screen: Settings}
+    // Settings: {screen: Settings}
 });
 
 
