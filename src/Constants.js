@@ -20,6 +20,7 @@ export const FIREDIR_RIDES = 'rides';
 //Matt 1
 export const COLOR_APP_BACKGROUND = '#011a42';
 export const COLOR_APP_BACKGROUND_OPAQUE='rgba(1,26,66,0.3)';
+export const PROFILE_BACKGROUND_DARK= 'rgba(1,26,66,0.8)';
 
 export const COLOR_BACKGROUND_LOGIN_BUTTON= 'rgba(13,71,161, 0.7)';
 export const COLOR_APP_FOCUS = '#6ec6ff';

@@ -25,7 +25,10 @@ const firebaseConfig = {
     storageBucket: "ucsb-rideshare-app.appspot.com",
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
 
 export default class App extends React.Component {
 
