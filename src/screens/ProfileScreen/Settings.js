@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import{ View, StyleSheet, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal } from "react-native";
+import{ View, StyleSheet, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE, COLOR_BUTTON } from '../../Constants';
+import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE, COLOR_BUTTON, STRING_THEME, STRING_THEME_DARK, STRING_THEME_LIGHT, STRING_THEME_CLASSIC } from '../../Constants';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import User from "../../../src/actors/User";
 import LoginButton from "../../components/LoginButton";
@@ -15,13 +15,36 @@ export default class Settings extends Component{
 		super(props);
 		this.state = {
 			tabIndex: 0,
-			visible: false
+			visible: false,
+			background: null
 		};
+		this.updateTheme();
 	}
 
 	setModalVisible(visible) {
 		this.setState({
 			visible: visible
+		});
+	}
+
+	updateTheme() {
+		AsyncStorage.getItem(STRING_THEME).then((value) => {
+
+			if (value === STRING_THEME_DARK) {
+				this.setState({
+					background: COLOR_APP_BACKGROUND
+				});
+			}
+			else if (value === STRING_THEME_LIGHT) {
+				this.setState({
+					background: COLOR_APP_UNFOCUS
+				});
+			}
+			else {
+				this.setState({
+					background: COLOR_APP_TITLE
+				});
+			}
 		});
 	}
 
@@ -37,7 +60,11 @@ export default class Settings extends Component{
 					alert('exit setting');
 				}}>
 
-				<ScrollView style={styles.scrollView}>
+				<ScrollView
+					style={{
+						padding: 20,
+						backgroundColor: this.state.background
+					}}>
 
 
 					<View style={styles.titleBar}>
@@ -55,15 +82,30 @@ export default class Settings extends Component{
 					<CenterText style={styles.titleText}> App Themes: </CenterText>
 					<View style={styles.themeBox}>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity
+							style={styles.themeTab}
+							onPress={() => {
+								AsyncStorage.setItem(STRING_THEME, STRING_THEME_DARK);
+								this.updateTheme();
+							}}>
 							<Text style={styles.buttonText}> Dark </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity
+							style={styles.themeTab}
+							onPress={() => {
+								AsyncStorage.setItem(STRING_THEME, STRING_THEME_LIGHT);
+								this.updateTheme();
+							}}>
 							<Text style={styles.buttonText}> Light </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity
+							style={styles.themeTab}
+							onPress={() => {
+								AsyncStorage.setItem(STRING_THEME, STRING_THEME_CLASSIC);
+								this.updateTheme();
+							}}>
 							<Text style={styles.buttonText}> Classic </Text>
 						</TouchableOpacity>
 
@@ -117,10 +159,6 @@ const wipeLogout ={
 
 
 const styles = StyleSheet.create({
-	scrollView: {
-		padding: 20,
-		backgroundColor: COLOR_APP_BACKGROUND
-	},
 	buttonText: {
 		textAlign: 'center',
 		color: "#FFFFFF",

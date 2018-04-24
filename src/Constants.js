@@ -1,3 +1,10 @@
+// String constants
+export const STRING_THEME = "Theme";
+export const STRING_THEME_DARK = "Dark Theme";
+export const STRING_THEME_LIGHT = "Light Theme";
+export const STRING_THEME_CLASSIC = "Classic Theme";
+
+
 // Firebase constants
 export const FIREDIR_USERS = 'users';
 export const FIREDIR_RIDES = 'rides';
