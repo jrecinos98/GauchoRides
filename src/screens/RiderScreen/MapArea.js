@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import RideMap from '../../components/RideMap';
 
+const mode = 'driving'; // 'walking';
+const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
+
 export default class MapArea extends Component {
 
 	constructor(props) {
@@ -42,21 +45,46 @@ export default class MapArea extends Component {
     }
 
     createRoute() {
-        let mode = 'driving'; // 'walking';
         let origin = this.state.latitude + ',' + this.state.longitude;
-        let destination = 'Las Vegas, Nevada';
-        let APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
-        let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+        let destin = 'Los Angeles, California';
+        let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${APIKEY}&mode=${mode}`;
         
+
         fetch(url)
         .then(response => response.json())
-        .then(responseJson => {
+        .then(async responseJson => {
             if (responseJson.routes.length) {
+                let majorCoords = this.decode(responseJson.routes[0].overview_polyline.points);
+
+                // PLEASE DON'T REMOVE THIS BLOCK OF CODE.
+                // let totalCoords = [];
+                // for (let i = 0; i < majorCoords.length - 1; i++) {
+                //     let eachOrigin = majorCoords[i].latitude + "," + majorCoords[i].longitude;
+                //     let eachDestin = majorCoords[i + 1].latitude + "," + majorCoords[i + 1].longitude;
+                //     let eachCoords = await this.getEachRoute(eachOrigin, eachDestin);
+                //     totalCoords = totalCoords.concat(eachCoords);
+                // }
+
                 this.setState({
-                    coords: this.decode(responseJson.routes[0].overview_polyline.points)
+                    // coords: totalCoords
+                    coords: majorCoords
                 });
             }
         }).catch(e => {console.warn(e)});
+    }
+
+    // Get route with more accuracy
+    getEachRoute(origin, destin) {
+        let url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${APIKEY}&mode=${mode}`;
+        return new Promise(resolve => {
+            fetch(url)
+            .then(response => response.json())
+            .then(responseJson => {
+                if (responseJson.routes.length) {
+                    resolve(this.decode(responseJson.routes[0].overview_polyline.points));
+                }
+            }).catch(e => {console.warn(e)});
+        });
     }
 
     // Transforms something like this geocFltrhVvDsEtA}ApSsVrDaEvAcBSYOS_@... to an array of coordinates
