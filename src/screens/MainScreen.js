@@ -8,6 +8,7 @@ import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TIT
 import DriverScreen from './DriverScreen';
 import RiderScreen from './RiderScreen';
 import ProfileScreen from './ProfileScreen';
+import HistoryScreen from './HistoryScreen';
 import Settings from './ProfileScreen/Settings';
 
 //Main screen of the app.
@@ -40,6 +41,10 @@ const ProfileStack = StackNavigator({
     ProfileScreen: {screen: ProfileScreen},
     // Settings: {screen: Settings}
 });
+const HistoryStack = StackNavigator({
+    HistoryScreen: {screen: HistoryScreen},
+    // Settings: {screen: Settings}
+});
 
 
 //Tab navigator for main screen.
@@ -53,6 +58,9 @@ const AppTabNavigator = TabNavigator(
 		},
 		Profile:{
 			screen: ProfileStack
+		},
+		History:{
+			screen: HistoryStack
 		}
 	},
 	{
