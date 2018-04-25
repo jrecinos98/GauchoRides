@@ -56,12 +56,14 @@ const AppTabNavigator = TabNavigator(
 		Passenger: {
 			screen: RiderStack
 		},
-		Profile:{
-			screen: ProfileStack
-		},
 		History:{
 			screen: HistoryStack
+		},
+
+		Profile:{
+			screen: ProfileStack
 		}
+	
 	},
 	{
 		animationEnabled:true,
