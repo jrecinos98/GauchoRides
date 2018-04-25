@@ -40,6 +40,20 @@ const styles = {
     },
     switchWrapper: {
         margin: 10
+    },
+    logoContainer: {
+        alignItems: 'center',
+        flexGrow: 1,
+        justifyContent: 'center'
+    },
+    logo: {
+        width: 100,
+        height: 100
+    },
+    title: {
+        color: '#FFF',
+        marginTop: 10,
+        width: 160
     }
 };
 
