@@ -15,7 +15,7 @@ export default class RiderScreen extends Component {
 			),
             title: 'Rider',
             headerStyle: {
-             backgroundColor: COLOR_APP_BACKGROUND
+            backgroundColor: COLOR_APP_BACKGROUND
             },
             headerTitleStyle: {
              color: COLOR_APP_TITLE,

@@ -9,7 +9,7 @@ import Area from '../../actors/Area';
 import { FIREDIR_RIDES, FIREDIR_USERS } from "../../Constants";
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
-
+import SearchArea2 from './SearchArea2';
 
 //Main component for driver screen
 export default class DriverScreen extends Component {
@@ -76,7 +76,8 @@ export default class DriverScreen extends Component {
 	render() {
 		return (
 			<View style = {styles.container}>
-				<Text>Driver</Text>
+				<SearchArea2/>
+
 			</View>
 		);
 	}
@@ -86,7 +87,7 @@ export default class DriverScreen extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
+		//alignItems: 'center',
 		justifyContent: 'center'
 	}
 });
