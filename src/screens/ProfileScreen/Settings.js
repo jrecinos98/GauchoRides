@@ -7,6 +7,7 @@ import User from "../../../src/actors/User";
 import LoginButton from "../../components/LoginButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
+import { MainScreenInstance } from "../MainScreen";
 
 
 export default class Settings extends Component{
@@ -111,6 +112,7 @@ export default class Settings extends Component{
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
 								this.updateTheme();
+								MainScreenInstance.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Dark </Text>
 						</TouchableOpacity>
@@ -120,6 +122,7 @@ export default class Settings extends Component{
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
 								this.updateTheme();
+								MainScreenInstance.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Light </Text>
 						</TouchableOpacity>
@@ -129,6 +132,7 @@ export default class Settings extends Component{
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
 								this.updateTheme();
+								MainScreenInstance.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Classic </Text>
 						</TouchableOpacity>

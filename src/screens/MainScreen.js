@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
+import{ AsyncStorage, View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { COLOR } from '../Constants';
+import { COLOR, STRING } from '../Constants';
 
 // import DriverStack from './DriverStack';
 import DriverScreen from './DriverScreen';
@@ -11,6 +11,8 @@ import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
 import Settings from './ProfileScreen/Settings';
 
+export var MainScreenInstance = null;
+
 //Main screen of the app.
 export default class MainScreen extends Component{
 
@@ -18,9 +20,42 @@ export default class MainScreen extends Component{
 		header: null
 	};
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			color_theme: COLOR.THEME_DARK
+		};
+		this.updateTheme();
+		MainScreenInstance = this;
+	}
+
+	updateTheme() {
+		AsyncStorage.getItem(STRING.THEME.KEY).then((value) => {
+
+			if (value === STRING.THEME.DARK) {
+				this.setState({
+					color_theme: COLOR.THEME_DARK
+				});
+			}
+			else if (value === STRING.THEME.LIGHT) {
+				this.setState({
+					color_theme: COLOR.THEME_LIGHT
+				});
+			}
+			else {
+				this.setState({
+					color_theme: COLOR.THEME_LIGHT
+				});
+			}
+			console.log(this.state.color_theme);
+		});
+	}
+
 	render(){
+		const MyTabNavigator = AppTabNavigator(this.state.color_theme);
+
 		return(
-			<AppTabNavigator />
+			<MyTabNavigator/>
 		);
 	}
 }
@@ -48,7 +83,7 @@ const HistoryStack = StackNavigator({
 
 
 //Tab navigator for main screen.
-const AppTabNavigator = TabNavigator(
+const AppTabNavigator = (color_theme) => TabNavigator(
 	{
 		Driver: {
 			screen: DriverStack
@@ -73,17 +108,17 @@ const AppTabNavigator = TabNavigator(
 			style:{
 				...Platform.select({
 					android:{
-						backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND,
+						backgroundColor: color_theme.APP_BACKGROUND,
 
 					},
 					ios:{
-                        backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND,
+                        backgroundColor: color_theme.APP_BACKGROUND,
                     }
 				})
 			},
 
-            activeTintColor: COLOR.THEME_DARK.APP_FOCUS,
-			inactiveTintColor: COLOR.THEME_DARK.APP_UNFOCUS,
+            activeTintColor: color_theme.APP_FOCUS,
+			inactiveTintColor: color_theme.APP_UNFOCUS,
 			showIcon:true,
 			showLabel:true //set to false if don't want name
 		}
