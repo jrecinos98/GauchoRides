@@ -72,13 +72,12 @@ export default class ProfileScreen extends Component{
     };
 
     render(){
-        console.log(User.currentUser.photo+'?type=large');
 		return (
             <View style={styles.container}>
                 <Text style={styles.textStyle}>{User.currentUser.name}</Text>
                 <Image
                     borderRadius={72}
-                    source={{uri: User.currentUser.photo+'?type=large'}}
+                    source={{uri: 'https://graph.facebook.com/'+User.currentUser.fbID+'/picture?type=large'}}
                 style={{alignItems: 'center', justifyContent: 'center', width: 150, height: 150}}/>
                 <Text style={{color:'white'}}>Profile Picture</Text>
 

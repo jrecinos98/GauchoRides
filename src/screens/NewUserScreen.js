@@ -93,9 +93,15 @@ export default class NewUserScreen extends Component {
         ('615345508804840', {
             permissions: ['public_profile', 'email'],
         });
+        fetch("https://graph.facebook.com/me?fields=id&access_token="+token, {
+            method: 'GET'
+        })
+
+
         if (type === 'success') {
             const credential = firebase.auth.FacebookAuthProvider.credential(token);
             firebase.auth().signInWithCredential(credential).catch((error) => {
+
                 alert(error);
             })
         }

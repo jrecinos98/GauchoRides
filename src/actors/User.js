@@ -1,9 +1,9 @@
 export default class User {
 	id: 0;
+	fbID:0;
 	name: string;
 	email: string;
 	description: string;
-	photo: string;
 	rating: 0.0;
 	drive_rating: 0.0;
 	tags: {};
@@ -13,10 +13,10 @@ export default class User {
 	constructor (object, isFB) {
 		if (isFB) {
 			this.id = object.uid;
+			this.fbID= object.providerData[0].uid;
 			this.name = object.displayName;
 			this.email = object.email;
 			this.description = "";
-			this.photo = object.photoURL;
 			this.rating = 10.0;
 			this.drive_rating = 10.0;
 			this.tags = {};
@@ -25,10 +25,10 @@ export default class User {
 		}
 		else {
 			this.id = object.id;
+			this.fbID= object.fbID;
 			this.name = object.name;
 			this.email = object.email;
 			this.description = object.description;
-			this.photo = object.photo;
 			this.rating = object.rating;
 			this.drive_rating = object.drive_rating;
 			this.tags = ('tags' in object) ? object.tags : {};
@@ -37,6 +37,7 @@ export default class User {
 		}
 	}
 }
+
 
 User.currentUser = null;
 User.isFB = true;

@@ -94,12 +94,12 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "com.gauchorides"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         ndk {
@@ -136,18 +136,18 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-facebook-login')
-    implementation(project(':react-native-firebase')) {
+    //implementation project(':react-native-facebook-login')
+    api(project(':react-native-firebase')) {
         transitive = false
     }
-    implementation project(':react-native-navigation')
-    implementation project(':react-native-fbsdk')
-    implementation project(':react-native-facebook-login')
-    implementation project(':react-native-vector-icons')
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:27.0.2"
-    implementation 'com.facebook.android:facebook-android-sdk:4.32.0'
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    api project(':react-native-navigation')
+    api project(':react-native-fbsdk')
+    //implementation project(':react-native-facebook-login')
+    api project(':react-native-vector-icons')
+    api fileTree(dir: "libs", include: ["*.jar"])
+    //api "com.android.support:appcompat-v7:27.0.2"
+    api 'com.facebook.android:facebook-android-sdk:4.32.0'
+    api "com.facebook.react:react-native:+"  // From node_modules
 
 }
 

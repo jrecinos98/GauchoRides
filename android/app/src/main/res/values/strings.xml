@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">Gaucho Rides</string>
-    <string name="facebook_app_id">615345508804840</string>
-    <string name="fb_login_protocol_scheme">fb615345508804840</string>
+    <string name="app_name">GauchoRides</string>
 </resources>
