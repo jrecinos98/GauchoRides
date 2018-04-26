@@ -43,6 +43,7 @@ export default class ProfileScreen extends Component{
         });
     }
 
+
     static navigationOptions = {
         tabBarIcon: ({ tintColor }) => (
             <Ionicons name="ios-contact" style={{ color: tintColor, fontSize: 20 }} />
@@ -70,7 +71,6 @@ export default class ProfileScreen extends Component{
 		return (
 
             <View>
-
                 <Settings ref={(instance) => {settings = instance;}}/>
 
                 <StatusBar hidden={true}/>
@@ -86,11 +86,13 @@ export default class ProfileScreen extends Component{
 
                 <Text style={customStyle.title}>Profile</Text>
 
+
                 <View style={styles.container}>
-                    <Image
-                        source={{uri: User.currentUser.photo+'?type=large'}}
-                        style={styles.profileImage}/>
-                    <Text>Profile Picture</Text>
+                <Text style={styles.textStyle}>{User.currentUser.name}</Text>
+                <Image
+                    borderRadius={72}
+                    source={{uri: 'https://graph.facebook.com/'+User.currentUser.fbID+'/picture?type=large'}}
+                style={{alignItems: 'center', justifyContent: 'center', width: 150, height: 150}}/>
 
                 </View>
 
@@ -102,9 +104,22 @@ export default class ProfileScreen extends Component{
 
 const styles = StyleSheet.create({
     container: {
+      /*
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor:  PROFILE_BACKGROUND_DARK*/
         marginTop: 60,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    textStyle: {
+        color:'white',
+        textShadowColor:'rgba(0, 0, 0, 0.6)',
+        fontSize:25,
+        textShadowOffset: {width: -1, height: 1},
+        textShadowRadius: 6
     },
     topBar: {
         backgroundColor: null,

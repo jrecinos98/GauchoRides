@@ -25,7 +25,10 @@ const firebaseConfig = {
     storageBucket: "ucsb-rideshare-app.appspot.com",
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
 
 export default class App extends React.Component {
 
@@ -91,12 +94,10 @@ export default class App extends React.Component {
             //console.log(this.state.loaded);
             if (this.state.loggedIn ) {
                 console.log(User.currentUser);
-                console.log("Logged in: "+ this.state.loggedIn );
                 return (
                     <LoggedInStack/>
                 );
             }
-            console.log("Not Logged in");
             return <NewUserScreen/>
         }
     }

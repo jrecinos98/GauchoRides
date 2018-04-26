@@ -55,6 +55,9 @@ export const COLOR = {
 // export const COLOR_APP_FOCUS = '#6ec6ff';
 // export const COLOR_APP_UNFOCUS = '#3498db';
 
+export const PROFILE_BACKGROUND_DARK= 'rgba(1,26,66,0.8)';
+
+
 // Light Theme
 //export const COLOR_APP_BACKGROUND = '#FFFFFF';
 //export const COLOR_APP_FOCUS = '#000000';

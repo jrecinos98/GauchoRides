@@ -152,8 +152,6 @@ export default class Settings extends Component{
 							await firebase.auth().signOut();
 							settings_this.props.navigation.dispatch(wipeLogout);
 						}}/>
-
-
 				</ScrollView>
 			</Modal>
 		);
