@@ -38,6 +38,17 @@ export const COLOR = {
 		APP_TITLE_LOGIN: 		'#000000',
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)'
+	},
+
+	THEME_CLASSIC: {
+		APP_BACKGROUND: 		'#0f2236',
+		APP_BACKGROUND_OPQUE: 	'#ffffff',
+		APP_FOCUS: 				'#b3ad08',
+		APP_UNFOCUS: 			'#c3e0c3',
+		APP_TITLE: 				'#3498db',
+		APP_TITLE_LOGIN: 		'#FFD700',
+		BUTTON: 				'#0d47a1',
+		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)'
 	}
 
 }

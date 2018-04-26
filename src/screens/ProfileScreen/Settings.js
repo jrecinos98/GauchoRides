@@ -66,9 +66,7 @@ export default class Settings extends Component{
 			<Modal
 				visible={settings_this.state.visible}
 				transparent={false}
-				animationInTiming={300}
-				animationIn={'slideInUp'}
-				animationOut={'slideOutDown'}
+				animationType='slide'
 				onRequestClose={() => {
 					alert('exit setting');
 				}}>

@@ -55,11 +55,11 @@ export default class RiderScreen extends Component {
 
                 <View style={customStyle.topBar}/>
 
-                <Text style={customStyle.title}>Rider</Text>
+                <Text style={customStyle.title}>Passenger</Text>
 
                 <MapArea/>
 
-                <SearchArea/>
+                <SearchArea color_theme={rider_this.state.color_theme}/>
 
             </View>
         );

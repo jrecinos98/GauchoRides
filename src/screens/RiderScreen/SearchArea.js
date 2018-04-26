@@ -45,6 +45,14 @@ export default class SearchArea extends Component {
     }
 
     render() {
+
+        const customStyle = {
+            buttonContainer: [styles.buttonContainer, {
+                backgroundColor: this.props.color_theme.APP_BACKGROUND,
+                shadowColor: this.props.color_theme.APP_UNFOCUS
+            }]
+        };
+
         return (
             this.state.status ?
 
@@ -61,10 +69,8 @@ export default class SearchArea extends Component {
                         marginRight:10,
                         marginTop:30,
                         marginBottom:0}}> This is Android Device. </Text>  }
-                <View style={styles.buttonContainer}>
-                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!">
-                        <Text > Find Ride! </Text>
-                    </Button>
+                <View style={customStyle.buttonContainer}>
+                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!"/>
                 </View>
 
             </View> : null
@@ -73,6 +79,7 @@ export default class SearchArea extends Component {
 
     }
 }
+
 
 //var width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
@@ -86,10 +93,10 @@ const styles = StyleSheet.create({
         marginRight:10,
         marginTop:10,
         marginBottom:0,
-        backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND,
+        backgroundColor: null,
         borderRadius: 10,
         padding: 10,
-        shadowColor: COLOR.THEME_DARK.APP_UNFOCUS,
+        shadowColor: null,
         shadowOffset: {
             width: 0,
             height: 3
