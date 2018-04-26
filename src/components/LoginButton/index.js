@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
-import { COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_BACKGROUND_LOGIN_BUTTON } from "../../Constants";
+import { COLOR } from "../../Constants";
 
 export default class LoginButton extends Component{
 
@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginTop: 3,
         marginBottom: 3,
-        backgroundColor: COLOR_BACKGROUND_LOGIN_BUTTON,
+        backgroundColor: COLOR.THEME_DARK.BUTTON_LOGIN,
         borderRadius: 10,
-        shadowColor: COLOR_APP_FOCUS,
+        shadowColor: COLOR.THEME_DARK.APP_FOCUS,
         shadowOffset: {
             width: 0,
             height: 3

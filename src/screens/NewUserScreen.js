@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView, Alert, YellowBox } from "react-native";
-import { COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_LOGIN_TITLE, FIREDIR_USERS } from "../Constants";
+import { COLOR, FIREBASE } from "../Constants";
 import { NavigationActions } from 'react-navigation';
 import * as firebase from 'firebase';
 import _ from 'lodash';
@@ -75,10 +75,10 @@ export default class NewUserScreen extends Component {
     static navigationOptions = {
         title:"Welcome",
         headerStyle: {
-            backgroundColor: COLOR_APP_BACKGROUND
+            backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND
         },
         headerTitleStyle: {
-            color: COLOR_APP_LOGIN_TITLE,
+            color: COLOR.THEME_DARK.APP_TITLE_LOGIN,
             textAlign: 'center',
             alignSelf: 'center',
             flex: 1,

@@ -1,41 +1,44 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StatusBar, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
 import * as firebase from 'firebase';
 import User from '../../actors/User';
 import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
-import { FIREDIR_RIDES, FIREDIR_USERS } from "../../Constants";
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
-
+import { COLOR, FIREBASE } from '../../Constants';
+import SearchArea2 from './SearchArea2';
+import { getTheme } from '../../Utility';
 
 //Main component for driver screen
 export default class DriverScreen extends Component {
 
+	static driver_this = null;
+
+	constructor(props) {
+		super(props);
+		driver_this = this;
+
+		driver_this.state = {
+			color_theme: COLOR.THEME_LIGHT
+		}
+
+		getTheme(function(theme) {
+			driver_this.setState({
+				color_theme: theme
+			});
+		});
+	}
+
 	//Render driver screen tab icon and top bar.
-	static navigationOptions = ({ navigation }) => {
+	static navigationOptions = {
+		tabBarIcon: ({ tintColor}) => (
+			<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
+		)
+	};
 
-        return {
-            tabBarIcon: ({ tintColor}) => (
-				<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
-			),
-            title: 'Driver',
-            headerStyle: {
-				backgroundColor: COLOR_APP_BACKGROUND
-            },
-            headerTitleStyle: {
-				color: COLOR_APP_TITLE,
-				textAlign: 'center',
-				alignSelf: 'center',
-				flex: 1,
-				fontWeight: 'normal'
-            }
-        };
-    };
-
-    //Called when component is mounted.
+	//Called when component is mounted.
 	componentDidMount(){
 		this.getTestRide();
 	}
@@ -54,11 +57,11 @@ export default class DriverScreen extends Component {
 		);
 
 		//Store to firebase
-		var newRide = firebase.database().ref(FIREDIR_RIDES + '/').push(ride);
+		var newRide = firebase.database().ref(FIREBASE.RIDES_PATH + '/').push(ride);
 
 		//Update driver information on firebase
 		User.currentUser.rides[newRide.key] = 'driver';
-		firebase.database().ref(FIREDIR_USERS + '/' + User.currentUser.id).set(User.currentUser);
+		firebase.database().ref(FIREBASE.USERS_PATH + '/' + User.currentUser.id).set(User.currentUser);
 
 		this.getTestRide();
 	}
@@ -67,16 +70,37 @@ export default class DriverScreen extends Component {
 	getTestRide() {
 		//console.log("DriverTest: ", User.currentUser);
 		let key = Object.keys(User.currentUser.rides)[0];
-		firebase.database().ref(FIREDIR_RIDES + '/' + key).once('value').then(snapshot => {
+		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + key).once('value').then(snapshot => {
 			//console.log(snapshot.val());
 		});
 	}
 
 	//Render the component
 	render() {
+
+		const customStyle = {
+
+			topBar: [styles.topBar, {
+				backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
+			}],
+
+			title: [styles.title, {
+				color: driver_this.state.color_theme.APP_FOCUS
+			}]
+
+		};
+
 		return (
 			<View style = {styles.container}>
-				<Text>Driver</Text>
+
+				<StatusBar hidden={true}/>
+
+				<View style={customStyle.topBar}/>
+
+				<Text style={customStyle.title}>Driver</Text>
+
+				<SearchArea2/>
+
 			</View>
 		);
 	}
@@ -86,7 +110,21 @@ export default class DriverScreen extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center'
+		//alignItems: 'center',
+		// justifyContent: 'center',
+		flexDirection: 'column'
+	},
+	topBar: {
+		backgroundColor: null,
+		alignSelf: 'stretch',
+		height: 60
+	},
+	title: {
+		color: null,
+		alignSelf: 'center',
+		justifyContent: 'center',
+		position: 'absolute',
+		fontSize: 20,
+		paddingTop: 20
 	}
 });

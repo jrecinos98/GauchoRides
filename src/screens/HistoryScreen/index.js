@@ -1,36 +1,38 @@
 import React, { Component } from "react";
 import { StatusBar, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import MapArea from './MapArea';
-import SearchArea from './SearchArea';
+
+import RideHistory from '../../components/RideHistory';
+
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { COLOR } from '../../Constants';
 import { getTheme } from '../../Utility';
 
 
-export default class RiderScreen extends Component {
 
-    static rider_this = null;
+
+export default class HistoryScreen extends Component {
+
+    static history_this = null;
 
     constructor(props) {
         super(props);
-        rider_this = this;
+        history_this = this;
 
-        rider_this.state = {
+        history_this.state = {
             color_theme: COLOR.THEME_LIGHT
         }
 
         getTheme(function(theme) {
-            rider_this.setState({
+            history_this.setState({
                 color_theme: theme
             });
         });
     }
 
-
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
-            <Ionicons name="md-body" style={{ color: tintColor, fontSize: 20 }} />
+            <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }} />
         )
     };
 
@@ -39,28 +41,34 @@ export default class RiderScreen extends Component {
         const customStyle = {
 
             topBar: [styles.topBar, {
-                backgroundColor: rider_this.state.color_theme.APP_BACKGROUND
+                backgroundColor: history_this.state.color_theme.APP_BACKGROUND
             }],
 
             title: [styles.title, {
-                color: rider_this.state.color_theme.APP_FOCUS
+                color: history_this.state.color_theme.APP_FOCUS
             }]
 
         };
 
         return (
             <View style={styles.container}>
-
                 <StatusBar hidden={true}/>
-
                 <View style={customStyle.topBar}/>
 
-                <Text style={customStyle.title}>Rider</Text>
 
-                <MapArea/>
+                <View style={{
+                    marginTop: 60,
+                    position: 'absolute'
+                }}>
+                    <RideHistory style={{
+                        flex: 1,
+                        aspectRatio: 0.5,
+                        resizeMode: 'contain'
+                    }}/>
+                </View>
 
-                <SearchArea/>
 
+                <Text style={customStyle.title}>History</Text>
             </View>
         );
     }

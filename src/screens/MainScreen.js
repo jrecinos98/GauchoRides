@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
+import{ AsyncStorage, View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../Constants';
+import { COLOR, STRING } from '../Constants';
+import { getTheme } from '../Utility';
 
 // import DriverStack from './DriverStack';
 import DriverScreen from './DriverScreen';
 import RiderScreen from './RiderScreen';
 import ProfileScreen from './ProfileScreen';
+import HistoryScreen from './HistoryScreen';
 import Settings from './ProfileScreen/Settings';
+
+export var MainScreenInstance = null;
 
 //Main screen of the app.
 export default class MainScreen extends Component{
@@ -17,43 +21,52 @@ export default class MainScreen extends Component{
 		header: null
 	};
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			color_theme: COLOR.THEME_DARK
+		};
+
+		MainScreenInstance = this;
+		this.updateTheme();
+	}
+
+	updateTheme() {
+		getTheme(function(theme) {
+			console.log("My THeme", theme);
+			MainScreenInstance.setState({
+				color_theme: theme
+			});
+		});
+	}
+
 	render(){
+		const MyTabNavigator = AppTabNavigator(this.state.color_theme);
+
 		return(
-			<AppTabNavigator />
+			<MyTabNavigator/>
 		);
 	}
 }
 
 
-//Stack navigator for driver screen
-const DriverStack = StackNavigator({
-    DriverScreen: {screen: DriverScreen}
-});
-
-//Stack navigator for rider screen
-const RiderStack = StackNavigator({
-    RiderScreen: {screen: RiderScreen}
-});
-
-//Stack navigator for profile screen
-const ProfileStack = StackNavigator({
-    ProfileScreen: {screen: ProfileScreen},
-    // Settings: {screen: Settings}
-});
-
-
 //Tab navigator for main screen.
-const AppTabNavigator = TabNavigator(
+const AppTabNavigator = (color_theme) => TabNavigator(
 	{
 		Driver: {
-			screen: DriverStack
+			screen: DriverScreen
 		},
 		Passenger: {
-			screen: RiderStack
+			screen: RiderScreen
 		},
+		History:{
+			screen: HistoryScreen
+		},
+
 		Profile:{
-			screen: ProfileStack
+			screen: ProfileScreen
 		}
+	
 	},
 	{
 		animationEnabled:true,
@@ -63,17 +76,17 @@ const AppTabNavigator = TabNavigator(
 			style:{
 				...Platform.select({
 					android:{
-						backgroundColor: COLOR_APP_BACKGROUND,
+						backgroundColor: color_theme.APP_BACKGROUND,
 
 					},
 					ios:{
-                        backgroundColor: COLOR_APP_BACKGROUND,
+                        backgroundColor: color_theme.APP_BACKGROUND,
                     }
 				})
 			},
 
-            activeTintColor: COLOR_APP_FOCUS,
-			inactiveTintColor: COLOR_APP_UNFOCUS,
+            activeTintColor: color_theme.APP_FOCUS,
+			inactiveTintColor: color_theme.APP_UNFOCUS,
 			showIcon:true,
 			showLabel:true //set to false if don't want name
 		}

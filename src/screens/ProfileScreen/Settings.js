@@ -1,22 +1,35 @@
 import React, { Component } from "react";
-import{ View, StyleSheet, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal } from "react-native";
+import{ View, StyleSheet, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE, COLOR_BUTTON } from '../../Constants';
+import { COLOR, STRING } from '../../Constants';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import User from "../../../src/actors/User";
 import LoginButton from "../../components/LoginButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
+import { MainScreenInstance } from "../MainScreen";
+import { getTheme } from '../../Utility';
 
 
 export default class Settings extends Component{
 
+	static settings_this = null;
+
 	constructor(props) {
 		super(props);
-		this.state = {
+		settings_this = this;
+
+		settings_this.state = {
 			tabIndex: 0,
-			visible: false
+			visible: false,
+			color_theme: COLOR.THEME_LIGHT
 		};
+
+		getTheme(function(theme) {
+			settings_this.setState({
+				color_theme: theme
+			});
+		});
 	}
 
 	setModalVisible(visible) {
@@ -26,9 +39,32 @@ export default class Settings extends Component{
 	}
 
 	render(){
+
+		const customStyle = {
+
+			themeTab: [styles.themeTab, {
+				backgroundColor: settings_this.state.color_theme.BUTTON,
+				shadowColor: settings_this.state.color_theme.APP_FOCUS
+			}],
+
+			buttonClose: [styles.buttonClose, {
+				color: settings_this.state.color_theme.APP_FOCUS
+			}],
+
+			titleText: [styles.titleText, {
+				color: settings_this.state.color_theme.APP_FOCUS
+			}],
+
+			divider: [styles.divider, {
+				borderBottomColor: settings_this.state.color_theme.BUTTON
+			}]
+
+		};
+
 		return(
+
 			<Modal
-				visible={this.state.visible}
+				visible={settings_this.state.visible}
 				transparent={false}
 				animationInTiming={300}
 				animationIn={'slideInUp'}
@@ -37,65 +73,84 @@ export default class Settings extends Component{
 					alert('exit setting');
 				}}>
 
-				<ScrollView style={styles.scrollView}>
+				<ScrollView
+					style={{
+						padding: 20,
+						backgroundColor: (settings_this.state.color_theme)? settings_this.state.color_theme.APP_BACKGROUND: null
+					}}>
 
 
 					<View style={styles.titleBar}>
 						<Ionicons
 							name="ios-close"
-							style={styles.buttonClose}
+							style={customStyle.buttonClose}
 							onPress={() => {
-								this.setModalVisible(false);
+								settings_this.setModalVisible(false);
 							}}/>
 
-						<CenterText style={styles.titleText}> Settings </CenterText>
+						<CenterText style={customStyle.titleText}> Settings </CenterText>
 					</View>
 
 
-					<CenterText style={styles.titleText}> App Themes: </CenterText>
+					<CenterText style={customStyle.titleText}> App Themes: </CenterText>
 					<View style={styles.themeBox}>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity
+							style={customStyle.themeTab}
+							onPress={() => {
+								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
+								MainScreenInstance.updateTheme();
+							}}>
 							<Text style={styles.buttonText}> Dark </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity
+							style={customStyle.themeTab}
+							onPress={() => {
+								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
+								MainScreenInstance.updateTheme();
+							}}>
 							<Text style={styles.buttonText}> Light </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity
+							style={customStyle.themeTab}
+							onPress={() => {
+								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
+								MainScreenInstance.updateTheme();
+							}}>
 							<Text style={styles.buttonText}> Classic </Text>
 						</TouchableOpacity>
 
 					</View>
 
 
-					<View style={styles.divider}/>
-					<CenterText style={styles.titleText}> Map Themes: </CenterText>
+					<View style={customStyle.divider}/>
+					<CenterText style={customStyle.titleText}> Map Themes: </CenterText>
 					<View style={styles.themeBox}>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity style={customStyle.themeTab}>
 							<Text style={styles.buttonText}> Dark </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity style={customStyle.themeTab}>
 							<Text style={styles.buttonText}> Light </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity style={customStyle.themeTab}>
 							<Text style={styles.buttonText}> Classic </Text>
 						</TouchableOpacity>
 
 					</View>
 
 
-					<View style={styles.divider}/>
-					<CenterText style={styles.titleText}> App Exit: </CenterText>
+					<View style={customStyle.divider}/>
+					<CenterText style={customStyle.titleText}> App Exit: </CenterText>
 					<LoginButton
 						title="Logout"
 						callback={async () => {
 							await firebase.auth().signOut();
-							this.props.navigation.dispatch(wipeLogout);
+							settings_this.props.navigation.dispatch(wipeLogout);
 						}}/>
 				</ScrollView>
 			</Modal>
@@ -115,10 +170,6 @@ const wipeLogout ={
 
 
 const styles = StyleSheet.create({
-	scrollView: {
-		padding: 20,
-		backgroundColor: COLOR_APP_BACKGROUND
-	},
 	buttonText: {
 		textAlign: 'center',
 		color: "#FFFFFF",
@@ -139,9 +190,9 @@ const styles = StyleSheet.create({
 	themeTab: {
 		width: Dimensions.get('window').width / 4,
 		height: 50,
-		backgroundColor: COLOR_BUTTON,
+		backgroundColor: null,
 		borderRadius: 5,
-		shadowColor: COLOR_APP_FOCUS,
+		shadowColor: null,
 		shadowOffset: {
 			width: 0,
 			height: 3
@@ -154,7 +205,7 @@ const styles = StyleSheet.create({
 		marginRight: 5
 	},
 	buttonClose: {
-		color: COLOR_APP_FOCUS,
+		color: null,
 		fontSize: 50,
 		width: 100
 	},
@@ -163,10 +214,10 @@ const styles = StyleSheet.create({
 	},
 	titleText: {
 		fontSize: 20,
-		color: COLOR_APP_FOCUS
+		color: null
 	},
 	divider: {
-	    borderBottomColor: COLOR_BUTTON,
+	    borderBottomColor: null,
 	    borderBottomWidth: 1,
 	    marginLeft: Dimensions.get('window').width / 16,
 	    marginRight: Dimensions.get('window').width / 16,
