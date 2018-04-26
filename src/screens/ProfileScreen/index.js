@@ -3,7 +3,7 @@ import { StatusBar, View, Image, Text, StyleSheet, Button, TouchableOpacity } fr
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import MainScreen from '../MainScreen';
 import Settings from './Settings';
-import { COLOR } from '../../Constants';
+import { COLOR, PROFILE_BACKGROUND_DARK } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import {GraphRequest} from 'react-native-fbsdk';
 import User from "../../../src/actors/User";
@@ -93,7 +93,6 @@ export default class ProfileScreen extends Component{
                     borderRadius={72}
                     source={{uri: 'https://graph.facebook.com/'+User.currentUser.fbID+'/picture?type=large'}}
                 style={{alignItems: 'center', justifyContent: 'center', width: 150, height: 150}}/>
-
                 </View>
 
             </View>
@@ -108,8 +107,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        backgroundColor:  PROFILE_BACKGROUND_DARK*/
+        alignItems: 'center',*/
+        backgroundColor:  PROFILE_BACKGROUND_DARK,
         marginTop: 60,
         alignItems: 'center',
         justifyContent: 'center'

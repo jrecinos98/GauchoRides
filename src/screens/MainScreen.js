@@ -77,7 +77,7 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 				...Platform.select({
 					android:{
 						backgroundColor: color_theme.APP_BACKGROUND,
-
+						//height:50
 					},
 					ios:{
                         backgroundColor: color_theme.APP_BACKGROUND,
@@ -88,7 +88,7 @@ const AppTabNavigator = (color_theme) => TabNavigator(
             activeTintColor: color_theme.APP_FOCUS,
 			inactiveTintColor: color_theme.APP_UNFOCUS,
 			showIcon:true,
-			showLabel:true //set to false if don't want name
+			showLabel:Platform.OS === 'ios' //set to false if don't want name
 		}
 	}
 );
