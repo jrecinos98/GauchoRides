@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import{ View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../Constants';
+import { COLOR } from '../Constants';
 
 // import DriverStack from './DriverStack';
 import DriverScreen from './DriverScreen';
@@ -73,17 +73,17 @@ const AppTabNavigator = TabNavigator(
 			style:{
 				...Platform.select({
 					android:{
-						backgroundColor: COLOR_APP_BACKGROUND,
+						backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND,
 
 					},
 					ios:{
-                        backgroundColor: COLOR_APP_BACKGROUND,
+                        backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND,
                     }
 				})
 			},
 
-            activeTintColor: COLOR_APP_FOCUS,
-			inactiveTintColor: COLOR_APP_UNFOCUS,
+            activeTintColor: COLOR.THEME_DARK.APP_FOCUS,
+			inactiveTintColor: COLOR.THEME_DARK.APP_UNFOCUS,
 			showIcon:true,
 			showLabel:true //set to false if don't want name
 		}

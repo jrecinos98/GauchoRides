@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions, Platform} from "react-native";
 import SearchBoxDriver from '../../components/SearchBox/index2';
-import {COLOR_APP_BACKGROUND, COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS} from "../../Constants"
+import { COLOR } from "../../Constants"
 
 export default class SearchArea2 extends Component {
 
@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
         marginRight:10,
         marginTop:10,
         marginBottom:0,
-        backgroundColor: COLOR_APP_BACKGROUND,
+        backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND,
         borderRadius: 10,
         padding: 10,
-        shadowColor: COLOR_APP_UNFOCUS,
+        shadowColor: COLOR.THEME_DARK.APP_UNFOCUS,
         shadowOffset: {
             width: 0,
             height: 3

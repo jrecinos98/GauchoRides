@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import RideHistory from '../../components/RideHistory';
 
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
+import { COLOR } from '../../Constants';
 
 
 
@@ -19,10 +19,10 @@ export default class HistoryScreen extends Component {
             ),
             title: 'History',
             headerStyle: {
-            backgroundColor: COLOR_APP_BACKGROUND
+            backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND
             },
             headerTitleStyle: {
-             color: COLOR_APP_TITLE,
+             color: COLOR.THEME_DARK.APP_TITLE,
              textAlign: 'center',
              alignSelf: 'center',
              flex: 1,

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE, COLOR_BUTTON, STRING_THEME, STRING_THEME_DARK, STRING_THEME_LIGHT, STRING_THEME_CLASSIC } from '../../Constants';
+import { COLOR, STRING } from '../../Constants';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import User from "../../../src/actors/User";
 import LoginButton from "../../components/LoginButton";
@@ -28,21 +28,21 @@ export default class Settings extends Component{
 	}
 
 	updateTheme() {
-		AsyncStorage.getItem(STRING_THEME).then((value) => {
+		AsyncStorage.getItem(STRING.THEME.KEY).then((value) => {
 
-			if (value === STRING_THEME_DARK) {
+			if (value === STRING.THEME.DARK) {
 				this.setState({
-					background: COLOR_APP_BACKGROUND
+					background: COLOR.THEME_DARK.APP_BACKGROUND
 				});
 			}
-			else if (value === STRING_THEME_LIGHT) {
+			else if (value === STRING.THEME.LIGHT) {
 				this.setState({
-					background: COLOR_APP_UNFOCUS
+					background: COLOR.THEME_DARK.APP_UNFOCUS
 				});
 			}
 			else {
 				this.setState({
-					background: COLOR_APP_TITLE
+					background: COLOR.THEME_DARK.APP_TITLE
 				});
 			}
 		});
@@ -85,7 +85,7 @@ export default class Settings extends Component{
 						<TouchableOpacity
 							style={styles.themeTab}
 							onPress={() => {
-								AsyncStorage.setItem(STRING_THEME, STRING_THEME_DARK);
+								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
 								this.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Dark </Text>
@@ -94,7 +94,7 @@ export default class Settings extends Component{
 						<TouchableOpacity
 							style={styles.themeTab}
 							onPress={() => {
-								AsyncStorage.setItem(STRING_THEME, STRING_THEME_LIGHT);
+								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
 								this.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Light </Text>
@@ -103,7 +103,7 @@ export default class Settings extends Component{
 						<TouchableOpacity
 							style={styles.themeTab}
 							onPress={() => {
-								AsyncStorage.setItem(STRING_THEME, STRING_THEME_CLASSIC);
+								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
 								this.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Classic </Text>
@@ -158,6 +158,7 @@ const wipeLogout ={
 };
 
 
+
 const styles = StyleSheet.create({
 	buttonText: {
 		textAlign: 'center',
@@ -179,9 +180,9 @@ const styles = StyleSheet.create({
 	themeTab: {
 		width: Dimensions.get('window').width / 4,
 		height: 50,
-		backgroundColor: COLOR_BUTTON,
+		backgroundColor: COLOR.THEME_DARK.BUTTON,
 		borderRadius: 5,
-		shadowColor: COLOR_APP_FOCUS,
+		shadowColor: COLOR.THEME_DARK.APP_FOCUS,
 		shadowOffset: {
 			width: 0,
 			height: 3
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
 		marginRight: 5
 	},
 	buttonClose: {
-		color: COLOR_APP_FOCUS,
+		color: COLOR.THEME_DARK.APP_FOCUS,
 		fontSize: 50,
 		width: 100
 	},
@@ -203,10 +204,10 @@ const styles = StyleSheet.create({
 	},
 	titleText: {
 		fontSize: 20,
-		color: COLOR_APP_FOCUS
+		color: COLOR.THEME_DARK.APP_FOCUS
 	},
 	divider: {
-	    borderBottomColor: COLOR_BUTTON,
+	    borderBottomColor: COLOR.THEME_DARK.BUTTON,
 	    borderBottomWidth: 1,
 	    marginLeft: Dimensions.get('window').width / 16,
 	    marginRight: Dimensions.get('window').width / 16,

@@ -6,9 +6,8 @@ import * as firebase from 'firebase';
 import User from '../../actors/User';
 import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
-import { FIREDIR_RIDES, FIREDIR_USERS } from "../../Constants";
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR_APP_BACKGROUND, COLOR_APP_FOCUS, COLOR_APP_UNFOCUS, COLOR_APP_TITLE } from '../../Constants';
+import { COLOR, FIREBASE } from '../../Constants';
 import SearchArea2 from './SearchArea2';
 
 //Main component for driver screen
@@ -23,10 +22,10 @@ export default class DriverScreen extends Component {
 			),
             title: 'Driver',
             headerStyle: {
-				backgroundColor: COLOR_APP_BACKGROUND
+				backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND
             },
             headerTitleStyle: {
-				color: COLOR_APP_TITLE,
+				color: COLOR.THEME_DARK.APP_TITLE,
 				textAlign: 'center',
 				alignSelf: 'center',
 				flex: 1,
@@ -54,11 +53,11 @@ export default class DriverScreen extends Component {
 		);
 
 		//Store to firebase
-		var newRide = firebase.database().ref(FIREDIR_RIDES + '/').push(ride);
+		var newRide = firebase.database().ref(FIREBASE.RIDES_PATH + '/').push(ride);
 
 		//Update driver information on firebase
 		User.currentUser.rides[newRide.key] = 'driver';
-		firebase.database().ref(FIREDIR_USERS + '/' + User.currentUser.id).set(User.currentUser);
+		firebase.database().ref(FIREBASE.USERS_PATH + '/' + User.currentUser.id).set(User.currentUser);
 
 		this.getTestRide();
 	}
@@ -67,7 +66,7 @@ export default class DriverScreen extends Component {
 	getTestRide() {
 		//console.log("DriverTest: ", User.currentUser);
 		let key = Object.keys(User.currentUser.rides)[0];
-		firebase.database().ref(FIREDIR_RIDES + '/' + key).once('value').then(snapshot => {
+		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + key).once('value').then(snapshot => {
 			//console.log(snapshot.val());
 		});
 	}

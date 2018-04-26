@@ -14,7 +14,7 @@ export default class CenterText extends Component{
 const styles = StyleSheet.create({
 	textBox: {
 		flex: 1,
-        textAlign: 'center',
+        // textAlign: 'center',
 		justifyContent: 'center'
 	}
 });

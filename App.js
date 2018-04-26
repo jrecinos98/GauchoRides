@@ -7,7 +7,7 @@ import { YellowBox } from 'react-native';
 import * as firebase from 'firebase';
 import LoginBackground from "./src/components/LoginBackground";
 import User from "./src/actors/User";
-import {FIREDIR_USERS} from "./src/Constants";
+import { FIREBASE } from "./src/Constants";
 
 //Ignore those annoying deprecated warnings.
 YellowBox.ignoreWarnings([
@@ -43,7 +43,7 @@ export default class App extends React.Component {
         // Called everytime firebase authentication is changed (login or logout)
         firebase.auth().onAuthStateChanged((user) => {
             if (user != null) {
-                firebase.database().ref(FIREDIR_USERS + '/' + user.uid).once('value').then(snapshot => {
+                firebase.database().ref(FIREBASE.USERS_PATH + '/' + user.uid).once('value').then(snapshot => {
                     
                     // If user doesn't exist, we create a reference in Firebase and retrieve the new user.
                     // Otherwise, we initialize a local user object for current user.
@@ -76,7 +76,7 @@ export default class App extends React.Component {
 
     createNewUser(fbUser) {
         let newUser = new User(fbUser, User.isFB);
-        firebase.database().ref(FIREDIR_USERS + '/' + newUser.id).set(newUser);
+        firebase.database().ref(FIREBASE.USERS_PATH + '/' + newUser.id).set(newUser);
         User.currentUser = newUser;
     }
 

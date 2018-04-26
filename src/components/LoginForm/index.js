@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
-import { COLOR_APP_BACKGROUND_OPAQUE, COLOR_APP_FOCUS, COLOR_BACKGROUND_LOGIN_BUTTON } from "../../Constants";
+import { COLOR } from "../../Constants";
 
 export default class LoginForm extends Component {
 
@@ -55,7 +55,7 @@ export default class LoginForm extends Component {
 
 const styles = StyleSheet.create({
     textContainer: {
-        backgroundColor: COLOR_APP_BACKGROUND_OPAQUE,
+        backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND_OPAQUE,
         //alignItems: 'center',
         //justifyContent: 'center',
         //justifyContent: 'space-between'
