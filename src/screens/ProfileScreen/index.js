@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Image, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { StatusBar, View, Image, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import MainScreen from '../MainScreen';
 import Settings from './Settings';
@@ -7,6 +7,8 @@ import { COLOR } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import {GraphRequest} from 'react-native-fbsdk';
 import User from "../../../src/actors/User";
+import { getTheme } from '../../Utility';
+
 
 
 /*
@@ -22,53 +24,76 @@ const Graph= new GraphRequest(
     _responseInfoCallback
 )*/
 
-var settings;
-
 export default class ProfileScreen extends Component{
+
+    static profile_this = null;
 
     constructor(props) {
         super(props);
-        profileInstance = this;
+        profile_this = this;
+
+        profile_this.state = {
+            color_theme: COLOR.THEME_LIGHT
+        }
+
+        getTheme(function(theme) {
+            profile_this.setState({
+                color_theme: theme
+            });
+        });
     }
 
-    static navigationOptions = ({ navigation }) => {
-        return {
-            tabBarIcon: ({ tintColor }) => (
-                <Ionicons name="ios-contact" style={{ color: tintColor, fontSize: 20 }} />
-            ),
-            title: 'Profile',
-            headerStyle: {
-             backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND
-            },
-            headerTitleStyle: {
-             color: COLOR.THEME_DARK.APP_TITLE,
-             textAlign: 'center',
-             alignSelf: 'center',
-             flex: 1,
-             fontWeight: 'normal',
-             paddingLeft: 55
-            },
-            headerRight: 
-                <Ionicons
-                    name='ios-settings'
-                    style={{ paddingRight: 25, paddingLeft: 0, fontSize: 32 ,color: COLOR.THEME_DARK.APP_UNFOCUS }}
-                    onPress={() => {
-                        settings.setModalVisible(true);
-                    }}
-                />
-        };
+    static navigationOptions = {
+        tabBarIcon: ({ tintColor }) => (
+            <Ionicons name="ios-contact" style={{ color: tintColor, fontSize: 20 }} />
+        )
     };
 
     render(){
-        console.log(User.currentUser.photo+'?type=large');
+
+        const customStyle = {
+
+            topBar: [styles.topBar, {
+                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND
+            }],
+
+            settings: [styles.settings, {
+                color: profile_this.state.color_theme.APP_FOCUS
+            }],
+
+            title: [styles.title, {
+                color: profile_this.state.color_theme.APP_FOCUS
+            }]
+
+        };
+
 		return (
-            <View style={styles.container}>
-                <Image
-                    source={{uri: User.currentUser.photo+'?type=large'}}
-                style={{alignItems: 'center', justifyContent: 'center', width: 150, height: 150}}/>
-                <Text>Profile Picture</Text>
+
+            <View>
 
                 <Settings ref={(instance) => {settings = instance;}}/>
+
+                <StatusBar hidden={true}/>
+
+                <View style={customStyle.topBar}/>
+
+                <Ionicons
+                    name='ios-settings'
+                    style={customStyle.settings}
+                    onPress={() => {
+                        settings.setModalVisible(true);
+                    }}/>
+
+                <Text style={customStyle.title}>Profile</Text>
+
+                <View style={styles.container}>
+                    <Image
+                        source={{uri: User.currentUser.photo+'?type=large'}}
+                        style={styles.profileImage}/>
+                    <Text>Profile Picture</Text>
+
+                </View>
+
             </View>
 		);
 
@@ -77,8 +102,34 @@ export default class ProfileScreen extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        marginTop: 60,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    topBar: {
+        backgroundColor: null,
+        alignSelf: 'stretch',
+        height: 60
+    },
+    profileImage: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 150,
+        height: 150
+    },
+    settings: {
+        paddingRight: 25,
+        paddingTop: 14,
+        fontSize: 32,
+        color: null,
+        alignSelf: 'flex-end',
+        position: 'absolute',
+    },
+    title: {
+        color: null,
+        position: 'absolute',
+        alignSelf: 'center',
+        fontSize: 20,
+        paddingTop: 20
     }
 });

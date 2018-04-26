@@ -3,6 +3,7 @@ import{ AsyncStorage, View, Test, StyleSheet, Platform, StatusBar, Text} from "r
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { COLOR, STRING } from '../Constants';
+import { getTheme } from '../Utility';
 
 // import DriverStack from './DriverStack';
 import DriverScreen from './DriverScreen';
@@ -25,29 +26,17 @@ export default class MainScreen extends Component{
 		this.state = {
 			color_theme: COLOR.THEME_DARK
 		};
-		this.updateTheme();
+
 		MainScreenInstance = this;
+		this.updateTheme();
 	}
 
 	updateTheme() {
-		AsyncStorage.getItem(STRING.THEME.KEY).then((value) => {
-
-			if (value === STRING.THEME.DARK) {
-				this.setState({
-					color_theme: COLOR.THEME_DARK
-				});
-			}
-			else if (value === STRING.THEME.LIGHT) {
-				this.setState({
-					color_theme: COLOR.THEME_LIGHT
-				});
-			}
-			else {
-				this.setState({
-					color_theme: COLOR.THEME_LIGHT
-				});
-			}
-			console.log(this.state.color_theme);
+		getTheme(function(theme) {
+			console.log("My THeme", theme);
+			MainScreenInstance.setState({
+				color_theme: theme
+			});
 		});
 	}
 
@@ -61,42 +50,21 @@ export default class MainScreen extends Component{
 }
 
 
-//Stack navigator for driver screen
-const DriverStack = StackNavigator({
-    DriverScreen: {screen: DriverScreen}
-});
-
-//Stack navigator for rider screen
-const RiderStack = StackNavigator({
-    RiderScreen: {screen: RiderScreen}
-});
-
-//Stack navigator for profile screen
-const ProfileStack = StackNavigator({
-    ProfileScreen: {screen: ProfileScreen},
-    // Settings: {screen: Settings}
-});
-const HistoryStack = StackNavigator({
-    HistoryScreen: {screen: HistoryScreen},
-    // Settings: {screen: Settings}
-});
-
-
 //Tab navigator for main screen.
 const AppTabNavigator = (color_theme) => TabNavigator(
 	{
 		Driver: {
-			screen: DriverStack
+			screen: DriverScreen
 		},
 		Passenger: {
-			screen: RiderStack
+			screen: RiderScreen
 		},
 		History:{
-			screen: HistoryStack
+			screen: HistoryScreen
 		},
 
 		Profile:{
-			screen: ProfileStack
+			screen: ProfileScreen
 		}
 	
 	},

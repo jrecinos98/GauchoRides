@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StatusBar, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
 import * as firebase from 'firebase';
@@ -9,32 +9,36 @@ import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { COLOR, FIREBASE } from '../../Constants';
 import SearchArea2 from './SearchArea2';
+import { getTheme } from '../../Utility';
 
 //Main component for driver screen
 export default class DriverScreen extends Component {
 
+	static driver_this = null;
+
+	constructor(props) {
+		super(props);
+		driver_this = this;
+
+		driver_this.state = {
+			color_theme: COLOR.THEME_LIGHT
+		}
+
+		getTheme(function(theme) {
+			driver_this.setState({
+				color_theme: theme
+			});
+		});
+	}
+
 	//Render driver screen tab icon and top bar.
-	static navigationOptions = ({ navigation }) => {
+	static navigationOptions = {
+		tabBarIcon: ({ tintColor}) => (
+			<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
+		)
+	};
 
-        return {
-            tabBarIcon: ({ tintColor}) => (
-				<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
-			),
-            title: 'Driver',
-            headerStyle: {
-				backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND
-            },
-            headerTitleStyle: {
-				color: COLOR.THEME_DARK.APP_TITLE,
-				textAlign: 'center',
-				alignSelf: 'center',
-				flex: 1,
-				fontWeight: 'normal'
-            }
-        };
-    };
-
-    //Called when component is mounted.
+	//Called when component is mounted.
 	componentDidMount(){
 		this.getTestRide();
 	}
@@ -73,8 +77,28 @@ export default class DriverScreen extends Component {
 
 	//Render the component
 	render() {
+
+		const customStyle = {
+
+			topBar: [styles.topBar, {
+				backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
+			}],
+
+			title: [styles.title, {
+				color: driver_this.state.color_theme.APP_FOCUS
+			}]
+
+		};
+
 		return (
 			<View style = {styles.container}>
+
+				<StatusBar hidden={true}/>
+
+				<View style={customStyle.topBar}/>
+
+				<Text style={customStyle.title}>Driver</Text>
+
 				<SearchArea2/>
 
 			</View>
@@ -87,6 +111,20 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		//alignItems: 'center',
-		justifyContent: 'center'
+		// justifyContent: 'center',
+		flexDirection: 'column'
+	},
+	topBar: {
+		backgroundColor: null,
+		alignSelf: 'stretch',
+		height: 60
+	},
+	title: {
+		color: null,
+		alignSelf: 'center',
+		justifyContent: 'center',
+		position: 'absolute',
+		fontSize: 20,
+		paddingTop: 20
 	}
 });

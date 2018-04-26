@@ -8,18 +8,28 @@ import LoginButton from "../../components/LoginButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
 import { MainScreenInstance } from "../MainScreen";
+import { getTheme } from '../../Utility';
 
 
 export default class Settings extends Component{
 
+	static settings_this = null;
+
 	constructor(props) {
 		super(props);
-		this.state = {
+		settings_this = this;
+
+		settings_this.state = {
 			tabIndex: 0,
 			visible: false,
-			theme: COLOR.THEME_LIGHT
+			color_theme: COLOR.THEME_LIGHT
 		};
-		this.updateTheme();
+
+		getTheme(function(theme) {
+			settings_this.setState({
+				color_theme: theme
+			});
+		});
 	}
 
 	setModalVisible(visible) {
@@ -28,55 +38,33 @@ export default class Settings extends Component{
 		});
 	}
 
-	updateTheme() {
-		AsyncStorage.getItem(STRING.THEME.KEY).then((value) => {
-
-			if (value === STRING.THEME.DARK) {
-				this.setState({
-					theme: COLOR.THEME_DARK
-				});
-			}
-			else if (value === STRING.THEME.LIGHT) {
-				this.setState({
-					theme: COLOR.THEME_LIGHT
-				});
-			}
-			else {
-				this.setState({
-					theme: COLOR.THEME_LIGHT
-				});
-			}
-		});
-	}
-
 	render(){
 
 		const customStyle = {
 
 			themeTab: [styles.themeTab, {
-				backgroundColor: this.state.theme.BUTTON,
-				shadowColor: this.state.theme.APP_FOCUS
+				backgroundColor: settings_this.state.color_theme.BUTTON,
+				shadowColor: settings_this.state.color_theme.APP_FOCUS
 			}],
 
 			buttonClose: [styles.buttonClose, {
-				color: this.state.theme.APP_FOCUS
+				color: settings_this.state.color_theme.APP_FOCUS
 			}],
 
 			titleText: [styles.titleText, {
-				color: this.state.theme.APP_FOCUS
+				color: settings_this.state.color_theme.APP_FOCUS
 			}],
 
 			divider: [styles.divider, {
-				borderBottomColor: this.state.theme.BUTTON
+				borderBottomColor: settings_this.state.color_theme.BUTTON
 			}]
 
 		};
 
-
 		return(
 
 			<Modal
-				visible={this.state.visible}
+				visible={settings_this.state.visible}
 				transparent={false}
 				animationInTiming={300}
 				animationIn={'slideInUp'}
@@ -88,7 +76,7 @@ export default class Settings extends Component{
 				<ScrollView
 					style={{
 						padding: 20,
-						backgroundColor: (this.state.theme)? this.state.theme.APP_BACKGROUND: null
+						backgroundColor: (settings_this.state.color_theme)? settings_this.state.color_theme.APP_BACKGROUND: null
 					}}>
 
 
@@ -97,7 +85,7 @@ export default class Settings extends Component{
 							name="ios-close"
 							style={customStyle.buttonClose}
 							onPress={() => {
-								this.setModalVisible(false);
+								settings_this.setModalVisible(false);
 							}}/>
 
 						<CenterText style={customStyle.titleText}> Settings </CenterText>
@@ -111,7 +99,6 @@ export default class Settings extends Component{
 							style={customStyle.themeTab}
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
-								this.updateTheme();
 								MainScreenInstance.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Dark </Text>
@@ -121,7 +108,6 @@ export default class Settings extends Component{
 							style={customStyle.themeTab}
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
-								this.updateTheme();
 								MainScreenInstance.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Light </Text>
@@ -131,7 +117,6 @@ export default class Settings extends Component{
 							style={customStyle.themeTab}
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
-								this.updateTheme();
 								MainScreenInstance.updateTheme();
 							}}>
 							<Text style={styles.buttonText}> Classic </Text>
@@ -165,7 +150,7 @@ export default class Settings extends Component{
 						title="Logout"
 						callback={async () => {
 							await firebase.auth().signOut();
-							this.props.navigation.dispatch(wipeLogout);
+							settings_this.props.navigation.dispatch(wipeLogout);
 						}}/>
 
 
@@ -184,7 +169,6 @@ const wipeLogout ={
 		type: 'Navigation/NAVIGATE',
 	}
 };
-
 
 
 const styles = StyleSheet.create({

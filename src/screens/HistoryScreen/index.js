@@ -1,40 +1,74 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StatusBar, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import RideHistory from '../../components/RideHistory';
 
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { COLOR } from '../../Constants';
+import { getTheme } from '../../Utility';
 
 
 
 
 export default class HistoryScreen extends Component {
 
-    static navigationOptions = ({ navigation }) => {
-        return {
-            tabBarIcon: ({ tintColor}) => (
-                <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }} />
-            ),
-            title: 'History',
-            headerStyle: {
-            backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND
-            },
-            headerTitleStyle: {
-             color: COLOR.THEME_DARK.APP_TITLE,
-             textAlign: 'center',
-             alignSelf: 'center',
-             flex: 1,
-             fontWeight: 'normal'
-            }
-        };
+    static history_this = null;
+
+    constructor(props) {
+        super(props);
+        history_this = this;
+
+        history_this.state = {
+            color_theme: COLOR.THEME_LIGHT
+        }
+
+        getTheme(function(theme) {
+            history_this.setState({
+                color_theme: theme
+            });
+        });
+    }
+
+    static navigationOptions = {
+        tabBarIcon: ({ tintColor}) => (
+            <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }} />
+        )
     };
 
     render() {
+
+        const customStyle = {
+
+            topBar: [styles.topBar, {
+                backgroundColor: history_this.state.color_theme.APP_BACKGROUND
+            }],
+
+            title: [styles.title, {
+                color: history_this.state.color_theme.APP_FOCUS
+            }]
+
+        };
+
         return (
             <View style={styles.container}>
-                <RideHistory/>
+                <StatusBar hidden={true}/>
+                <View style={customStyle.topBar}/>
+
+
+                <View style={{
+                    marginTop: 60,
+                    position: 'absolute'
+                }}>
+                    <RideHistory style={{
+                        flex: 1,
+                        aspectRatio: 0.5,
+                        resizeMode: 'contain'
+                    }}/>
+                </View>
+
+
+                <Text style={customStyle.title}>History</Text>
             </View>
         );
     }
@@ -45,6 +79,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         //alignItems: 'center',
-        justifyContent: 'center'
+        // justifyContent: 'center',
+        flexDirection: 'column'
+    },
+    topBar: {
+        backgroundColor: null,
+        alignSelf: 'stretch',
+        height: 60
+    },
+    title: {
+        color: null,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        fontSize: 20,
+        paddingTop: 20
     }
 });
