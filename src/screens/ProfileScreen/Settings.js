@@ -16,7 +16,7 @@ export default class Settings extends Component{
 		this.state = {
 			tabIndex: 0,
 			visible: false,
-			background: null
+			theme: COLOR.THEME_LIGHT
 		};
 		this.updateTheme();
 	}
@@ -32,24 +32,48 @@ export default class Settings extends Component{
 
 			if (value === STRING.THEME.DARK) {
 				this.setState({
-					background: COLOR.THEME_DARK.APP_BACKGROUND
+					theme: COLOR.THEME_DARK
 				});
 			}
 			else if (value === STRING.THEME.LIGHT) {
 				this.setState({
-					background: COLOR.THEME_DARK.APP_UNFOCUS
+					theme: COLOR.THEME_LIGHT
 				});
 			}
 			else {
 				this.setState({
-					background: COLOR.THEME_DARK.APP_TITLE
+					theme: COLOR.THEME_LIGHT
 				});
 			}
 		});
 	}
 
 	render(){
+
+		const customStyle = {
+
+			themeTab: [styles.themeTab, {
+				backgroundColor: this.state.theme.BUTTON,
+				shadowColor: this.state.theme.APP_FOCUS
+			}],
+
+			buttonClose: [styles.buttonClose, {
+				color: this.state.theme.APP_FOCUS
+			}],
+
+			titleText: [styles.titleText, {
+				color: this.state.theme.APP_FOCUS
+			}],
+
+			divider: [styles.divider, {
+				borderBottomColor: this.state.theme.BUTTON
+			}]
+
+		};
+
+
 		return(
+
 			<Modal
 				visible={this.state.visible}
 				transparent={false}
@@ -63,27 +87,27 @@ export default class Settings extends Component{
 				<ScrollView
 					style={{
 						padding: 20,
-						backgroundColor: this.state.background
+						backgroundColor: (this.state.theme)? this.state.theme.APP_BACKGROUND: null
 					}}>
 
 
 					<View style={styles.titleBar}>
 						<Ionicons
 							name="ios-close"
-							style={styles.buttonClose}
+							style={customStyle.buttonClose}
 							onPress={() => {
 								this.setModalVisible(false);
 							}}/>
 
-						<CenterText style={styles.titleText}> Settings </CenterText>
+						<CenterText style={customStyle.titleText}> Settings </CenterText>
 					</View>
 
 
-					<CenterText style={styles.titleText}> App Themes: </CenterText>
+					<CenterText style={customStyle.titleText}> App Themes: </CenterText>
 					<View style={styles.themeBox}>
 
 						<TouchableOpacity
-							style={styles.themeTab}
+							style={customStyle.themeTab}
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
 								this.updateTheme();
@@ -92,7 +116,7 @@ export default class Settings extends Component{
 						</TouchableOpacity>
 
 						<TouchableOpacity
-							style={styles.themeTab}
+							style={customStyle.themeTab}
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
 								this.updateTheme();
@@ -101,7 +125,7 @@ export default class Settings extends Component{
 						</TouchableOpacity>
 
 						<TouchableOpacity
-							style={styles.themeTab}
+							style={customStyle.themeTab}
 							onPress={() => {
 								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
 								this.updateTheme();
@@ -112,27 +136,27 @@ export default class Settings extends Component{
 					</View>
 
 
-					<View style={styles.divider}/>
-					<CenterText style={styles.titleText}> Map Themes: </CenterText>
+					<View style={customStyle.divider}/>
+					<CenterText style={customStyle.titleText}> Map Themes: </CenterText>
 					<View style={styles.themeBox}>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity style={customStyle.themeTab}>
 							<Text style={styles.buttonText}> Dark </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity style={customStyle.themeTab}>
 							<Text style={styles.buttonText}> Light </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={styles.themeTab}>
+						<TouchableOpacity style={customStyle.themeTab}>
 							<Text style={styles.buttonText}> Classic </Text>
 						</TouchableOpacity>
 
 					</View>
 
 
-					<View style={styles.divider}/>
-					<CenterText style={styles.titleText}> App Exit: </CenterText>
+					<View style={customStyle.divider}/>
+					<CenterText style={customStyle.titleText}> App Exit: </CenterText>
 					<LoginButton
 						title="Logout"
 						callback={async () => {
@@ -180,9 +204,9 @@ const styles = StyleSheet.create({
 	themeTab: {
 		width: Dimensions.get('window').width / 4,
 		height: 50,
-		backgroundColor: COLOR.THEME_DARK.BUTTON,
+		backgroundColor: null,
 		borderRadius: 5,
-		shadowColor: COLOR.THEME_DARK.APP_FOCUS,
+		shadowColor: null,
 		shadowOffset: {
 			width: 0,
 			height: 3
@@ -195,7 +219,7 @@ const styles = StyleSheet.create({
 		marginRight: 5
 	},
 	buttonClose: {
-		color: COLOR.THEME_DARK.APP_FOCUS,
+		color: null,
 		fontSize: 50,
 		width: 100
 	},
@@ -204,10 +228,10 @@ const styles = StyleSheet.create({
 	},
 	titleText: {
 		fontSize: 20,
-		color: COLOR.THEME_DARK.APP_FOCUS
+		color: null
 	},
 	divider: {
-	    borderBottomColor: COLOR.THEME_DARK.BUTTON,
+	    borderBottomColor: null,
 	    borderBottomWidth: 1,
 	    marginLeft: Dimensions.get('window').width / 16,
 	    marginRight: Dimensions.get('window').width / 16,
