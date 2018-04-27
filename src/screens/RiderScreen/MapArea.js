@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import RideMap from '../../components/RideMap';
+import { getMapTheme } from '../../Utility';
+import { STRING } from '../../Constants';
 
 const mode = 'driving'; // 'walking';
 const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
 
 export default class MapArea extends Component {
+
+    static mapArea_this;
 
 	constructor(props) {
         super(props);
@@ -14,8 +18,16 @@ export default class MapArea extends Component {
             latitude: null,
             longitude: null,
             error: null,
-            coords: null
+            coords: null,
+            map_theme: STRING.THEME.DARK
         }
+
+        mapArea_this = this;
+        getMapTheme(function(map_theme) {
+            mapArea_this.setState({
+                map_theme: map_theme
+            });
+        });
     }
 
     componentDidMount() {
@@ -99,7 +111,11 @@ export default class MapArea extends Component {
 
     render() {
         return (
-            <RideMap origin_latitude={this.state.latitude} origin_longitude={this.state.longitude} coords={this.state.coords}/>
+            <RideMap
+                map_theme={this.state.map_theme}
+                origin_latitude={this.state.latitude}
+                origin_longitude={this.state.longitude}
+                coords={this.state.coords}/>
         );
     }
 }

@@ -33,7 +33,6 @@ export default class MainScreen extends Component{
 
 	updateTheme() {
 		getTheme(function(theme) {
-			console.log("My THeme", theme);
 			MainScreenInstance.setState({
 				color_theme: theme
 			});

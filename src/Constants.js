@@ -2,10 +2,13 @@
 // String constants
 export const STRING = {
 	THEME: {
-		KEY: 		"Theme",
 		DARK: 		"Dark Theme",
 		LIGHT: 		"Light Theme",
 		CLASSIC: 	"Classic Theme"
+	},
+	KEY: {
+		APP_THEME: 	"App Theme",
+		MAP_THEME: 	"Map Theme"
 	}
 }
 

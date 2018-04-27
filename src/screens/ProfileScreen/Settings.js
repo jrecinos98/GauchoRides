@@ -25,9 +25,9 @@ export default class Settings extends Component{
 			color_theme: COLOR.THEME_LIGHT
 		};
 
-		getTheme(function(theme) {
+		getTheme(function(app_theme) {
 			settings_this.setState({
-				color_theme: theme
+				color_theme: app_theme
 			});
 		});
 	}
@@ -36,6 +36,16 @@ export default class Settings extends Component{
 		this.setState({
 			visible: visible
 		});
+	}
+
+	changeAppTheme(appTheme) {
+		AsyncStorage.setItem(STRING.KEY.APP_THEME, appTheme);
+		MainScreenInstance.updateTheme();
+	}
+
+	changeMapTheme(mapTheme) {
+		AsyncStorage.setItem(STRING.KEY.MAP_THEME, mapTheme);
+		MainScreenInstance.updateTheme();
 	}
 
 	render(){
@@ -95,28 +105,19 @@ export default class Settings extends Component{
 
 						<TouchableOpacity
 							style={customStyle.themeTab}
-							onPress={() => {
-								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
-								MainScreenInstance.updateTheme();
-							}}>
+							onPress={() => this.changeAppTheme(STRING.THEME.DARK)}>
 							<Text style={styles.buttonText}> Dark </Text>
 						</TouchableOpacity>
 
 						<TouchableOpacity
 							style={customStyle.themeTab}
-							onPress={() => {
-								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
-								MainScreenInstance.updateTheme();
-							}}>
+							onPress={() => this.changeAppTheme(STRING.THEME.LIGHT)}>
 							<Text style={styles.buttonText}> Light </Text>
 						</TouchableOpacity>
 
 						<TouchableOpacity
 							style={customStyle.themeTab}
-							onPress={() => {
-								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
-								MainScreenInstance.updateTheme();
-							}}>
+							onPress={() => this.changeAppTheme(STRING.THEME.CLASSIC)}>
 							<Text style={styles.buttonText}> Classic </Text>
 						</TouchableOpacity>
 
@@ -127,15 +128,21 @@ export default class Settings extends Component{
 					<CenterText style={customStyle.titleText}> Map Themes: </CenterText>
 					<View style={styles.themeBox}>
 
-						<TouchableOpacity style={customStyle.themeTab}>
+						<TouchableOpacity
+							style={customStyle.themeTab}
+							onPress={() => this.changeMapTheme(STRING.THEME.DARK)}>
 							<Text style={styles.buttonText}> Dark </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={customStyle.themeTab}>
+						<TouchableOpacity
+							style={customStyle.themeTab}
+							onPress={() => this.changeMapTheme(STRING.THEME.LIGHT)}>
 							<Text style={styles.buttonText}> Light </Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity style={customStyle.themeTab}>
+						<TouchableOpacity
+							style={customStyle.themeTab}
+							onPress={() => this.changeMapTheme(STRING.THEME.CLASSIC)}>
 							<Text style={styles.buttonText}> Classic </Text>
 						</TouchableOpacity>
 

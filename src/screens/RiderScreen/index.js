@@ -14,8 +14,8 @@ export default class RiderScreen extends Component {
 
     constructor(props) {
         super(props);
-        rider_this = this;
 
+        rider_this = this;
         rider_this.state = {
             color_theme: COLOR.THEME_LIGHT
         }
@@ -57,7 +57,7 @@ export default class RiderScreen extends Component {
 
                 <Text style={customStyle.title}>Passenger</Text>
 
-                <MapArea/>
+                <MapArea color_theme={rider_this.state.color_theme}/>
 
                 <SearchArea color_theme={rider_this.state.color_theme}/>
 
