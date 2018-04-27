@@ -20,9 +20,11 @@ const styles= StyleSheet.create({
     chiliContainer: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        //alignItems: 'flex-start',
+       // justifyContent: 'flex-start',
         paddingTop: 10,
+        paddingBottom: 10
+       // position: 'absolute'
 
     }
 });
