@@ -12,6 +12,13 @@ export const STRING = {
 	}
 }
 
+// Dimension constants
+export const DIMENSION = {
+	TOPBAR: {HEIGHT: 50},
+	ICON:{SIZE: 32},
+	TITLE: {SIZE: 20}
+}
+
 // Firebase constants
 export const FIREBASE = {
 	USERS_PATH: 'users',

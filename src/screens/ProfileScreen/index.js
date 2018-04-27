@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { StatusBar, LayoutAnimation, UIManager, View, Image, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import {Body, Container, Header, Title} from 'native-base';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Settings from './Settings';
-import { COLOR } from '../../Constants';
+import { COLOR, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 
 import User from "../../../src/actors/User";
@@ -43,17 +44,19 @@ export default class ProfileScreen extends Component {
     render() {
 
         const customStyle = {
-
             topBar: [styles.topBar, {
+                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: profile_this.state.color_theme.APP_BACKGROUND,
                 borderBottomColor: profile_this.state.color_theme.APP_FOCUS
             }],
-
             settings: [styles.settings, {
+                fontSize: DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
                 color: profile_this.state.color_theme.APP_FOCUS
             }],
-
             title: [styles.title, {
+                fontSize: DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: profile_this.state.color_theme.APP_FOCUS
             }],
             userName: [styles.userName, {
@@ -64,9 +67,10 @@ export default class ProfileScreen extends Component {
             }],
             container: [styles.container, {
                 backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_OPQUE
+            }],
+            imageWrapper: [styles.imageWrapper, {
+                marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
             }]
-
-
         };
 
         let statusTheme = (profile_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
@@ -78,7 +82,7 @@ export default class ProfileScreen extends Component {
                     settings = instance;
                 }}/>
 
-                <StatusBar hidden={true} barStyle={statusTheme}/>
+                <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}>
                     <Ionicons
                         name='ios-settings'
@@ -101,7 +105,7 @@ export default class ProfileScreen extends Component {
                         <SexyRating/>
                     </View>
                     <View>
-                        
+                        {/*Todo*/}
                     </View>
 
 
@@ -127,7 +131,7 @@ const styles = StyleSheet.create({
        // justifyContent: 'center'
     },
     imageWrapper: {
-        marginTop: 50,
+        marginTop: null,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -146,13 +150,13 @@ const styles = StyleSheet.create({
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
-        height: 50,
+        height: null
         // borderBottomWidth: 0.5
     },
     settings: {
         paddingRight: 25,
-        paddingTop: 9,
-        fontSize: 32,
+        paddingTop: null,
+        fontSize: null,
         color: null,
         alignSelf: 'flex-end',
         position: 'absolute',
@@ -161,7 +165,8 @@ const styles = StyleSheet.create({
         color: null,
         position: 'absolute',
         alignSelf: 'center',
-        fontSize: 20,
-        paddingTop: 15
+        justifyContent: 'center',
+        fontSize: null,
+        paddingTop: null
     }
 });
