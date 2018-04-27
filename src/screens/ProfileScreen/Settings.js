@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import{ View, StyleSheet, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
+import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
 import { COLOR, STRING } from '../../Constants';
 import { StackNavigator, NavigationActions } from 'react-navigation';
@@ -61,97 +61,99 @@ export default class Settings extends Component{
 
 		};
 
-		return(
+        return (
+            <View>
+                <StatusBar hidden={true}/>
+                <Modal
+                    visible={settings_this.state.visible}
+                    transparent={false}
+                    animationType='slide'
+                    onRequestClose={() => {
+                        alert('exit setting');
+                    }}>
 
-			<Modal
-				visible={settings_this.state.visible}
-				transparent={false}
-				animationType='slide'
-				onRequestClose={() => {
-					alert('exit setting');
-				}}>
-
-				<ScrollView
-					style={{
-						padding: 20,
-						backgroundColor: (settings_this.state.color_theme)? settings_this.state.color_theme.APP_BACKGROUND: null
-					}}>
-
-
-					<View style={styles.titleBar}>
-						<Ionicons
-							name="ios-close"
-							style={customStyle.buttonClose}
-							onPress={() => {
-								settings_this.setModalVisible(false);
-							}}/>
-
-						<CenterText style={customStyle.titleText}> Settings </CenterText>
-					</View>
+                    <ScrollView
+                        style={{
+                            padding: 20,
+                            backgroundColor: (settings_this.state.color_theme) ? settings_this.state.color_theme.APP_BACKGROUND : null
+                        }}>
 
 
-					<CenterText style={customStyle.titleText}> App Themes: </CenterText>
-					<View style={styles.themeBox}>
+                        <View style={styles.titleBar}>
+                            <Ionicons
+                                name="ios-close"
+                                style={customStyle.buttonClose}
+                                onPress={() => {
+                                    settings_this.setModalVisible(false);
+                                }}/>
 
-						<TouchableOpacity
-							style={customStyle.themeTab}
-							onPress={() => {
-								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
-								MainScreenInstance.updateTheme();
-							}}>
-							<Text style={styles.buttonText}> Dark </Text>
-						</TouchableOpacity>
-
-						<TouchableOpacity
-							style={customStyle.themeTab}
-							onPress={() => {
-								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
-								MainScreenInstance.updateTheme();
-							}}>
-							<Text style={styles.buttonText}> Light </Text>
-						</TouchableOpacity>
-
-						<TouchableOpacity
-							style={customStyle.themeTab}
-							onPress={() => {
-								AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
-								MainScreenInstance.updateTheme();
-							}}>
-							<Text style={styles.buttonText}> Classic </Text>
-						</TouchableOpacity>
-
-					</View>
+                            <CenterText style={customStyle.titleText}> Settings </CenterText>
+                        </View>
 
 
-					<View style={customStyle.divider}/>
-					<CenterText style={customStyle.titleText}> Map Themes: </CenterText>
-					<View style={styles.themeBox}>
+                        <CenterText style={customStyle.titleText}> App Themes: </CenterText>
+                        <View style={styles.themeBox}>
 
-						<TouchableOpacity style={customStyle.themeTab}>
-							<Text style={styles.buttonText}> Dark </Text>
-						</TouchableOpacity>
+                            <TouchableOpacity
+                                style={customStyle.themeTab}
+                                onPress={() => {
+                                    AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.DARK);
+                                    MainScreenInstance.updateTheme();
+                                }}>
+                                <Text style={styles.buttonText}> Dark </Text>
+                            </TouchableOpacity>
 
-						<TouchableOpacity style={customStyle.themeTab}>
-							<Text style={styles.buttonText}> Light </Text>
-						</TouchableOpacity>
+                            <TouchableOpacity
+                                style={customStyle.themeTab}
+                                onPress={() => {
+                                    AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.LIGHT);
+                                    MainScreenInstance.updateTheme();
+                                }}>
+                                <Text style={styles.buttonText}> Light </Text>
+                            </TouchableOpacity>
 
-						<TouchableOpacity style={customStyle.themeTab}>
-							<Text style={styles.buttonText}> Classic </Text>
-						</TouchableOpacity>
+                            <TouchableOpacity
+                                style={customStyle.themeTab}
+                                onPress={() => {
+                                    AsyncStorage.setItem(STRING.THEME.KEY, STRING.THEME.CLASSIC);
+                                    MainScreenInstance.updateTheme();
+                                }}>
+                                <Text style={styles.buttonText}> Classic </Text>
+                            </TouchableOpacity>
 
-					</View>
+                        </View>
 
 
-					<View style={customStyle.divider}/>
-					<CenterText style={customStyle.titleText}> App Exit: </CenterText>
-					<LoginButton
-						title="Logout"
-						callback={async () => {
-							await firebase.auth().signOut();
-							settings_this.props.navigation.dispatch(wipeLogout);
-						}}/>
-				</ScrollView>
-			</Modal>
+                        <View style={customStyle.divider}/>
+                        <CenterText style={customStyle.titleText}> Map Themes: </CenterText>
+                        <View style={styles.themeBox}>
+
+                            <TouchableOpacity style={customStyle.themeTab}>
+                                <Text style={styles.buttonText}> Dark </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={customStyle.themeTab}>
+                                <Text style={styles.buttonText}> Light </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={customStyle.themeTab}>
+                                <Text style={styles.buttonText}> Classic </Text>
+                            </TouchableOpacity>
+
+                        </View>
+
+
+                        <View style={customStyle.divider}/>
+                        <CenterText style={customStyle.titleText}> App Exit: </CenterText>
+                        <LoginButton
+                            title="Logout"
+                            callback={async () => {
+                                await firebase.auth().signOut();
+                                settings_this.props.navigation.dispatch(wipeLogout);
+                            }}/>
+                    </ScrollView>
+                </Modal>
+            </View>
 		);
 	}
 

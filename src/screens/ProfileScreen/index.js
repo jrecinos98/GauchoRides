@@ -1,30 +1,20 @@
 import React, { Component } from "react";
 import { StatusBar, View, Image, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import { StackNavigator, NavigationActions } from 'react-navigation';
-import MainScreen from '../MainScreen';
+
 import Settings from './Settings';
-import { COLOR, PROFILE_BACKGROUND_DARK } from '../../Constants';
+import { COLOR } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
-import {GraphRequest} from 'react-native-fbsdk';
+
 import User from "../../../src/actors/User";
 import { getTheme } from '../../Utility';
 
+import WheelRating from '../../components/WheelRating'
+import SexyRating from '../../components/SexyRating'
+import {GestureHandler} from 'expo'
 
 
-/*
-const Graph= new GraphRequest(
-    '/me',
-    {
-        parameters: {
-            fields: {
-                string: 'picture'
-            }
-        }
-    },
-    _responseInfoCallback
-)*/
 
-export default class ProfileScreen extends Component{
+export default class ProfileScreen extends Component {
 
     static profile_this = null;
 
@@ -34,9 +24,9 @@ export default class ProfileScreen extends Component{
 
         profile_this.state = {
             color_theme: COLOR.THEME_LIGHT
-        }
+        };
 
-        getTheme(function(theme) {
+        getTheme(function (theme) {
             profile_this.setState({
                 color_theme: theme
             });
@@ -45,17 +35,18 @@ export default class ProfileScreen extends Component{
 
 
     static navigationOptions = {
-        tabBarIcon: ({ tintColor }) => (
-            <Ionicons name="ios-contact" style={{ color: tintColor, fontSize: 20 }} />
+        tabBarIcon: ({tintColor}) => (
+            <Ionicons name="ios-contact" style={{color: tintColor, fontSize: 20}}/>
         )
     };
 
-    render(){
+    render() {
 
         const customStyle = {
 
             topBar: [styles.topBar, {
-                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND
+                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND,
+                borderBottomColor: profile_this.state.color_theme.APP_FOCUS
             }],
 
             settings: [styles.settings, {
@@ -64,66 +55,85 @@ export default class ProfileScreen extends Component{
 
             title: [styles.title, {
                 color: profile_this.state.color_theme.APP_FOCUS
+            }],
+            userName: [styles.userName, {
+                color: profile_this.state.color_theme.FB_NAME_COLOR
+            }],
+            container: [styles.container, {
+                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_OPQUE
             }]
+
 
         };
 
-		return (
+        return (
 
-            <View>
-                <Settings ref={(instance) => {settings = instance;}}/>
+            <View style={styles.container}>
+                <Settings ref={(instance) => {
+                    settings = instance;
+                }}/>
 
                 <StatusBar hidden={true}/>
-
-                <View style={customStyle.topBar}/>
-
-                <Ionicons
-                    name='ios-settings'
-                    style={customStyle.settings}
-                    onPress={() => {
-                        settings.setModalVisible(true);
-                    }}/>
-
-                <Text style={customStyle.title}>Profile</Text>
-
-
-                <View style={styles.container}>
-                <Text style={styles.textStyle}>{User.currentUser.name}</Text>
-                <Image
-                    borderRadius={72}
-                    source={{uri: 'https://graph.facebook.com/'+User.currentUser.fbID+'/picture?type=large'}}
-                style={{alignItems: 'center', justifyContent: 'center', width: 150, height: 150}}/>
+                <View style={customStyle.topBar}>
+                    <Ionicons
+                        name='ios-settings'
+                        style={customStyle.settings}
+                        onPress={() => {
+                            settings.setModalVisible(true);
+                        }}/>
+                    <Text style={customStyle.title}>Profile</Text>
                 </View>
 
+                <View style={customStyle.container}>
+                    <View style={styles.imageWrapper}>
+                        <Text style={customStyle.userName}>{User.currentUser.name}</Text>
+                        <Image
+                            borderRadius={72}
+                            source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}}
+                            style={styles.profileImage}/>
+                    </View>
+                    <View style={styles.ratingContainer}>
+                        <WheelRating/>
+                        <SexyRating/>
+                    </View>
+
+
+                </View>
             </View>
-		);
+
+        );
 
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-      /*
+        backgroundColor: null,
         flex: 1,
-        flexDirection: "column",
-        justifyContent: 'flex-start',
-        alignItems: 'center',*/
-        backgroundColor:  PROFILE_BACKGROUND_DARK,
-        marginTop: 60,
+
+    },
+    ratingContainer: {
+        flex: 1,
+        //flexDirection: 'column',
+        alignItems: 'center',
+       // justifyContent: 'center'
+    },
+    imageWrapper: {
+        marginTop: 50,
         alignItems: 'center',
         justifyContent: 'center'
     },
-    textStyle: {
-        color:'white',
-        textShadowColor:'rgba(0, 0, 0, 0.6)',
-        fontSize:25,
+    userName: {
+        textShadowColor: 'rgba(0, 0, 0, 0.6)',
+        fontSize: 25,
         textShadowOffset: {width: -1, height: 1},
         textShadowRadius: 6
     },
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
-        height: 60
+        height: 50,
+        // borderBottomWidth: 0.5
     },
     profileImage: {
         alignItems: 'center',
