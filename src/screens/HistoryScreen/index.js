@@ -54,12 +54,9 @@ export default class HistoryScreen extends Component {
             <View style={styles.container}>
                 <StatusBar hidden={true}/>
                 <View style={customStyle.topBar}/>
+                <Text style={customStyle.title}>History</Text>
 
-
-                <View style={{
-                    marginTop: 60,
-                    position: 'absolute'
-                }}>
+                <View style={styles.historyContainer}>
                     <RideHistory style={{
                         flex: 1,
                         aspectRatio: 0.5,
@@ -67,8 +64,6 @@ export default class HistoryScreen extends Component {
                     }}/>
                 </View>
 
-
-                <Text style={customStyle.title}>History</Text>
             </View>
         );
     }
@@ -85,7 +80,7 @@ const styles = StyleSheet.create({
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
-        height: 60
+        height: 50
     },
     title: {
         color: null,
@@ -93,6 +88,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         position: 'absolute',
         fontSize: 20,
-        paddingTop: 20
+        paddingTop: 15
+    },
+    historyContainer: {
+        marginTop: 50,
+        position: 'absolute'
     }
 });

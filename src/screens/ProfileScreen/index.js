@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     },
     settings: {
         paddingRight: 25,
-        paddingTop: 14,
+        paddingTop: 9,
         fontSize: 32,
         color: null,
         alignSelf: 'flex-end',
@@ -160,6 +160,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
         fontSize: 20,
-        paddingTop: 20
+        paddingTop: 15
     }
 });

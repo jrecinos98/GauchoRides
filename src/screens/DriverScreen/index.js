@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 	topBar: {
 		backgroundColor: null,
 		alignSelf: 'stretch',
-		height: 60
+		height: 50
 	},
 	title: {
 		color: null,
@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		position: 'absolute',
 		fontSize: 20,
-		paddingTop: 20
+		paddingTop: 15
 	}
 });
