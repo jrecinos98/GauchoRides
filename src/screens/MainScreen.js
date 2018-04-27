@@ -71,7 +71,7 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 	{
 		initialRouteName: 'Passenger',
 		animationEnabled:true,
-		swipeEnabled:true,
+		swipeEnabled:false,
 		tabBarPosition:"bottom",
 		tabBarOptions:{
 			style:{

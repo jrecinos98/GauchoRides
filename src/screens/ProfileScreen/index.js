@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { StatusBar, View, Image, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-
+import { StatusBar, LayoutAnimation, UIManager, View, Image, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import {Body, Container, Header, Title} from 'native-base';
 import Settings from './Settings';
 import { COLOR } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,7 @@ import { getTheme } from '../../Utility';
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
 import {GestureHandler} from 'expo'
-
+import {BounceProfileImage} from "../../components/BounceProfileImage";
 
 
 export default class ProfileScreen extends Component {
@@ -21,7 +21,7 @@ export default class ProfileScreen extends Component {
     constructor(props) {
         super(props);
         profile_this = this;
-
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         profile_this.state = {
             color_theme: COLOR.THEME_LIGHT
         };
@@ -87,10 +87,9 @@ export default class ProfileScreen extends Component {
                 <View style={customStyle.container}>
                     <View style={styles.imageWrapper}>
                         <Text style={customStyle.userName}>{User.currentUser.name}</Text>
-                        <Image
-                            borderRadius={72}
-                            source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}}
-                            style={styles.profileImage}/>
+                        <BounceProfileImage source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}}
+                                            borderRadius={72}>
+                        </BounceProfileImage>
                     </View>
                     <View style={styles.ratingContainer}>
                         <WheelRating/>
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     },
     ratingContainer: {
         flex: 1,
-        //flexDirection: 'column',
+        flexDirection: 'column',
         alignItems: 'center',
        // justifyContent: 'center'
     },
@@ -127,19 +126,13 @@ const styles = StyleSheet.create({
         textShadowColor: 'rgba(0, 0, 0, 0.6)',
         fontSize: 25,
         textShadowOffset: {width: -1, height: 1},
-        textShadowRadius: 6
+        textShadowRadius: 6,
     },
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
         height: 50,
         // borderBottomWidth: 0.5
-    },
-    profileImage: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 150,
-        height: 150
     },
     settings: {
         paddingRight: 25,
