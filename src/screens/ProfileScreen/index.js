@@ -10,6 +10,7 @@ import { getTheme } from '../../Utility';
 
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
+import MyClock from '../../components/MyClock';
 import {GestureHandler} from 'expo'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
 
@@ -85,6 +86,7 @@ export default class ProfileScreen extends Component {
                             settings.setModalVisible(true);
                         }}/>
                     <Text style={customStyle.title}>Profile</Text>
+                    <MyClock color_theme={profile_this.state.color_theme}/>
                 </View>
 
                 <View style={customStyle.container}>
