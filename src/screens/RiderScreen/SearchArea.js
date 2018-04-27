@@ -59,6 +59,7 @@ export default class SearchArea extends Component {
             <View style={styles.container}>
 
                 <SearchBox/>
+               
                 {(Platform.OS === 'ios')?
                 <View style={styles.TimeDateWrapper}>
                     <DatePickerIOS

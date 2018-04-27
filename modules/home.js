@@ -6,12 +6,13 @@ import RNGooglePlaces from "react-native-google-places";
 //--------------------
 //Constants
 //--------------------
-const {GET_CURRENT_LOCATION, GET_INPUT } = constants;
+
 const { 
 	GET_CURRENT_LOCATION,
 	GET_INPUT, 
 	TOGGLE_SEARCH_RESULT,
-	GET_ADDRESS_PREDICTIONS
+	GET_ADDRESS_PREDICTIONS,
+	GET_SELECTED_ADDRESS
 	  } = constants;
 
 const { width, height } = Dimensions.get("window");
