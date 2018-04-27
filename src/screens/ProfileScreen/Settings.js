@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import{ View, StyleSheet, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
+import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
 import { COLOR, STRING } from '../../Constants';
 import { StackNavigator, NavigationActions } from 'react-navigation';

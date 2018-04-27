@@ -64,9 +64,7 @@ export default class App extends React.Component {
                 });
             }
             else {
-
                 //DO NOT CHANGE THIS NEEDED FOR LOGOUT
-                console.log("Component Called\n");
                 this.setState({
                     loaded: true,
                     loggedIn: false,

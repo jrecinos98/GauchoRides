@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 5,
         flexDirection: "column",
-        justifyContent: 'flex-end',
-
+        //justifyContent: 'flex-end',
+        justifyContent: "center"
 
     }
 });

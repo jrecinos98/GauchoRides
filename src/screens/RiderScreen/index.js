@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet } from "react-native";
+import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
@@ -18,7 +18,7 @@ export default class RiderScreen extends Component {
         rider_this = this;
         rider_this.state = {
             color_theme: COLOR.THEME_LIGHT
-        }
+        };
 
         getTheme(function(theme) {
             rider_this.setState({
