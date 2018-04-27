@@ -59,6 +59,9 @@ export default class ProfileScreen extends Component {
             userName: [styles.userName, {
                 color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
+            textStyle: [styles.textStyle,{
+                color: profile_this.state.color_theme.FB_NAME_COLOR
+            }],
             container: [styles.container, {
                 backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_OPQUE
             }]
@@ -87,13 +90,16 @@ export default class ProfileScreen extends Component {
                 <View style={customStyle.container}>
                     <View style={styles.imageWrapper}>
                         <Text style={customStyle.userName}>{User.currentUser.name}</Text>
-                        <BounceProfileImage source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}}
-                                            borderRadius={72}>
-                        </BounceProfileImage>
+                        <BounceProfileImage source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}} borderRadius={72}/>
                     </View>
+
                     <View style={styles.ratingContainer}>
+                        <Text style={customStyle.textStyle}>RATINGS</Text>
                         <WheelRating/>
                         <SexyRating/>
+                    </View>
+                    <View>
+                        
                     </View>
 
 
@@ -115,12 +121,19 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
+
        // justifyContent: 'center'
     },
     imageWrapper: {
         marginTop: 50,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    textStyle: {
+        textShadowColor: 'rgba(0, 0, 0, 0.6)',
+        textShadowOffset: {width: -1, height: 1},
+        textShadowRadius: 6,
+
     },
     userName: {
         textShadowColor: 'rgba(0, 0, 0, 0.6)',

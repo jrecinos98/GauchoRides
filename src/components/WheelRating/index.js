@@ -18,11 +18,10 @@ export default class WheelRating extends Component{
 
 const styles= StyleSheet.create({
     wheelContainer: {
-        flex: 1,
+        //flex: 1,
         flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
         paddingTop: 10,
+        paddingBottom: 10,
 
     }
 });
