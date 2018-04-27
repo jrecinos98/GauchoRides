@@ -10,7 +10,6 @@ import { getTheme } from '../../Utility';
 
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
-import MyClock from '../../components/MyClock';
 import {GestureHandler} from 'expo'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
 
@@ -70,6 +69,8 @@ export default class ProfileScreen extends Component {
 
         };
 
+        let statusTheme = (profile_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+
         return (
 
             <View style={styles.container}>
@@ -77,7 +78,7 @@ export default class ProfileScreen extends Component {
                     settings = instance;
                 }}/>
 
-                <StatusBar hidden={true}/>
+                <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}>
                     <Ionicons
                         name='ios-settings'
@@ -86,7 +87,6 @@ export default class ProfileScreen extends Component {
                             settings.setModalVisible(true);
                         }}/>
                     <Text style={customStyle.title}>Profile</Text>
-                    <MyClock color_theme={profile_this.state.color_theme}/>
                 </View>
 
                 <View style={customStyle.container}>

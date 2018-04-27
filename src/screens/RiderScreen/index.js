@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR } from '../../Constants';
+import { COLOR, STRING } from '../../Constants';
 import { getTheme } from '../../Utility';
 
 
@@ -48,10 +48,13 @@ export default class RiderScreen extends Component {
 
         };
 
+        let statusTheme = (rider_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+
         return (
+
             <View style={styles.container}>
 
-                <StatusBar hidden={true}/>
+                <StatusBar barStyle={statusTheme}/>
 
                 <View style={customStyle.topBar}/>
 

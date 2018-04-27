@@ -50,9 +50,11 @@ export default class HistoryScreen extends Component {
 
         };
 
+        let statusTheme = (history_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+
         return (
             <View style={styles.container}>
-                <StatusBar hidden={true}/>
+                <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}/>
                 <Text style={customStyle.title}>History</Text>
 

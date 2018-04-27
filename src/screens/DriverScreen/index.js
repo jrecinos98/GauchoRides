@@ -90,10 +90,12 @@ export default class DriverScreen extends Component {
 
 		};
 
+        let statusTheme = (driver_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+
 		return (
 			<View style = {styles.container}>
 
-				<StatusBar hidden={true}/>
+				<StatusBar barStyle={statusTheme}/>
 
 				<View style={customStyle.topBar}/>
 
