@@ -78,7 +78,7 @@ export default class ProfileScreen extends Component {
                     settings = instance;
                 }}/>
 
-                <StatusBar barStyle={statusTheme}/>
+                <StatusBar hidden={true} barStyle={statusTheme}/>
                 <View style={customStyle.topBar}>
                     <Ionicons
                         name='ios-settings'

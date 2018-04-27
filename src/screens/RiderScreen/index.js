@@ -54,7 +54,7 @@ export default class RiderScreen extends Component {
 
             <View style={styles.container}>
 
-                <StatusBar barStyle={statusTheme}/>
+                <StatusBar hidden={true} barStyle={statusTheme}/>
 
                 <View style={customStyle.topBar}/>
 

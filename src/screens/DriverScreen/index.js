@@ -95,7 +95,7 @@ export default class DriverScreen extends Component {
 		return (
 			<View style = {styles.container}>
 
-				<StatusBar barStyle={statusTheme}/>
+				<StatusBar hidden={true} barStyle={statusTheme}/>
 
 				<View style={customStyle.topBar}/>
 
