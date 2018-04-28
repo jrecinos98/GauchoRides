@@ -4,8 +4,11 @@ import { View, InputGroup, Input } from "native-base";
 import { Switch } from 'react-native-switch';
 
 import { Ionicons } from '@expo/vector-icons';
-
+import {getCurrentLocation, getInputData, toggleSearchResultModal} from "../../../modules/home"
 import styles from "./SearchBoxStyles.js";
+
+
+
 
 export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPredictions})=> {
 	function handleInput(key, val){
@@ -15,7 +18,7 @@ export const SearchBox = ({getInputData, toggleSearchResultModal, getAddressPred
 		});
 		getAddressPredictions();
 	}
-
+	
 
 
 		return(

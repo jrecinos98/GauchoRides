@@ -7,7 +7,8 @@ import User from '../../actors/User';
 import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR, FIREBASE } from '../../Constants';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { COLOR, FIREBASE, DIMENSION } from '../../Constants';
 import SearchArea2 from './SearchArea2';
 import { getTheme } from '../../Utility';
 
@@ -81,19 +82,24 @@ export default class DriverScreen extends Component {
 		const customStyle = {
 
 			topBar: [styles.topBar, {
+				height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
 				backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
 			}],
 
 			title: [styles.title, {
+				fontSize: DIMENSION.TITLE.SIZE,
+				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
 				color: driver_this.state.color_theme.APP_FOCUS
 			}]
 
 		};
 
+		let statusTheme = (driver_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+
 		return (
 			<View style = {styles.container}>
 
-				<StatusBar hidden={true}/>
+				<StatusBar barStyle={statusTheme}/>
 
 				<View style={customStyle.topBar}/>
 
@@ -117,14 +123,14 @@ const styles = StyleSheet.create({
 	topBar: {
 		backgroundColor: null,
 		alignSelf: 'stretch',
-		height: 60
+		height: null
 	},
 	title: {
 		color: null,
 		alignSelf: 'center',
 		justifyContent: 'center',
 		position: 'absolute',
-		fontSize: 20,
-		paddingTop: 20
+		fontSize: null,
+		paddingTop: null
 	}
 });

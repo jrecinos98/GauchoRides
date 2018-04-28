@@ -5,7 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import RideHistory from '../../components/RideHistory';
 
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR } from '../../Constants';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { COLOR, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
 
 
@@ -41,25 +42,31 @@ export default class HistoryScreen extends Component {
         const customStyle = {
 
             topBar: [styles.topBar, {
+                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: history_this.state.color_theme.APP_BACKGROUND
             }],
 
             title: [styles.title, {
+                fontSize: DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: history_this.state.color_theme.APP_FOCUS
+            }],
+
+            historyContainer: [styles.historyContainer, {
+                marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
             }]
 
         };
 
+        let statusTheme = (history_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+
         return (
             <View style={styles.container}>
-                <StatusBar hidden={true}/>
+                <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}/>
+                <Text style={customStyle.title}>History</Text>
 
-
-                <View style={{
-                    marginTop: 60,
-                    position: 'absolute'
-                }}>
+                <View style={styles.historyContainer}>
                     <RideHistory style={{
                         flex: 1,
                         aspectRatio: 0.5,
@@ -67,8 +74,6 @@ export default class HistoryScreen extends Component {
                     }}/>
                 </View>
 
-
-                <Text style={customStyle.title}>History</Text>
             </View>
         );
     }
@@ -85,14 +90,18 @@ const styles = StyleSheet.create({
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
-        height: 60
+        height: null
     },
     title: {
         color: null,
         alignSelf: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        fontSize: 20,
-        paddingTop: 20
+        fontSize: null,
+        paddingTop: null
+    },
+    historyContainer: {
+        marginTop: null,
+        flex: 1
     }
 });

@@ -4,7 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { COLOR } from '../../Constants';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { COLOR, STRING, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
 
 
@@ -37,30 +38,37 @@ export default class RiderScreen extends Component {
     render() {
 
         const customStyle = {
-
             topBar: [styles.topBar, {
+                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: rider_this.state.color_theme.APP_BACKGROUND
             }],
-
             title: [styles.title, {
+                fontSize: DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: rider_this.state.color_theme.APP_FOCUS
             }]
-
         };
 
+
+        let statusTheme = (rider_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+
         return (
+
             <View style={styles.container}>
 
-                <StatusBar hidden={true}/>
+                <StatusBar barStyle={statusTheme}/>
 
                 <View style={customStyle.topBar}/>
 
                 <Text style={customStyle.title}>Passenger</Text>
 
-                <MapArea color_theme={rider_this.state.color_theme}/>
+                <View style={styles.contentContainer}>
 
-                <SearchArea color_theme={rider_this.state.color_theme}/>
+                    <MapArea color_theme={rider_this.state.color_theme}/>
 
+                    <SearchArea color_theme={rider_this.state.color_theme}/>
+
+                </View>
             </View>
         );
     }
@@ -77,14 +85,18 @@ const styles = StyleSheet.create({
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
-        height: 60
+        height: null
     },
     title: {
         color: null,
         alignSelf: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        fontSize: 20,
-        paddingTop: 20
+        fontSize: null,
+        paddingTop: null
+    },
+    contentContainer: {
+        flex: 1
     }
 });
+

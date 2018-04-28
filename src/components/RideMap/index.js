@@ -8,30 +8,49 @@ import { STRING } from '../../Constants';
 
 export default class RideMap extends Component {
 
+    //Get map style based on specific map theme
+    getMapStyle(map_theme) {
+        switch(map_theme) {
+            case STRING.THEME.DARK: return DarkTheme;
+            case STRING.THEME.LIGHT: return LightTheme;
+            default: return OldTheme;
+        }
+    }
+
+    selectColor(index){
+        switch(index) {
+            case 0: return "red";
+            case 1: return "blue";
+            case 2: return "yellow";
+            case 3: return "black";
+            case 4: return "green";
+            case 5: return "orange";
+            case 6: return "grey";
+            case 7: return "pink";
+            case 8: return "brown";
+            case 9: return "magenta";
+            default: return "white";
+        }
+    }
+
     render() {
 
-        let mapStyle;
-        if (this.props.map_theme === STRING.THEME.DARK)
-            mapStyle = DarkTheme;
+        //Get map theme style
+        let mapStyle = this.getMapStyle(this.props.map_theme);
 
-        else if (this.props.map_theme === STRING.THEME.LIGHT)
-            mapStyle = LightTheme;
-
-        else
-            mapStyle = OldTheme;
-
-        // Temporary check for null value.
-        if (this.props.origin_latitude == null || this.props.origin_longitude == null)
+        //Check for null value.
+        if (this.props.userLoc == null)
             return null;
 
-        if (this.props.coords == null) {
+        //Return empty map if coords is null
+        if (this.props.coords_list == null) {
             return (
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     style={styles.map}
                     region={{
-                        latitude: this.props.origin_latitude,
-                        longitude: this.props.origin_longitude,
+                        latitude: this.props.userLoc.latitude,
+                        longitude: this.props.userLoc.longitude,
                         latitudeDelta: 0.1,
                         longitudeDelta: 0.1
                     }}
@@ -40,48 +59,47 @@ export default class RideMap extends Component {
             );
         }
 
-        let coords = this.props.coords;
-        let origin = coords[0];
-        let destin = coords[coords.length - 1]
+        //Generate polylines
+        let polyLines = this.props.coords_list.map((coords, index) => {
+            let color = this.selectColor(index);
+            let origin = coords[0];
+            let destin = coords[coords.length - 1];
+            return (
+                <View key={index}>
+                    <Polyline
+                        coordinates={coords}
+                        strokeColor={color}
+                        strokeWidth={6}/>
+                    <MapView.Marker
+                        coordinate={{
+                            latitude: origin.latitude,
+                            longitude: origin.longitude
+                        }}
+                        pinColor={color}/>
+                    <MapView.Marker
+                        coordinate={{
+                            latitude: destin.latitude,
+                            longitude: destin.longitude
+                        }}
+                        pinColor={color}/>
+                </View>);
+        });
+
+        //Draw components
         return (
 
             <MapView
                 provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 region={{
-                    latitude: origin.latitude,
-                    longitude: origin.longitude,
+                    latitude: this.props.userLoc.latitude,
+                    longitude: this.props.userLoc.longitude,
                     latitudeDelta: 0.1,
                     longitudeDelta: 0.1
                 }}
                 customMapStyle={mapStyle}>
 
-                <MapView.Marker
-                    coordinate={{
-                        latitude: origin.latitude,
-                        longitude: origin.longitude
-                    }}
-                    pinColor="black"/>
-
-                <MapView.Marker
-                    coordinate={{
-                        latitude: destin.latitude,
-                        longitude: destin.longitude
-                    }}
-                    pinColor="blue"/>
-
-                <Polyline
-                    coordinates={coords}
-                    strokeColor="#000"
-                    strokeColors={[
-                        '#7F0000',
-                        '#00000000',
-                        '#B24112',
-                        '#E5845C',
-                        '#238C23',
-                        '#7F0000'
-                    ]}
-                    strokeWidth={6}/>
+                {polyLines}
 
             </MapView>
 
@@ -92,7 +110,7 @@ export default class RideMap extends Component {
 const styles = {
     map: {
         position: 'absolute',
-        top: 60,
+        top: 0,
         left: 0,
         bottom: 0,
         right: 0
