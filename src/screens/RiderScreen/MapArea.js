@@ -50,9 +50,11 @@ export default class MapArea extends Component {
                 }
             },
             (error) => {
-                this.setState({ 
-                    error: error.message
-                });
+                if(this.refs.rideMap !== null) {
+                    this.setState({
+                        error: error.message
+                    });
+                }
             },
             {
                 enableHighAccuracy: true,

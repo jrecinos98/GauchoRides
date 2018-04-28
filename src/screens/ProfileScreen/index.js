@@ -73,7 +73,7 @@ export default class ProfileScreen extends Component {
             }]
         };
 
-        let statusTheme = (profile_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (profile_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
 
         return (
 
