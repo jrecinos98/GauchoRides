@@ -99,7 +99,7 @@ export default class ProfileScreen extends Component {
                         <SexyRating/>
                     </View>
                     <View>
-                        
+
                     </View>
 
 

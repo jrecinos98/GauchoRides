@@ -18,7 +18,7 @@ export class BounceProfileImage extends Component {
 
             //dx is the horizontal distance that the user's finger has traveled since start of gesture
             //vx instantaneous velocity of the swipe gesture in the horizontal direction at release.
-
+            //THIS SENDS THE IMAGE FLYING OFF THE SCREEN.
 
            /* if (Math.abs(vx) >= 0.5 || Math.abs(dx) >= 0.5 * screenWidth) {
                 Animated.timing(this.translateX, {

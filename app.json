@@ -6,12 +6,12 @@
   	"sdkVersion": "26.0.0",
   	"icon": "./public/assets/app_icon_lightblue2.png",
     "version": "1.0.0",
-    "slug": "your-app-slug",
+    "slug": "Gaucho-Rides-slug",
     "ios": {
       "bundleIdentifier": "host.exp.exponent"
     },
     "android": {
-      "package": "com.IluvTurtle.gaucho_ride"
+      "package": "com.gauchorides"
     }
  }
 }
