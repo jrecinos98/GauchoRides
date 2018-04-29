@@ -66,6 +66,7 @@ export default class MapArea extends Component {
 
     //Get route from google direction api
     createRoute(origin, destin) {
+
         fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${APIKEY}&mode=${mode}`)
         .then(response => response.json())
         .then(async responseJson => {

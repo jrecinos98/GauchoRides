@@ -12,7 +12,9 @@ export default class SearchBox extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			directRide: true
+			directRide: true,
+			pickupInput: "",
+			dropoffInput: ""
 		};
 	}
 
@@ -31,14 +33,31 @@ export default class SearchBox extends Component {
 				<View style={styles.inputWrapper}>
 					<InputGroup>
 						<Ionicons name="ios-search" size={15} color="#FF5E3A"/>
-						<Input onFocus={()=>toggleSearchResultModal("pickUp")} style={styles.inputSearch} placeholder="Choose pick-up location" onChangeText={this.handleInput.bind(this, "pickUp")}/>
+						<Input
+							onFocus={()=>toggleSearchResultModal("pickUp")}
+							style={styles.inputSearch}
+							placeholder="Choose pick-up location"
+							onChangeText={(pickupInput) => {
+								this.handleInput.bind(this, "pickUp");
+								this.setState({pickupInput: pickupInput});
+								this.props.onChangeText(pickupInput, this.state.dropoffInput);
+							}}/>
 					</InputGroup>
 				</View>
+
 
 				<View style={styles.secondInputWrapper}>
 					<InputGroup>
 						<Ionicons name="ios-search" size={15} color="#FF5E3A"/>
-						<Input onFocus={()=>toggleSearchResultModal("dropOff")}  style={styles.inputSearch} placeholder="Choose drop-off location" onChangeText={this.handleInput.bind(this, "dropOff")}/>
+						<Input
+							onFocus={()=>toggleSearchResultModal("dropoff")} 
+							style={styles.inputSearch}
+							placeholder="Choose drop-off location"
+							onChangeText={(dropoffInput) => {
+								this.handleInput.bind(this, "dropoff")
+								this.setState({dropoffInput: dropoffInput});
+								this.props.onChangeText(this.state.pickupInput, dropoffInput);
+							}}/>
 					</InputGroup>
 				</View>
 

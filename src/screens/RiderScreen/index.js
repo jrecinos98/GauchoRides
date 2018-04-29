@@ -46,6 +46,11 @@ export default class RiderScreen extends Component {
                 fontSize: DIMENSION.TITLE.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: rider_this.state.color_theme.APP_FOCUS
+            }],
+            options: [styles.options, {
+                fontSize: DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                color: rider_this.state.color_theme.APP_FOCUS
             }]
         };
 
@@ -58,17 +63,32 @@ export default class RiderScreen extends Component {
 
                 <StatusBar barStyle={statusTheme}/>
 
-                <View style={customStyle.topBar}/>
-
-                <Text style={customStyle.title}>Passenger</Text>
+                <View style={customStyle.topBar}>
+                    <Ionicons
+                        name='ios-options'
+                        style={customStyle.options}
+                        onPress={() => this.searchArea.ShowHideTextComponentView()}/>
+                    <Text style={customStyle.title}>Passenger</Text>
+                </View>
 
                 <View style={styles.contentContainer}>
 
-                    <MapArea color_theme={rider_this.state.color_theme}/>
-
-                    <SearchArea color_theme={rider_this.state.color_theme}/>
+                    <MapArea
+                        ref={(instance) => {
+                            this.mapArea = instance;
+                        }}
+                        color_theme={rider_this.state.color_theme}/>
+                    <SearchArea
+                        ref={(instance) => {
+                            this.searchArea = instance;
+                        }}
+                        onSubmit={(origin, destin)=>{
+                            this.mapArea.createRoute(origin.toString(), destin.toString());
+                        }}
+                        color_theme={rider_this.state.color_theme}/>
 
                 </View>
+
             </View>
         );
     }
@@ -97,6 +117,14 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1
+    },
+    options: {
+        paddingRight: 25,
+        paddingTop: null,
+        fontSize: null,
+        color: null,
+        alignSelf: 'flex-end',
+        position: 'absolute',
     }
 });
 

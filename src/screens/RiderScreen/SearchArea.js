@@ -11,9 +11,11 @@ export default class SearchArea extends Component {
 
         this.state = {
             chosenDate: new Date(),
-            status: true,
+            showSearchArea: true,
             showIOSDatePicker: false
         };
+        this.pickupInput = "";
+        this.dropoffInput = "";
         this.setDate = this.setDate.bind(this);
         // this.pickAndroidDate();
     }
@@ -22,11 +24,11 @@ export default class SearchArea extends Component {
         this.setState({chosenDate: newDate})
     }
 
-    ShowHideTextComponentView = () =>{
-        if(this.state.status === true)
-            this.setState({status: false})
+    ShowHideTextComponentView() {
+        if(this.state.showSearchArea === true)
+            this.setState({showSearchArea: false})
         else
-            this.setState({status: true})
+            this.setState({showSearchArea: true})
     };
 
     async pickAndroidDate() {
@@ -83,11 +85,15 @@ export default class SearchArea extends Component {
         };
 
         return (
-            this.state.status ?
+            this.state.showSearchArea ?
 
             <ScrollView style={styles.container}>
 
-                <SearchBox/>
+                <SearchBox
+                    onChangeText={(pickupInput, dropoffInput)=>{
+                        this.pickupInput = pickupInput;
+                        this.dropoffInput = dropoffInput;
+                    }}/>
 
                 {
                     (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
@@ -120,7 +126,12 @@ export default class SearchArea extends Component {
                 </View>
 
                 <View style={customStyle.buttonContainer}>
-                    <Button onPress={this.ShowHideTextComponentView} title="Find Ride!"/>
+                    <Button
+                        onPress={() => {
+                            this.ShowHideTextComponentView();
+                            this.props.onSubmit(this.pickupInput, this.dropoffInput);
+                        }}
+                        title="Find Ride!"/>
                 </View>
 
             </ScrollView> : null
