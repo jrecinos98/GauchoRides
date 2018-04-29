@@ -93,15 +93,15 @@ export default class NewUserScreen extends Component {
         ('615345508804840', {
             permissions: ['public_profile', 'email'],
         });
+        /*
         fetch("https://graph.facebook.com/me?fields=id&access_token="+token, {
             method: 'GET'
         })
-
+*/
 
         if (type === 'success') {
             const credential = firebase.auth.FacebookAuthProvider.credential(token);
             firebase.auth().signInWithCredential(credential).catch((error) => {
-
                 alert(error);
             })
         }
@@ -114,7 +114,6 @@ export default class NewUserScreen extends Component {
         }
         return (
             <LoginBackground>
-                {/*3
                 <LoginForm
                     callback= {(email, password) => {
                         this.setState({
@@ -125,29 +124,27 @@ export default class NewUserScreen extends Component {
                     onSubmit= {(email, password) => {
                         this.logInUser(email, password);
                     }}
-                    />*/}
+                    />
 
                 <KeyboardAvoidingView behavior="padding">
                     <View style={loginStyle.buttonContainer}>
-                        {/*<LoginButton
+                        <LoginButton
                             title="LOGIN"
                             callback={() => {
                                 this.logInUser(this.state.email, this.state.password);
                             }}/>
-                        */}
                         <LoginButton
                             title="CONTINUE WITH FACEBOOK"
                             callback={() => {
                                 this.loginWithFacebook();
                             }}/>
-                        {/*
                         <Text
                             style={loginStyle.signUpText}
                             onPress={() => {
                                 this.signUpUser(this.state.email, this.state.password);
                             }}>
                             Don't have an account? Sign Up
-                        </Text>*/}
+                        </Text>
                     </View>
                 </KeyboardAvoidingView>
             </LoginBackground>

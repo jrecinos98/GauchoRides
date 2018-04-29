@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, LayoutAnimation, UIManager, View, Image, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import {Body, Container, Header, Title} from 'native-base';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Settings from './Settings';
@@ -13,7 +13,6 @@ import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
 import {GestureHandler} from 'expo'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
-
 
 export default class ProfileScreen extends Component {
 
@@ -40,6 +39,15 @@ export default class ProfileScreen extends Component {
             <Ionicons name="ios-contact" style={{color: tintColor, fontSize: 20}}/>
         )
     };
+    openMessenger(){
+        Linking.canOpenURL('http://m.me/jose.recinos.1998').then(supported =>{
+            if(!supported){
+                console.log("Can't open url")
+            }else{
+                return Linking.openURL('http://m.me/jose.recinos.1998')
+            }
+        })
+    }
 
     render() {
 
@@ -105,7 +113,7 @@ export default class ProfileScreen extends Component {
                         <SexyRating/>
                     </View>
                     <View>
-
+                        <Button title={"Message Jose"} onPress={()=>this.openMessenger()}/>
 
                         {/*Todo*/}
 

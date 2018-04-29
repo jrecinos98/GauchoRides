@@ -47,10 +47,11 @@ export default class App extends React.Component {
         firebase.auth().onAuthStateChanged((user) => {
             if (user != null) {
                 firebase.database().ref(FIREBASE.USERS_PATH + '/' + user.uid).once('value').then(snapshot => {
-                    
+                    console.log(user);
                     // If user doesn't exist, we create a reference in Firebase and retrieve the new user.
                     // Otherwise, we initialize a local user object for current user.
                     if (snapshot.val() == null)
+
                         this.createNewUser(user);
                     else
                         User.currentUser = new User(snapshot.val(), !User.isFB);
@@ -76,6 +77,7 @@ export default class App extends React.Component {
     }
 
     createNewUser(fbUser) {
+        //console.log(fbUser);
         let newUser = new User(fbUser, User.isFB);
         firebase.database().ref(FIREBASE.USERS_PATH + '/' + newUser.id).set(newUser);
         User.currentUser = newUser;
