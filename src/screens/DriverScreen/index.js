@@ -105,7 +105,7 @@ export default class DriverScreen extends Component {
 
 				<Text style={customStyle.title}>Driver</Text>
 
-				<SearchArea2/>
+				<SearchArea2 color_theme={rider_this.state.color_theme}/>
 
 			</View>
 		);

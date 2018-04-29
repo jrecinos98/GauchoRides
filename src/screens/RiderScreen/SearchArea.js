@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TouchableOpacity, Button, TouchableHighlight, Alert, Dimensions, Platform} from "react-native";
+import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, TouchableOpacity,
+        Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 
@@ -10,11 +11,11 @@ export default class SearchArea extends Component {
 
         this.state = {
             chosenDate: new Date(),
-            status: true
-
+            status: true,
+            showIOSDatePicker: false
         };
         this.setDate = this.setDate.bind(this);
-       // this.pickAndroidDate();
+        // this.pickAndroidDate();
     }
 
     setDate(newDate) {
@@ -22,13 +23,10 @@ export default class SearchArea extends Component {
     }
 
     ShowHideTextComponentView = () =>{
-        if(this.state.status === true){
+        if(this.state.status === true)
             this.setState({status: false})
-        }
         else
-        {
             this.setState({status: true})
-        }
     };
 
     async pickAndroidDate() {
@@ -36,11 +34,42 @@ export default class SearchArea extends Component {
             const {action, year, month, day} = await DatePickerAndroid.open({
                 date: this.state.chosenDate
             });
+
             if (action !== DatePickerAndroid.dismissedAction) {
-                this.setDate(new Date(year, month, day));
+                this.setDate(new Date(
+                    year,
+                    month,
+                    day,
+                    this.state.chosenDate.getHours(),
+                    this.state.chosenDate.getMinutes()
+                ));
             }
-        } catch ({code, message}) {
+        }
+        catch ({code, message}) {
             console.warn('Cannot open date picker', message);
+        }
+    }
+
+    async pickAndroidTime() {
+        try {
+            const {action, hour, minute} = await TimePickerAndroid.open({
+                hour: this.state.chosenDate.hour,
+                minute: this.state.chosenDate.minute,
+                is24Hour: false
+            });
+
+            if (action !== TimePickerAndroid.dismissedAction) {
+                this.setDate(new Date(
+                    this.state.chosenDate.getFullYear(),
+                    this.state.chosenDate.getMonth(),
+                    this.state.chosenDate.getDate(),
+                    hour,
+                    minute
+                ));
+            }
+        }
+        catch ({code, message}) {
+            console.warn('Cannot open time picker', message);
         }
     }
 
@@ -56,33 +85,45 @@ export default class SearchArea extends Component {
         return (
             this.state.status ?
 
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
 
                 <SearchBox/>
-               
+
                 {
-                    (Platform.OS === 'ios') ?
+                    (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
                         <View style={styles.TimeDateWrapper}>
                             <DatePickerIOS
                                 date={this.state.chosenDate}
                                 onDateChange={this.setDate}
                             />
                         </View>
-                    :
-                        <Text style={{
-                                marginLeft:15,
-                                marginRight:10,
-                                marginTop:30,
-                                marginBottom:0 }}>
-                            This is Android Device.
-                        </Text>
+                    : null
                 }
+
+                <View style={customStyle.buttonContainer}>
+                    <Button
+                        onPress={()=> {
+                            if (Platform.OS === 'android') {
+                                this.pickAndroidTime();
+                                this.pickAndroidDate();
+                            }
+
+                            if (Platform.OS === 'ios') {
+                                this.setState((prevState) => {
+                                    return {showIOSDatePicker: !prevState.showIOSDatePicker};
+                                });
+                            }
+                        }}
+                        title={
+                            this.state.chosenDate ? this.state.chosenDate.toLocaleString() : "Choose Date!"
+                        }/>
+                </View>
 
                 <View style={customStyle.buttonContainer}>
                     <Button onPress={this.ShowHideTextComponentView} title="Find Ride!"/>
                 </View>
 
-            </View> : null
+            </ScrollView> : null
 
         );
 
@@ -94,13 +135,11 @@ export default class SearchArea extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		// alignItems: 'center',
-		justifyContent: 'center'
+        flexDirection: 'column'
 	},
     buttonContainer: {
         marginLeft:15,
         marginRight:10,
-        marginTop:10,
         marginBottom:0,
         backgroundColor: null,
         borderRadius: 10,
@@ -116,7 +155,6 @@ const styles = StyleSheet.create({
     TimeDateWrapper:{
         marginLeft:15,
         marginRight:10,
-        marginTop:150,
         backgroundColor:"#fff",
         opacity:0.9,
         borderRadius:7
