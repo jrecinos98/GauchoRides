@@ -37,8 +37,8 @@ export const COLOR = {
 		APP_TITLE_LOGIN: 		'#FFD700',
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.9)',
-		FB_NAME_COLOR:			'#ffffff'
-
+		FB_NAME_COLOR:			'#ffffff',
+		BGCOLOR:                'skyblue'
 	},
 
 	THEME_LIGHT: {
@@ -50,7 +50,8 @@ export const COLOR = {
 		APP_TITLE_LOGIN: 		'#000000',
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)',
-		FB_NAME_COLOR:			'#000000'
+		FB_NAME_COLOR:			'#000000',
+		BGCOLOR:                'skyblue'
 	},
 
 	THEME_CLASSIC: {
@@ -62,7 +63,8 @@ export const COLOR = {
 		APP_TITLE_LOGIN: 		'#FFD700',
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)',
-		FB_NAME_COLOR:			'#b3ad08'
+		FB_NAME_COLOR:			'#b3ad08',
+		BGCOLOR:                '#b3ad08'
 	}
 
 }

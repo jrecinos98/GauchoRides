@@ -71,7 +71,7 @@ export default class ProfileScreen extends Component {
                 color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
             textStyle: [styles.textStyle,{
-                color: profile_this.state.color_theme.FB_NAME_COLOR
+                flex: 1, color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
             container: [styles.container, {
                 backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_OPQUE
@@ -112,13 +112,17 @@ export default class ProfileScreen extends Component {
                         <WheelRating/>
                         <SexyRating/>
                     </View>
-                    <View>
-                        <Button title={"Message Jose"} onPress={()=>this.openMessenger()}/>
-
-                        {/*Todo*/}
-
-                    </View>
-
+                    
+                    <View style={{ flex:0.5, flexDirection: 'row', margin: 10, flexWrap: 'wrap', alignContent: 'space-around'}}>
+                        <Text 
+                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Respected(10) </Text>
+                        <Text 
+                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Inspirational(5) </Text>
+                        <Text 
+                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Caring(3) </Text>
+                        <Text 
+                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Skip ride!(1) </Text>
+                </View>
 
                 </View>
             </View>
@@ -142,6 +146,7 @@ const styles = StyleSheet.create({
        // justifyContent: 'center'
     },
     imageWrapper: {
+        flex: 1,
         marginTop: null,
         alignItems: 'center',
         justifyContent: 'center'
@@ -153,6 +158,7 @@ const styles = StyleSheet.create({
 
     },
     userName: {
+        flex: 0.75,
         textShadowColor: 'rgba(0, 0, 0, 0.6)',
         fontSize: 25,
         textShadowOffset: {width: -1, height: 1},
