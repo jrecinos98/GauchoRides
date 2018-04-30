@@ -54,7 +54,14 @@ const styles = {
         color: '#FFF',
         marginTop: 10,
         width: 160
+    },
+    rightContainer: {
+        flex: 1,
+        alignItems: 'flex-end',
+        flexDirection: 'column',
+        justifyContent: 'flex-end'
     }
+ 
 };
 
 export default styles;
