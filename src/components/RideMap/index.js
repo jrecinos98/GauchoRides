@@ -35,11 +35,13 @@ export default class RideMap extends Component {
     }
 
     getRegion(origin, destin) {
+
+
         return {
             latitude: (origin.latitude + destin.latitude) / 2,
             longitude: (origin.longitude + destin.longitude) / 2,
-            latitudeDelta: (origin.latitude - destin.latitude) * 2,
-            longitudeDelta: (origin.longitude - destin.longitude) * 2
+            latitudeDelta: Math.abs(origin.latitude - destin.latitude) * 2,
+            longitudeDelta: Math.abs(origin.longitude - destin.longitude) * 2
         };
     }
 
