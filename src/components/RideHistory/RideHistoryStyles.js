@@ -59,7 +59,10 @@ const styles = {
         flex: 1,
         alignItems: 'flex-end',
         flexDirection: 'column',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        marginRight:30,
+        marginBottom:50
+
     }
  
 };
