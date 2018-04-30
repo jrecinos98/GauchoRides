@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Text } from "react-native";
 import { View } from "native-base";
-import MapView, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from 'react-native-maps';
 import LightTheme from './LightTheme.json';
 import DarkTheme from './DarkTheme.json';
 import OldTheme from './OldTheme.json';
@@ -17,7 +18,7 @@ export default class RideMap extends Component {
         }
     }
 
-    selectColor(index){
+    selectColor(index) {
         switch(index) {
             case 0: return "red";
             case 1: return "blue";
@@ -31,6 +32,15 @@ export default class RideMap extends Component {
             case 9: return "magenta";
             default: return "white";
         }
+    }
+
+    getRegion(origin, destin) {
+        return {
+            latitude: (origin.latitude + destin.latitude) / 2,
+            longitude: (origin.longitude + destin.longitude) / 2,
+            latitudeDelta: (origin.latitude - destin.latitude) * 2,
+            longitudeDelta: (origin.longitude - destin.longitude) * 2
+        };
     }
 
     render() {
@@ -64,24 +74,41 @@ export default class RideMap extends Component {
             let color = this.selectColor(index);
             let origin = coords[0];
             let destin = coords[coords.length - 1];
+
             return (
                 <View key={index}>
+
                     <Polyline
                         coordinates={coords}
                         strokeColor={color}
                         strokeWidth={6}/>
-                    <MapView.Marker
+
+                    <Marker
                         coordinate={{
                             latitude: origin.latitude,
                             longitude: origin.longitude
                         }}
-                        pinColor={color}/>
-                    <MapView.Marker
+                        pinColor={color}
+                        onPress={()=>{
+                            this.props.onMarkerPress(index);
+                            this.mapView.animateToRegion(this.getRegion(origin, destin));
+                        }}/>
+
+                    <Marker
                         coordinate={{
                             latitude: destin.latitude,
                             longitude: destin.longitude
                         }}
-                        pinColor={color}/>
+                        pinColor={color}
+                        onPress={()=>{
+                            this.props.onMarkerPress(index);
+                            this.mapView.animateToRegion(this.getRegion(origin, destin));
+                        }}>
+
+                        <Text style={styles.markerText}> {index} </Text>
+
+                    </Marker>
+
                 </View>);
         });
 
@@ -89,6 +116,9 @@ export default class RideMap extends Component {
         return (
 
             <MapView
+                ref={(instance) => {
+                    this.mapView = instance;
+                }}
                 provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 region={{
@@ -114,5 +144,9 @@ const styles = {
         left: 0,
         bottom: 0,
         right: 0
+    },
+    markerText: {
+        backgroundColor: '#ffffff',
+        padding: 5
     }
 }
