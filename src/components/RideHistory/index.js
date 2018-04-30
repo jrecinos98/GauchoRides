@@ -45,7 +45,7 @@ export default class RideHistory extends Component {
         return (
           		<View style={styles.container}>
           			<View style={styles.logoContainer}>
-          				<Text style={styles.title}>Ride History</Text>
+          				<Text style={styles.title}>Drive History</Text>
 
                    <FlatList
                       data={this.props.data}
@@ -53,22 +53,20 @@ export default class RideHistory extends Component {
                       keyExtractor={this._keyExtractor}
                       renderItem={this._renderItem}
                    />
-                  <Text style={styles.title}>Drive History</Text>
-                  <FlatList
-                      data={this.props.data}
-                      extraData={this.state}
-                      keyExtractor={this._keyExtractor}
-                      renderItem={this._renderItem}
-                   />
+                 
           			</View>
 
-                <View style={styles.secondInputWrapper}>
-                  <TouchableOpacity style={styles.button} onPress={()=>{alert("you clicked me")}}>
-                    <Image source={require("../../../public/assets/plus_button.png")}/>
+                <View style={styles.rightContainer}>
+                  <TouchableOpacity style={styles.button} onPress={()=>{alert("This should go to ride page")}}>
+                    <Image source={require("../../../public/assets/plus_button.png")}
+                      style={{width: 75, height: 75}}
+                    />
+
                   </TouchableOpacity>
                   <Text>Create Ride</Text>
                 </View>
           		</View>
+
         
 
         );
