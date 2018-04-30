@@ -34,7 +34,9 @@ export default class RideMap extends Component {
         }
     }
 
-    getRegion(origin, destin) {
+    getRegion(index) {
+        let origin = this.props.coords_list[index][0];
+        let destin = this.props.coords_list[index][this.props.coords_list[index].length - 1];
 
         if (Platform.OS === "ios") {
             return {
@@ -102,7 +104,7 @@ export default class RideMap extends Component {
                         pinColor={color}
                         onPress={()=>{
                             this.props.onMarkerPress(index);
-                            this.mapView.animateToRegion(this.getRegion(origin, destin));
+                            this.mapView.animateToRegion(this.getRegion(index));
                         }}/>
 
                     <Marker
@@ -113,7 +115,7 @@ export default class RideMap extends Component {
                         pinColor={color}
                         onPress={()=>{
                             this.props.onMarkerPress(index);
-                            this.mapView.animateToRegion(this.getRegion(origin, destin));
+                            this.mapView.animateToRegion(this.getRegion(index));
                         }}>
 
                         <Text style={styles.markerText}> {index} </Text>

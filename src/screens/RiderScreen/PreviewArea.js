@@ -52,6 +52,7 @@ export default class PreviewArea extends Component {
                     style={customStyle.buttonContainer}
                     onPress={() => {
                         this.previewBar.scrollTo({x: this.getSnapPosition(index), y: 0, animated: true});
+                        this.props.onPreviewPress(index);
                     }}>
 
                     <Text style={customStyle.buttonText}>
