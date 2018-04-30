@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text } from "react-native";
+import { Text, Platform } from "react-native";
 import { View } from "native-base";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from 'react-native-maps';
 import LightTheme from './LightTheme.json';
@@ -36,13 +36,22 @@ export default class RideMap extends Component {
 
     getRegion(origin, destin) {
 
-
-        return {
-            latitude: (origin.latitude + destin.latitude) / 2,
-            longitude: (origin.longitude + destin.longitude) / 2,
-            latitudeDelta: Math.abs(origin.latitude - destin.latitude) * 2,
-            longitudeDelta: Math.abs(origin.longitude - destin.longitude) * 2
-        };
+        if (Platform.OS === "ios") {
+            return {
+                latitude: (origin.latitude + destin.latitude) / 2,
+                longitude: (origin.longitude + destin.longitude) / 2,
+                latitudeDelta: (origin.latitude - destin.latitude) * 2,
+                longitudeDelta: (origin.longitude - destin.longitude) * 2
+            }
+        }
+        else if (Platform.OS === "android") {
+            return {
+                latitude: (origin.latitude + destin.latitude) / 2,
+                longitude: (origin.longitude + destin.longitude) / 2,
+                latitudeDelta: Math.abs(origin.latitude - destin.latitude) * 2,
+                longitudeDelta: Math.abs(origin.longitude - destin.longitude) * 2
+            };
+        }
     }
 
     render() {
