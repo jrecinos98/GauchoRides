@@ -79,6 +79,9 @@ export default class MapArea extends Component {
                     prevState.coords_list.push(coords);
                     return prevState;
                 });
+
+                //Preview new rides
+                this.props.onPreview(this.state.coords_list);
             }
         })
         .catch(e => {console.warn(e)});
@@ -96,12 +99,15 @@ export default class MapArea extends Component {
 
     //Draw components
     render() {
+
+
         return (
             <RideMap
                 ref="rideMap"
                 map_theme={this.state.map_theme}
                 userLoc={this.state.userLoc}
-                coords_list={this.state.coords_list}/>
+                coords_list={this.state.coords_list}
+                onMarkerPress={(index)=>{this.props.onMarkerPress(index);}}/>
         );
     }
 }

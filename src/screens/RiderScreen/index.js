@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid } from "react-native";
+import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid, ScrollView, Button, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
+import PreviewArea from './PreviewArea';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, STRING, DIMENSION } from '../../Constants';
@@ -18,7 +19,8 @@ export default class RiderScreen extends Component {
 
         rider_this = this;
         rider_this.state = {
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: COLOR.THEME_LIGHT,
+            rides: []
         };
 
         getTheme(function(theme) {
@@ -26,6 +28,8 @@ export default class RiderScreen extends Component {
                 color_theme: theme
             });
         });
+
+        this.displaySearch = true;
     }
 
 
@@ -51,6 +55,10 @@ export default class RiderScreen extends Component {
                 fontSize: DIMENSION.ICON.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
                 color: rider_this.state.color_theme.APP_FOCUS
+            }],
+            buttonContainer: [styles.buttonContainer, {
+                backgroundColor: rider_this.state.color_theme.APP_BACKGROUND,
+                shadowColor: rider_this.state.color_theme.APP_UNFOCUS
             }]
         };
 
@@ -65,17 +73,30 @@ export default class RiderScreen extends Component {
 
                 <View style={customStyle.topBar}>
                     <Ionicons
-                        name='ios-options'
+                        name='ios-search'
                         style={customStyle.options}
-                        onPress={() => this.searchArea.ShowHideTextComponentView()}/>
+                        onPress={() => {
+                            this.searchArea.ShowHideTextComponentView();
+                            this.displaySearch = !this.displaySearch;
+                            this.previewArea.displayComponent(!this.displaySearch);
+                        }}/>
                     <Text style={customStyle.title}>Passenger</Text>
                 </View>
+
 
                 <View style={styles.contentContainer}>
 
                     <MapArea
                         ref={(instance) => {
                             this.mapArea = instance;
+                        }}
+                        onPreview={(rides) => {
+                            this.setState({
+                                rides: rides
+                            });
+                        }}
+                        onMarkerPress={(index) => {
+                            this.previewArea.previewBar.scrollTo({x: this.previewArea.getSnapPosition(index), y: 0, animated: true});
                         }}
                         color_theme={rider_this.state.color_theme}/>
                     <SearchArea
@@ -84,9 +105,20 @@ export default class RiderScreen extends Component {
                         }}
                         onSubmit={(origin, destin)=>{
                             this.mapArea.createRoute(origin.toString(), destin.toString());
+                            this.displaySearch = !this.displaySearch;
+                            this.previewArea.displayComponent(!this.displaySearch);
                         }}
                         color_theme={rider_this.state.color_theme}/>
 
+                </View>
+
+                <View style={styles.previewContainer}>
+                    <PreviewArea
+                        ref={(instance) => {
+                            this.previewArea = instance;
+                        }}
+                        color_theme={this.state.color_theme}
+                        rides={this.state.rides} />
                 </View>
 
             </View>
@@ -125,6 +157,29 @@ const styles = StyleSheet.create({
         color: null,
         alignSelf: 'flex-end',
         position: 'absolute',
+    },
+    buttonContainer: {
+        marginLeft:5,
+        marginRight:5,
+        marginBottom:0,
+        backgroundColor: null,
+        borderRadius: 10,
+        padding: 10,
+        shadowColor: null,
+        shadowOffset: {
+            width: 0,
+            height: 3
+        },
+        shadowRadius: 10,
+        shadowOpacity: 0.25,
+        width: 300,
+        height: 100
+    },
+    previewContainer: {
+        flex:1,
+        position: 'absolute',
+        bottom: 10,
+        left: 5,
+        right: 5
     }
 });
-
