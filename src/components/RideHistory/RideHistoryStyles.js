@@ -63,7 +63,44 @@ const styles = {
         marginRight:30,
         marginBottom:50
 
+    },
+     container: {
+        flex: 1,
+        backgroundColor: '#F5FCFF'
+        //paddingTop: 22
+    },
+    welcome: {
+        fontSize: 20,
+        textAligh: 'center',
+        margin: 10,
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#333333',
+        marginBottom: 5
+
+    },
+    item: {
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+    },
+    startLocation:{
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#FFEEE4'
+    },
+    endLocation:{
+        //flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#FFEEE4'
+    },
+    dateofRide:{
+        //flex: 1,
+        flexDirection: 'row',
+        backgroundColor: '#FFEEE4'
     }
+
  
 };
 
