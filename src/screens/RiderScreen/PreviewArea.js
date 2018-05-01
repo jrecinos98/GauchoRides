@@ -77,7 +77,6 @@ export default class PreviewArea extends Component {
                 decelerationRate={0}
                 snapToInterval={previewWidth + 2 * previewMargin}
                 snapToAlignment={"center"}>
-
                 {preview_items}
 
             </ScrollView>

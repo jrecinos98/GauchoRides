@@ -17,8 +17,8 @@ export default class User {
 			this.name = object.displayName;
 			this.email = object.email;
 			this.description = "";
-			this.rating = 10.0;
-			this.drive_rating = 10.0;
+			this.rating = 5.0;
+			this.drive_rating = 0.5;
 			this.tags = {};
 			this.rides = {};
 			this.follows = {};

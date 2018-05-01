@@ -23,7 +23,7 @@ export default class DriverScreen extends Component {
 
 		driver_this.state = {
 			color_theme: COLOR.THEME_LIGHT
-		}
+		};
 
 		getTheme(function(theme) {
 			driver_this.setState({

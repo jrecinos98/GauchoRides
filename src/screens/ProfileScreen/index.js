@@ -74,7 +74,7 @@ export default class ProfileScreen extends Component {
                 color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
             container: [styles.container, {
-                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_OPQUE
+                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             imageWrapper: [styles.imageWrapper, {
                 marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT

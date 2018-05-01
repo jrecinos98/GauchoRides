@@ -1,23 +1,40 @@
 import React, { Component } from "react";
 import { View, Image, StyleSheet } from "react-native";
+import { getTheme } from '../../Utility';
 
 
 export default class WheelComponent extends Component{
+
     render(){
         return(
-            <View>
+            <View style={styles.wheelWrapper}>
+                <View style={styles.backgroundViewContainer}>
+                    <View
+                        style={this.props.backgroundLeft}
+                    />
+                    <View style={this.props.backgroundRight}/>
+
+                </View>
                 <Image
-                    source={require('../../../public/assets/wheel_52.png')}
-                    style={styles.wheelImage}
+                    source={require('../../../public/assets/wheel_52_alpha.png')}
+                    style={this.props.imageStyle}
                 />
+
             </View>
         )
     }
 }
 const styles= StyleSheet.create({
-    wheelImage: {
+
+    backgroundViewContainer:{
         width: 40,
         height: 40,
+        position: 'absolute',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'
+    },
+    wheelWrapper:{
         marginRight: 10,
         marginLeft: 10
     }
