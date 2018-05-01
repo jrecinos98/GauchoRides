@@ -56,6 +56,10 @@ export default class RideMap extends Component {
         }
     }
 
+    moveMapCamera(index) {
+        this.mapView.animateToRegion(this.getRegion(index));
+    }
+
     render() {
 
         //Get map theme style
@@ -104,7 +108,7 @@ export default class RideMap extends Component {
                         pinColor={color}
                         onPress={()=>{
                             this.props.onMarkerPress(index);
-                            this.mapView.animateToRegion(this.getRegion(index));
+                            this.moveMapCamera(index);
                         }}/>
 
                     <Marker
@@ -115,7 +119,7 @@ export default class RideMap extends Component {
                         pinColor={color}
                         onPress={()=>{
                             this.props.onMarkerPress(index);
-                            this.mapView.animateToRegion(this.getRegion(index));
+                            this.moveMapCamera(index);
                         }}>
 
                         <Text style={styles.markerText}> {index} </Text>

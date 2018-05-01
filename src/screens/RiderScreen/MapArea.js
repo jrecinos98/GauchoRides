@@ -81,7 +81,10 @@ export default class MapArea extends Component {
                 });
 
                 //Preview new rides
+                let lastIndex = this.state.coords_list.length - 1;
                 this.props.onPreview(this.state.coords_list);
+                this.rideMap.moveMapCamera(lastIndex);
+                this.props.onMarkerPress(lastIndex);
             }
         })
         .catch(e => {console.warn(e)});
@@ -99,7 +102,6 @@ export default class MapArea extends Component {
 
     //Draw components
     render() {
-
 
         return (
             <RideMap
