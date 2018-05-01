@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { DIMENSION } from '../../Constants';
 
-
-const previewWidth = 300;
-const previewHeight = 100;
-const previewMargin = 5;
 
 export default class PreviewArea extends Component {
 
@@ -13,7 +10,6 @@ export default class PreviewArea extends Component {
         this.state = {
             toDisplay: false
         }
-        console.log("???");
     }
 
     displayComponent(toDisplay) {
@@ -23,8 +19,8 @@ export default class PreviewArea extends Component {
     }
 
     getSnapPosition(index) {
-        let startPos = index * (previewWidth + 2 * previewMargin);
-        let sidePos = (Dimensions.get("window").width - previewWidth - 4 * previewMargin) / 2;
+        let startPos = index * (DIMENSION.PREVIEW.WIDTH + 2 * DIMENSION.PREVIEW.MARGIN);
+        let sidePos = (Dimensions.get("window").width - DIMENSION.PREVIEW.WIDTH - 4 * DIMENSION.PREVIEW.MARGIN) / 2;
         return startPos - sidePos;
     }
 
@@ -52,6 +48,7 @@ export default class PreviewArea extends Component {
                     style={customStyle.buttonContainer}
                     onPress={() => {
                         this.previewBar.scrollTo({x: this.getSnapPosition(index), y: 0, animated: true});
+                        this.props.onPreviewPress(index);
                     }}>
 
                     <Text style={customStyle.buttonText}>
@@ -75,7 +72,7 @@ export default class PreviewArea extends Component {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 decelerationRate={0}
-                snapToInterval={previewWidth + 2 * previewMargin}
+                snapToInterval={DIMENSION.PREVIEW.WIDTH + 2 * DIMENSION.PREVIEW.MARGIN}
                 snapToAlignment={"center"}>
                 {preview_items}
 
@@ -100,8 +97,8 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 10,
         shadowOpacity: 0.25,
-        width: previewWidth,
-        height: previewHeight
+        width: DIMENSION.PREVIEW.WIDTH,
+        height: DIMENSION.PREVIEW.HEIGHT
     },
     buttonText:{
         marginLeft: 10,

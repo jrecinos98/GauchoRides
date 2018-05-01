@@ -38,7 +38,7 @@ export default class MapArea extends Component {
     locateUser() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                if (this.refs.rideMap != null) {
+                if (this.rideMap != null) {
                     this.setState({
                         userLoc: new Location(position.coords.latitude, position.coords.longitude)
                     });
@@ -50,7 +50,7 @@ export default class MapArea extends Component {
                 }
             },
             (error) => {
-                if(this.refs.rideMap !== null) {
+                if(this.rideMap !== null) {
                     this.setState({
                         error: error.message
                     });
@@ -81,7 +81,10 @@ export default class MapArea extends Component {
                 });
 
                 //Preview new rides
+                let lastIndex = this.state.coords_list.length - 1;
                 this.props.onPreview(this.state.coords_list);
+                this.rideMap.moveMapCamera(lastIndex);
+                this.props.onMarkerPress(lastIndex);
             }
         })
         .catch(e => {console.warn(e)});
@@ -100,10 +103,11 @@ export default class MapArea extends Component {
     //Draw components
     render() {
 
-
         return (
             <RideMap
-                ref="rideMap"
+                ref={(instance) => {
+                    this.rideMap = instance;
+                }}
                 map_theme={this.state.map_theme}
                 userLoc={this.state.userLoc}
                 coords_list={this.state.coords_list}

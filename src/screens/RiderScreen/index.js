@@ -117,6 +117,9 @@ export default class RiderScreen extends Component {
                         ref={(instance) => {
                             this.previewArea = instance;
                         }}
+                        onPreviewPress={(index) => {
+                            this.mapArea.rideMap.moveMapCamera(index);
+                        }}
                         color_theme={this.state.color_theme}
                         rides={this.state.rides} />
                 </View>

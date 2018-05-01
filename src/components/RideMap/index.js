@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Text } from "react-native";
+import { Text, Platform } from "react-native";
 import { View } from "native-base";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from 'react-native-maps';
+import { Ionicons } from '@expo/vector-icons';
 import LightTheme from './LightTheme.json';
 import DarkTheme from './DarkTheme.json';
 import OldTheme from './OldTheme.json';
@@ -34,15 +35,30 @@ export default class RideMap extends Component {
         }
     }
 
-    getRegion(origin, destin) {
+    getRegion(index) {
+        let origin = this.props.coords_list[index][0];
+        let destin = this.props.coords_list[index][this.props.coords_list[index].length - 1];
 
+        if (Platform.OS === "ios") {
+            return {
+                latitude: (origin.latitude + destin.latitude) / 2,
+                longitude: (origin.longitude + destin.longitude) / 2,
+                latitudeDelta: (origin.latitude - destin.latitude) * 2,
+                longitudeDelta: (origin.longitude - destin.longitude) * 2
+            }
+        }
+        else if (Platform.OS === "android") {
+            return {
+                latitude: (origin.latitude + destin.latitude) / 2,
+                longitude: (origin.longitude + destin.longitude) / 2,
+                latitudeDelta: Math.abs(origin.latitude - destin.latitude) * 2,
+                longitudeDelta: Math.abs(origin.longitude - destin.longitude) * 2
+            };
+        }
+    }
 
-        return {
-            latitude: (origin.latitude + destin.latitude) / 2,
-            longitude: (origin.longitude + destin.longitude) / 2,
-            latitudeDelta: Math.abs(origin.latitude - destin.latitude) * 2,
-            longitudeDelta: Math.abs(origin.longitude - destin.longitude) * 2
-        };
+    moveMapCamera(index) {
+        this.mapView.animateToRegion(this.getRegion(index));
     }
 
     render() {
@@ -93,10 +109,11 @@ export default class RideMap extends Component {
                         pinColor={color}
                         onPress={()=>{
                             this.props.onMarkerPress(index);
-                            this.mapView.animateToRegion(this.getRegion(origin, destin));
+                            this.moveMapCamera(index);
                         }}/>
 
                     <Marker
+                        style={{flex:1}}
                         coordinate={{
                             latitude: destin.latitude,
                             longitude: destin.longitude
@@ -104,10 +121,14 @@ export default class RideMap extends Component {
                         pinColor={color}
                         onPress={()=>{
                             this.props.onMarkerPress(index);
-                            this.mapView.animateToRegion(this.getRegion(origin, destin));
+                            this.moveMapCamera(index);
                         }}>
 
-                        <Text style={styles.markerText}> {index} </Text>
+                        <View style={styles.markerView}>
+                            <Ionicons
+                                style={[styles.markerIcon, {color: color}]}
+                                name='ios-car'/>
+                        </View>
 
                     </Marker>
 
@@ -150,5 +171,20 @@ const styles = {
     markerText: {
         backgroundColor: '#ffffff',
         padding: 5
+    },
+    markerIcon: {
+        fontSize: 25,
+        position: 'absolute',
+        left: 3.5
+    },
+    markerView: {
+        position: 'absolute',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ffffff',
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        left: 15
     }
 }

@@ -16,8 +16,14 @@ export const STRING = {
 export const DIMENSION = {
 	TOPBAR: {HEIGHT: 50},
 	ICON:{SIZE: 32},
-	TITLE: {SIZE: 20}
+	TITLE: {SIZE: 20},
+	PREVIEW: {
+		WIDTH: 300,
+		HEIGHT: 100,
+		MARGIN: 5
+	}
 };
+
 
 // Firebase constants
 export const FIREBASE = {
@@ -43,6 +49,9 @@ export const COLOR = {
         CHILI_COLOR:            '#c21807',
 
 
+
+		BGCOLOR:                'skyblue'
+
 	},
 
 	THEME_LIGHT: {
@@ -55,9 +64,12 @@ export const COLOR = {
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)',
 		FB_NAME_COLOR:			'#000000',
+
 		WHEEL_COLOR:			'#000000',
         WHEEL_UNSELECTED:       '#888888',
         CHILI_COLOR:            '#c21807'
+		BGCOLOR:                'skyblue'
+
 	},
 
 	THEME_CLASSIC: {
@@ -70,9 +82,13 @@ export const COLOR = {
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)',
 		FB_NAME_COLOR:			'#b3ad08',
+
         WHEEL_COLOR:			'#000000',
         WHEEL_UNSELECTED:       '#888888',
         CHILI_COLOR:            '#c21807'
+
+		BGCOLOR:                '#b3ad08'
+
 	}
 
 }
