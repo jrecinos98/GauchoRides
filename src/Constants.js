@@ -16,7 +16,12 @@ export const STRING = {
 export const DIMENSION = {
 	TOPBAR: {HEIGHT: 50},
 	ICON:{SIZE: 32},
-	TITLE: {SIZE: 20}
+	TITLE: {SIZE: 20},
+	PREVIEW: {
+		WIDTH: 300,
+		HEIGHT: 100,
+		MARGIN: 5
+	}
 }
 
 // Firebase constants
