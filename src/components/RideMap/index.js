@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Text, Platform } from "react-native";
 import { View } from "native-base";
 import MapView, { PROVIDER_GOOGLE, Polyline, Marker } from 'react-native-maps';
+import { Ionicons } from '@expo/vector-icons';
 import LightTheme from './LightTheme.json';
 import DarkTheme from './DarkTheme.json';
 import OldTheme from './OldTheme.json';
@@ -112,6 +113,7 @@ export default class RideMap extends Component {
                         }}/>
 
                     <Marker
+                        style={{flex:1}}
                         coordinate={{
                             latitude: destin.latitude,
                             longitude: destin.longitude
@@ -122,7 +124,11 @@ export default class RideMap extends Component {
                             this.moveMapCamera(index);
                         }}>
 
-                        <Text style={styles.markerText}> {index} </Text>
+                        <View style={styles.markerView}>
+                            <Ionicons
+                                style={[styles.markerIcon, {color: color}]}
+                                name='ios-car'/>
+                        </View>
 
                     </Marker>
 
@@ -165,5 +171,20 @@ const styles = {
     markerText: {
         backgroundColor: '#ffffff',
         padding: 5
+    },
+    markerIcon: {
+        fontSize: 25,
+        position: 'absolute',
+        left: 3.5
+    },
+    markerView: {
+        position: 'absolute',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ffffff',
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        left: 15
     }
 }
