@@ -22,7 +22,22 @@ export default class WheelRating extends Component{
 
 
     }
+
     render(){
+        let rating = 4;
+        let wheel = [0, 0, 0, 0, 0];
+        for (let i = 0; rating > 0 && i < 5; i++) {
+
+            if (rating <= 1) {
+                wheel[i] = 40 * rating;
+                rating = 0;
+            }
+            else {
+                wheel[i] = 40;
+                rating = rating - 1;
+            }
+        }
+
         const dynamicStyle = {
             wheelImage: [styles.wheelImage, {
                 tintColor: wheel_this.state.color_theme.APP_BACKGROUND_PROFILE
@@ -34,16 +49,15 @@ export default class WheelRating extends Component{
                 backgroundColor: wheel_this.state.color_theme.WHEEL_COLOR
 
             }]
-
-
         };
+
         return (
         <View style={styles.wheelContainer}>
-            <WheelComponent  backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight} imageStyle={[dynamicStyle.wheelImage,{marginLeft: 0}]}/>
-            <WheelComponent  backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight} imageStyle={dynamicStyle.wheelImage}/>
-            <WheelComponent  backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight} imageStyle={dynamicStyle.wheelImage}/>
-            <WheelComponent  backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight} imageStyle={dynamicStyle.wheelImage}/>
-            <WheelComponent  backgroundLeft={[dynamicStyle.backgroundLeft,{width:15}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 25}]} imageStyle={[dynamicStyle.wheelImage,{marginRight: 0}]}/>
+            <WheelComponent  backgroundLeft={[dynamicStyle.backgroundLeft, {width: wheel[0]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - wheel[0]}]} imageStyle={[dynamicStyle.wheelImage,{marginLeft: 0}]}/>
+            <WheelComponent  backgroundLeft={[dynamicStyle.backgroundLeft, {width: wheel[1]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - wheel[1]}]} imageStyle={dynamicStyle.wheelImage}/>
+            <WheelComponent  backgroundLeft={[dynamicStyle.backgroundLeft, {width: wheel[2]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - wheel[2]}]} imageStyle={dynamicStyle.wheelImage}/>
+            <WheelComponent  backgroundLeft={[dynamicStyle.backgroundLeft, {width: wheel[3]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - wheel[3]}]} imageStyle={dynamicStyle.wheelImage}/>
+            <WheelComponent  backgroundLeft={[dynamicStyle.backgroundLeft, {width: wheel[4]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - wheel[4]}]} imageStyle={[dynamicStyle.wheelImage,{marginRight: 0}]}/>
         </View>
         )
     }
