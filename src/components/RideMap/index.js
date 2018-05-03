@@ -174,17 +174,19 @@ const styles = {
     },
     markerIcon: {
         fontSize: 25,
-        position: 'absolute',
-        left: 3.5
+        alignSelf: 'center'
+        //position: 'absolute',
+        ///left: 3.5
     },
     markerView: {
-        position: 'absolute',
-        alignSelf: 'center',
+       // position: 'absolute',
+       // alignSelf: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.7)',
         width: 30,
         height: 30,
         borderRadius: 15,
-        left: 15
+       // left: 15
     }
 }
