@@ -5,6 +5,7 @@ import { Switch } from 'react-native-switch';
 import { Ionicons } from '@expo/vector-icons';
 import { getCurrentLocation, getInputData, toggleSearchResultModal, getAddressPredictions } from "../../../modules/home";
 import styles from "./SearchBoxStyles.js";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
 export default class SearchBox extends Component {
@@ -18,48 +19,69 @@ export default class SearchBox extends Component {
 		};
 	}
 
-	handleInput(key, val) {
-		getInputData({
-			key,
-			value:val
-		});
-		console.log(getAddressPredictions());
-	}
-
 	render() {
 		return (
-			<View style={styles.searchBox}>
+			<View style={styles.container}>
 
-				<View style={styles.inputWrapper}>
-					<InputGroup>
-						<Ionicons name="ios-search" size={15} color="#FF5E3A"/>
-						<Input
-							onFocus={()=>toggleSearchResultModal("pickUp")}
-							style={styles.inputSearch}
-							placeholder="Choose pick-up location"
-							onChangeText={(pickupInput) => {
-								this.handleInput.bind(this, "pickUp");
-								this.setState({pickupInput: pickupInput});
-								this.props.onChangeText(pickupInput, this.state.dropoffInput);
-							}}/>
-					</InputGroup>
-				</View>
+				<GooglePlacesAutocomplete
+					placeholder='Choose Pick-Up Location'
+					minLength={2}
+					autoFocus={false}
+					returnKeyType={'search'}
+					listViewDisplayed='auto'
+					fetchDetails={true}
+					renderDescription={row => row.description}
+					styles={styles.searchBox}
+					currentLocation={false}
+					nearbyPlacesAPI='GooglePlacesSearch'
+					getDefaultValue={() => ''}
+					onPress={(data, details = null) => {
+						this.setState({pickupInput: data.description});
+						this.props.onChangeText(this.state.pickupInput, this.state.dropoffInput);
+					}}
+					query={{
+						key: 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw',
+						language: 'en',
+						types: 'geocode'
+					}}
+					GooglePlacesSearchQuery={{
+						rankby: 'distance',
+						keyword: 'address'
+					}}
+					renderLeftButton={() =>
+						<Ionicons name="ios-search" size={15} color="#FF5E3A" style={styles.searchIcon}/>
+					}
+				/>
 
-
-				<View style={styles.secondInputWrapper}>
-					<InputGroup>
-						<Ionicons name="ios-search" size={15} color="#FF5E3A"/>
-						<Input
-							onFocus={()=>toggleSearchResultModal("dropoff")} 
-							style={styles.inputSearch}
-							placeholder="Choose drop-off location"
-							onChangeText={(dropoffInput) => {
-								this.handleInput.bind(this, "dropoff")
-								this.setState({dropoffInput: dropoffInput});
-								this.props.onChangeText(this.state.pickupInput, dropoffInput);
-							}}/>
-					</InputGroup>
-				</View>
+				<GooglePlacesAutocomplete
+					placeholder='Choose Drop-Off Location'
+					minLength={2}
+					autoFocus={false}
+					returnKeyType={'search'}
+					listViewDisplayed='auto'
+					fetchDetails={true}
+					renderDescription={row => row.description}
+					styles={styles.searchBox}
+					currentLocation={false}
+					nearbyPlacesAPI='GooglePlacesSearch'
+					getDefaultValue={() => ''}
+					onPress={(data, details = null) => {
+						this.setState({dropoffInput: data.description});
+						this.props.onChangeText(this.state.pickupInput, this.state.dropoffInput);
+					}}
+					query={{
+						key: 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw',
+						language: 'en',
+						types: 'geocode'
+					}}
+					GooglePlacesSearchQuery={{
+						rankby: 'distance',
+						keyword: 'address'
+					}}
+					renderLeftButton={() =>
+						<Ionicons name="ios-search" size={15} color="#FF5E3A" style={styles.searchIcon}/>
+					}
+				/>
 
 				<View style={styles.secondInputWrapper}>
 					<Text style={styles.label}>Direct Rides Only</Text>

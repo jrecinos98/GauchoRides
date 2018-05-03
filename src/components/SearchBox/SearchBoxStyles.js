@@ -1,18 +1,8 @@
 import { Dimensions } from "react-native";
 let width = Dimensions.get("window").width; //full width
 const styles = {
-    searchBox:{
-        top:0,
+    container:{
         width:width
-    },
-    inputWrapper:{
-        marginLeft:15,
-        marginRight:10,
-        marginTop:10,
-        marginBottom:0,
-        backgroundColor:"#fff",
-        opacity:0.7,
-        borderRadius:7
     },
     secondInputWrapper:{
         marginLeft:15,
@@ -39,6 +29,38 @@ const styles = {
     },
     switchWrapper: {
         margin: 10
+    },
+    searchBox: {
+        textInputContainer: {
+            backgroundColor:"#ffffff",
+            opacity:0.7,
+            borderRadius:7,
+            height: 50
+        },
+        textInput: {
+            height: 48,
+            marginTop:0,
+            color: '#000000'
+        },
+        description: {
+            fontWeight: 'bold'
+        },
+        predefinedPlacesDescription: {
+            color: '#000000'
+        },
+        container: {
+            marginLeft:15,
+            marginRight:10,
+            marginTop:0,
+            marginBottom:5,
+            backgroundColor:"#ffffff",
+            opacity:0.7,
+            borderRadius:7
+        }
+    },
+    searchIcon: {
+        alignSelf: 'center',
+        left: 5
     }
 };
 
