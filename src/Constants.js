@@ -67,7 +67,9 @@ export const COLOR = {
 
 		WHEEL_COLOR:			'#000000',
         WHEEL_UNSELECTED:       '#888888',
-        CHILI_COLOR:            '#c21807',cha
+
+
+        CHILI_COLOR:            '#c21807',
 		BGCOLOR:                'skyblue'
 
 	},
