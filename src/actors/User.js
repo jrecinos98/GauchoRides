@@ -10,8 +10,8 @@ export default class User {
 	rides: {};
 	follows: {};
 	//registers a user. Checks if the user signed in with fb or email and save the data accordingly.
-	constructor (object, isFB) {
-		if (isFB) {
+	constructor (object, newUserFromFB) {
+		if (newUserFromFB) {
 			this.id = object.uid;
 			this.fbID= object.providerData[0].uid;
 			this.name = object.displayName;
@@ -40,4 +40,4 @@ export default class User {
 
 
 User.currentUser = null;
-User.isFB = true;
+User.newUserFromFB = true;
