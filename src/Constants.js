@@ -44,11 +44,6 @@ export const COLOR = {
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.9)',
 		FB_NAME_COLOR:			'#ffffff',
-        WHEEL_COLOR:			'#000000',
-        WHEEL_UNSELECTED:       '#888888',
-        CHILI_COLOR:            '#c21807',
-
-
 
 		BGCOLOR:                'skyblue'
 
@@ -64,12 +59,6 @@ export const COLOR = {
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)',
 		FB_NAME_COLOR:			'#000000',
-
-		WHEEL_COLOR:			'#000000',
-        WHEEL_UNSELECTED:       '#888888',
-
-
-        CHILI_COLOR:            '#c21807',
 		BGCOLOR:                'skyblue'
 
 	},
@@ -84,16 +73,18 @@ export const COLOR = {
 		BUTTON: 				'#0d47a1',
 		BUTTON_LOGIN: 			'rgba(13,71,161, 0.7)',
 		FB_NAME_COLOR:			'#b3ad08',
-
-        WHEEL_COLOR:			'#000000',
-        WHEEL_UNSELECTED:       '#888888',
-        CHILI_COLOR:            '#c21807',
-
 		BGCOLOR:                '#b3ad08'
 
 	}
 
-}
+};
+
+export const RATING_COLOR ={
+    CHILI_COLOR:            '#c21807',
+    WHEEL_COLOR:			'#000000',
+    UNSELECTED:       		'#888888',
+
+};
 
 // Color constants
 // export const COLOR_APP_BACKGROUND_OPAQUE='rgba(1,26,66,0.3)';

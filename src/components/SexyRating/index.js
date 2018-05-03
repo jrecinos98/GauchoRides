@@ -4,12 +4,12 @@ import ChiliComponent from './ChiliComponent'
 import User from '../../actors/User'
 import {COLOR} from "../../Constants";
 import {getTheme} from "../../Utility";
+import {RATING_COLOR} from "../../Constants";
 
 export default class SexyRating extends Component{
 
     constructor(props) {
         super(props);
-        let rating= User.currentUser.drive_rating;
         chili_this=this;
         chili_this.state = {
             color_theme: COLOR.THEME_LIGHT
@@ -23,26 +23,39 @@ export default class SexyRating extends Component{
 
     }
     render(){
+        let rating = User.currentUser.sexy_rating;
+        let chili = [0, 0, 0, 0, 0];
+        for (let i = 0; rating > 0 && i < 5; i++) {
+
+            if (rating <= 1) {
+                chili[i] = 40 * rating;
+                rating = 0;
+            }
+            else {
+                chili[i] = 40;
+                rating = rating - 1;
+            }
+        }
         const dynamicStyle = {
             chiliImage: [styles.chiliImage, {
                 tintColor: chili_this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             backgroundRight: [styles.backgroundRight,{
-                backgroundColor: chili_this.state.color_theme.CHILI_COLOR
+                backgroundColor: RATING_COLOR.UNSELECTED
             }],
             backgroundLeft: [styles.backgroundLeft,{
-
+                backgroundColor: RATING_COLOR.CHILI_COLOR
             }]
 
 
         };
         return(
             <View style={styles.chiliContainer}>
-                <ChiliComponent backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight}  imageStyle={[dynamicStyle.chiliImage,{marginLeft: 0}]}/>
-                <ChiliComponent backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight}  imageStyle={dynamicStyle.chiliImage}/>
-                <ChiliComponent backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight}  imageStyle={dynamicStyle.chiliImage}/>
-                <ChiliComponent backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight}  imageStyle={dynamicStyle.chiliImage}/>
-                <ChiliComponent backgroundLeft={dynamicStyle.backgroundLeft} backgroundRight={dynamicStyle.backgroundRight}  imageStyle={[dynamicStyle.chiliImage,{marginRight: 0}]}/>
+                <ChiliComponent backgroundLeft={[dynamicStyle.backgroundLeft, {width: chili[0]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - chili[0]}]}   imageStyle={[dynamicStyle.chiliImage,{marginLeft: 0}]}/>
+                <ChiliComponent backgroundLeft={[dynamicStyle.backgroundLeft, {width: chili[1]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - chili[1]}]}   imageStyle={dynamicStyle.chiliImage}/>
+                <ChiliComponent backgroundLeft={[dynamicStyle.backgroundLeft, {width: chili[2]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - chili[2]}]}   imageStyle={dynamicStyle.chiliImage}/>
+                <ChiliComponent backgroundLeft={[dynamicStyle.backgroundLeft, {width: chili[3]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - chili[3]}]}   imageStyle={dynamicStyle.chiliImage}/>
+                <ChiliComponent backgroundLeft={[dynamicStyle.backgroundLeft, {width: chili[4]}]} backgroundRight={[dynamicStyle.backgroundRight, {width: 40 - chili[4]}]}   imageStyle={[dynamicStyle.chiliImage,{marginRight: 0}]}/>
             </View>
         )
     }

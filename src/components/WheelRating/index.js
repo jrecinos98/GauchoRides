@@ -3,12 +3,12 @@ import {  View, StyleSheet } from "react-native";
 import WheelComponent from './WheelComponent'
 import {COLOR} from "../../Constants";
 import {getTheme} from "../../Utility";
-import User from '../../actors/User'
+import User from '../../actors/User';
+import {RATING_COLOR} from "../../Constants";
 
 export default class WheelRating extends Component{
     constructor(props) {
         super(props);
-        let rating= User.currentUser.drive_rating;
         wheel_this=this;
         wheel_this.state = {
             color_theme: COLOR.THEME_LIGHT
@@ -24,7 +24,7 @@ export default class WheelRating extends Component{
     }
 
     render(){
-        let rating = 4;
+        let rating = User.currentUser.drive_rating;
         let wheel = [0, 0, 0, 0, 0];
         for (let i = 0; rating > 0 && i < 5; i++) {
 
@@ -43,10 +43,10 @@ export default class WheelRating extends Component{
                 tintColor: wheel_this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             backgroundRight: [styles.backgroundRight,{
-                backgroundColor: wheel_this.state.color_theme.WHEEL_UNSELECTED
+                backgroundColor: RATING_COLOR.UNSELECTED
             }],
             backgroundLeft: [styles.backgroundLeft,{
-                backgroundColor: wheel_this.state.color_theme.WHEEL_COLOR
+                backgroundColor: RATING_COLOR.WHEEL_COLOR
 
             }]
         };
