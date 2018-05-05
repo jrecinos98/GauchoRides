@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, Button } from "react-native";
+import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
 import * as firebase from 'firebase';
@@ -86,12 +86,18 @@ export default class RequestRideScreen extends Component {
 
                 <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}>
-                    <Ionicons
-                        name='ios-arrow-back'
-                        style={customStyle.backArrow}
-                        onPress={() => {
-                            this.props.navigation.goBack(null);
-                        }}/>
+                    {
+                        (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
+                            <Ionicons
+
+                                name='ios-arrow-back'
+                                style={customStyle.backArrow}
+                                onPress={() => {
+                                    this.props.navigation.goBack(null);
+                                }}/>
+                            : null
+                    }
+
                     <Text style={customStyle.title}>Request Ride</Text>
                 </View>
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, Button } from "react-native";
+import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
 import * as firebase from 'firebase';
@@ -88,54 +88,59 @@ export default class CreateRideScreen extends Component {
 		const customStyle = {
 
 			topBar: [styles.topBar, {
-				height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
-				backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
-			}],
+                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
+            }],
 
-			title: [styles.title, {
-				fontSize: DIMENSION.TITLE.SIZE,
-				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
-				color: driver_this.state.color_theme.APP_FOCUS
-			}],
+            title: [styles.title, {
+                fontSize: DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                color: driver_this.state.color_theme.APP_FOCUS
+            }],
             backArrow: [styles.backArrow, {
                 fontSize: DIMENSION.ICON.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
                 color: driver_this.state.color_theme.APP_FOCUS
             }],
 
-		};
+        };
 
-		let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
-		return (
-			<View style = {styles.container}>
+        return (
+            <View style={styles.container}>
 
-				<StatusBar barStyle={statusTheme}/>
+                <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}>
-                    <Ionicons
-                        name='ios-arrow-back'
-                        style={customStyle.backArrow}
-                        onPress={() => {
-                            this.props.navigation.goBack(null);
-                        }}/>
+                    {
+                        (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
+                            <Ionicons
+
+                                name='ios-arrow-back'
+                                style={customStyle.backArrow}
+                                onPress={() => {
+                                    this.props.navigation.goBack(null);
+                                }}/>
+                            : null
+                    }
                     <Text style={customStyle.title}>Create Ride</Text>
                 </View>
 
-				<SearchArea2 color_theme={rider_this.state.color_theme}/>
+                <SearchArea2 color_theme={rider_this.state.color_theme}/>
 
-				<Button onPress={()=> this.createTestRide(i++)} title="Create Test Ride On Firebase"> </Button>
+                <Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Firebase"> </Button>
 
-			</View>
-		);
-	}
+            </View>
+        );
+    }
 }
 
 //Style sheet for driver main screen.
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		//alignItems: 'center',
-		// justifyContent: 'center',
+    container: {
+        flex: 1,
+        //alignItems: 'center',
+        // justifyContent: 'center',
 		flexDirection: 'column'
 	},
     backArrow: {

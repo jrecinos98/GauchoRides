@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 import MainScreen from './src/screens/MainScreen'
-import NewUserScreen from './src/screens/NewUserScreen'
+import LogInScreen from './src/screens/LogInScreen'
 import { YellowBox } from 'react-native';
 import * as firebase from 'firebase';
 import LoginBackground from "./src/components/LoginBackground";
@@ -97,7 +97,7 @@ export default class App extends React.Component {
                     <RootStack/>
                 );
             }
-            return <NewUserScreen/>
+            return <LogInScreen/>
         }
     }
 

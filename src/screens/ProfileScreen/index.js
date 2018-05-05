@@ -72,7 +72,7 @@ export default class ProfileScreen extends Component {
                 color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
             textStyle: [styles.textStyle,{
-                flex: 1, color: profile_this.state.color_theme.FB_NAME_COLOR
+                color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
             container: [styles.container, {
                 backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_PROFILE
