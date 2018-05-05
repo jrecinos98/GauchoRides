@@ -10,7 +10,8 @@ import CreateRideScreen from './CreateRideScreen';
 import HomeScreen, {HomeStack, PassengerStack} from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
-import Settings from './ProfileScreen/Settings';
+import SettingScreen from "./SettingScreen";
+import RequestRideScreen from "./RequestScreen";
 
 export var MainScreenInstance = null;
 export var MyAppStack=null;
@@ -105,6 +106,12 @@ const AppStack = (Tab_Navigator) => StackNavigator(
         },
         CreateRide: {
             screen: CreateRideScreen,
+        },
+        RequestRide: {
+            screen: RequestRideScreen
+        },
+        Settings: {
+            screen: SettingScreen
         }
     },
     {
@@ -113,6 +120,8 @@ const AppStack = (Tab_Navigator) => StackNavigator(
             headerMode: 'screen'
         },
     });
+
+
 
 const styles = StyleSheet.create({
 	container: {

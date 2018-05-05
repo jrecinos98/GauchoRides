@@ -119,7 +119,9 @@ export default class HomeScreen extends Component {
                         <ActionButton.Item
                             buttonColor= {rider_this.state.color_theme.APP_FOCUS}
                             title={"Request ride"}
-                            onPress={() => {}}
+                            onPress={() => {
+                                this.props.screenProps.rootNavigation.navigate("RequestRide")
+                            }}
                         >
                             <Ionicons name="ios-add" style={styles.actionButtonIcon}/>
                         </ActionButton.Item>
@@ -162,12 +164,13 @@ export const HomeStack = StackNavigator({
         headerMode:{
             headerMode: 'screen'
         },
-        navigationOptions:  {
+
+    }
+    /*
+     navigationOptions:  {
             //headerLeft: null
            // header: { visible:false }
         }
-    }
-    /*
    RequestRide: {
        screen: RequestScreen
    }*/

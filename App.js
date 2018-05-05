@@ -94,7 +94,7 @@ export default class App extends React.Component {
             if (this.state.loggedIn ) {
                 console.log(User.currentUser);
                 return (
-                    <LoggedInStack/>
+                    <RootStack/>
                 );
             }
             return <NewUserScreen/>
@@ -104,7 +104,7 @@ export default class App extends React.Component {
 
 }
 
-const LoggedInStack = StackNavigator({
+const RootStack = StackNavigator({
     Main: {screen: MainScreen},
 }, {
     initialRouteName: "Main",

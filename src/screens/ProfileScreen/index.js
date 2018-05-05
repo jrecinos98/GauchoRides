@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import {Body, Container, Header, Title} from 'native-base';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import Settings from './Settings';
 import { COLOR, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import StackNavigator from 'react-native-navigation';
@@ -88,17 +87,13 @@ export default class ProfileScreen extends Component {
         return (
 
             <View style={styles.container}>
-                <Settings ref={(instance) => {
-                    settings = instance;
-                }}/>
-
                 <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}>
                     <Ionicons
                         name='ios-settings'
                         style={customStyle.settings}
                         onPress={() => {
-                            settings.setModalVisible(true);
+                           this.props.screenProps.rootNavigation.navigate("Settings");
                         }}/>
                     <Text style={customStyle.title}>Profile</Text>
                 </View>

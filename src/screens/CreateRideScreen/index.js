@@ -96,20 +96,30 @@ export default class CreateRideScreen extends Component {
 				fontSize: DIMENSION.TITLE.SIZE,
 				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
 				color: driver_this.state.color_theme.APP_FOCUS
-			}]
+			}],
+            backArrow: [styles.backArrow, {
+                fontSize: DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                color: driver_this.state.color_theme.APP_FOCUS
+            }],
 
 		};
 
-		let statusTheme = (driver_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+		let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
 
 		return (
 			<View style = {styles.container}>
 
 				<StatusBar barStyle={statusTheme}/>
-
-				<View style={customStyle.topBar}/>
-
-				<Text style={customStyle.title}>Driver</Text>
+                <View style={customStyle.topBar}>
+                    <Ionicons
+                        name='ios-arrow-back'
+                        style={customStyle.backArrow}
+                        onPress={() => {
+                            this.props.navigation.goBack(null);
+                        }}/>
+                    <Text style={customStyle.title}>Create Ride</Text>
+                </View>
 
 				<SearchArea2 color_theme={rider_this.state.color_theme}/>
 
@@ -128,6 +138,14 @@ const styles = StyleSheet.create({
 		// justifyContent: 'center',
 		flexDirection: 'column'
 	},
+    backArrow: {
+        paddingLeft: 25,
+        paddingTop: null,
+        fontSize: null,
+        color: null,
+        alignSelf: 'flex-start',
+        position: 'absolute',
+    },
 	topBar: {
 		backgroundColor: null,
 		alignSelf: 'stretch',
