@@ -11,7 +11,7 @@ export default class SearchArea extends Component {
 
         this.state = {
             chosenDate: new Date(),
-            showSearchArea: true,
+            showSearchArea: false,
             showIOSDatePicker: false
         };
         this.pickupInput = "";

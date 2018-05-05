@@ -12,9 +12,11 @@ import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
 import SettingScreen from "./SettingScreen";
 import RequestRideScreen from "./RequestScreen";
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
 export var MainScreenInstance = null;
 export var MyAppStack=null;
+
 //Main screen of the app.
 export default class MainScreen extends Component{
 
@@ -100,7 +102,6 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 
 const AppStack = (Tab_Navigator) => StackNavigator(
     {
-
         Main: {
             screen: ({navigation})=> <Tab_Navigator screenProps ={{rootNavigation: navigation}}/>
         },
@@ -116,11 +117,19 @@ const AppStack = (Tab_Navigator) => StackNavigator(
     },
     {
         initialRouteName: 'Main',
+		transitionConfig: customAnimationFunc,
         headerMode:{
             headerMode: 'screen'
         },
     });
 
+
+
+const customAnimationFunc = () => ({
+    screenInterpolator: sceneProps => {
+        return CardStackStyleInterpolator.forVertical(sceneProps);
+    },
+});
 
 
 const styles = StyleSheet.create({

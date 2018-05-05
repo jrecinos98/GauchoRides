@@ -32,8 +32,9 @@ export default class HomeScreen extends Component {
             });
         });
 
-        this.displaySearch = true;
+        this.displaySearch = false;
     }
+
 
 
     static navigationOptions = {
@@ -100,6 +101,10 @@ export default class HomeScreen extends Component {
                             });
                         }}
                         onMarkerPress={(index) => {
+                            console.log("PRESSED");
+                            if(this.previewArea.previewBar === undefined){
+                                this.previewArea.displayComponent(!this.displaySearch);
+                            }
                             this.previewArea.previewBar.scrollTo({x: this.previewArea.getSnapPosition(index), y: 0, animated: true});
                         }}
                         color_theme={rider_this.state.color_theme}>
@@ -120,7 +125,7 @@ export default class HomeScreen extends Component {
                             buttonColor= {rider_this.state.color_theme.APP_FOCUS}
                             title={"Request ride"}
                             onPress={() => {
-                                this.props.screenProps.rootNavigation.navigate("RequestRide")
+                                this.props.screenProps.rootNavigation.navigate("RequestRide",{ transition: 'vertical'})
                             }}
                         >
                             <Ionicons name="ios-add" style={styles.actionButtonIcon}/>
@@ -129,7 +134,7 @@ export default class HomeScreen extends Component {
                             buttonColor= {rider_this.state.color_theme.APP_FOCUS}
                             title={"Add ride"}
                             onPress={() => {
-                                this.props.screenProps.rootNavigation.navigate("CreateRide") }}>
+                                this.props.screenProps.rootNavigation.navigate("CreateRide",{ transition: 'vertical'}) }}>
                             <Ionicons name="ios-car" style={styles.actionButtonIcon}/>
                         </ActionButton.Item>
                     </ActionButton>
