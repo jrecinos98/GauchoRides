@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid, ScrollView, Button, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
 import PreviewArea from './PreviewArea';
@@ -8,9 +9,11 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, STRING, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
+import ActionButton from 'react-native-action-button';
+import CreateRideScreen from "../CreateRideScreen";
 
 
-export default class RiderScreen extends Component {
+export default class HomeScreen extends Component {
 
     static rider_this = null;
 
@@ -35,7 +38,7 @@ export default class RiderScreen extends Component {
 
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
-            <Ionicons name="md-body" style={{ color: tintColor, fontSize: 20 }} />
+            <Ionicons name="ios-home" style={{ color: tintColor, fontSize: 20 }} />
         )
     };
 
@@ -63,8 +66,8 @@ export default class RiderScreen extends Component {
         };
 
 
-        let statusTheme = (rider_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
-
+        let statusTheme = (rider_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        const { navigate } = this.props.navigation;
         return (
 
             <View style={styles.container}>
@@ -72,6 +75,7 @@ export default class RiderScreen extends Component {
                 <StatusBar barStyle={statusTheme}/>
 
                 <View style={customStyle.topBar}>
+
                     <Ionicons
                         name='ios-search'
                         style={customStyle.options}
@@ -98,7 +102,9 @@ export default class RiderScreen extends Component {
                         onMarkerPress={(index) => {
                             this.previewArea.previewBar.scrollTo({x: this.previewArea.getSnapPosition(index), y: 0, animated: true});
                         }}
-                        color_theme={rider_this.state.color_theme}/>
+                        color_theme={rider_this.state.color_theme}>
+
+                    </MapArea>
                     <SearchArea
                         ref={(instance) => {
                             this.searchArea = instance;
@@ -109,6 +115,22 @@ export default class RiderScreen extends Component {
                             this.previewArea.displayComponent(!this.displaySearch);
                         }}
                         color_theme={rider_this.state.color_theme}/>
+                    <ActionButton style={styles.actionButtonStyle} buttonColor={rider_this.state.color_theme.APP_FOCUS}>
+                        <ActionButton.Item
+                            buttonColor= {rider_this.state.color_theme.APP_FOCUS}
+                            title={"Request ride"}
+                            onPress={() => {}}
+                        >
+                            <Ionicons name="ios-add" style={styles.actionButtonIcon}/>
+                        </ActionButton.Item>
+                        <ActionButton.Item
+                            buttonColor= {rider_this.state.color_theme.APP_FOCUS}
+                            title={"Add ride"}
+                            onPress={() => {
+                                this.props.screenProps.rootNavigation.navigate("CreateRide") }}>
+                            <Ionicons name="ios-car" style={styles.actionButtonIcon}/>
+                        </ActionButton.Item>
+                    </ActionButton>
 
                 </View>
 
@@ -128,7 +150,28 @@ export default class RiderScreen extends Component {
         );
     }
 }
-
+export const HomeStack = StackNavigator({
+        Home: {
+            screen: HomeScreen,
+        },
+        CreateRide: {
+            screen: CreateRideScreen,
+        }
+    },
+    {
+        headerMode:{
+            headerMode: 'screen'
+        },
+        navigationOptions:  {
+            //headerLeft: null
+           // header: { visible:false }
+        }
+    }
+    /*
+   RequestRide: {
+       screen: RequestScreen
+   }*/
+);
 //var width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
     container: {
@@ -154,12 +197,21 @@ const styles = StyleSheet.create({
         flex: 1
     },
     options: {
+        paddingLeft: 25,
+        paddingTop: null,
+        alignSelf: 'flex-start',
+        position: 'absolute',
+    },
+    actionButtonStyle: {
         paddingRight: 25,
         paddingTop: null,
-        fontSize: null,
-        color: null,
         alignSelf: 'flex-end',
         position: 'absolute',
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
     },
     buttonContainer: {
         marginLeft:5,

@@ -105,7 +105,6 @@ export default class App extends React.Component {
 }
 
 const LoggedInStack = StackNavigator({
-    //Login: {screen: NewUserScreen},
     Main: {screen: MainScreen},
 }, {
     initialRouteName: "Main",

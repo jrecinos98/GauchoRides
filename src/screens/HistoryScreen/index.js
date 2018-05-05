@@ -66,7 +66,6 @@ export default class HistoryScreen extends Component {
                 <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}/>
                 <Text style={customStyle.title}>History</Text>
-
                 <View style={styles.historyContainer}>
                     <RideHistory style={{
                         flex: 1,

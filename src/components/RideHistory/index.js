@@ -26,8 +26,8 @@ export default class RideHistory extends Component {
     renderItem = ({ item }) => {
       return(
         <View style={{ flex: 1, flexDirection: 'row', marginBottom: 3}}>
-          <Image style={{ width: 80, height: 80, margin: 5 }}
-            source = {{ uri: item.image }} />
+            {/*<Image style={{ width: 80, height: 80, margin: 5 }}
+            source = {{ uri: item.image }} />*/}
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
             <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
               {User.currentUser.name}
@@ -76,9 +76,6 @@ export default class RideHistory extends Component {
           		<View style={styles.container}>
 
           				<Text style={styles.title}>Drive History</Text>
-                  
-
-
                   <FlatList
                     data={this.state.data}
                     renderItem={this.renderItem}
@@ -89,7 +86,7 @@ export default class RideHistory extends Component {
 
 
 
-
+{/*
                 <View style={styles.rightContainer}>
                   <TouchableOpacity style={styles.button} onPress={()=>{alert("This should go to ride page")}}>
                     <Image source={require("../../../public/assets/plus_button.png")}
@@ -99,7 +96,7 @@ export default class RideHistory extends Component {
                   </TouchableOpacity>
                   <Text>Create Ride</Text>
                 
-          		  </View>
+          		  </View>*/}
               </View>
 
         

@@ -15,7 +15,7 @@ import { getTheme } from '../../Utility';
 var i = 0;
 
 //Main component for driver screen
-export default class DriverScreen extends Component {
+export default class CreateRideScreen extends Component {
 
 	static driver_this = null;
 
