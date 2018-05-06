@@ -99,7 +99,7 @@ export default class RideMap extends Component {
                     <Polyline
                         coordinates={coords}
                         strokeColor={color}
-                        strokeWidth={6}/>
+                        strokeWidth={10 - index}/>
 
                     <Marker
                         coordinate={{
@@ -152,6 +152,19 @@ export default class RideMap extends Component {
                 }}
                 customMapStyle={mapStyle}>
 
+                <Marker
+                    style={{flex:1}}
+                    coordinate={{
+                        latitude: this.props.userLoc.latitude,
+                        longitude: this.props.userLoc.longitude
+                    }}>
+
+                        <Ionicons
+                            style={[styles.markerIcon, {color: '#ffffff'}]}
+                            name='ios-locate-outline'/>
+
+                </Marker>
+
                 {polyLines}
 
             </MapView>
@@ -183,7 +196,7 @@ const styles = {
        // alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: '#000000',
         width: 30,
         height: 30,
         borderRadius: 15,

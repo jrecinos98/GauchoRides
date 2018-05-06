@@ -44,9 +44,9 @@ export default class MapArea extends Component {
                     });
 
                     //Create test routes
-                    this.createRoute(this.state.userLoc.toString(), 'San Diego, California');
-                    this.createRoute(this.state.userLoc.toString(), 'San Jose, California');
-                    this.createRoute(this.state.userLoc.toString(), 'Las Vegas, California');
+                    // this.createRoute(this.state.userLoc.toString(), 'San Diego, California');
+                    // this.createRoute(this.state.userLoc.toString(), 'San Jose, California');
+                    // this.createRoute(this.state.userLoc.toString(), 'Las Vegas, California');
                 }
             },
             (error) => {
