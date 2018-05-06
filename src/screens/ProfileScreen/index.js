@@ -87,7 +87,9 @@ export default class ProfileScreen extends Component {
         return (
 
             <View style={styles.container}>
+
                 <StatusBar barStyle={statusTheme}/>
+
                 <View style={customStyle.topBar}>
                     <Ionicons
                         name='ios-settings'
@@ -110,6 +112,62 @@ export default class ProfileScreen extends Component {
                         <Text style={customStyle.textStyle}>RATINGS</Text>
                         <WheelRating/>
                         <SexyRating/>
+                    </View>
+
+                    <View style={{
+                        flexDirection: 'row',
+                        margin: 10,
+                        flexWrap: 'wrap',
+                        alignContent: 'space-around'
+                    }}>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Respected(10) </Text>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Inspirational(5) </Text>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Caring(3) </Text>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Skip ride!(1) </Text>
                     </View>
                 </View>
             </View>
@@ -174,61 +232,3 @@ const styles = StyleSheet.create({
         paddingTop: null
     }
 });
-/*
-{/*
-    <View style={{
-        flexDirection: 'row',
-        margin: 10,
-        flexWrap: 'wrap',
-        alignContent: 'space-around'
-    }}>
-        <Text
-            style={{
-                margin: 3,
-                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                borderColor: profile_this.state.color_theme.BGCOLOR,
-                borderWidth: 1.5,
-                fontSize: 20,
-                height: 25,
-                flexWrap: 'wrap',
-                alignContent: 'space-between',
-                justifyContent: 'space-between'
-            }}> Respected(10) </Text>
-        <Text
-            style={{
-                margin: 3,
-                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                borderColor: profile_this.state.color_theme.BGCOLOR,
-                borderWidth: 1.5,
-                fontSize: 20,
-                height: 25,
-                flexWrap: 'wrap',
-                alignContent: 'space-between',
-                justifyContent: 'space-between'
-            }}> Inspirational(5) </Text>
-        <Text
-            style={{
-                margin: 3,
-                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                borderColor: profile_this.state.color_theme.BGCOLOR,
-                borderWidth: 1.5,
-                fontSize: 20,
-                height: 25,
-                flexWrap: 'wrap',
-                alignContent: 'space-between',
-                justifyContent: 'space-between'
-            }}> Caring(3) </Text>
-        <Text
-            style={{
-                margin: 3,
-                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                borderColor: profile_this.state.color_theme.BGCOLOR,
-                borderWidth: 1.5,
-                fontSize: 20,
-                height: 25,
-                flexWrap: 'wrap',
-                alignContent: 'space-between',
-                justifyContent: 'space-between'
-            }}> Skip ride!(1) </Text>
-    </View>
-//*///}
