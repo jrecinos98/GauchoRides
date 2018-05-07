@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
 import MainScreen from './src/screens/MainScreen'
-import NewUserScreen from './src/screens/NewUserScreen'
+import LogInScreen from './src/screens/LogInScreen'
 import { YellowBox } from 'react-native';
 import * as firebase from 'firebase';
 import LoginBackground from "./src/components/LoginBackground";
@@ -51,10 +51,9 @@ export default class App extends React.Component {
                     // If user doesn't exist, we create a reference in Firebase and retrieve the new user.
                     // Otherwise, we initialize a local user object for current user.
                     if (snapshot.val() == null)
-
                         this.createNewUser(user);
                     else
-                        User.currentUser = new User(snapshot.val(), !User.isFB);
+                        User.currentUser = new User(snapshot.val(), !User.newUserFromFB);
 
                     //NEEDED TO NOT GET CAUGHT IN BACKGROUND SCREEN
                     this.setState({
@@ -78,7 +77,7 @@ export default class App extends React.Component {
 
     createNewUser(fbUser) {
         //console.log(fbUser);
-        let newUser = new User(fbUser, User.isFB);
+        let newUser = new User(fbUser, User.newUserFromFB);
         firebase.database().ref(FIREBASE.USERS_PATH + '/' + newUser.id).set(newUser);
         User.currentUser = newUser;
     }
@@ -95,18 +94,17 @@ export default class App extends React.Component {
             if (this.state.loggedIn ) {
                 console.log(User.currentUser);
                 return (
-                    <LoggedInStack/>
+                    <RootStack/>
                 );
             }
-            return <NewUserScreen/>
+            return <LogInScreen/>
         }
     }
 
 
 }
 
-const LoggedInStack = StackNavigator({
-    //Login: {screen: NewUserScreen},
+const RootStack = StackNavigator({
     Main: {screen: MainScreen},
 }, {
     initialRouteName: "Main",

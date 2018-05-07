@@ -44,9 +44,9 @@ export default class MapArea extends Component {
                     });
 
                     //Create test routes
-                    this.createRoute(this.state.userLoc.toString(), 'San Diego, California');
-                    this.createRoute(this.state.userLoc.toString(), 'San Jose, California');
-                    this.createRoute(this.state.userLoc.toString(), 'Las Vegas, California');
+                    // this.createRoute(this.state.userLoc.toString(), 'San Diego, California');
+                    // this.createRoute(this.state.userLoc.toString(), 'San Jose, California');
+                    // this.createRoute(this.state.userLoc.toString(), 'Las Vegas, California');
                 }
             },
             (error) => {
@@ -81,7 +81,10 @@ export default class MapArea extends Component {
                 });
 
                 //Preview new rides
+                let lastIndex = this.state.coords_list.length - 1;
                 this.props.onPreview(this.state.coords_list);
+                this.rideMap.moveMapCamera(lastIndex);
+                this.props.onMarkerPress(lastIndex);
             }
         })
         .catch(e => {console.warn(e)});
@@ -99,7 +102,6 @@ export default class MapArea extends Component {
 
     //Draw components
     render() {
-
 
         return (
             <RideMap

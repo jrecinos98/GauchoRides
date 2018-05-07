@@ -31,6 +31,7 @@ export default class HistoryScreen extends Component {
         });
     }
 
+    
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
             <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }} />
@@ -65,7 +66,6 @@ export default class HistoryScreen extends Component {
                 <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}/>
                 <Text style={customStyle.title}>History</Text>
-
                 <View style={styles.historyContainer}>
                     <RideHistory style={{
                         flex: 1,

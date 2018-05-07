@@ -6,13 +6,16 @@ import { COLOR, STRING } from '../Constants';
 import { getTheme } from '../Utility';
 
 // import DriverStack from './DriverStack';
-import DriverScreen from './DriverScreen';
-import RiderScreen from './RiderScreen';
+import CreateRideScreen from './CreateRideScreen';
+import HomeScreen, {HomeStack, PassengerStack} from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
-import Settings from './ProfileScreen/Settings';
+import SettingScreen from "./SettingScreen";
+import RequestRideScreen from "./RequestScreen";
+import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 
 export var MainScreenInstance = null;
+export var MyAppStack=null;
 
 //Main screen of the app.
 export default class MainScreen extends Component{
@@ -40,10 +43,10 @@ export default class MainScreen extends Component{
 	}
 
 	render(){
-		const MyTabNavigator = AppTabNavigator(this.state.color_theme);
-
+        const MyTabNavigator = AppTabNavigator(this.state.color_theme);
+        MyAppStack= AppStack(MyTabNavigator);
 		return(
-			<MyTabNavigator/>
+			<MyAppStack/>
 		);
 	}
 }
@@ -52,11 +55,12 @@ export default class MainScreen extends Component{
 //Tab navigator for main screen.
 const AppTabNavigator = (color_theme) => TabNavigator(
 	{
+		/*
 		Driver: {
-			screen: DriverScreen
-		},
-		Passenger: {
-			screen: RiderScreen
+			screen: CreateRideScreen
+		},*/
+		Home: {
+			screen: HomeStack
 		},
 		History:{
 			screen: HistoryScreen
@@ -68,7 +72,10 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 	
 	},
 	{
-		initialRouteName: 'Passenger',
+        headerMode:{
+            headerMode: 'screen'
+        },
+		initialRouteName: 'Home',
 		animationEnabled:true,
 		swipeEnabled:false,
 		tabBarPosition:"bottom",
@@ -92,6 +99,38 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 		}
 	}
 );
+
+const AppStack = (Tab_Navigator) => StackNavigator(
+    {
+        Main: {
+            screen: ({navigation})=> <Tab_Navigator screenProps ={{rootNavigation: navigation}}/>
+        },
+        CreateRide: {
+            screen: CreateRideScreen,
+        },
+        RequestRide: {
+            screen: RequestRideScreen
+        },
+        Settings: {
+            screen: SettingScreen
+        }
+    },
+    {
+        initialRouteName: 'Main',
+		transitionConfig: customAnimationFunc,
+        headerMode:{
+            headerMode: 'screen'
+        },
+    });
+
+
+
+const customAnimationFunc = () => ({
+    screenInterpolator: sceneProps => {
+        return CardStackStyleInterpolator.forVertical(sceneProps);
+    },
+});
+
 
 const styles = StyleSheet.create({
 	container: {

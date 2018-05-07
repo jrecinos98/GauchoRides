@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import {Body, Container, Header, Title} from 'native-base';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import Settings from './Settings';
 import { COLOR, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
+import StackNavigator from 'react-native-navigation';
 
 import User from "../../../src/actors/User";
 import { getTheme } from '../../Utility';
 
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
-import {GestureHandler} from 'expo'
+import CreateRideScreen from '../CreateRideScreen'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
+import HomeScreen from "../HomeScreen";
 
 export default class ProfileScreen extends Component {
 
@@ -71,32 +72,30 @@ export default class ProfileScreen extends Component {
                 color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
             textStyle: [styles.textStyle,{
-                flex: 1, color: profile_this.state.color_theme.FB_NAME_COLOR
+                color: profile_this.state.color_theme.FB_NAME_COLOR
             }],
             container: [styles.container, {
-                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_OPQUE
+                backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             imageWrapper: [styles.imageWrapper, {
                 marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
             }]
         };
 
-        let statusTheme = (profile_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (profile_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
 
             <View style={styles.container}>
-                <Settings ref={(instance) => {
-                    settings = instance;
-                }}/>
 
                 <StatusBar barStyle={statusTheme}/>
+
                 <View style={customStyle.topBar}>
                     <Ionicons
                         name='ios-settings'
                         style={customStyle.settings}
                         onPress={() => {
-                            settings.setModalVisible(true);
+                           this.props.screenProps.rootNavigation.navigate("Settings");
                         }}/>
                     <Text style={customStyle.title}>Profile</Text>
                 </View>
@@ -104,7 +103,9 @@ export default class ProfileScreen extends Component {
                 <View style={customStyle.container}>
                     <View style={styles.imageWrapper}>
                         <Text style={customStyle.userName}>{User.currentUser.name}</Text>
-                        <BounceProfileImage source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}} borderRadius={72}/>
+                        <BounceProfileImage
+                            source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}}
+                            borderRadius={72}/>
                     </View>
 
                     <View style={styles.ratingContainer}>
@@ -112,18 +113,62 @@ export default class ProfileScreen extends Component {
                         <WheelRating/>
                         <SexyRating/>
                     </View>
-                    
-                    <View style={{ flex:0.5, flexDirection: 'row', margin: 10, flexWrap: 'wrap', alignContent: 'space-around'}}>
-                        <Text 
-                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Respected(10) </Text>
-                        <Text 
-                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Inspirational(5) </Text>
-                        <Text 
-                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Caring(3) </Text>
-                        <Text 
-                            style={{margin: 3, backgroundColor: profile_this.state.color_theme.BGCOLOR, borderColor: profile_this.state.color_theme.BGCOLOR, borderWidth: 1.5, fontSize: 20, height: 25, flexWrap: 'wrap', alignContent: 'space-between', justifyContent: 'space-between'}}> Skip ride!(1) </Text>
-                </View>
 
+                    <View style={{
+                        flexDirection: 'row',
+                        margin: 10,
+                        flexWrap: 'wrap',
+                        alignContent: 'space-around'
+                    }}>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Respected(10) </Text>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Inspirational(5) </Text>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Caring(3) </Text>
+                        <Text
+                            style={{
+                                margin: 3,
+                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                                borderColor: profile_this.state.color_theme.BGCOLOR,
+                                borderWidth: 1.5,
+                                fontSize: 20,
+                                height: 25,
+                                flexWrap: 'wrap',
+                                alignContent: 'space-between',
+                                justifyContent: 'space-between'
+                            }}> Skip ride!(1) </Text>
+                    </View>
                 </View>
             </View>
 
@@ -131,6 +176,7 @@ export default class ProfileScreen extends Component {
 
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -142,8 +188,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-
-       // justifyContent: 'center'
+        justifyContent: 'flex-start',
     },
     imageWrapper: {
         flex: 1,

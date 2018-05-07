@@ -11,7 +11,7 @@ export default class SearchArea extends Component {
 
         this.state = {
             chosenDate: new Date(),
-            showSearchArea: true,
+            showSearchArea: false,
             showIOSDatePicker: false
         };
         this.pickupInput = "";
@@ -146,7 +146,8 @@ export default class SearchArea extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        top: 15
 	},
     buttonContainer: {
         marginLeft:15,

@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import {Text, View, StyleSheet, Image, FlatList,TouchableOpacity} from "react-native";
+import {Text, View, StyleSheet, Image, FlatList,SectionList,TouchableOpacity, ActivityIndicator} from "react-native";
 import {List, ListItem} from "react-native-elements";
 import styles from "./RideHistoryStyles.js";
-
-
+import * as firebase from 'firebase';
+import User from "../../actors/User.js";
+import { Ionicons } from '@expo/vector-icons';
 export default class RideHistory extends Component {
     constructor(props){
       super(props);
@@ -21,6 +22,40 @@ export default class RideHistory extends Component {
     componentDidMount(){
       this.makeRemoteRequest();
     }
+
+
+    renderItem = ({ item }) => {
+      return(
+        <View style={{ flex: 1, flexDirection: 'row', marginBottom: 3}}>
+            {/*<Image style={{ width: 80, height: 80, margin: 5 }}
+            source = {{ uri: item.image }} />*/}
+          <Ionicons name="ios-car" size={65}/>
+          <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
+            <Text style={{fontSize: 18, color: 'grey', marginBottom: 10}}>
+              From:   {User.currentUser.name}
+            </Text>
+            <Text style={{fontSize: 16, color: 'red', marginBottom: 10}}>
+              To:     {User.currentUser.rides[0]}
+            </Text>
+            <Text style={{fontSize: 16, color: 'grey'}}>
+              Date:     {User.currentUser.rides[0]}
+            </Text>
+          </View>
+        </View>
+      )
+    }
+
+    renderSeparator = () => {
+      return(
+        <View
+          style={{ height: 1, width: '100%', backgroundColor: 'black'}}>
+        </View>
+      )
+
+
+    }
+  
+
 
     makeRemoteRequest = () => {
     const { page, seed } = this.state;
@@ -44,18 +79,19 @@ export default class RideHistory extends Component {
     render() {
         return (
           		<View style={styles.container}>
-          			<View style={styles.logoContainer}>
+
           				<Text style={styles.title}>Drive History</Text>
+                  <FlatList
+                    data={this.state.data}
+                    renderItem={this.renderItem}
+                    keyExtractor={(item, index) => index}
+                    ItemSeparatorComponent={this.renderSeparator}
+                  />
 
-                   <FlatList
-                      data={this.props.data}
-                      extraData={this.state}
-                      keyExtractor={this._keyExtractor}
-                      renderItem={this._renderItem}
-                   />
-                 
-          			</View>
 
+
+
+{/*
                 <View style={styles.rightContainer}>
                   <TouchableOpacity style={styles.button} onPress={()=>{alert("This should go to ride page")}}>
                     <Image source={require("../../../public/assets/plus_button.png")}
@@ -64,8 +100,9 @@ export default class RideHistory extends Component {
 
                   </TouchableOpacity>
                   <Text>Create Ride</Text>
-                </View>
-          		</View>
+                
+          		  </View>*/}
+              </View>
 
         
 
