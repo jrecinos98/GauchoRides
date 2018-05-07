@@ -4,7 +4,7 @@ import {List, ListItem} from "react-native-elements";
 import styles from "./RideHistoryStyles.js";
 import * as firebase from 'firebase';
 import User from "../../actors/User.js";
-
+import { Ionicons } from '@expo/vector-icons';
 export default class RideHistory extends Component {
     constructor(props){
       super(props);
@@ -23,17 +23,19 @@ export default class RideHistory extends Component {
       this.makeRemoteRequest();
     }
 
+
     renderItem = ({ item }) => {
       return(
         <View style={{ flex: 1, flexDirection: 'row', marginBottom: 3}}>
             {/*<Image style={{ width: 80, height: 80, margin: 5 }}
             source = {{ uri: item.image }} />*/}
+          <Ionicons name="ios-car" size={30}/>
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
             <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
               {User.currentUser.name}
             </Text>
             <Text style={{fontSize: 16, color: 'red'}}>
-              {User.currentUser.name}
+              {User.currentUser.rides[0]}
             </Text>
           </View>
         </View>
