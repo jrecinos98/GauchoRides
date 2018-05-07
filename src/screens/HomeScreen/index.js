@@ -11,6 +11,7 @@ import { COLOR, STRING, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
 import ActionButton from 'react-native-action-button';
 import CreateRideScreen from "../CreateRideScreen";
+import CreateButton from '../../components/CreateButton';
 
 
 export default class HomeScreen extends Component {
@@ -76,7 +77,6 @@ export default class HomeScreen extends Component {
                 <StatusBar barStyle={statusTheme}/>
 
                 <View style={customStyle.topBar}>
-
                     <Ionicons
                         name='ios-search'
                         style={customStyle.options}
@@ -85,7 +85,7 @@ export default class HomeScreen extends Component {
                             this.displaySearch = !this.displaySearch;
                             this.previewArea.displayComponent(!this.displaySearch);
                         }}/>
-                    <Text style={customStyle.title}>Passenger</Text>
+                    <Text style={customStyle.title}>Home</Text>
                 </View>
 
 
@@ -120,25 +120,6 @@ export default class HomeScreen extends Component {
                             this.previewArea.displayComponent(!this.displaySearch);
                         }}
                         color_theme={rider_this.state.color_theme}/>
-                    <ActionButton style={styles.actionButtonStyle} buttonColor={rider_this.state.color_theme.APP_FOCUS}>
-                        <ActionButton.Item
-                            buttonColor= {rider_this.state.color_theme.APP_FOCUS}
-                            title={"Request ride"}
-                            onPress={() => {
-                                this.props.screenProps.rootNavigation.navigate("RequestRide",{ transition: 'vertical'})
-                            }}
-                        >
-                            <Ionicons name="ios-add" style={styles.actionButtonIcon}/>
-                        </ActionButton.Item>
-                        <ActionButton.Item
-                            buttonColor= {rider_this.state.color_theme.APP_FOCUS}
-                            title={"Add ride"}
-                            onPress={() => {
-                                this.props.screenProps.rootNavigation.navigate("CreateRide",{ transition: 'vertical'}) }}>
-                            <Ionicons name="ios-car" style={styles.actionButtonIcon}/>
-                        </ActionButton.Item>
-                    </ActionButton>
-
                 </View>
 
                 <View style={styles.previewContainer}>
@@ -152,6 +133,16 @@ export default class HomeScreen extends Component {
                         color_theme={this.state.color_theme}
                         rides={this.state.rides} />
                 </View>
+
+                <CreateButton
+                    color_theme={rider_this.state.color_theme}
+                    onRideRequestPress={() => {
+                        this.props.screenProps.rootNavigation.navigate("RequestRide",{ transition: 'vertical'});
+                    }}
+                    onRideCreatePress={() => {
+                        this.props.screenProps.rootNavigation.navigate("CreateRide",{ transition: 'vertical'});
+                    }}
+                />
 
             </View>
         );
@@ -205,21 +196,10 @@ const styles = StyleSheet.create({
         flex: 1
     },
     options: {
-        paddingLeft: 25,
-        paddingTop: null,
-        alignSelf: 'flex-start',
-        position: 'absolute',
-    },
-    actionButtonStyle: {
         paddingRight: 25,
         paddingTop: null,
         alignSelf: 'flex-end',
         position: 'absolute',
-    },
-    actionButtonIcon: {
-        fontSize: 20,
-        height: 22,
-        color: 'white',
     },
     buttonContainer: {
         marginLeft:5,
