@@ -31,11 +31,11 @@ export default class RideHistory extends Component {
             source = {{ uri: item.image }} />*/}
           <Ionicons name="ios-car" size={30}/>
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
-            <Text style={{fontSize: 18, color: 'green', marginBottom: 15}}>
-              {User.currentUser.name}
+            <Text style={{fontSize: 18, color: 'grey', marginBottom: 15}}>
+              Start:   {User.currentUser.name}
             </Text>
             <Text style={{fontSize: 16, color: 'red'}}>
-              {User.currentUser.rides[0]}
+              Stop:     {User.currentUser.rides[0]}
             </Text>
           </View>
         </View>
