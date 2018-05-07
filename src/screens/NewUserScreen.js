@@ -34,8 +34,13 @@ export default class NewUserScreen extends Component {
 
     signUpUser= (email, password) => {
         try {
+            if (!email.includes('.edu')){
+                alert("A .edu mail is required for this app.")
+                return
+            }
             if (email === "" || password === "") {
-                alert("enter valid email and password.")
+                alert("Enter valid email and password.")
+                return
             }
             else if (this.state.password.length < 6) {
                 alert("Please enter at least 6 characters");
@@ -50,6 +55,7 @@ export default class NewUserScreen extends Component {
                     alert("Account already existed.")
                 });
             }
+
         }
         catch(error){
             console.log(error.toString())
