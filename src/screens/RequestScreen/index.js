@@ -103,6 +103,7 @@ export default class RequestRideScreen extends Component {
 
                 <SearchArea2 color_theme={driver_this.state.color_theme}/>
 
+
             </View>
         );
     }

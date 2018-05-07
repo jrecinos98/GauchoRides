@@ -29,13 +29,16 @@ export default class RideHistory extends Component {
         <View style={{ flex: 1, flexDirection: 'row', marginBottom: 3}}>
             {/*<Image style={{ width: 80, height: 80, margin: 5 }}
             source = {{ uri: item.image }} />*/}
-          <Ionicons name="ios-car" size={30}/>
+          <Ionicons name="ios-car" size={65}/>
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
-            <Text style={{fontSize: 18, color: 'grey', marginBottom: 15}}>
-              Start:   {User.currentUser.name}
+            <Text style={{fontSize: 18, color: 'grey', marginBottom: 10}}>
+              From:   {User.currentUser.name}
             </Text>
-            <Text style={{fontSize: 16, color: 'red'}}>
-              Stop:     {User.currentUser.rides[0]}
+            <Text style={{fontSize: 16, color: 'red', marginBottom: 10}}>
+              To:     {User.currentUser.rides[0]}
+            </Text>
+            <Text style={{fontSize: 16, color: 'grey'}}>
+              Date:     {User.currentUser.rides[0]}
             </Text>
           </View>
         </View>
