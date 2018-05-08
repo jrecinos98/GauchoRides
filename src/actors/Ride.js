@@ -17,5 +17,6 @@ export default class Ride {
 		this.time = time;
 		this.origin = origin;
 		this.destination = destination;
+		
 	}
 }

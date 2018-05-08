@@ -55,8 +55,8 @@ export default class CreateRideScreen extends Component {
 			User.currentUser.id,
 			{1000: true, 100: true},
 			Math.floor(new Date() / 1000),
-			new Area(34.4133, -119.8610, 1),
-			new Area(37.338208, -121.886329, 5)
+			new Area(34.4133, -119.8610, 1, "Goleta"),
+			new Area(37.338208, -121.886329, 5, "Oak Park")
 		);
 
 		//Store to firebase
