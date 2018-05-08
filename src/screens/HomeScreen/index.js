@@ -125,9 +125,6 @@ export default class HomeScreen extends Component {
                             </MenuItem>
                             <MenuDivider/>
                             <MenuItem onPress={this.hideMenu}>View as List</MenuItem>
-
-                            <MenuDivider/>
-                            <MenuItem onPress={this.hideMenu}> Jose Awesome and you know it</MenuItem>
                         </Menu>
                     </View>
 
