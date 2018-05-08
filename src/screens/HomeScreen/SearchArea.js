@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
         Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
-import CreateButton from '../../components/CreateButton';
+import CreateButton from '../../components/ActionButton';
 
 export default class SearchArea extends Component {
 

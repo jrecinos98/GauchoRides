@@ -9,12 +9,26 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, STRING, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
-import ActionButton from 'react-native-action-button';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+
 import CreateRideScreen from "../CreateRideScreen";
-import CreateButton from '../../components/CreateButton';
+import ActionButton from '../../components/ActionButton';
 
 
 export default class HomeScreen extends Component {
+    _menu = null;
+
+    setMenuRef = ref => {
+        this._menu = ref;
+    };
+
+    hideMenu = () => {
+        this._menu.hide();
+    };
+
+    showMenu = () => {
+        this._menu.show();
+    };
 
     static rider_this = null;
 
@@ -67,6 +81,10 @@ export default class HomeScreen extends Component {
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
                 color: rider_this.state.color_theme.APP_FOCUS
             }],
+            menu: [styles.menu, { flex: 1, alignItems: 'center', justifyContent: 'center', position: 'absolute',
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+
+            }],
             buttonContainer: [styles.buttonContainer, {
                 backgroundColor: rider_this.state.color_theme.APP_BACKGROUND,
                 shadowColor: rider_this.state.color_theme.APP_UNFOCUS
@@ -92,69 +110,97 @@ export default class HomeScreen extends Component {
 
                         }}/>
                     <Text style={customStyle.title}>Home</Text>
+                    <View style={customStyle.menu}>
+                        <Menu
+                            ref={this.setMenuRef}
+                            button={<Ionicons name='ios-menu'
+                                              style={{
+                                                  fontSize: DIMENSION.ICON.SIZE,
+                                                  color: rider_this.state.color_theme.APP_FOCUS
+                                              }}
+                                              onPress={this.showMenu}/>}
+                        >
+                            <MenuItem onPress={this.hideMenu} disabled>
+                                View in Map
+                            </MenuItem>
+                            <MenuDivider/>
+                            <MenuItem onPress={this.hideMenu}>View as List</MenuItem>
+
+                            <MenuDivider/>
+                            <MenuItem onPress={this.hideMenu}> Jose Awesome and you know it</MenuItem>
+                        </Menu>
+                    </View>
+
+
                 </View>
 
+                <View style={{flex:1}}>
+                    <View style={styles.contentContainer}>
 
-                <View style={styles.contentContainer}>
+                        <MapArea
+                            ref={(instance) => {
+                                this.mapArea = instance;
+                            }}
+                            onPreview={(rides) => {
+                                this.setState({
+                                    rides: rides,
+                                });
+                            }}
+                            onMarkerPress={(index) => {
+                                console.log("PRESSED");
+                                if (this.previewArea.previewBar === undefined) {
+                                    this.previewArea.displayComponent(!this.displaySearch);
+                                }
+                                this.previewArea.previewBar.scrollTo({
+                                    x: this.previewArea.getSnapPosition(index),
+                                    y: 0,
+                                    animated: true
+                                });
+                            }}
+                            color_theme={rider_this.state.color_theme}>
 
-                    <MapArea
+                        </MapArea>
+                        <SearchArea
+                            ref={(instance) => {
+                                this.searchArea = instance;
+                            }}
+                            onSubmit={(origin, destin) => {
+                                this.mapArea.createRoute(origin.toString(), destin.toString());
+                                this.toggleSearchAndPreview();
+                                if (this.firstSearch) {
+                                    this.firstSearch = false;
+                                }
+                                this.actionButton.ShowHideButtonComponent();
+                            }}
+                            color_theme={rider_this.state.color_theme}/>
+                    </View>
+
+                    <View style={styles.previewContainer}>
+
+                        <PreviewArea
+                            ref={(instance) => {
+                                this.previewArea = instance;
+                            }}
+                            onPreviewPress={(index) => {
+                                this.mapArea.rideMap.moveMapCamera(index);
+                            }}
+                            color_theme={this.state.color_theme}
+                            rides={this.state.rides}/>
+                    </View>
+
+                    <ActionButton
                         ref={(instance) => {
-                            this.mapArea = instance;
+                            this.actionButton = instance;
                         }}
-                        onPreview={(rides) => {
-                            this.setState({
-                                rides: rides,
-                            });
+                        color_theme={rider_this.state.color_theme}
+                        onRideRequestPress={() => {
+                            this.props.screenProps.rootNavigation.navigate("RequestRide", {transition: 'vertical'});
                         }}
-                        onMarkerPress={(index) => {
-                            console.log("PRESSED");
-                            if(this.previewArea.previewBar === undefined){
-                                this.previewArea.displayComponent(!this.displaySearch);
-                            }
-                            this.previewArea.previewBar.scrollTo({x: this.previewArea.getSnapPosition(index), y: 0, animated: true});
+                        onRideCreatePress={() => {
+                            this.props.screenProps.rootNavigation.navigate("CreateRide", {transition: 'vertical'});
                         }}
-                        color_theme={rider_this.state.color_theme}>
-
-                    </MapArea>
-                    <SearchArea
-                        ref={(instance) => {
-                            this.searchArea = instance;
-                        }}
-                        onSubmit={(origin, destin)=>{
-                            this.mapArea.createRoute(origin.toString(), destin.toString());
-                            this.toggleSearchAndPreview();
-                            if(this.firstSearch) {
-                                this.firstSearch = false;
-                            }
-                            this.actionButton.ShowHideButtonComponent();
-                        }}
-                        color_theme={rider_this.state.color_theme}/>
+                    />
                 </View>
-
-                <View style={styles.previewContainer}>
-                    <PreviewArea
-                        ref={(instance) => {
-                            this.previewArea = instance;
-                        }}
-                        onPreviewPress={(index) => {
-                            this.mapArea.rideMap.moveMapCamera(index);
-                        }}
-                        color_theme={this.state.color_theme}
-                        rides={this.state.rides} />
-                </View>
-
-                <CreateButton
-                    ref={(instance) => {
-                        this.actionButton = instance;
-                    }}
-                    color_theme={rider_this.state.color_theme}
-                    onRideRequestPress={() => {
-                        this.props.screenProps.rootNavigation.navigate("RequestRide",{ transition: 'vertical'});
-                    }}
-                    onRideCreatePress={() => {
-                        this.props.screenProps.rootNavigation.navigate("CreateRide",{ transition: 'vertical'});
-                    }}
-                />
             </View>
         );
     }
@@ -173,21 +219,14 @@ export const HomeStack = StackNavigator({
         },
 
     }
-    /*
-     navigationOptions:  {
-            //headerLeft: null
-           // header: { visible:false }
-        }
-   RequestRide: {
-       screen: RequestScreen
-   }*/
+
 );
-//var width = Dimensions.get("window").width;
+
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //alignItems: 'center',
-        // justifyContent: 'center',
         flexDirection: 'column'
     },
     topBar: {
@@ -210,6 +249,13 @@ const styles = StyleSheet.create({
         paddingRight: 25,
         paddingTop: null,
         alignSelf: 'flex-end',
+        position: 'absolute',
+    },
+    menu: {
+       // flex:1,
+        paddingLeft: 20,
+        paddingTop: null,
+        alignSelf: 'flex-start',
         position: 'absolute',
     },
     buttonContainer: {

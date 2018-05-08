@@ -5,7 +5,7 @@ import { COLOR, STRING, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 //import ActionButton from 'react-native-circular-action-menu';
 
-export default class CreateButton_Android extends Component{
+export default class CreateButton extends Component{
     render(){
         return(
             <ActionButton
@@ -13,8 +13,8 @@ export default class CreateButton_Android extends Component{
                 position={"right"}
                 verticalOrientation={"up"}
                 style={styles.actionButtonStyle}
-                // bgColor={"rgba(255, 255, 255, 0.5)"}
-                blurRadius={1}
+                bgColor={"rgba(255, 255, 255, 0.5)"}
+                blurRadius={10}
                 buttonColor={this.props.color_theme.APP_FOCUS}>
                 <ActionButton.Item
                     buttonColor= {this.props.color_theme.APP_FOCUS}
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         paddingTop: null,
         alignSelf: 'flex-end',
         position: 'absolute',
+        borderRadius: 26
     },
     actionButtonIcon: {
         fontSize: 20,

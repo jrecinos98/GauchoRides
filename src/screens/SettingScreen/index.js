@@ -5,7 +5,7 @@ import { COLOR, STRING } from '../../Constants';
 import LoginButton from "../../components/LoginButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
-import { MainScreenInstance } from "../MainScreen";
+import { MainScreenInstance } from "../Main";
 import { getTheme } from '../../Utility';
 
 

@@ -5,7 +5,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { COLOR, STRING } from '../Constants';
 import { getTheme } from '../Utility';
 
-// import DriverStack from './DriverStack';
 import CreateRideScreen from './CreateRideScreen';
 import HomeScreen, {HomeStack, PassengerStack} from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
@@ -18,7 +17,7 @@ export var MainScreenInstance = null;
 export var MyAppStack=null;
 
 //Main screen of the app.
-export default class MainScreen extends Component{
+export default class Main extends Component{
 
 	static navigationOptions = {
 		header: null
@@ -55,10 +54,6 @@ export default class MainScreen extends Component{
 //Tab navigator for main screen.
 const AppTabNavigator = (color_theme) => TabNavigator(
 	{
-		/*
-		Driver: {
-			screen: CreateRideScreen
-		},*/
 		Home: {
 			screen: HomeStack
 		},
@@ -84,7 +79,6 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 				...Platform.select({
 					android:{
 						backgroundColor: color_theme.APP_BACKGROUND,
-						//height:50
 					},
 					ios:{
                         backgroundColor: color_theme.APP_BACKGROUND,
@@ -95,7 +89,7 @@ const AppTabNavigator = (color_theme) => TabNavigator(
             activeTintColor: color_theme.APP_FOCUS,
 			inactiveTintColor: color_theme.APP_UNFOCUS,
 			showIcon:true,
-			showLabel:Platform.OS === 'ios' //set to false if don't want name
+			showLabel:Platform.OS === 'ios'
 		}
 	}
 );

@@ -8,10 +8,9 @@ import { getTheme } from '../../Utility';
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
-
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 export default class ProfileScreen extends Component {
-
     static profile_this = null;
 
     constructor(props) {
@@ -108,6 +107,7 @@ export default class ProfileScreen extends Component {
                     </View>
 
                     <View style={styles.ratingContainer}>
+
                         <Text style={customStyle.textStyle}>RATINGS</Text>
                         <WheelRating/>
                         <SexyRating/>

@@ -37,7 +37,7 @@ export default class CurLocMarker extends Component {
     }
 
     render() {
-    	let color = 'rgb(' + (this.state.color/2) + ',' + (255 - this.state.color) + ',' + this.state.color + ')';
+    	let color = 'rgb(' + (200 - this.state.color) + ',' + (150 - this.state.color) + ',' + this.state.color + ')';
 
         return (
             <Marker

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation'
-import MainScreen from './src/screens/MainScreen'
+import Main from './src/screens/Main'
 import LogInScreen from './src/screens/LogInScreen'
 import { YellowBox } from 'react-native';
 import * as firebase from 'firebase';
@@ -105,7 +105,7 @@ export default class App extends React.Component {
 }
 
 const RootStack = StackNavigator({
-    Main: {screen: MainScreen},
+    Main: {screen: Main},
 }, {
     initialRouteName: "Main",
 });

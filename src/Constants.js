@@ -17,7 +17,7 @@ export const DIMENSION = {
 	TOPBAR: {HEIGHT: 50},
 	ICON:{
 		SIZE: 32,
-		ACTION_BUTTON: 45
+		ACTION_BUTTON: 52
 	},
 	TITLE: {SIZE: 20},
 	PREVIEW: {
