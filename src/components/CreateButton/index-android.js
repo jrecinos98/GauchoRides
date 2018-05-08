@@ -3,12 +3,13 @@ import { View, Text, StyleSheet } from "react-native";
 import ActionButton from 'react-native-action-button';
 import { COLOR, STRING, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
+//import ActionButton from 'react-native-circular-action-menu';
 
 export default class CreateButton_Android extends Component{
     render(){
         return(
             <ActionButton
-                size={DIMENSION.ICON.SIZE}
+                size={DIMENSION.ICON.ACTION_BUTTON}
                 position={"right"}
                 verticalOrientation={"up"}
                 style={styles.actionButtonStyle}
@@ -17,7 +18,7 @@ export default class CreateButton_Android extends Component{
                 buttonColor={this.props.color_theme.APP_FOCUS}>
                 <ActionButton.Item
                     buttonColor= {this.props.color_theme.APP_FOCUS}
-                    title={"Request ride"}
+                    title={"Can't Find Ride? Request One"}
                     onPress={() => {
                         this.props.onRideRequestPress();
                     }}>
@@ -25,7 +26,7 @@ export default class CreateButton_Android extends Component{
                 </ActionButton.Item>
                 <ActionButton.Item
                     buttonColor= {this.props.color_theme.APP_FOCUS}
-                    title={"Add ride"}
+                    title={"Create Ride"}
                     onPress={() => {
                         this.props.onRideCreatePress();
                     }}>
@@ -37,11 +38,6 @@ export default class CreateButton_Android extends Component{
 }
 
 const styles = StyleSheet.create({
-    // actionButtonStyle: {
-    //     paddingTop: null,
-    //     alignSelf: 'flex-start',
-    //     position: 'absolute'
-    // },
 
     actionButtonStyle: {
         paddingRight: 25,

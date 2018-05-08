@@ -15,7 +15,10 @@ export const STRING = {
 // Dimension constants
 export const DIMENSION = {
 	TOPBAR: {HEIGHT: 50},
-	ICON:{SIZE: 32},
+	ICON:{
+		SIZE: 32,
+		ACTION_BUTTON: 45
+	},
 	TITLE: {SIZE: 20},
 	PREVIEW: {
 		WIDTH: 300,

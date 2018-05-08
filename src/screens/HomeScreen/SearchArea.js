@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
         Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
+import CreateButton from '../../components/CreateButton';
 
 export default class SearchArea extends Component {
 
@@ -133,7 +134,6 @@ export default class SearchArea extends Component {
                         }}
                         title="Find Ride!"/>
                 </View>
-
             </ScrollView> : null
 
         );

@@ -24,7 +24,7 @@ export default class HomeScreen extends Component {
         rider_this = this;
         rider_this.state = {
             color_theme: COLOR.THEME_LIGHT,
-            rides: []
+            rides: [],
         };
 
         getTheme(function(theme) {
@@ -34,6 +34,7 @@ export default class HomeScreen extends Component {
         });
 
         this.displaySearch = false;
+        this.displayButton= false;
     }
 
 
@@ -82,7 +83,9 @@ export default class HomeScreen extends Component {
                         style={customStyle.options}
                         onPress={() => {
                             this.searchArea.ShowHideTextComponentView();
+                            this.actionButton.ShowHideButtonComponent();
                             this.displaySearch = !this.displaySearch;
+                            this.displayButton= !this.displayButton;
                             this.previewArea.displayComponent(!this.displaySearch);
                         }}/>
                     <Text style={customStyle.title}>Home</Text>
@@ -97,7 +100,7 @@ export default class HomeScreen extends Component {
                         }}
                         onPreview={(rides) => {
                             this.setState({
-                                rides: rides
+                                rides: rides,
                             });
                         }}
                         onMarkerPress={(index) => {
@@ -118,6 +121,7 @@ export default class HomeScreen extends Component {
                             this.mapArea.createRoute(origin.toString(), destin.toString());
                             this.displaySearch = !this.displaySearch;
                             this.previewArea.displayComponent(!this.displaySearch);
+                            this.actionButton.ShowHideButtonComponent();
                         }}
                         color_theme={rider_this.state.color_theme}/>
                 </View>
@@ -135,6 +139,9 @@ export default class HomeScreen extends Component {
                 </View>
 
                 <CreateButton
+                    ref={(instance) => {
+                        this.actionButton = instance;
+                    }}
                     color_theme={rider_this.state.color_theme}
                     onRideRequestPress={() => {
                         this.props.screenProps.rootNavigation.navigate("RequestRide",{ transition: 'vertical'});
@@ -143,7 +150,6 @@ export default class HomeScreen extends Component {
                         this.props.screenProps.rootNavigation.navigate("CreateRide",{ transition: 'vertical'});
                     }}
                 />
-
             </View>
         );
     }

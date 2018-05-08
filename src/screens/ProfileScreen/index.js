@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import {Body, Container, Header, Title} from 'native-base';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
-import StackNavigator from 'react-native-navigation';
-
 import User from "../../../src/actors/User";
 import { getTheme } from '../../Utility';
-
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
-import CreateRideScreen from '../CreateRideScreen'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
-import HomeScreen from "../HomeScreen";
+
 
 export default class ProfileScreen extends Component {
 
@@ -24,7 +19,7 @@ export default class ProfileScreen extends Component {
         profile_this = this;
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         profile_this.state = {
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: COLOR.THEME_LIGHT,
         };
 
         getTheme(function (theme) {
@@ -79,6 +74,10 @@ export default class ProfileScreen extends Component {
             }],
             imageWrapper: [styles.imageWrapper, {
                 marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
+            }],
+            tagStyle: [styles.tagStyle, {
+                backgroundColor: profile_this.state.color_theme.BGCOLOR,
+                borderColor: profile_this.state.color_theme.BGCOLOR,
             }]
         };
 
@@ -112,62 +111,12 @@ export default class ProfileScreen extends Component {
                         <Text style={customStyle.textStyle}>RATINGS</Text>
                         <WheelRating/>
                         <SexyRating/>
-                    </View>
-
-                    <View style={{
-                        flexDirection: 'row',
-                        margin: 10,
-                        flexWrap: 'wrap',
-                        alignContent: 'space-around'
-                    }}>
-                        <Text
-                            style={{
-                                margin: 3,
-                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                                borderColor: profile_this.state.color_theme.BGCOLOR,
-                                borderWidth: 1.5,
-                                fontSize: 20,
-                                height: 25,
-                                flexWrap: 'wrap',
-                                alignContent: 'space-between',
-                                justifyContent: 'space-between'
-                            }}> Respected(10) </Text>
-                        <Text
-                            style={{
-                                margin: 3,
-                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                                borderColor: profile_this.state.color_theme.BGCOLOR,
-                                borderWidth: 1.5,
-                                fontSize: 20,
-                                height: 25,
-                                flexWrap: 'wrap',
-                                alignContent: 'space-between',
-                                justifyContent: 'space-between'
-                            }}> Inspirational(5) </Text>
-                        <Text
-                            style={{
-                                margin: 3,
-                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                                borderColor: profile_this.state.color_theme.BGCOLOR,
-                                borderWidth: 1.5,
-                                fontSize: 20,
-                                height: 25,
-                                flexWrap: 'wrap',
-                                alignContent: 'space-between',
-                                justifyContent: 'space-between'
-                            }}> Caring(3) </Text>
-                        <Text
-                            style={{
-                                margin: 3,
-                                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                                borderColor: profile_this.state.color_theme.BGCOLOR,
-                                borderWidth: 1.5,
-                                fontSize: 20,
-                                height: 25,
-                                flexWrap: 'wrap',
-                                alignContent: 'space-between',
-                                justifyContent: 'space-between'
-                            }}> Skip ride!(1) </Text>
+                        <View style={styles.tagContainer}>
+                            <Text style={customStyle.tagStyle}> Respected(10) </Text>
+                            <Text style={customStyle.tagStyle}> Inspirational(5) </Text>
+                            <Text style={customStyle.tagStyle}> Caring(3) </Text>
+                            <Text style={customStyle.tagStyle}> Skip ride!(1) </Text>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -184,11 +133,17 @@ const styles = StyleSheet.create({
         flex: 1,
 
     },
+    tagContainer: {
+        flexDirection: 'row',
+        margin: 5,
+        flexWrap: 'wrap',
+        justifyContent: "center"
+    },
     ratingContainer: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+
     },
     imageWrapper: {
         flex: 1,
@@ -203,7 +158,6 @@ const styles = StyleSheet.create({
 
     },
     userName: {
-        flex: 0.75,
         textShadowColor: 'rgba(0, 0, 0, 0.6)',
         fontSize: 25,
         textShadowOffset: {width: -1, height: 1},
@@ -213,7 +167,7 @@ const styles = StyleSheet.create({
         backgroundColor: null,
         alignSelf: 'stretch',
         height: null
-        // borderBottomWidth: 0.5
+
     },
     settings: {
         paddingRight: 25,
@@ -230,5 +184,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: null,
         paddingTop: null
+    },
+    tagStyle: {
+        margin: 3,
+        borderWidth: 1.5,
+        fontSize: 20,
+        height: 25,
+
     }
 });

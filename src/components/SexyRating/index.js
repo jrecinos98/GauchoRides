@@ -63,7 +63,7 @@ export default class SexyRating extends Component{
 
 const styles= StyleSheet.create({
     chiliContainer: {
-        flex: 1,
+        //flex: 1,
         flexDirection: 'row',
 
         paddingTop: 10,

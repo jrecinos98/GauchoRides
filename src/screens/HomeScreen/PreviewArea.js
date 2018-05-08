@@ -104,8 +104,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         color: null,
         fontWeight: "700",
-        textShadowColor:'rgba(0, 0, 0, 0.7)',
-        textShadowOffset: {width: -1, height: 1},
-        textShadowRadius: 10,
+
     }
 });
