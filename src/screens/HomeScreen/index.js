@@ -34,9 +34,14 @@ export default class HomeScreen extends Component {
         });
 
         this.displaySearch = false;
-        this.displayButton= false;
+        this.firstSearch=true;
     }
+    toggleSearchAndPreview(){
+        this.searchArea.ShowHideTextComponentView();
+        this.displaySearch = !this.displaySearch;
+        this.previewArea.displayComponent(!this.displaySearch);
 
+    }
 
 
     static navigationOptions = {
@@ -82,11 +87,9 @@ export default class HomeScreen extends Component {
                         name='ios-search'
                         style={customStyle.options}
                         onPress={() => {
-                            this.searchArea.ShowHideTextComponentView();
-                            this.actionButton.ShowHideButtonComponent();
-                            this.displaySearch = !this.displaySearch;
-                            this.displayButton= !this.displayButton;
-                            this.previewArea.displayComponent(!this.displaySearch);
+                            this.toggleSearchAndPreview();
+                            !this.firstSearch ? this.actionButton.ShowHideButtonComponent() : null;
+
                         }}/>
                     <Text style={customStyle.title}>Home</Text>
                 </View>
@@ -119,8 +122,10 @@ export default class HomeScreen extends Component {
                         }}
                         onSubmit={(origin, destin)=>{
                             this.mapArea.createRoute(origin.toString(), destin.toString());
-                            this.displaySearch = !this.displaySearch;
-                            this.previewArea.displayComponent(!this.displaySearch);
+                            this.toggleSearchAndPreview();
+                            if(this.firstSearch) {
+                                this.firstSearch = false;
+                            }
                             this.actionButton.ShowHideButtonComponent();
                         }}
                         color_theme={rider_this.state.color_theme}/>
