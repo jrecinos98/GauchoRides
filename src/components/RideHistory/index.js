@@ -4,11 +4,11 @@ import {List, ListItem} from "react-native-elements";
 import styles from "./RideHistoryStyles.js";
 import * as firebase from 'firebase';
 import User from "../../actors/User.js";
+import Ride from "../../actors/Ride.js";
 import { Ionicons } from '@expo/vector-icons';
 export default class RideHistory extends Component {
     constructor(props){
       super(props);
-
       this.state = {
         loading: false,
         data: [],
@@ -17,11 +17,25 @@ export default class RideHistory extends Component {
         error: null,
         refreshing: false,
       };
-
     }
     componentDidMount(){
       this.makeRemoteRequest();
     }
+
+    gotData(){
+      //console.log(data.val());
+      var keys = Object.keys(User.currentUser.rides);
+      for(var i=0; i<keys.length; i++){
+        var k = keys[i];
+        console.log(k);
+      }
+      return keys[0];
+    }
+    errData(err){
+      console.log('Error!');
+      console.log(err);
+    }
+
 
 
     renderItem = ({ item }) => {
@@ -35,10 +49,11 @@ export default class RideHistory extends Component {
               From:   {User.currentUser.name}
             </Text>
             <Text style={{fontSize: 16, color: 'red', marginBottom: 10}}>
-              To:     {User.currentUser.rides[0]}
+              To:     {Ride.LBiYfJgYulcu8MqsNY9.description}
             </Text>
+
             <Text style={{fontSize: 16, color: 'grey'}}>
-              Date:     {User.currentUser.rides[0]}
+              Date:     {this.gotData()}
             </Text>
           </View>
         </View>

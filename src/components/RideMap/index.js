@@ -7,6 +7,7 @@ import LightTheme from './LightTheme.json';
 import DarkTheme from './DarkTheme.json';
 import OldTheme from './OldTheme.json';
 import { STRING } from '../../Constants';
+import CurLocMarker from './CurLocMarker';
 
 export default class RideMap extends Component {
 
@@ -152,18 +153,8 @@ export default class RideMap extends Component {
                 }}
                 customMapStyle={mapStyle}>
 
-                <Marker
-                    style={{flex:1}}
-                    coordinate={{
-                        latitude: this.props.userLoc.latitude,
-                        longitude: this.props.userLoc.longitude
-                    }}>
-
-                        <Ionicons
-                            style={[styles.markerIcon, {color: '#ffffff'}]}
-                            name='ios-locate-outline'/>
-
-                </Marker>
+                <CurLocMarker
+                    userLoc={this.props.userLoc}/>
 
                 {polyLines}
 
