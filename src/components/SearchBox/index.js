@@ -3,7 +3,6 @@ import {Text} from "react-native";
 import { View, InputGroup, Input } from "native-base";
 import { Switch } from 'react-native-switch';
 import { Ionicons } from '@expo/vector-icons';
-import { getCurrentLocation, getInputData, toggleSearchResultModal, getAddressPredictions } from "../../../modules/home";
 import styles from "./SearchBoxStyles.js";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
