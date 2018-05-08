@@ -16,18 +16,20 @@ import ActionButton from '../../components/ActionButton';
 
 
 export default class HomeScreen extends Component {
-    _menu = null;
+    menu = null;
 
     setMenuRef = ref => {
-        this._menu = ref;
+        this.menu = ref;
     };
 
+
+
     hideMenu = () => {
-        this._menu.hide();
+        this.menu.hide();
     };
 
     showMenu = () => {
-        this._menu.show();
+        this.menu.show();
     };
 
     static rider_this = null;
@@ -93,7 +95,7 @@ export default class HomeScreen extends Component {
 
 
         let statusTheme = (rider_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
-        const { navigate } = this.props.navigation;
+        const { navigateToRoot } = this.props.screenProps.rootNavigation.navigate;
         return (
 
             <View style={styles.container}>
@@ -124,7 +126,12 @@ export default class HomeScreen extends Component {
                                 View in Map
                             </MenuItem>
                             <MenuDivider/>
-                            <MenuItem onPress={this.hideMenu}>View as List</MenuItem>
+                            <MenuItem onPress={() => {
+
+                                this.props.screenProps.rootNavigation.navigate("ListScreen", {transition: 'vertical'});
+                                rider_this.hideMenu();
+
+                            }}>View as List</MenuItem>
                         </Menu>
                     </View>
 
