@@ -16,35 +16,19 @@ import ActionButton from '../../components/ActionButton';
 
 
 export default class HomeScreen extends Component {
+
     menu = null;
-
-    setMenuRef = ref => {
-        this.menu = ref;
-    };
-
-
-
-    hideMenu = () => {
-        this.menu.hide();
-    };
-
-    showMenu = () => {
-        this.menu.show();
-    };
-
-    static rider_this = null;
 
     constructor(props) {
         super(props);
 
-        rider_this = this;
-        rider_this.state = {
+        this.state = {
             color_theme: COLOR.THEME_LIGHT,
             rides: [],
         };
 
-        getTheme(function(theme) {
-            rider_this.setState({
+        getTheme((theme) => {
+            this.setState({
                 color_theme: theme
             });
         });
@@ -52,13 +36,25 @@ export default class HomeScreen extends Component {
         this.displaySearch = false;
         this.firstSearch=true;
     }
+
+    setMenuRef = (ref) => {
+        this.menu = ref;
+    }
+
+    hideMenu = () => {
+        this.menu.hide();
+    }
+
+    showMenu = () => {
+        this.menu.show();
+    }
+
     toggleSearchAndPreview(){
         this.searchArea.ShowHideTextComponentView();
         this.displaySearch = !this.displaySearch;
         this.previewArea.displayComponent(!this.displaySearch);
 
     }
-
 
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
@@ -71,30 +67,30 @@ export default class HomeScreen extends Component {
         const customStyle = {
             topBar: [styles.topBar, {
                 height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
-                backgroundColor: rider_this.state.color_theme.APP_BACKGROUND
+                backgroundColor: this.state.color_theme.APP_BACKGROUND
             }],
             title: [styles.title, {
                 fontSize: DIMENSION.TITLE.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
-                color: rider_this.state.color_theme.APP_FOCUS
+                color: this.state.color_theme.APP_FOCUS
             }],
             options: [styles.options, {
                 fontSize: DIMENSION.ICON.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
-                color: rider_this.state.color_theme.APP_FOCUS
+                color: this.state.color_theme.APP_FOCUS
             }],
             menu: [styles.menu, { flex: 1, alignItems: 'center', justifyContent: 'center', position: 'absolute',
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
 
             }],
             buttonContainer: [styles.buttonContainer, {
-                backgroundColor: rider_this.state.color_theme.APP_BACKGROUND,
-                shadowColor: rider_this.state.color_theme.APP_UNFOCUS
+                backgroundColor: this.state.color_theme.APP_BACKGROUND,
+                shadowColor: this.state.color_theme.APP_UNFOCUS
             }]
         };
 
 
-        let statusTheme = (rider_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
         const { navigateToRoot } = this.props.screenProps.rootNavigation.navigate;
         return (
 
@@ -118,7 +114,7 @@ export default class HomeScreen extends Component {
                             button={<Ionicons name='ios-menu'
                                               style={{
                                                   fontSize: DIMENSION.ICON.SIZE,
-                                                  color: rider_this.state.color_theme.APP_FOCUS
+                                                  color: this.state.color_theme.APP_FOCUS
                                               }}
                                               onPress={this.showMenu}/>}
                         >
@@ -129,7 +125,7 @@ export default class HomeScreen extends Component {
                             <MenuItem onPress={() => {
 
                                 this.props.screenProps.rootNavigation.navigate("ListScreen", {transition: 'vertical'});
-                                rider_this.hideMenu();
+                                this.hideMenu();
 
                             }}>View as List</MenuItem>
                         </Menu>
@@ -161,7 +157,7 @@ export default class HomeScreen extends Component {
                                     animated: true
                                 });
                             }}
-                            color_theme={rider_this.state.color_theme}>
+                            color_theme={this.state.color_theme}>
 
                         </MapArea>
                         <SearchArea
@@ -176,7 +172,7 @@ export default class HomeScreen extends Component {
                                 }
                                 this.actionButton.ShowHideButtonComponent();
                             }}
-                            color_theme={rider_this.state.color_theme}/>
+                            color_theme={this.state.color_theme}/>
                     </View>
 
                     <View style={styles.previewContainer}>
@@ -196,7 +192,7 @@ export default class HomeScreen extends Component {
                         ref={(instance) => {
                             this.actionButton = instance;
                         }}
-                        color_theme={rider_this.state.color_theme}
+                        color_theme={this.state.color_theme}
                         onRideRequestPress={() => {
                             this.props.screenProps.rootNavigation.navigate("RequestRide", {transition: 'vertical'});
                         }}

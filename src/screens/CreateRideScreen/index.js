@@ -126,7 +126,7 @@ export default class CreateRideScreen extends Component {
                     <Text style={customStyle.title}>Create Ride</Text>
                 </View>
 
-                <SearchArea2 color_theme={rider_this.state.color_theme}/>
+                <SearchArea2 color_theme={driver_this.state.color_theme}/>
 
                 <Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Firebase"> </Button>
 
