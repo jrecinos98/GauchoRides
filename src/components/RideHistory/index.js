@@ -35,7 +35,16 @@ export default class RideHistory extends Component {
       console.log('Error!');
       console.log(err);
     }
+    /*
+    riderOrDriverImage(){
+      if(this.gotData()=="driver"){
+        
+      }
+      else{
 
+      }
+    }
+    */
 
 
     renderItem = ({ item }) => {
@@ -46,14 +55,15 @@ export default class RideHistory extends Component {
           <Ionicons name="ios-car" size={65}/>
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
             <Text style={{fontSize: 18, color: 'grey', marginBottom: 10}}>
-              From:   {User.currentUser.name}
+              Destination:   {User.currentUser.name}
             </Text>
             <Text style={{fontSize: 16, color: 'red', marginBottom: 10}}>
-              To:     {Ride.LBiYfJgYulcu8MqsNY9.description}
+              From:     
             </Text>
 
             <Text style={{fontSize: 16, color: 'grey'}}>
-              Date:     {this.gotData()}
+              Date:      {this.gotData()}
+
             </Text>
           </View>
         </View>
