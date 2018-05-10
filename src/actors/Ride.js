@@ -17,6 +17,18 @@ export default class Ride {
 		this.time = time;
 		this.origin = origin;
 		this.destination = destination;
-		
+	}
+
+	toObject() {
+		return {
+			id: this.id,
+			description: this.description,
+			seats: this.seats,
+			driver: this.driver,
+			riders: this.riders,
+			time: this.time,
+			origin: this.origin.toObject(),
+			destination: this.destination.toObject()
+		};
 	}
 }

@@ -60,7 +60,6 @@ export default class CreateRideScreen extends Component {
 		);
 
 		Database.createRide(ride);
-		this.getTestRide();
 	}
 
 	//Get user's first ride from Database.

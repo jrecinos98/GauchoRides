@@ -1,8 +1,11 @@
 import{ AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
+import 'firebase/firestore';
 import { FIREBASE } from './Constants';
 import User from './actors/User';
 import Ride from './actors/User';
+
+var firestore = null;
 
 //Firebase configuration
 const firebaseConfig = {
@@ -18,6 +21,8 @@ export default class Database {
 	static initialize() {
 		if (!firebase.apps.length) {
 		    firebase.initializeApp(firebaseConfig);
+		    firestore = firebase.firestore();
+		    firestore.settings({timestampsInSnapshots: true});
 		}
 	}
 
@@ -60,12 +65,6 @@ export default class Database {
 		        alert(error);
 		    });
 		}
-
-		/*
-			fetch("https://graph.facebook.com/me?fields=id&access_token="+token, {
-			    method: 'GET'
-			})
-		*/
 	}
 
 	static async logout() {
@@ -73,38 +72,56 @@ export default class Database {
 	}
 
 	static createUser(user) {
-		firebase.database().ref(FIREBASE.USERS_PATH + '/' + user.id).set(user);
+		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((ref) => {
+			console.log(ref);
+		});
 	}
 
 	static updateUser(user) {
-		firebase.database().ref(FIREBASE.USERS_PATH + '/' + user.id).set(user);
+		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((status) => {
+			console.log(status);
+		});
 	}
 
 	static getUser(id, callback) {
-		firebase.database().ref(FIREBASE.USERS_PATH + '/' + id).once('value').then(snapshot => {
-			callback(snapshot.val());
+		firestore.collection(FIREBASE.USERS_PATH ).doc(id).get()
+		.then(function(doc) {
+		    if (doc.exists) {
+				callback(doc.data());
+		    }
+		})
+		.catch(function(error) {
+		    console.log("Error getting document:", error);
 		});
 	}
 
 	static createRide(ride) {
-		let newRide = firebase.database().ref(FIREBASE.RIDES_PATH + '/').push(ride);
+		firestore.collection(FIREBASE.RIDES_PATH).add(ride.toObject()).then((ref) => {
+			//Update ride information on firebase
+			ride.id = ref.id;
+			Database.updateRide(ride);
 
-		//Update ride information on firebase
-		ride.id = newRide.key;
-		Database.updateRide(ride);
-
-		//Update driver information on firebase
-		User.currentUser.rides[newRide.key] = 'driver';
-		Database.updateUser(User.currentUser);
+			//Update driver information on firebase
+			User.currentUser.rides[ride.id] = 'driver';
+			Database.updateUser(User.currentUser);
+		});
 	}
 
 	static updateRide(ride) {
-		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + ride.id).set(ride);
+		firestore.collection(FIREBASE.RIDES_PATH).doc(ride.id).set(ride.toObject()).then((ref) => {
+			console.log("Ride updated!");
+		});
 	}
 
 	static getRide(id, callback) {
-		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + id).once('value').then(snapshot => {
-			callback(snapshot.val());
+		firestore.collection(FIREBASE.RIDES_PATH ).doc(id).get()
+		.then(function(doc) {
+		    if (doc.exists) {
+				callback(doc.data());
+		    }
+		})
+		.catch(function(error) {
+		    console.log("Error getting document:", error);
 		});
 	}
 
