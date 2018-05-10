@@ -102,7 +102,7 @@ export default class CreateRideScreen extends Component {
                 <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}>
                     {
-                        (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
+                        (Platform.OS === 'ios') ?
                             <Ionicons
 
                                 name='ios-arrow-back'
