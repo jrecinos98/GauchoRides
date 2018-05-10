@@ -43,7 +43,7 @@ export default class CreateRideScreen extends Component {
 
 	//Called when component is mounted.
 	componentDidMount(){
-		this.getTestRide();
+		// this.getTestRide();
 	}
 
 	//Create a sample test ride on Database.
@@ -55,8 +55,8 @@ export default class CreateRideScreen extends Component {
 			User.currentUser.id,
 			{1000: true, 100: true},
 			Math.floor(new Date() / 1000),
-			new Area(34.4133, -119.8610, 1, "Goleta"),
-			new Area(37.338208, -121.886329, 5, "Oak Park")
+			new Area(34.415411, -119.858272, 5, "6586 Picasso Rd, Isla Vista, CA 93117"),
+			new Area(34.045837, -118.257538, 5, "788 S Grand Ave, Los Angeles, CA 90017")
 		);
 
 		Database.createRide(ride);
@@ -118,6 +118,8 @@ export default class CreateRideScreen extends Component {
                 <SearchArea2 color_theme={driver_this.state.color_theme}/>
 
                 <Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Database"> </Button>
+
+                <Button onPress={() => this.getTestRide()} title="Get Test Ride From Database"> </Button>
 
             </View>
         );
