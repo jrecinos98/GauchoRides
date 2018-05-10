@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
-import * as firebase from 'firebase';
 import User from '../../actors/User';
 import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, FIREBASE, DIMENSION } from '../../Constants';
+import { COLOR, DIMENSION } from '../../Constants';
 import SearchArea2 from './SearchArea2';
 import { getTheme } from '../../Utility';
+import Database from '../../Database';
 
 var i = 0;
 
@@ -46,7 +46,7 @@ export default class CreateRideScreen extends Component {
 		this.getTestRide();
 	}
 
-	//Create a sample test ride on firebase.
+	//Create a sample test ride on Database.
 	createTestRide(index) {
 		let ride = new Ride(
 			0,
@@ -59,26 +59,16 @@ export default class CreateRideScreen extends Component {
 			new Area(37.338208, -121.886329, 5, "Oak Park")
 		);
 
-		//Store to firebase
-		let newRide = firebase.database().ref(FIREBASE.RIDES_PATH + '/').push(ride);
-
-		//Update ride information on firebase
-		ride.id = newRide.key;
-		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + ride.id + '/id').set(ride.id);
-
-		//Update driver information on firebase
-		User.currentUser.rides[newRide.key] = 'driver';
-		firebase.database().ref(FIREBASE.USERS_PATH + '/' + User.currentUser.id).set(User.currentUser);
-
+		Database.createRide(ride);
 		this.getTestRide();
 	}
 
-	//Get user's first ride from firebase.
+	//Get user's first ride from Database.
 	getTestRide() {
 		//console.log("DriverTest: ", User.currentUser);
-		let key = Object.keys(User.currentUser.rides)[0];
-		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + key).once('value').then(snapshot => {
-			console.log(snapshot.val());
+		let id = Object.keys(User.currentUser.rides)[0];
+		Database.getRide(id, (ride) => {
+			console.log(ride);
 		});
 	}
 
@@ -128,7 +118,7 @@ export default class CreateRideScreen extends Component {
 
                 <SearchArea2 color_theme={driver_this.state.color_theme}/>
 
-                <Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Firebase"> </Button>
+                <Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Database"> </Button>
 
             </View>
         );

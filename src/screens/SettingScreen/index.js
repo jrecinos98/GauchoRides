@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
-import * as firebase from 'firebase';
 import { COLOR, STRING } from '../../Constants';
 import LoginButton from "../../components/LoginButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
 import { MainScreenInstance } from "../Main";
 import { getTheme } from '../../Utility';
+import Database from '../../Database';
 
 
 export default class SettingScreen extends Component{
@@ -137,7 +137,7 @@ export default class SettingScreen extends Component{
                     <LoginButton
                         title="Logout"
                         callback={async () => {
-                            await firebase.auth().signOut();
+                            Database.logout();
                             settings_this.props.navigation.dispatch(wipeLogout);
                         }}/>
                 </ScrollView>

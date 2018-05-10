@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
-import * as firebase from 'firebase';
 import User from '../../actors/User';
 import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, FIREBASE, DIMENSION } from '../../Constants';
+import { COLOR, DIMENSION } from '../../Constants';
 import SearchArea2 from '../CreateRideScreen/SearchArea2';
 import { getTheme } from '../../Utility';
+import Database from '../../Database';
 
 var i = 0;
 
@@ -47,12 +47,12 @@ export default class RequestRideScreen extends Component {
     }
 
 
-    //Get user's first ride from firebase.
+    //Get user's first ride from database.
     getTestRide() {
         //console.log("DriverTest: ", User.currentUser);
-        let key = Object.keys(User.currentUser.rides)[0];
-        firebase.database().ref(FIREBASE.RIDES_PATH + '/' + key).once('value').then(snapshot => {
-           // console.log(snapshot.val());
+        let id = Object.keys(User.currentUser.rides)[0];
+        Database.getRide(id, (ride) => {
+            console.log(ride);
         });
     }
 

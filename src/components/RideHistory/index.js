@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Text, View, StyleSheet, Image, FlatList,SectionList,TouchableOpacity, ActivityIndicator} from "react-native";
 import {List, ListItem} from "react-native-elements";
 import styles from "./RideHistoryStyles.js";
-import * as firebase from 'firebase';
 import User from "../../actors/User.js";
 import Ride from "../../actors/Ride.js";
 import { Ionicons } from '@expo/vector-icons';

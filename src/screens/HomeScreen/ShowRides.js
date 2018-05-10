@@ -5,7 +5,6 @@ import MapArea from './MapArea';
 import SearchArea from './SearchArea';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { COLOR } from '../../Constants';
-import * as firebase from 'firebase';
 
 
 
