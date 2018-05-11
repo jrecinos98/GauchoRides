@@ -93,16 +93,16 @@ export default class Database {
 		});
 	}
 
-	static createRide(ride) {
+	static createRide(ride, originCity, destinCity) {
 
 		// "6586 Picasso Rd, Isla Vista, CA 93117"
-		const originCity = "Isla Vista, CA";
-		const destinCity = "Los Angeles, CA";
-		const originCityLoc = {latitude: 34.413329, longitude: -119.860972};
-		const destinCityLoc = {latitude: 34.052234, longitude: -118.243685};
+		// const originCity = "Isla Vista, CA";
+		// const destinCity = "Los Angeles, CA";
+		// const originCityLoc = {latitude: 34.413329, longitude: -119.860972};
+		// const destinCityLoc = {latitude: 34.052234, longitude: -118.243685};
+		// firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).set({"Location": originCityLoc});
+		// firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc("Location").set(destinCityLoc);
 
-		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).set({"Location": originCityLoc});
-		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc("Location").set(destinCityLoc);
 		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
 
 			//Update ride information on firebase
@@ -111,15 +111,12 @@ export default class Database {
 
 			//Update driver information on firebase
 			User.currentUser.rides[originCity + '/' + destinCity + '/' + ride.id] = 'driver';
-
-			console.log(User.currentUser);
-
 			Database.updateUser(User.currentUser);
 		});
 	}
 
 	static updateRide(originCity, destinCity, ride) {
-		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
+		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc(ride.id).set(ride).then((ref) => {
 			console.log("Ride updated!");
 		});
 	}

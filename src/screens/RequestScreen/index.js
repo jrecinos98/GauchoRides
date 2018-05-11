@@ -8,7 +8,7 @@ import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
-import SearchArea2 from '../CreateRideScreen/SearchArea2';
+import CreateArea from '../CreateRideScreen/CreateArea';
 import { getTheme } from '../../Utility';
 import Database from '../../Database';
 
@@ -101,7 +101,7 @@ export default class RequestRideScreen extends Component {
                     <Text style={customStyle.title}>Request Ride</Text>
                 </View>
 
-                <SearchArea2 color_theme={driver_this.state.color_theme}/>
+                <CreateArea color_theme={driver_this.state.color_theme}/>
 
 
             </View>

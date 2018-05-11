@@ -91,9 +91,8 @@ export default class SearchArea extends Component {
             <ScrollView style={styles.container}>
 
                 <SearchBox
-                    onChangeText={(pickupInput, dropoffInput)=>{
-                        this.pickupInput = pickupInput;
-                        this.dropoffInput = dropoffInput;
+                    onChangeText={(searchInputs)=>{
+                        this.searchInputs = searchInputs;
                     }}/>
 
                 {
@@ -130,7 +129,7 @@ export default class SearchArea extends Component {
                     <Button
                         onPress={() => {
                             this.ShowHideTextComponentView();
-                            this.props.onSubmit(this.pickupInput, this.dropoffInput);
+                            this.props.onSubmit(this.searchInputs);
                         }}
                         title="Find Ride!"/>
                 </View>

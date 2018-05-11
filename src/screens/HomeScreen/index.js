@@ -164,7 +164,13 @@ export default class HomeScreen extends Component {
                             ref={(instance) => {
                                 this.searchArea = instance;
                             }}
-                            onSubmit={(origin, destin) => {
+                            onSubmit={(searchInputs) => {
+                                if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
+                                    return;
+
+                                let origin = searchInputs.pickupInput;
+                                let destin = searchInputs.dropoffInput;
+
                                 this.mapArea.createRoute(origin.toString(), destin.toString());
                                 this.toggleSearchAndPreview();
                                 if (this.firstSearch) {

@@ -8,7 +8,7 @@ import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
-import SearchArea2 from './SearchArea2';
+import CreateArea from './CreateArea';
 import { getTheme } from '../../Utility';
 import Database from '../../Database';
 
@@ -71,77 +71,109 @@ export default class CreateRideScreen extends Component {
 		});
 	}
 
+	extractCity(text) {
+		if (text === "")
+			return "";
+
+		text = text.replace(", USA", "");
+
+		if ((text.match(/,/g) || []).length <= 1)
+			return text;
+		else
+			return text.substring(text.indexOf(', ') + 1);
+	}
+
 	//Render the component
 	render() {
 
 		const customStyle = {
 
 			topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
-                backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
-            }],
+				height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+				backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
+			}],
 
-            title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
-                color: driver_this.state.color_theme.APP_FOCUS
-            }],
-            backArrow: [styles.backArrow, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
-                color: driver_this.state.color_theme.APP_FOCUS
-            }],
+			title: [styles.title, {
+				fontSize: DIMENSION.TITLE.SIZE,
+				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+				color: driver_this.state.color_theme.APP_FOCUS
+			}],
+			backArrow: [styles.backArrow, {
+				fontSize: DIMENSION.ICON.SIZE,
+				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+				color: driver_this.state.color_theme.APP_FOCUS
+			}],
 
-        };
+		};
 
-        let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+		let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
-        return (
-            <View style={styles.container}>
+		return (
+			<View style={styles.container}>
 
-                <StatusBar barStyle={statusTheme}/>
-                <View style={customStyle.topBar}>
-                    {
-                        (Platform.OS === 'ios') ?
-                            <Ionicons
+				<StatusBar barStyle={statusTheme}/>
+				<View style={customStyle.topBar}>
+					{
+						(Platform.OS === 'ios') ?
+							<Ionicons
 
-                                name='ios-arrow-back'
-                                style={customStyle.backArrow}
-                                onPress={() => {
-                                    this.props.navigation.goBack(null);
-                                }}/>
-                            : null
-                    }
-                    <Text style={customStyle.title}>Create Ride</Text>
-                </View>
+								name='ios-arrow-back'
+								style={customStyle.backArrow}
+								onPress={() => {
+									this.props.navigation.goBack(null);
+								}}/>
+							: null
+					}
+					<Text style={customStyle.title}>Create Ride</Text>
+				</View>
 
-                <SearchArea2 color_theme={driver_this.state.color_theme}/>
+				<CreateArea
+					color_theme={driver_this.state.color_theme}
+					onSubmit={(searchInputs, chosenDate) => {
+						if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
+							return;
 
-                <Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Database"> </Button>
+						let ride = new Ride(
+							0,
+							"My Ride",
+							5,
+							User.currentUser.id,
+							{},
+							Math.floor(chosenDate / 1000),
+							new Area(34.415411, -119.858272, 5, searchInputs.pickupInput),
+							new Area(34.045837, -118.257538, 5, searchInputs.dropoffInput)
+						);
 
-                <Button onPress={() => this.getTestRide()} title="Get Test Ride From Database"> </Button>
+						let pickupCity = this.extractCity(searchInputs.pickupInput);
+						let dropoffCity = this.extractCity(searchInputs.dropoffInput);
+						Database.createRide(ride, pickupCity, dropoffCity);
+					}}/>
 
-            </View>
-        );
-    }
+				<Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Database"> </Button>
+
+				<Button onPress={() => this.getTestRide()} title="Get Test Ride From Database"> </Button>
+
+			</View>
+		);
+	}
 }
 
 //Style sheet for driver main screen.
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        //alignItems: 'center',
-        // justifyContent: 'center',
+	container: {
+		flex: 1,
+		//alignItems: 'center',
+		// justifyContent: 'center',
 		flexDirection: 'column'
 	},
-    backArrow: {
-        paddingLeft: 25,
-        paddingTop: null,
-        fontSize: null,
-        color: null,
-        alignSelf: 'flex-start',
-        position: 'absolute',
-    },
+	backArrow: {
+		paddingLeft: 25,
+		paddingTop: null,
+		fontSize: null,
+		color: null,
+		alignSelf: 'flex-start',
+		position: 'absolute',
+	},
 	topBar: {
 		backgroundColor: null,
 		alignSelf: 'stretch',
