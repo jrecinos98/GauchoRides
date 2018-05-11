@@ -3,17 +3,20 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
         Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
+import CreateButton from '../../components/ActionButton';
 
-export default class SearchArea extends Component {
+export default class CreateArea extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             chosenDate: new Date(),
-            status: true,
+            showSearchArea: true,
             showIOSDatePicker: false
         };
+        this.pickupInput = "";
+        this.dropoffInput = "";
         this.setDate = this.setDate.bind(this);
         // this.pickAndroidDate();
     }
@@ -22,11 +25,11 @@ export default class SearchArea extends Component {
         this.setState({chosenDate: newDate})
     }
 
-    ShowHideTextComponentView = () =>{
-        if(this.state.status === true)
-            this.setState({status: false})
+    ShowHideTextComponentView() {
+        if(this.state.showSearchArea === true)
+            this.setState({showSearchArea: false})
         else
-            this.setState({status: true})
+            this.setState({showSearchArea: true})
     };
 
     async pickAndroidDate() {
@@ -83,11 +86,14 @@ export default class SearchArea extends Component {
         };
 
         return (
-            this.state.status ?
+            this.state.showSearchArea ?
 
             <ScrollView style={styles.container}>
 
-                <SearchBox/>
+                <SearchBox
+                    onChangeText={(searchInputs)=>{
+                        this.searchInputs = searchInputs;
+                    }}/>
 
                 {
                     (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
@@ -120,9 +126,13 @@ export default class SearchArea extends Component {
                 </View>
 
                 <View style={customStyle.buttonContainer}>
-                    <Button onPress={this.ShowHideTextComponentView} title="Create Ride!"/>
+                    <Button
+                        onPress={() => {
+                            this.ShowHideTextComponentView();
+                            this.props.onSubmit(this.searchInputs, this.state.chosenDate);
+                        }}
+                        title="Create Ride!"/>
                 </View>
-
             </ScrollView> : null
 
         );
@@ -135,7 +145,8 @@ export default class SearchArea extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
+        top: 15
     },
     buttonContainer: {
         marginLeft:15,

@@ -2,10 +2,12 @@ import React, {Component} from "react";
 import {Text, View, StyleSheet, Image, FlatList,SectionList,TouchableOpacity, ActivityIndicator} from "react-native";
 import {List, ListItem} from "react-native-elements";
 import styles from "./RideHistoryStyles.js";
-import * as firebase from 'firebase';
 import User from "../../actors/User.js";
 import Ride from "../../actors/Ride.js";
 import { Ionicons } from '@expo/vector-icons';
+import Database from '../../Database';
+
+
 export default class RideHistory extends Component {
     constructor(props){
       super(props);
@@ -17,23 +19,27 @@ export default class RideHistory extends Component {
         error: null,
         refreshing: false,
       };
-    }
-    componentDidMount(){
-      this.makeRemoteRequest();
+
+      Database.getUserHistory((list) => {
+         console.log(list.length);
+         this.setState({data: list});
+      });
     }
 
-    gotData(){
-      //console.log(data.val());
-      var keys = Object.keys(User.currentUser.rides);
-      for(var i=0; i<keys.length; i++){
-        var k = keys[i];
-        console.log(k);
-      }
-      return keys[0];
+    componentDidMount(){
+      // this.makeRemoteRequest();
     }
+
+    
     errData(err){
       console.log('Error!');
       console.log(err);
+    }
+
+    epochToDate(epoch){
+     
+      var d = new Date(epoch*1000);
+      return d;
     }
     /*
     riderOrDriverImage(){
@@ -48,21 +54,22 @@ export default class RideHistory extends Component {
 
 
     renderItem = ({ item }) => {
+      console.log(item);
       return(
         <View style={{ flex: 1, flexDirection: 'row', marginBottom: 3}}>
             {/*<Image style={{ width: 80, height: 80, margin: 5 }}
             source = {{ uri: item.image }} />*/}
           <Ionicons name="ios-car" size={65}/>
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
-            <Text style={{fontSize: 18, color: 'grey', marginBottom: 10}}>
-              Destination:   {User.currentUser.name}
+            <Text style={{fontSize: 16, color: 'grey', marginBottom: 10}}>
+              From:  {item.origin.name}
             </Text>
             <Text style={{fontSize: 16, color: 'red', marginBottom: 10}}>
-              From:     
+              To:  {item.destination.name}
             </Text>
 
             <Text style={{fontSize: 16, color: 'grey'}}>
-              Date:      {this.gotData()}
+              Date:  {this.epochToDate(item.time).toString()}
 
             </Text>
           </View>
@@ -80,24 +87,6 @@ export default class RideHistory extends Component {
   
 
 
-    makeRemoteRequest = () => {
-    const { page, seed } = this.state;
-    const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
-    this.setState({ loading: true });
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          data: page === 1 ? res.results : [...this.state.data, ...res.results],
-          error: res.error || null,
-          loading: false,
-          refreshing: false
-        });
-      })
-      .catch(error => {
-        this.setState({ error, loading: false });
-      });
-    };
 
 
 
@@ -113,10 +102,14 @@ export default class RideHistory extends Component {
                     ItemSeparatorComponent={this.renderSeparator}
                   />
 
+              </View>
 
 
+        );
+    }
+}
 
-{/*
+/*
                 <View style={styles.rightContainer}>
                   <TouchableOpacity style={styles.button} onPress={()=>{alert("This should go to ride page")}}>
                     <Image source={require("../../../public/assets/plus_button.png")}
@@ -126,15 +119,7 @@ export default class RideHistory extends Component {
                   </TouchableOpacity>
                   <Text>Create Ride</Text>
                 
-          		  </View>*/}
-              </View>
+                </View>}
 
-        
-
-        );
-    }
-}
-
-
-
+*/
 

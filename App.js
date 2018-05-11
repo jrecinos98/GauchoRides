@@ -4,10 +4,9 @@ import { StackNavigator } from 'react-navigation'
 import Main from './src/screens/Main'
 import LogInScreen from './src/screens/LogInScreen'
 import { YellowBox } from 'react-native';
-import * as firebase from 'firebase';
 import LoginBackground from "./src/components/LoginBackground";
 import User from "./src/actors/User";
-import { FIREBASE } from "./src/Constants";
+import Database from './src/Database';
 
 //Ignore those annoying deprecated warnings.
 YellowBox.ignoreWarnings([
@@ -16,18 +15,9 @@ YellowBox.ignoreWarnings([
   'Warning: componentWillUpdate is deprecated'
 ]);
 
-//Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
-    authDomain: "ucsb-rideshare-app.firebaseapp.com",
-    databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
-    projectId: "ucsb-rideshare-app",
-    storageBucket: "ucsb-rideshare-app.appspot.com",
-};
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+//Initialize database on start
+Database.initialize();
 
 
 export default class App extends React.Component {
@@ -43,17 +33,19 @@ export default class App extends React.Component {
 
     componentDidMount(){
 
-        // Called everytime firebase authentication is changed (login or logout)
-        firebase.auth().onAuthStateChanged((user) => {
+        // Called everytime databse authentication is changed (login or logout)
+        Database.onAuthChanged((user) => {
+
             if (user != null) {
-                firebase.database().ref(FIREBASE.USERS_PATH + '/' + user.uid).once('value').then(snapshot => {
-                    console.log(user);
-                    // If user doesn't exist, we create a reference in Firebase and retrieve the new user.
-                    // Otherwise, we initialize a local user object for current user.
-                    if (snapshot.val() == null)
+                Database.getUser(user.uid, (dbUser) => {
+
+                    // If user doesn't exist, we create a reference in database and retrieve the new user.
+                    if (dbUser == null)
                         this.createNewUser(user);
+
+                    // Otherwise, we initialize a local user object for current user.
                     else
-                        User.currentUser = new User(snapshot.val(), !User.newUserFromFB);
+                        User.currentUser = new User(dbUser, !User.newUserFromFB);
 
                     //NEEDED TO NOT GET CAUGHT IN BACKGROUND SCREEN
                     this.setState({
@@ -78,8 +70,8 @@ export default class App extends React.Component {
     createNewUser(fbUser) {
         //console.log(fbUser);
         let newUser = new User(fbUser, User.newUserFromFB);
-        firebase.database().ref(FIREBASE.USERS_PATH + '/' + newUser.id).set(newUser);
         User.currentUser = newUser;
+        Database.createUser(newUser);
     }
 
     render() {

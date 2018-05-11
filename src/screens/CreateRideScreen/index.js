@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
-import * as firebase from 'firebase';
 import User from '../../actors/User';
 import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, FIREBASE, DIMENSION } from '../../Constants';
-import SearchArea2 from './SearchArea2';
+import { COLOR, DIMENSION } from '../../Constants';
+import CreateArea from './CreateArea';
 import { getTheme } from '../../Utility';
+import Database from '../../Database';
 
 var i = 0;
 
@@ -43,10 +43,10 @@ export default class CreateRideScreen extends Component {
 
 	//Called when component is mounted.
 	componentDidMount(){
-		this.getTestRide();
+		// this.getTestRide();
 	}
 
-	//Create a sample test ride on firebase.
+	//Create a sample test ride on Database.
 	createTestRide(index) {
 		let ride = new Ride(
 			0,
@@ -55,31 +55,32 @@ export default class CreateRideScreen extends Component {
 			User.currentUser.id,
 			{1000: true, 100: true},
 			Math.floor(new Date() / 1000),
-			new Area(34.4133, -119.8610, 1, "Goleta"),
-			new Area(37.338208, -121.886329, 5, "Oak Park")
+			new Area(34.415411, -119.858272, 5, "6586 Picasso Rd, Isla Vista, CA 93117"),
+			new Area(34.045837, -118.257538, 5, "788 S Grand Ave, Los Angeles, CA 90017")
 		);
 
-		//Store to firebase
-		let newRide = firebase.database().ref(FIREBASE.RIDES_PATH + '/').push(ride);
-
-		//Update ride information on firebase
-		ride.id = newRide.key;
-		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + ride.id + '/id').set(ride.id);
-
-		//Update driver information on firebase
-		User.currentUser.rides[newRide.key] = 'driver';
-		firebase.database().ref(FIREBASE.USERS_PATH + '/' + User.currentUser.id).set(User.currentUser);
-
-		this.getTestRide();
+		Database.createRide(ride);
 	}
 
-	//Get user's first ride from firebase.
+	//Get user's first ride from Database.
 	getTestRide() {
 		//console.log("DriverTest: ", User.currentUser);
-		let key = Object.keys(User.currentUser.rides)[0];
-		firebase.database().ref(FIREBASE.RIDES_PATH + '/' + key).once('value').then(snapshot => {
-			console.log(snapshot.val());
+		let id = Object.keys(User.currentUser.rides)[0];
+		Database.getRide(id, (ride) => {
+			console.log(ride);
 		});
+	}
+
+	extractCity(text) {
+		if (text === "")
+			return "";
+
+		text = text.replace(", USA", "");
+
+		if ((text.match(/,/g) || []).length <= 1)
+			return text;
+		else
+			return text.substring(text.indexOf(', ') + 1);
 	}
 
 	//Render the component
@@ -88,69 +89,91 @@ export default class CreateRideScreen extends Component {
 		const customStyle = {
 
 			topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
-                backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
-            }],
+				height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+				backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
+			}],
 
-            title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
-                color: driver_this.state.color_theme.APP_FOCUS
-            }],
-            backArrow: [styles.backArrow, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
-                color: driver_this.state.color_theme.APP_FOCUS
-            }],
+			title: [styles.title, {
+				fontSize: DIMENSION.TITLE.SIZE,
+				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+				color: driver_this.state.color_theme.APP_FOCUS
+			}],
+			backArrow: [styles.backArrow, {
+				fontSize: DIMENSION.ICON.SIZE,
+				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+				color: driver_this.state.color_theme.APP_FOCUS
+			}],
 
-        };
+		};
 
-        let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+		let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
-        return (
-            <View style={styles.container}>
+		return (
+			<View style={styles.container}>
 
-                <StatusBar barStyle={statusTheme}/>
-                <View style={customStyle.topBar}>
-                    {
-                        (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
-                            <Ionicons
+				<StatusBar barStyle={statusTheme}/>
+				<View style={customStyle.topBar}>
+					{
+						(Platform.OS === 'ios') ?
+							<Ionicons
 
-                                name='ios-arrow-back'
-                                style={customStyle.backArrow}
-                                onPress={() => {
-                                    this.props.navigation.goBack(null);
-                                }}/>
-                            : null
-                    }
-                    <Text style={customStyle.title}>Create Ride</Text>
-                </View>
+								name='ios-arrow-back'
+								style={customStyle.backArrow}
+								onPress={() => {
+									this.props.navigation.goBack(null);
+								}}/>
+							: null
+					}
+					<Text style={customStyle.title}>Create Ride</Text>
+				</View>
 
-                <SearchArea2 color_theme={driver_this.state.color_theme}/>
+				<CreateArea
+					color_theme={driver_this.state.color_theme}
+					onSubmit={(searchInputs, chosenDate) => {
+						if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
+							return;
 
-                <Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Firebase"> </Button>
+						let ride = new Ride(
+							0,
+							"My Ride",
+							5,
+							User.currentUser.id,
+							{},
+							Math.floor(chosenDate / 1000),
+							new Area(34.415411, -119.858272, 5, searchInputs.pickupInput),
+							new Area(34.045837, -118.257538, 5, searchInputs.dropoffInput)
+						);
 
-            </View>
-        );
-    }
+						let pickupCity = this.extractCity(searchInputs.pickupInput);
+						let dropoffCity = this.extractCity(searchInputs.dropoffInput);
+						Database.createRide(ride, pickupCity, dropoffCity);
+					}}/>
+
+				<Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Database"> </Button>
+
+				<Button onPress={() => this.getTestRide()} title="Get Test Ride From Database"> </Button>
+
+			</View>
+		);
+	}
 }
 
 //Style sheet for driver main screen.
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        //alignItems: 'center',
-        // justifyContent: 'center',
+	container: {
+		flex: 1,
+		//alignItems: 'center',
+		// justifyContent: 'center',
 		flexDirection: 'column'
 	},
-    backArrow: {
-        paddingLeft: 25,
-        paddingTop: null,
-        fontSize: null,
-        color: null,
-        alignSelf: 'flex-start',
-        position: 'absolute',
-    },
+	backArrow: {
+		paddingLeft: 25,
+		paddingTop: null,
+		fontSize: null,
+		color: null,
+		alignSelf: 'flex-start',
+		position: 'absolute',
+	},
 	topBar: {
 		backgroundColor: null,
 		alignSelf: 'stretch',

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView, Alert, YellowBox } from "react-native";
-import { COLOR, FIREBASE } from "../Constants";
+import { COLOR } from "../Constants";
 import { NavigationActions } from 'react-navigation';
-import * as firebase from 'firebase';
 import _ from 'lodash';
 import User from '../actors/User';
 import Ride from '../actors/Ride';
@@ -10,6 +9,7 @@ import Area from '../actors/Area';
 import LoginForm from "../components/LoginForm";
 import LoginBackground from "../components/LoginBackground";
 import LoginButton from "../components/LoginButton";
+import Database from '../Database';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
@@ -47,13 +47,7 @@ export default class LogInScreen extends Component {
                 return;
             }
             if(email !== "" && password !== "") {
-                firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(function(fbUser){
-                    alert("Account created.");
-                })
-                .catch(function(error) {
-                    alert("Account already existed.")
-                });
+                Database.signupWithEmail(email, password);
             }
 
         }
@@ -64,14 +58,7 @@ export default class LogInScreen extends Component {
 
     logInUser = (email,password) => {
         if(email !== "") {
-            firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(function (user) {
-                console.log(user);
-                alert("Login successful.")
-            })
-            .catch(function(error) {
-                alert("An error occurred please try again. Make sure you use a verified email and password.")
-            })
+            Database.loginWithEmail(email, password);
         }
         else{
             alert("Please enter a registered emailed and password.")
@@ -92,26 +79,6 @@ export default class LogInScreen extends Component {
         },
 
     };
-
-    //Log in user with facebook
-    async loginWithFacebook() {
-        const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
-        ('615345508804840', {
-            permissions: ['public_profile', 'email'],
-        });
-        /*
-        fetch("https://graph.facebook.com/me?fields=id&access_token="+token, {
-            method: 'GET'
-        })
-*/
-
-        if (type === 'success') {
-            const credential = firebase.auth.FacebookAuthProvider.credential(token);
-            firebase.auth().signInWithCredential(credential).catch((error) => {
-                alert(error);
-            })
-        }
-    }
 
     render() {
         //const {navigate} = this.props.navigation;
@@ -142,7 +109,7 @@ export default class LogInScreen extends Component {
                         <LoginButton
                             title="CONTINUE WITH FACEBOOK"
                             callback={() => {
-                                this.loginWithFacebook();
+                                Database.loginWithFacebook();
                             }}/>
                         <Text
                             style={loginStyle.signUpText}

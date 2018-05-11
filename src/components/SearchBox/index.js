@@ -36,7 +36,7 @@ export default class SearchBox extends Component {
 					getDefaultValue={() => ''}
 					onPress={(data, details = null) => {
 						this.setState({pickupInput: data.description});
-						this.props.onChangeText(this.state.pickupInput, this.state.dropoffInput);
+						this.props.onChangeText(this.state);
 					}}
 					query={{
 						key: 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw',
@@ -66,7 +66,7 @@ export default class SearchBox extends Component {
 					getDefaultValue={() => ''}
 					onPress={(data, details = null) => {
 						this.setState({dropoffInput: data.description});
-						this.props.onChangeText(this.state.pickupInput, this.state.dropoffInput);
+						this.props.onChangeText(this.state);
 					}}
 					query={{
 						key: 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw',

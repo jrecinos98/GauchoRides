@@ -9,6 +9,7 @@ export default class User {
 	tags: {};
 	rides: {};
 	follows: {};
+
 	//registers a user. Checks if the user signed in with fb or email and save the data accordingly.
 	constructor (object, newUserFromFB) {
 		if (newUserFromFB) {
@@ -35,6 +36,21 @@ export default class User {
 			this.rides = ('rides' in object) ? object.rides : {};
 			this.follows = ('follows' in object) ? object.follows : {};
 		}
+	}
+
+	toObject() {
+		return {
+			id: this.id,
+			fbID: this.fbID,
+			name: this.name,
+			email: this.email,
+			description: this.description,
+			sexy_rating: this.sexy_rating,
+			drive_rating: this.drive_rating,
+			tags: this.tags,
+			rides: this.rides,
+			follows: this.follows
+		};
 	}
 }
 
