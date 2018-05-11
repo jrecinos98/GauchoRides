@@ -22,7 +22,13 @@ export default class Database {
 		if (!firebase.apps.length) {
 		    firebase.initializeApp(firebaseConfig);
 		    firestore = firebase.firestore();
-		    firestore.settings({});
+
+		    try {
+				firestore.settings({timestampsInSnapshots: true});
+			}
+			catch(err) {
+				firestore.settings({});
+			}
 		}
 	}
 	//timestampsInSnapshots: true
@@ -134,7 +140,7 @@ export default class Database {
 	}
 
 	static updateRide(originCity, destinCity, ride) {
-		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc(ride.id).set(ride).then((ref) => {
+		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc(ride.id).set(ride.toObject()).then((ref) => {
 			console.log("Ride updated!");
 		});
 	}
