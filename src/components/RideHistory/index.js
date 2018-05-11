@@ -76,8 +76,6 @@ export default class RideHistory extends Component {
           style={{ height: 1, width: '100%', backgroundColor: 'black'}}>
         </View>
       )
-
-
     }
   
 
@@ -100,6 +98,8 @@ export default class RideHistory extends Component {
         this.setState({ error, loading: false });
       });
     };
+
+
 
     render() {
         return (
