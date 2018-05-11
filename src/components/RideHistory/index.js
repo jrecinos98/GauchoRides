@@ -5,6 +5,9 @@ import styles from "./RideHistoryStyles.js";
 import User from "../../actors/User.js";
 import Ride from "../../actors/Ride.js";
 import { Ionicons } from '@expo/vector-icons';
+import Database from '../../Database';
+
+
 export default class RideHistory extends Component {
     constructor(props){
       super(props);
@@ -16,20 +19,18 @@ export default class RideHistory extends Component {
         error: null,
         refreshing: false,
       };
-    }
-    componentDidMount(){
-      this.makeRemoteRequest();
+
+      Database.getUserHistory((list) => {
+         console.log(list.length);
+         this.setState({data: list});
+      });
     }
 
-    gotData(){
-      //console.log(data.val());
-      var keys = Object.keys(User.currentUser.rides);
-      for(var i=0; i<keys.length; i++){
-        var k = keys[i];
-        console.log(k);
-      }
-      return keys[0];
+    componentDidMount(){
+      // this.makeRemoteRequest();
     }
+
+    
     errData(err){
       console.log('Error!');
       console.log(err);
@@ -47,6 +48,7 @@ export default class RideHistory extends Component {
 
 
     renderItem = ({ item }) => {
+      console.log(item);
       return(
         <View style={{ flex: 1, flexDirection: 'row', marginBottom: 3}}>
             {/*<Image style={{ width: 80, height: 80, margin: 5 }}
@@ -54,14 +56,14 @@ export default class RideHistory extends Component {
           <Ionicons name="ios-car" size={65}/>
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
             <Text style={{fontSize: 18, color: 'grey', marginBottom: 10}}>
-              Destination:   {User.currentUser.name}
+              Destination:   {item.destination.name}
             </Text>
             <Text style={{fontSize: 16, color: 'red', marginBottom: 10}}>
-              From:     
+              From:     {item.origin.name}
             </Text>
 
             <Text style={{fontSize: 16, color: 'grey'}}>
-              Date:      {this.gotData()}
+              Date:       
 
             </Text>
           </View>
@@ -112,10 +114,14 @@ export default class RideHistory extends Component {
                     ItemSeparatorComponent={this.renderSeparator}
                   />
 
+              </View>
 
 
+        );
+    }
+}
 
-{/*
+/*
                 <View style={styles.rightContainer}>
                   <TouchableOpacity style={styles.button} onPress={()=>{alert("This should go to ride page")}}>
                     <Image source={require("../../../public/assets/plus_button.png")}
@@ -125,15 +131,7 @@ export default class RideHistory extends Component {
                   </TouchableOpacity>
                   <Text>Create Ride</Text>
                 
-          		  </View>*/}
-              </View>
+                </View>}
 
-        
-
-        );
-    }
-}
-
-
-
+*/
 

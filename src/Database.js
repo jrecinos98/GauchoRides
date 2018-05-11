@@ -22,9 +22,10 @@ export default class Database {
 		if (!firebase.apps.length) {
 		    firebase.initializeApp(firebaseConfig);
 		    firestore = firebase.firestore();
-		    firestore.settings({timestampsInSnapshots: true});
+		    firestore.settings({});
 		}
 	}
+	//timestampsInSnapshots: true
 
 	static onAuthChanged(callback) {
 		firebase.auth().onAuthStateChanged((user) => {
@@ -92,6 +93,22 @@ export default class Database {
 		    console.log("Error getting document:", error);
 		});
 	}
+
+
+	static getUserHistory(callback){
+		var i;
+		var temp;
+		var rideList = new Array();
+		for (var id in User.currentUser.rides){
+			console.log("list going");
+			Database.getRide(id, (ride) => {
+				rideList.push(ride);
+				callback(rideList);
+			})
+		}
+
+	}
+//rideList[i].origin.name
 
 	static createRide(ride) {
 
