@@ -35,6 +35,12 @@ export default class RideHistory extends Component {
       console.log('Error!');
       console.log(err);
     }
+
+    epochToDate(epoch){
+     
+      var d = new Date(epoch*1000);
+      return d;
+    }
     /*
     riderOrDriverImage(){
       if(this.gotData()=="driver"){
@@ -55,15 +61,15 @@ export default class RideHistory extends Component {
             source = {{ uri: item.image }} />*/}
           <Ionicons name="ios-car" size={65}/>
           <View style={{ flex: 1, justifyContent: 'center', marginLeft: 5 }}>
-            <Text style={{fontSize: 18, color: 'grey', marginBottom: 10}}>
-              Destination:   {item.destination.name}
+            <Text style={{fontSize: 16, color: 'grey', marginBottom: 10}}>
+              From:  {item.origin.name}
             </Text>
             <Text style={{fontSize: 16, color: 'red', marginBottom: 10}}>
-              From:     {item.origin.name}
+              To:  {item.destination.name}
             </Text>
 
             <Text style={{fontSize: 16, color: 'grey'}}>
-              Date:       
+              Date:  {this.epochToDate(item.time).toString()}
 
             </Text>
           </View>
