@@ -86,6 +86,9 @@ export default class RideHistory extends Component {
 
 
     }
+  
+
+
 
     render() {
         return (

@@ -102,8 +102,6 @@ export default class Database {
 
 
 	static getUserHistory(callback){
-		var i;
-		var temp;
 		var rideList = new Array();
 		for (var id in User.currentUser.rides){
 			console.log("list going");
