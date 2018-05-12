@@ -11,6 +11,7 @@ Below you'll find information about performing common tasks. The most recent ver
 * [About Gaucho Rides](#about-gaucho-rides)
 * [Getting Started](#getting-started)
   * [Install Node and Npm](#install-node-and-npm)
+  * [Quick Start](#quick-start)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
   * [npm test](#npm-test)
