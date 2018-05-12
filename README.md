@@ -4,11 +4,31 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
+## Installing Node.js and npm
+To install NodeJS run the following commands on a terminal:
+
+`sudo apt-get update`
+
+`sudo apt-get install nodejs`
+
+To get version 10.x (latest version as of 05/12/18) of Node.js run following commands: 
+
+`curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -`
+
+`sudo apt-get install -y nodejs`
+
+To install NPM run the following command on a terminal:
+
+`sudo apt-get install npm`
+
+To install latest version of npm:
+
+`sudo npm install npm@latest -g`
 
 ## About Gaucho-Rides
 
 ## Table of Contents
-
+* [Installing Node.js and npm](#installing-node-and-npm)
 * [Updating to New Releases](#updating-to-new-releases)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
