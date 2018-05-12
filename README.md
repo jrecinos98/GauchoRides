@@ -9,7 +9,7 @@ Below you'll find information about performing common tasks. The most recent ver
 
 ## Table of Contents
 * [About Gaucho Rides](#about-gaucho-rides)
-* [Installing Node.js and npm](#installing-node.js-and-npm)
+* [Install Node and Npm](#install-node-and-npm)
 * [Updating to New Releases](#updating-to-new-releases)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
