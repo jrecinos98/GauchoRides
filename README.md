@@ -34,7 +34,7 @@ Below you'll find information about performing common tasks. The most recent ver
   * [QR Code does not scan](#qr-code-does-not-scan)
 
 ## About Gaucho Rides
-## Installing Node.js and npm
+## Install Node and Npm
 To install NodeJS run the following commands on a terminal:
 
 `sudo apt-get update`
