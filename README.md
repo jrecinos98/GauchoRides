@@ -1,14 +1,15 @@
-GAUCHO-RIDES APP
+GAUCHO RIDES APP
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
 
 
-## About Gaucho-Rides
+
 
 ## Table of Contents
-* [Installing Node.js and npm](#installing-node-and-npm)
+* [About Gaucho Rides](#about-gaucho-rides)
+* [Installing Node.js and npm](#installing-node.js-and-npm)
 * [Updating to New Releases](#updating-to-new-releases)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
@@ -32,7 +33,7 @@ Below you'll find information about performing common tasks. The most recent ver
   * [iOS Simulator won't open](#ios-simulator-wont-open)
   * [QR Code does not scan](#qr-code-does-not-scan)
 
-
+## About Gaucho Rides
 ## Installing Node.js and npm
 To install NodeJS run the following commands on a terminal:
 
