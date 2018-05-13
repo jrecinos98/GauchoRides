@@ -46,7 +46,7 @@ Gaucho Rides is a multi-platform application developed for android and iOS using
 
 In order to run the application you will need to have Node and npm installed in your machine. These instructions work on Linux and possibly Windows if using bash (Might not work). Not tested on a Mac.
 
-** You will need sudo access to install**
+**You will need sudo access to install**
 
 To install Node.js run the following commands on a terminal:
 
