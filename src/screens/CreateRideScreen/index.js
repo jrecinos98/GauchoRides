@@ -41,11 +41,6 @@ export default class CreateRideScreen extends Component {
 		)
 	};
 
-	//Called when component is mounted.
-	componentDidMount(){
-		// this.getTestRide();
-	}
-
 	//Create a sample test ride on Database.
 	createTestRide(index) {
 		let ride = new Ride(
@@ -78,9 +73,9 @@ export default class CreateRideScreen extends Component {
 		text = text.replace(", USA", "");
 
 		if ((text.match(/,/g) || []).length <= 1)
-			return text;
+			return text.trim();
 		else
-			return text.substring(text.indexOf(', ') + 1);
+			return text.substring(text.indexOf(', ') + 1).trim();
 	}
 
 	//Render the component
