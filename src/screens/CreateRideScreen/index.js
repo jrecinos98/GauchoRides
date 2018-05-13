@@ -41,31 +41,6 @@ export default class CreateRideScreen extends Component {
 		)
 	};
 
-	//Create a sample test ride on Database.
-	createTestRide(index) {
-		let ride = new Ride(
-			0,
-			"Test Ride" + index,
-			5,
-			User.currentUser.id,
-			{1000: true, 100: true},
-			Math.floor(new Date() / 1000),
-			new Area(34.415411, -119.858272, 5, "6586 Picasso Rd, Isla Vista, CA 93117"),
-			new Area(34.045837, -118.257538, 5, "788 S Grand Ave, Los Angeles, CA 90017")
-		);
-
-		Database.createRide(ride);
-	}
-
-	//Get user's first ride from Database.
-	getTestRide() {
-		//console.log("DriverTest: ", User.currentUser);
-		let id = Object.keys(User.currentUser.rides)[0];
-		Database.getRide(id, (ride) => {
-			console.log(ride);
-		});
-	}
-
 	extractCity(text) {
 		if (text === "")
 			return "";
