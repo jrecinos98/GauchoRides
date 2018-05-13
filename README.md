@@ -72,12 +72,13 @@ alternatively, one can intall [yarn](https://yarnpkg.com/lang/en/docs/install/#d
 
 ### Quick Start
 
-1. Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`. Although most version of Node and npm would do, the version should ideally be v10.1.0 and 5.6.0 respectively.
+1. Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`. Although most version of Node and npm would do, the version should ideally be v10.1.0 and v6.0.1 respectively.
 2. Clone github repository into a desired directory.
-3. Change into that directory using terminal: `cd [your_directory]/GauchoRides`
-4. In the root of the project use the script `npm start` to start the packager.
-5. When the packager loads you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac). Alternatively, you can run it on a physical android or iOS device by using the [Expo App](https://expo.io) app (**RECOMMENDED**).
-5. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
+3. Change into that directory using terminal: `cd [your_directory]/GauchoRides`.
+4. Before starting the packager, in the root of the project run  `npm install` on terminal to install the necessary modules.
+5. In the root of the project use the script `npm start` to start the packager.
+6. When the packager loads you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac). Alternatively, you can run it on a physical android or iOS device by using the [Expo App](https://expo.io) app (**RECOMMENDED**).
+7. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
 
 For more option and scripts available read below.
 
