@@ -4,6 +4,7 @@
 * [Getting Started](#getting-started)
   * [Quick Start](#quick-start)
   * [Manual Installation](#manual-installation)
+* [Running Project](#running-project)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
   * [npm test](#npm-test)
