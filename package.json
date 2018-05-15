@@ -23,7 +23,7 @@
       "node_modules/(?!native-base-shoutem-theme)/"
     ],
     "testMatch": [
-      "**/tests/**/*Test.js"
+      "**/tests/**/*Test*.js"
     ]
   },
   "dependencies": {
