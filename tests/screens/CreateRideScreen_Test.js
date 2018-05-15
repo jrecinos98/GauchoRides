@@ -10,7 +10,7 @@ var object;
 
 // Test constructor
 test('Test: constructor(props)', () => {
-	object = renderer.create(<CreateRideScreen />).toTree().instance;
+	object = renderer.create(<CreateRideScreen />).getInstance();
 });
 
 // Test color theme
