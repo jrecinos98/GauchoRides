@@ -38,6 +38,7 @@ Gaucho Rides is a multi-platform application developed for android and iOS using
 ### Quick Start
 
 **SUDO ACCESS REQUIRED**
+
 For your convenience we have provided a script in the root directory of the project. Simply run `./setup.sh` on a terminal and all the necessary steps will be performed automatically. It is generally okay to ignore any warnings during installation as most of these are optional dependencies which do not affect your ability to start the project.
 
 Additionally, we have provided a script to uninstall all the installed components. Run `./unsetup.sh` on root of project and they will be removed automatically.
