@@ -1,17 +1,9 @@
-GAUCHO RIDES APP
-
-This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
-
-Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
-
-
-
 
 ## Table of Contents
 * [About Gaucho Rides](#about-gaucho-rides)
 * [Getting Started](#getting-started)
-  * [Install Node and Npm](#install-node-and-npm)
   * [Quick Start](#quick-start)
+  * [Manual Installation](#manual-installation)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
   * [npm test](#npm-test)
@@ -42,7 +34,18 @@ Gaucho Rides is a multi-platform application developed for android and iOS using
 
 ## Getting Started
 
-### Install Node and Npm
+### Quick Start
+
+**SUDO ACCESS REQUIRED**
+For your convenience we have provided a script in the root directory of the project. Simply run `./setup.sh` on a terminal and all the necessary steps will be performed automatically. It is generally okay to ignore any warnings during installation as most of these are optional dependencies which do not affect your ability to start the project.
+
+Additionally, we have provided a script to uninstall all the installed components. Run `./unsetup.sh` on root of project and they will be removed automatically.
+
+
+If you would rather install manually follow the steps below.
+
+
+### Manual Installation 
 
 In order to run the application you will need to have Node and npm installed in your machine. These instructions work on Linux and possibly Windows if using bash (Might not work). Not tested on a Mac.
 
@@ -54,9 +57,9 @@ To install Node.js run the following commands on a terminal:
 
 `sudo apt-get install nodejs`
 
-To get version 10.x (latest version as of 05/12/18) of Node.js run following commands: 
+To get version 9.x (latest stable version as of 05/12/18) of Node.js run following commands: 
 
-`curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -`
+`curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -`
 
 `sudo apt-get install -y nodejs`
 
@@ -70,17 +73,18 @@ To install latest version of npm:
 
 alternatively, one can intall [yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable) instead of npm. For every script simply replace npm by yarn. For example, `npm start` becomes `yarn start`.
 
-### Quick Start
+## Running Project
 
-1. Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`. Although most version of Node and npm would do, the version should ideally be v10.1.0 and v6.0.1 respectively.
+1. Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`. 
 2. Clone github repository into a desired directory.
 3. Change into that directory using terminal: `cd [your_directory]/GauchoRides`.
-4. Before starting the packager, in the root of the project run  `npm install` on terminal to install the necessary modules.
+4. **If manual installation was used**: before starting the packager, in the root of the project run  `npm install` on terminal to install the necessary modules.
 5. In the root of the project use the script `npm start` to start the packager.
 6. When the packager loads you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac). Alternatively, you can run it on a physical android or iOS device by using the [Expo App](https://expo.io) app (**RECOMMENDED**).
 7. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
 
 For more option and scripts available read below.
+
 
 ## Available Scripts
 
