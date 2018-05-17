@@ -63,6 +63,7 @@ For more option and scripts available read below.
 - `npm start` can't start due to error "Unable to start server".
   - Run command1: `sudo sysctl -w fs.inotify.max_user_instances=1024`
   - Run command2: `sudo sysctl -w fs.inotify.max_user_watches=12288`
+
 For other errors, try follow the hints/instructions on the terminal. Also, feel free to contact us for any unsolvable error.
 
 ## Available Scripts
