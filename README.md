@@ -36,22 +36,34 @@ Alternatively, you can install [yarn](https://yarnpkg.com/lang/en/docs/install/#
 4. `sudo apt-get install yarn`
 
 
-## Running Project
-- Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`.
-- In the root of the project use the script `npm start` to start the packager.
+## Run Project
+Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`.
 
 ### Running On Physical Device
 1. Download [Expo App](https://expo.io) app on your phone from App Store or Google Play Store.
-2. Press `s` on terminal and input the phone number.
-3. Open link from text message to open Expo app.
-4. Wait until the app finishes building (loading bar is at the bottom).
+2. On project's root directory, run: `sudo npm start`
+3. Press `s` on terminal and input the phone number.
+4. Open link from text message to open Expo app.
+5. Wait until the app finishes building (loading bar is at the bottom).
 
 ### Running On Emulator
 1. When the packager loads you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac).
-2. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
+2. On project's root directory, run: `sudo npm start`
+3. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
 
 For more option and scripts available read below.
 
+
+## Error Q & A
+- `node` command is not found.
+  - First, check if nodejs is installed (`nodejs -v`). If not, please follow the steps from **Setup Project** section.
+  - If nodejs is installed, run: `sudo ln -s /usr/bin/nodejs /usr/bin/node`
+- `npm start` is stuck at "Starting Packager...".
+  - Restart with sudo: `sudo npm start`
+- `npm start` can't start due to error "Unable to start server".
+  - Run command1: `sudo sysctl -w fs.inotify.max_user_instances=1024`
+  - Run command2: `sudo sysctl -w fs.inotify.max_user_watches=12288`
+For other errors, try follow the hints/instructions on the terminal. Also, feel free to contact us for any unsolvable error.
 
 ## Available Scripts
 
