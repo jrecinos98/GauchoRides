@@ -1,89 +1,54 @@
-
-## Table of Contents
-* [About Gaucho Rides](#about-gaucho-rides)
-* [Getting Started](#getting-started)
-  * [Quick Start](#quick-start)
-  * [Manual Installation](#manual-installation)
-* [Running Project](#running-project)
-* [Available Scripts](#available-scripts)
-  * [npm start](#npm-start)
-  * [npm test](#npm-test)
-  * [npm run ios](#npm-run-ios)
-  * [npm run android](#npm-run-android)
-  * [npm run eject](#npm-run-eject)
-* [Troubleshooting](#troubleshooting)
-  * [Networking](#networking)
-  * [iOS Simulator won't open](#ios-simulator-wont-open)
-  * [QR Code does not scan](#qr-code-does-not-scan)
-* [Updating to New Releases](#updating-to-new-releases)
-* [Writing and Running Tests](#writing-and-running-tests)
-* [Environment Variables](#environment-variables)
-  * [Configuring Packager IP Address](#configuring-packager-ip-address)
-* [Adding Flow](#adding-flow)
-* [Sharing and Deployment](#sharing-and-deployment)
-  * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
-  * [Building an Expo "standalone" app](#building-an-expo-standalone-app)
-  * [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
-    * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
-    * [Should I Use ExpoKit?](#should-i-use-expokit)
-
 ## About Gaucho Rides
-
-Gucho Rides is an application developed for UCSB and SBCC students to organize shared rides with fellow students more conveniently and efficiently than the Facebook groups. Gaucho Rides facilitates the hassle of finding, creating and requesting rides. Furthermore Gaucho Rides provides a rating system so that users can rate each other based on their driving ability and their reliability as either a driver or a passenger. 
+Gaucho Rides is an application developed for UCSB and SBCC students to organize shared rides with fellow students more conveniently and efficiently than the Facebook groups. Gaucho Rides facilitates the hassle of finding, creating and requesting rides. Furthermore, Gaucho Rides provides a rating system so that users can rate each other based on their driving ability and their reliability as either a driver or a passenger. 
 
 Gaucho Rides is a multi-platform application developed for android and iOS using facebook's [React Native](https://facebook.github.io/react-native/) framework. React native allows us to create an application for iOS and Android by using a single code base that works on both platforms. 
 
-## Getting Started
 
-### Quick Start
+## Setup Project
 
-**SUDO ACCESS REQUIRED**
+### Automatic Installation
+For your convenience we have provided a setup script in the root directory of the project. It is generally okay to ignore any warnings during installation as most of these are optional dependencies which do not affect your ability to start the project.
 
-For your convenience we have provided a script in the root directory of the project. Simply run `./setup.sh` on a terminal and all the necessary steps will be performed automatically. It is generally okay to ignore any warnings during installation as most of these are optional dependencies which do not affect your ability to start the project.
+1. Clone this repository: `git clone https://github.com/jrecinos98/GauchoRides.git`
+2. Switch to project's root: `cd GauchoRides`
+3. Run setup script: `./setup.sh`
 
 Additionally, we have provided a script to uninstall all the installed components. Run `./unsetup.sh` on root of project and they will be removed automatically.
 
-
-If you would rather install manually follow the steps below.
-
-
 ### Manual Installation 
-
-In order to run the application you will need to have Node and npm installed in your machine. These instructions work on Linux and possibly Windows if using bash (Might not work). Not tested on a Mac.
-
-**You will need sudo access to install**
-
-To install Node.js run the following commands on a terminal:
-
-`sudo apt-get update`
-
-`sudo apt-get install nodejs`
-
+In order to run the application you will need to have node and npm installed in your machine. These instructions work on Linux and possibly Windows if using bash. Not tested on a Mac.
 To get version 9.x (latest stable version as of 05/12/18) of Node.js run following commands: 
 
-`curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -`
+1. Clone this repository: `git clone https://github.com/jrecinos98/GauchoRides.git`
+2. Switch to project's root: `cd GauchoRides`
+3. Update packager: `sudo apt-get update`
+4. Install node.js: `sudo apt-get install -y nodejs`
+5. Update node.js to version 9.x: `curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -`
+6. Install node.js: `sudo apt-get install -y nodejs`
+7. Install npm: `sudo apt-get install -y npm`
+8. Update npm: `sudo npm install npm@latest -g`
+7. Install project libraries: `sudo npm install`
 
-`sudo apt-get install -y nodejs`
+Alternatively, you can install [yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable) instead of npm. For every script simply replace npm by yarn. For example, `npm start` becomes `yarn start`.
+1. `curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -`
+2. `echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list`
+3. `sudo apt-get update`
+4. `sudo apt-get install yarn`
 
-To install npm run the following command on a terminal:
-
-`sudo apt-get install npm`
-
-To install latest version of npm:
-
-`sudo npm install npm@latest -g`
-
-alternatively, one can intall [yarn](https://yarnpkg.com/lang/en/docs/install/#debian-stable) instead of npm. For every script simply replace npm by yarn. For example, `npm start` becomes `yarn start`.
 
 ## Running Project
+- Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`.
+- In the root of the project use the script `npm start` to start the packager.
 
-1. Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`. 
-2. Clone github repository into a desired directory.
-3. Change into that directory using terminal: `cd [your_directory]/GauchoRides`.
-4. **If manual installation was used**: before starting the packager, in the root of the project run  `npm install` on terminal to install the necessary modules.
-5. In the root of the project use the script `npm start` to start the packager.
-6. When the packager loads you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac). Alternatively, you can run it on a physical android or iOS device by using the [Expo App](https://expo.io) app (**RECOMMENDED**).
-7. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
+### Running On Physical Device
+1. Download [Expo App](https://expo.io) app on your phone from App Store or Google Play Store.
+2. Press `s` on terminal and input the phone number.
+3. Open link from text message to open Expo app.
+4. Wait until the app finishes building (loading bar is at the bottom).
+
+### Running On Emulator
+1. When the packager loads you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac).
+2. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
 
 For more option and scripts available read below.
 
@@ -252,8 +217,4 @@ This is usually as simple as running `npm run eject` in your project, which will
 #### Should I Use ExpoKit?
 
 If you have made use of Expo APIs while working on your project, then those API calls will stop working if you eject to a regular React Native project. If you want to continue using those APIs, you can eject to "React Native + ExpoKit" which will still allow you to build your own native code and continue using the Expo APIs. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
-
-
-# Gaucho Rides
-Rideshare App for UCSB students
 
