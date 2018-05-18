@@ -91,6 +91,8 @@ When the packager starts you have the option to run the application on an androi
 2. On project's root directory, run: `sudo npm start`
 3. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
 
+You may encounter warnings when you run the project. It is generally okay to ignore them as they do not impede you from testing the app.
+
 For more option and scripts available read the [Available Scripts](#available-scripts) section.
 
 
