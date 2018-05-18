@@ -99,6 +99,17 @@ export const RATING_COLOR ={
 
 };
 
+/**
+ * Constant variables used to test project
+ * @type {{TEST_EMAIL: string, TEST_PASSWORD: string}}
+ */
+export const TEST_CONSTANTS = {
+	DATABASE: {
+        TEST_EMAIL:				'mariocuellar.98@gmail.com',
+        TEST_PASSWORD:			'ILoveUCSB'
+	},
+};
+
 // Color constants
 // export const COLOR_APP_BACKGROUND_OPAQUE='rgba(1,26,66,0.3)';
 // export const COLOR_BACKGROUND_LOGIN_BUTTON= 'rgba(13,71,161, 0.7)';

@@ -2,6 +2,7 @@ import{ AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { FIREBASE } from './Constants';
+import {TEST_CONSTANTS} from "./Constants";
 import User from './actors/User';
 import Ride from './actors/User';
 
@@ -56,14 +57,18 @@ export default class Database {
      * @param password The user password
      */
 	static signupWithEmail(email, password) {
-		firebase.auth().createUserWithEmailAndPassword(email, password)
-		.then(function(fbUser){
-		    alert("Account created.");
-		})
-		.catch(function(error) {
-		    alert("Account already existed.")
-		});
-	}
+        var created = false;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function (fbUser) {
+                created = true;
+                alert("Account created.");
+            })
+            .catch(function (error) {
+                alert("Account already existed.");
+            });
+        return created;
+
+    }
 
     /**
 	 * Signs in an already registere user using email and password

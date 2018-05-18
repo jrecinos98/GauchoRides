@@ -30,7 +30,7 @@ test('Test: extractCity(text)', () => {
 	expect(object.extractCity('CA')).toBe('CA');
 });
 
-// // Create a sample test ride on Database.
+// Create a sample test ride on Database.
 // function createTestRide(index) {
 // 	let ride = new Ride(
 // 		0,
