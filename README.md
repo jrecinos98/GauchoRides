@@ -1,3 +1,39 @@
+
+## Table of Contents
+* [About Gaucho Rides](#about-gaucho-rides)
+* [Setup Project](#setup-project)
+  * [Automatic Installation](#automatic-installation)
+  * [Manual Installation](#manual-installation)
+* [Run Project](#run-project)
+  * [Run on Physical Device](#run-on-physical-device)
+  * [Run On Emulator](#run-on-emulator)
+* [Using the App](#using-the-app)
+  * [Login Screen](#login-screen)
+  * [Home Screen](#home-screen)
+  * [Create Ride Screen](#create-ride-screen)
+  * [History Tab](#history-tab)
+  * [Profile Tab](#profile-tab)
+  * [Settings Screen](#settings-screen)
+* [Available Scripts](#available-scripts)
+  * [npm start](#npm-start)
+  * [npm test](#npm-test)
+  * [npm run ios](#npm-run-ios)
+  * [npm run android](#npm-run-android)
+  * [npm run eject](#npm-run-eject)
+* [Troubleshooting](#troubleshooting)
+  * [Node Command Not Found](#node-command-not-found)
+  * [Npm Stuck at "Starting Packager"](#npm-stuck-at-starting-packager)
+  * ["Unable to Start Server" Error](#unable-to-start-server-error)
+  * [Unable to Login] (#unable-to-Login)
+  * [Networking](#networking)
+  * [iOS Simulator won't open](#ios-simulator-wont-open)
+  * [QR Code does not scan](#qr-code-does-not-scan)
+* [Updating to New Releases](#updating-to-new-releases)
+* [Writing and Running Tests](#writing-and-running-tests)
+* [Environment Variables](#environment-variables)
+  * [Configuring Packager IP Address](#configuring-packager-ip-address)
+* [Adding Flow](#adding-flow)
+    
 ## About Gaucho Rides
 Gaucho Rides is an application developed for UCSB and SBCC students to organize shared rides with fellow students more conveniently and efficiently than the Facebook groups. Gaucho Rides facilitates the hassle of finding, creating and requesting rides. Furthermore, Gaucho Rides provides a rating system so that users can rate each other based on their driving ability and their reliability as either a driver or a passenger. 
 
@@ -39,32 +75,71 @@ Alternatively, you can install [yarn](https://yarnpkg.com/lang/en/docs/install/#
 ## Run Project
 Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`.
 
-### Running On Physical Device
+### Run On Physical Device
 1. Download [Expo App](https://expo.io) app on your phone from App Store or Google Play Store.
 2. On project's root directory, run: `sudo npm start`
-3. Press `s` on terminal and input the phone number.
-4. Open link from text message to open Expo app.
+3. Press `p` on the the terminal to run the project in production mode. In this mode warning messages are dismissed to emulate how the finished app would work.
+4. Open the Expo App and scan the QR code on the terminal. Alternatively, you can press `s` on terminal if you would like to receive a link through text message (Not guaranteed to work on Android).
 5. Wait until the app finishes building (loading bar is at the bottom).
 
-### Running On Emulator
-1. When the packager loads you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac).
+### Run On Emulator
+When the packager starts you have the option to run the application on an android emulator (use [Genymotion](https://docs.genymotion.com/latest/Content/01_Get_Started/Installation.htm)) or iOS Simulator through Xcode (only works on a Mac).
+
+1. Be sure to start the emulator of your choice.
 2. On project's root directory, run: `sudo npm start`
 3. Once you have selected the method you want to run the application with, wait until the Javascript bundle finishes building and the application is launched.
 
-For more option and scripts available read below.
+For more option and scripts available read the [Available Scripts](#available-scripts) section.
 
 
-## Error Q & A
-- `node` command is not found.
-  - First, check if nodejs is installed (`nodejs -v`). If not, please follow the steps from **Setup Project** section.
-  - If nodejs is installed, run: `sudo ln -s /usr/bin/nodejs /usr/bin/node`
-- `npm start` is stuck at "Starting Packager...".
-  - Restart with sudo: `sudo npm start`
-- `npm start` can't start due to error "Unable to start server".
-  - Run command1: `sudo sysctl -w fs.inotify.max_user_instances=1024`
-  - Run command2: `sudo sysctl -w fs.inotify.max_user_watches=12288`
+## Using the App
 
-For other errors, try follow the hints/instructions on the terminal. Also, feel free to contact us for any unsolvable error.
+### Login Screen
+
+Upon opening the app you will be met with the log-in screen. Here you have the option to log in with your University email or thorough Facebook.  Unfortunately, while the app is in development Facebook only allows registered testers and developers to authenticate using their Facebook account. Therefore, your profile page within the app will not contain your image or name. Furthermore, you will want to sign up using an university email that contains .edu.
+
+To sign up follow these steps:
+  1. Fill out the field that says: 'Email' with your University email.
+  2. Enter your desired password (6 characters or more).
+  3. **DO NOT PRESS LOGIN**. 
+  4. Below the 'Continue with Facebook' there is a text box that reads: "Don't have an account? Sign Up." Press that button and
+  wait for the confirmation dialog. This will authenticate you on Firebase and allow you to login.
+
+### Home Screen
+
+Once you are authenticated you will be sent to the Home screen. Here you will find the core functionality of our app.
+**Search Bar**
+  On the upper right hand corner you can find the search icon. Pressing it reveals the Search Area. In the search area you can
+  specify your origin, destination, and desired departure date. After specifying your search query, press the submit button to
+  search the database and all available rides matching the info entered will be displayed.
+  
+  We have yet to completely implement the searching functionality, so instead of searching the database, a polyline will be 
+  created from the specified origin to the destination. In the future the functionality will be as has been described above.
+**Floating Button**
+  The floating button will bring up the option of whether to create a ride or to request a ride. Pressing on either option will 
+  send you to a separate screen.
+**Menu options**
+  Pressign the icon on the upper left hand corner will give the option to view the rides as a list or in the map. (Not functional
+  yet)
+  
+### Create Ride Screen
+If 'Create Ride' is selected in floating button in homescreen you will be sent to this screen. In this screen you can create a ride and store it in our database by filling in the fields and clicking on create ride. After creating a ride it will be displayed in the History tab (May need to restart app to trigger a refresh)
+
+### History Tab
+
+A list view of all the rides that have been created by the user and all the rides they have taken as passengers. It contains all the information relating to that ride.
+
+### Profile Tab
+
+If you logged in using Facebook, your profile image and your name, will be displayed. Otherwise it will be empty. Below the profile image we have the rating bar where you can see what people think of your driving skills among other things.
+
+On the upper right hand corner you have the settings icon that opens up the settings page.
+
+### Settings Screen 
+
+In the settings screen you are given the option to change the app color theme and the map themes. Changing a theme will force the app to refresh.
+
+Also, you can log out from the app and return to the login screen by pressing the logout button.
 
 ## Available Scripts
 
@@ -115,6 +190,22 @@ This will start the process of "ejecting" from Create React Native App's build s
 
 ## Troubleshooting
 
+### Node Command Not Found
+  - First, check if nodejs is installed (`nodejs -v`). If not, please follow the steps from **Setup Project** section.
+  - If nodejs is installed, run: `sudo ln -s /usr/bin/nodejs /usr/bin/node`
+  
+### Npm Stuck at "Starting Packager"
+  - Restart with sudo: `sudo npm start`
+  
+### "Unable to Start Server" Error
+  - Run command1: `sudo sysctl -w fs.inotify.max_user_instances=1024`
+  - Run command2: `sudo sysctl -w fs.inotify.max_user_watches=12288`
+
+### Unable to Login
+   - Verify that you have a nework connection and that it is turned on.
+   - Use a university email that ends with .edu
+   - Forgot Password? Contact us so we can reset your account and allow you to login. 
+
 ### Networking
 
 If you're unable to load your app on your phone due to a network timeout or a refused connection, a good first step is to verify that your phone and computer are on the same network and that they can reach each other. Create React Native App needs access to ports 19000 and 19001 so ensure that your network and firewall settings allow access from your device to your computer on both of these ports.
@@ -140,6 +231,31 @@ http://192.168.0.1:19001
 If this works, but you're still unable to load your app by scanning the QR code, please open an issue on the [Create React Native App repository](https://github.com/react-community/create-react-native-app) with details about these steps and any other error messages you may have received.
 
 If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager. If you are using a VPN you may need to disable it.
+
+### iOS Simulator won't open
+
+If you're on a Mac, there are a few errors that users sometimes see when attempting to npm run ios:
+
+    "non-zero exit code: 107"
+    "You may need to install Xcode" but it is already installed
+    and others
+
+There are a few steps you may want to take to troubleshoot these kinds of errors:
+
+    Make sure Xcode is installed and open it to accept the license agreement if it prompts you. You can install it from the Mac App Store.
+    Open Xcode's Preferences, the Locations tab, and make sure that the Command Line Tools menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run npm/yarn run ios after doing so.
+    If that doesn't work, open the Simulator, and under the app menu select Reset Contents and Settings.... After that has finished, quit the Simulator, and re-run npm/yarn run ios.
+
+### QR Code does not scan
+
+If you're not able to scan the QR code, make sure your phone's camera is focusing correctly, and also make sure that the contrast on the two colors in your terminal is high enough. For example, WebStorm's default themes may not have enough contrast for terminal QR codes to be scannable with the system barcode scanners that the Expo app uses.
+
+If this causes problems for you, you may want to try changing your terminal's color theme to have more contrast, or running Create React Native App from a different terminal. You can also manually enter the URL printed by the packager script in the Expo app's search bar to load it manually.
+
+
+
+For other errors, try following the hints/instructions on the terminal. Also, feel free to contact us for any unsolvable error.
+
 
 
 ## Updating to New Releases
@@ -202,32 +318,5 @@ You can optionally use a [plugin for your IDE or editor](https://flow.org/en/doc
 
 To learn more about Flow, check out [its documentation](https://flow.org/).
 
-## Sharing and Deployment
-
-Create React Native App does a lot of work to make app setup and development simple and straightforward, but it's very difficult to do the same for deploying to Apple's App Store or Google's Play Store without relying on a hosted service.
-
-### Publishing to Expo's React Native Community
-
-Expo provides free hosting for the JS-only apps created by CRNA, allowing you to share your app through the Expo client app. This requires registration for an Expo account.
-
-Install the `exp` command-line tool, and run the publish command:
-
-```
-$ npm i -g exp
-$ exp publish
-```
-
-### Building an Expo "standalone" app
-
-You can also use a service like [Expo's standalone builds](https://docs.expo.io/versions/latest/guides/building-standalone-apps.html) if you want to get an IPA/APK for distribution without having to build the native code yourself.
-
-### Ejecting from Create React Native App
-
-If you want to build and deploy your app yourself, you'll need to eject from CRNA and use Xcode and Android Studio.
-
-This is usually as simple as running `npm run eject` in your project, which will walk you through the process. Make sure to install `react-native-cli` and follow the [native code getting started guide for React Native](https://facebook.github.io/react-native/docs/getting-started.html).
-
-#### Should I Use ExpoKit?
-
-If you have made use of Expo APIs while working on your project, then those API calls will stop working if you eject to a regular React Native project. If you want to continue using those APIs, you can eject to "React Native + ExpoKit" which will still allow you to build your own native code and continue using the Expo APIs. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
-
+# Gaucho Rides
+Rideshare App for UCSB students
