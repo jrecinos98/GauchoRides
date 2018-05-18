@@ -1,6 +1,5 @@
 /**
  * String constants
- * @type {{THEME: {DARK: string, LIGHT: string, CLASSIC: string}, KEY: {APP_THEME: string, MAP_THEME: string}}}
  */
 export const STRING = {
 	THEME: {
@@ -16,7 +15,6 @@ export const STRING = {
 
 /**
  *  Dimension constants
- * @type {{TOPBAR: {HEIGHT: number}, ICON: {SIZE: number, ACTION_BUTTON: number}, TITLE: {SIZE: number}, PREVIEW: {WIDTH: number, HEIGHT: number, MARGIN: number}}}
  */
 export const DIMENSION = {
 	TOPBAR: {HEIGHT: 50},
@@ -44,7 +42,6 @@ export const FIREBASE = {
 
 /**
  * Color constants
- * @type {{THEME_DARK: {APP_BACKGROUND: string, APP_BACKGROUND_PROFILE: string, APP_FOCUS: string, APP_UNFOCUS: string, APP_TITLE: string, APP_TITLE_LOGIN: string, BUTTON: string, BUTTON_LOGIN: string, FB_NAME_COLOR: string, BGCOLOR: string}, THEME_LIGHT: {APP_BACKGROUND: string, APP_BACKGROUND_PROFILE: string, APP_FOCUS: string, APP_UNFOCUS: string, APP_TITLE: string, APP_TITLE_LOGIN: string, BUTTON: string, BUTTON_LOGIN: string, FB_NAME_COLOR: string, BGCOLOR: string}, THEME_CLASSIC: {APP_BACKGROUND: string, APP_BACKGROUND_PROFILE: string, APP_FOCUS: string, APP_UNFOCUS: string, APP_TITLE: string, APP_TITLE_LOGIN: string, BUTTON: string, BUTTON_LOGIN: string, FB_NAME_COLOR: string, BGCOLOR: string}}}
  */
 export const COLOR = {
 
@@ -92,12 +89,25 @@ export const COLOR = {
 	}
 
 };
-
+/**
+ *Constant colors for the rating components
+ */
 export const RATING_COLOR ={
     CHILI_COLOR:            '#c21807',
     WHEEL_COLOR:			'#000000',
     UNSELECTED:       		'#888888',
 
+};
+
+/**
+ * Constant variables used to test project
+ * @type {{TEST_EMAIL: string, TEST_PASSWORD: string}}
+ */
+export const TEST_CONSTANTS = {
+	DATABASE: {
+        TEST_EMAIL:				'mariocuellar.98@gmail.com',
+        TEST_PASSWORD:			'ILoveUCSB'
+	},
 };
 
 // Color constants

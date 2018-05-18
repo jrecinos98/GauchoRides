@@ -60,7 +60,7 @@ export default class Main extends Component{
 }
 
 
-/**
+/*
  * Tab navigator for main screen.
  * @param color_theme
  * @returns {*}
@@ -107,7 +107,8 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 		}
 	}
 );
-/**
+
+/*
  * Stack containing screens that render over the TabNavigator screens.
  * @param Tab_Navigator
  * @returns {*}
@@ -140,7 +141,7 @@ const AppStack = (Tab_Navigator) => StackNavigator(
     });
 
 
-/**
+/*
  * Animates the way screens appear.
  * @returns {{screenInterpolator: (function(*=): {opacity, transform})}}
  */
