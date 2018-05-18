@@ -7,9 +7,8 @@ import Ride from './actors/User';
 
 var firestore = null;
 
-/**
+/*
  * Firebase configuration for our project
- * @type {{apiKey: string, authDomain: string, databaseURL: string, projectId: string, storageBucket: string}}
  */
 const firebaseConfig = {
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
