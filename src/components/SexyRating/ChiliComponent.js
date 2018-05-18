@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import {  View, StyleSheet, Image } from "react-native";
 
+/**
+ * Component that represents an individual looks rating object
+ */
 export default class ChiliComponent extends Component{
     render(){
 

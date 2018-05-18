@@ -1,5 +1,7 @@
-
-// String constants
+/**
+ * String constants
+ * @type {{THEME: {DARK: string, LIGHT: string, CLASSIC: string}, KEY: {APP_THEME: string, MAP_THEME: string}}}
+ */
 export const STRING = {
 	THEME: {
 		DARK: 		"Dark Theme",
@@ -12,7 +14,10 @@ export const STRING = {
 	}
 };
 
-// Dimension constants
+/**
+ *  Dimension constants
+ * @type {{TOPBAR: {HEIGHT: number}, ICON: {SIZE: number, ACTION_BUTTON: number}, TITLE: {SIZE: number}, PREVIEW: {WIDTH: number, HEIGHT: number, MARGIN: number}}}
+ */
 export const DIMENSION = {
 	TOPBAR: {HEIGHT: 50},
 	ICON:{
@@ -28,13 +33,19 @@ export const DIMENSION = {
 };
 
 
-// Firebase constants
+/**
+ * Firebase constants
+ * @type {{USERS_PATH: string, RIDES_PATH: string}}
+ */
 export const FIREBASE = {
 	USERS_PATH: 'users',
 	RIDES_PATH: 'rides'
 };
 
-// Color constants
+/**
+ * Color constants
+ * @type {{THEME_DARK: {APP_BACKGROUND: string, APP_BACKGROUND_PROFILE: string, APP_FOCUS: string, APP_UNFOCUS: string, APP_TITLE: string, APP_TITLE_LOGIN: string, BUTTON: string, BUTTON_LOGIN: string, FB_NAME_COLOR: string, BGCOLOR: string}, THEME_LIGHT: {APP_BACKGROUND: string, APP_BACKGROUND_PROFILE: string, APP_FOCUS: string, APP_UNFOCUS: string, APP_TITLE: string, APP_TITLE_LOGIN: string, BUTTON: string, BUTTON_LOGIN: string, FB_NAME_COLOR: string, BGCOLOR: string}, THEME_CLASSIC: {APP_BACKGROUND: string, APP_BACKGROUND_PROFILE: string, APP_FOCUS: string, APP_UNFOCUS: string, APP_TITLE: string, APP_TITLE_LOGIN: string, BUTTON: string, BUTTON_LOGIN: string, FB_NAME_COLOR: string, BGCOLOR: string}}}
+ */
 export const COLOR = {
 
 	THEME_DARK: {

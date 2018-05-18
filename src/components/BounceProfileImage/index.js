@@ -5,9 +5,17 @@ import {Card, CardItem , Body, } from 'native-base'
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
+/**
+ * A container component to host the bouncy profile image.
+ */
 export class BounceProfileImage extends Component {
     translateX = new Animated.Value(0);
     translateY= new Animated.Value(0);
+    /**
+     * Handles the movement and spring effect of the profile image
+     * @type {*|{panHandlers, getInteractionHandle}}
+     * @private
+     */
     _panResponder = PanResponder.create({
         onMoveShouldSetResponderCapture: () => true,
         onMoveShouldSetPanResponderCapture: () => true,

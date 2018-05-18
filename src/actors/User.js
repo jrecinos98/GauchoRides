@@ -1,3 +1,6 @@
+/**
+ * The User class contains all the information about the user (email, description, rating, image url, etc..). The information is retrieved from Firebase and a User object is initialized.
+ */
 export default class User {
 	id: 0;
 	fbID:0;

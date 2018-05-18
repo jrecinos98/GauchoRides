@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
 import { COLOR } from "../../Constants";
 
+/**
+ * Component used as buttons in the Login screen
+ */
 export default class LoginButton extends Component{
 
     render(){

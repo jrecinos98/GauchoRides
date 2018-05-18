@@ -6,6 +6,9 @@ import {getTheme} from "../../Utility";
 import User from '../../actors/User';
 import {RATING_COLOR} from "../../Constants";
 
+/**
+ * Container class for all the WheelComponent objects. The object retrieves the user rating and displays the components it holds accordingly.
+ */
 export default class WheelRating extends Component{
     constructor(props) {
         super(props);

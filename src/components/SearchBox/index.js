@@ -6,7 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 import styles from "./SearchBoxStyles.js";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-
+/**
+ * Component containing the components needed to create a search query. Two GooglePlacesAutoComplete components are used to complete user origin and destination.
+ */
 export default class SearchBox extends Component {
 
 	constructor(props) {

@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import {ImageBackground, StyleSheet} from "react-native"
 
+/**
+ * Wrapping component that serves as the background image in the Login screen.
+ */
 export default class LoginBackground extends Component {
 
     render() {

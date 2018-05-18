@@ -5,6 +5,9 @@ import { COLOR, STRING, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 //import ActionButton from 'react-native-circular-action-menu';
 
+/**
+ * Renders a floating button component. Upon pressing, it allows the user to choose to create a ride or request a ride.
+ */
 export default class CreateButton extends Component{
     render(){
         return(

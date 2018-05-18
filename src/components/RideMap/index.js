@@ -9,9 +9,15 @@ import OldTheme from './OldTheme.json';
 import { STRING } from '../../Constants';
 import CurLocMarker from './CurLocMarker';
 
+/**
+ *
+ */
 export default class RideMap extends Component {
 
-    //Get map style based on specific map theme
+    /**
+     *  Get map style based on the previously selected map theme.
+     * @param map_theme an object retrieved from storage that specifies the previous saved theme for the map.
+     */
     getMapStyle(map_theme) {
         switch(map_theme) {
             case STRING.THEME.DARK: return DarkTheme;
@@ -36,6 +42,10 @@ export default class RideMap extends Component {
         }
     }
 
+    /**
+     * @param index
+     * @returns {{latitude: number, longitude: number, latitudeDelta: number, longitudeDelta: number}}
+     */
     getRegion(index) {
         let origin = this.props.coords_list[index][0];
         let destin = this.props.coords_list[index][this.props.coords_list[index].length - 1];
@@ -58,6 +68,10 @@ export default class RideMap extends Component {
         }
     }
 
+    /**
+     * Animates camera movement within the map
+     * @param index
+     */
     moveMapCamera(index) {
         this.mapView.animateToRegion(this.getRegion(index));
     }

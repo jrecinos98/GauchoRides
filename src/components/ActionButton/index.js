@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import CreateButton from './CreateButton';
-import CreateButton_IOS from './index-ios';
 
+
+/**
+ * Returns the action button component displayed in the home screen.
+ */
 export default class ActionButton extends Component{
     constructor(props){
         super(props);
@@ -10,6 +13,10 @@ export default class ActionButton extends Component{
             showActionButton: true
         }
     }
+
+    /**
+     * Handles the toggling of the action button. Showing it or hiding it.
+     */
     ShowHideButtonComponent() {
         if(this.state.showActionButton === true)
             this.setState({showActionButton: false})

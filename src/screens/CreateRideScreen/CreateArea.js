@@ -5,6 +5,7 @@ import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
 
+
 export default class CreateArea extends Component {
 
     constructor(props) {
@@ -24,13 +25,13 @@ export default class CreateArea extends Component {
     setDate(newDate) {
         this.setState({chosenDate: newDate})
     }
-
     ShowHideTextComponentView() {
         if(this.state.showSearchArea === true)
             this.setState({showSearchArea: false})
         else
             this.setState({showSearchArea: true})
     };
+
 
     async pickAndroidDate() {
         try {
@@ -52,6 +53,7 @@ export default class CreateArea extends Component {
             console.warn('Cannot open date picker', message);
         }
     }
+
 
     async pickAndroidTime() {
         try {
