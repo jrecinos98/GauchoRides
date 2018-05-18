@@ -34,10 +34,12 @@
   * [Configuring Packager IP Address](#configuring-packager-ip-address)
 * [Adding Flow](#adding-flow)
     
+    
 ## About Gaucho Rides
 Gaucho Rides is an application developed for UCSB and SBCC students to organize shared rides with fellow students more conveniently and efficiently than the Facebook groups. Gaucho Rides facilitates the hassle of finding, creating and requesting rides. Furthermore, Gaucho Rides provides a rating system so that users can rate each other based on their driving ability and their reliability as either a driver or a passenger. 
 
 Gaucho Rides is a multi-platform application developed for android and iOS using facebook's [React Native](https://facebook.github.io/react-native/) framework. React native allows us to create an application for iOS and Android by using a single code base that works on both platforms. 
+
 
 
 ## Setup Project
@@ -92,6 +94,7 @@ When the packager starts you have the option to run the application on an androi
 For more option and scripts available read the [Available Scripts](#available-scripts) section.
 
 
+
 ## Using the App
 
 ### Login Screen
@@ -121,7 +124,7 @@ Once you are authenticated you will be sent to the Home screen. Here you will fi
   
 **Floating Button**:
 
-  -The floating button will bring up the option of whether to create a ride or to request a ride. 
+  - The floating button will bring up the option of whether to create a ride or to request a ride. 
   
   Pressing on either option will send you to a separate screen.
   
@@ -131,23 +134,30 @@ Once you are authenticated you will be sent to the Home screen. Here you will fi
   yet)
   
 ### Create Ride Screen
-If 'Create Ride' is selected in floating button in homescreen you will be sent to this screen. In this screen you can create a ride and store it in our database by filling in the fields and clicking on create ride. After creating a ride it will be displayed in the History tab (May need to restart app to trigger a refresh)
+If 'Create Ride' is selected in floating button in homescreen you will be sent to this screen.
+In this screen you can create a ride and store it in our database by filling in the fields and clicking on create ride.
+After creating a ride it will be displayed in the History tab (May need to restart app to trigger a refresh)
 
 ### History Tab
 
-A list view of all the rides that have been created by the user and all the rides they have taken as passengers. It contains all the information relating to that ride.
+A list view of all the rides that have been created by the user and all the rides they have taken as passengers.
+It contains all the information relating to that ride.
 
 ### Profile Tab
 
-If you logged in using Facebook, your profile image and your name, will be displayed. Otherwise it will be empty. Below the profile image we have the rating bar where you can see what people think of your driving skills among other things.
-
-On the upper right hand corner you have the settings icon that opens up the settings page.
+- If you logged in using Facebook, your profile image and your name, will be displayed. Otherwise it will be empty. 
+- Below the profile image we have the rating bar where you can see what people think of your driving skills among other things.
+- On the upper right hand corner you have the settings icon that opens up the settings page.
 
 ### Settings Screen 
 
-In the settings screen you are given the option to change the app color theme and the map themes. Changing a theme will force the app to refresh.
+- In the settings screen you are given the option to change the app color theme and the map themes. 
+ - Changing a theme will force the app to refresh.
 
 Also, you can log out from the app and return to the login screen by pressing the logout button.
+
+
+
 
 ## Available Scripts
 
