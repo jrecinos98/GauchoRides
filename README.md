@@ -7,7 +7,7 @@
 * [Run Project](#run-project)
   * [Run on Physical Device](#run-on-physical-device)
   * [Run On Emulator](#run-on-emulator)
-* [Using the App](#using-the-app)
+* [Project Structure](#project-structure)
   * [Login Screen](#login-screen)
   * [Home Screen](#home-screen)
   * [Create Ride Screen](#create-ride-screen)
@@ -34,13 +34,14 @@
   * [Configuring Packager IP Address](#configuring-packager-ip-address)
 * [Adding Flow](#adding-flow)
     
+<br>
     
 ## About Gaucho Rides
 Gaucho Rides is an application developed for UCSB and SBCC students to organize shared rides with fellow students more conveniently and efficiently than the Facebook groups. Gaucho Rides facilitates the hassle of finding, creating and requesting rides. Furthermore, Gaucho Rides provides a rating system so that users can rate each other based on their driving ability and their reliability as either a driver or a passenger. 
 
 Gaucho Rides is a multi-platform application developed for android and iOS using facebook's [React Native](https://facebook.github.io/react-native/) framework. React native allows us to create an application for iOS and Android by using a single code base that works on both platforms. 
 
-
+<br>
 
 ## Setup Project
 
@@ -73,6 +74,7 @@ Alternatively, you can install [yarn](https://yarnpkg.com/lang/en/docs/install/#
 3. `sudo apt-get update`
 4. `sudo apt-get install yarn`
 
+<br>
 
 ## Run Project
 Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`.
@@ -95,45 +97,34 @@ You may encounter warnings when you run the project. It is generally okay to ign
 
 For more option and scripts available read the [Available Scripts](#available-scripts) section.
 
+<br>
 
-
-## Using the App
+## Project Structure
 
 ### Login Screen
-
 Upon opening the app you will be met with the log-in screen. Here you have the option to log in with your University email or thorough Facebook.  Unfortunately, while the app is in development Facebook only allows registered testers and developers to authenticate using their Facebook account. Therefore, your profile page within the app will not contain your image or name. Furthermore, you will want to sign up using an university email that contains .edu.
 
 To sign up follow these steps:
   1. Fill out the field that says: 'Email' with your University email.
   2. Enter your desired password (6 characters or more).
   3. **DO NOT PRESS LOGIN**. 
-  4. Below the 'Continue with Facebook' there is a text box that reads: "Don't have an account? Sign Up." Press that button and
-  wait for the confirmation dialog. This will authenticate you on Firebase and allow you to login.
+  4. Below the 'Continue with Facebook' there is a text box that reads: "Don't have an account? Sign Up." Press that button and wait for the confirmation dialog. This will authenticate you on Firebase and allow you to login.
 
 ### Home Screen
-
 Once you are authenticated you will be sent to the Home screen. Here you will find the core functionality of our app.
 
-**Search Bar**:
+- **Search Bar**:
+  We have yet to completely implement the searching functionality, so instead of searching the database, a polyline will be created from the specified origin to the destination. In the future the functionality will be as has been described above.
 
   - On the upper right hand corner you can find the search icon. Pressing it reveals the Search Area.
   - In the search area you can specify your origin, destination, and desired departure date. 
-  - After specifying your search query, press the submit button to search the database and all available rides matching the info
-  entered will be displayed.
-  
-  We have yet to completely implement the searching functionality, so instead of searching the database, a polyline will be 
-  created from the specified origin to the destination. In the future the functionality will be as has been described above.
-  
-**Floating Button**:
+  - After specifying your search query, press the submit button to search the database and all available rides matching the info entered will be displayed.
 
-  - The floating button will bring up the option of whether to create a ride or to request a ride. 
+- **Floating Button**:
+  The floating button will bring up the option of whether to create a ride or to request a ride. Pressing on either option will send you to a separate screen.
   
-  Pressing on either option will send you to a separate screen.
-  
-**Menu options**:
-
-  Pressing the icon on the upper left hand corner will give the option to view the rides as a list or in the map. (Not functional
-  yet)
+- **Menu options**:
+  Pressing the icon on the upper left hand corner will give the option to view the rides as a list or in the map. (Not functional yet)
   
 ### Create Ride Screen
 If 'Create Ride' is selected in floating button in homescreen you will be sent to this screen.
@@ -141,74 +132,36 @@ In this screen you can create a ride and store it in our database by filling in 
 After creating a ride it will be displayed in the History tab (May need to restart app to trigger a refresh)
 
 ### History Tab
-
 A list view of all the rides that have been created by the user and all the rides they have taken as passengers.
 It contains all the information relating to that ride.
 
 ### Profile Tab
-
-- If you logged in using Facebook, your profile image and your name, will be displayed. Otherwise it will be empty. 
-- Below the profile image we have the rating bar where you can see what people think of your driving skills among other things.
-- On the upper right hand corner you have the settings icon that opens up the settings page.
+ - If you logged in using Facebook, your profile image and your name, will be displayed. Otherwise it will be empty. 
+ - Below the profile image we have the rating bar where you can see what people think of your driving skills among other things.
+ - On the upper right hand corner you have the settings icon that opens up the settings page.
 
 ### Settings Screen 
-
-- In the settings screen you are given the option to change the app color theme and the map themes. 
+ - In the settings screen you are given the option to change the app color theme and the map themes. 
  - Changing a theme will force the app to refresh.
 
 Also, you can log out from the app and return to the login screen by pressing the logout button.
 
-
-
+<br>
 
 ## Available Scripts
+- To run the project (Normal): `sudo npm start`
+- To run the project (Clear cache): `sudo npm start --reset-cache`
+- To run the project (IOS): `npm run ios`
+- To run the project (Android): `npm run android`
+- To test the project (Jest): `npm test`
+- To eject from build script: `npm run eject`
 
-If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
-
-### `npm start`
-
-Runs your app in development mode.
-
-Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
-
-Sometimes you may need to reset or clear the React Native packager's cache. To do so, you can pass the `--reset-cache` flag to the start script:
-
-```
-npm start --reset-cache
-# or
-yarn start --reset-cache
-```
-
-#### `npm test`
-
-Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
-
-#### `npm run ios`
-
-Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
-
-#### `npm run android`
-
-Like `npm start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup). We also recommend installing Genymotion as your Android emulator. Once you've finished setting up the native build environment, there are two options for making the right copy of `adb` available to Create React Native App:
-
-##### Using Android Studio's `adb`
-
-1. Make sure that you can run adb from your terminal.
-2. Open Genymotion and navigate to `Settings -> ADB`. Select “Use custom Android SDK tools” and update with your [Android SDK directory](https://stackoverflow.com/questions/25176594/android-sdk-location).
-
-##### Using Genymotion's `adb`
-
-1. Find Genymotion’s copy of adb. On macOS for example, this is normally `/Applications/Genymotion.app/Contents/MacOS/tools/`.
-2. Add the Genymotion tools directory to your path (instructions for [Mac](http://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/), [Linux](http://www.computerhope.com/issues/ch001647.htm), and [Windows](https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/)).
-3. Make sure that you can run adb from your terminal.
-
-#### `npm run eject`
-
-This will start the process of "ejecting" from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project.
-
-**Warning:** Running eject is a permanent action (aside from whatever version control system you use). An ejected app will require you to have an [Xcode and/or Android Studio environment](https://facebook.github.io/react-native/docs/getting-started.html) set up.
+<br>
 
 ## Troubleshooting
+
+### Unable to Run Setup Script (/bin/bash^M: bad interpreter)
+  - Fix by running: `sed -i -e 's/\r$//' setup.sh`
 
 ### Node Command Not Found
   - First, check if nodejs is installed (`nodejs -v`). If not, please follow the steps from **Setup Project** section.
@@ -217,69 +170,55 @@ This will start the process of "ejecting" from Create React Native App's build s
 ### Npm Stuck at "Starting Packager"
   - Restart with sudo: `sudo npm start`
   
-### "Unable to Start Server" Error
+### Unable to Start Server
   - Run command1: `sudo sysctl -w fs.inotify.max_user_instances=1024`
   - Run command2: `sudo sysctl -w fs.inotify.max_user_watches=12288`
 
 ### Unable to Login
    - Verify that you have a nework connection and that it is turned on.
    - Use a university email that ends with .edu
-   - Forgot Password? Contact us so we can reset your account and allow you to login. 
+   - No account? Please click on signup instead of login.
+   - Forgot Password? Contact us so we can reset your account and allow you to login.
 
-### Networking
-
-If you're unable to load your app on your phone due to a network timeout or a refused connection, a good first step is to verify that your phone and computer are on the same network and that they can reach each other. Create React Native App needs access to ports 19000 and 19001 so ensure that your network and firewall settings allow access from your device to your computer on both of these ports.
-
-Try opening a web browser on your phone and opening the URL that the packager script prints, replacing `exp://` with `http://`. So, for example, if underneath the QR code in your terminal you see:
-
+### Network Issue
+- Check Network: verify that your phone and computer are on the same network and that they can reach each other
+- Check Firewall: verify firewall access from your device to your computer on ports 19000 and 19001.
+- Try opening a web browser on your phone and opening the URL that the packager script prints, replacing `exp://` with `http://`.
+So, for example, if underneath the QR code in your terminal you see:
 ```
 exp://192.168.0.1:19000
 ```
-
 Try opening Safari or Chrome on your phone and loading
-
 ```
 http://192.168.0.1:19000
 ```
-
 and
-
 ```
 http://192.168.0.1:19001
 ```
 
-If this works, but you're still unable to load your app by scanning the QR code, please open an issue on the [Create React Native App repository](https://github.com/react-community/create-react-native-app) with details about these steps and any other error messages you may have received.
-
-If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager. If you are using a VPN you may need to disable it.
-
 ### iOS Simulator won't open
-
 If you're on a Mac, there are a few errors that users sometimes see when attempting to npm run ios:
 
     "non-zero exit code: 107"
     "You may need to install Xcode" but it is already installed
-    and others
 
 There are a few steps you may want to take to troubleshoot these kinds of errors:
 
-    Make sure Xcode is installed and open it to accept the license agreement if it prompts you. You can install it from the Mac App Store.
-    Open Xcode's Preferences, the Locations tab, and make sure that the Command Line Tools menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run npm/yarn run ios after doing so.
-    If that doesn't work, open the Simulator, and under the app menu select Reset Contents and Settings.... After that has finished, quit the Simulator, and re-run npm/yarn run ios.
+  - Make sure Xcode is installed and open it to accept the license agreement if it prompts you. You can install it from the Mac App Store.
+  - Open Xcode's Preferences, the Locations tab, and make sure that the Command Line Tools menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run npm/yarn run ios after doing so.
+  - If that doesn't work, open the Simulator, and under the app menu select Reset Contents and Settings.... After that has finished, quit the Simulator, and re-run npm/yarn run ios.
 
 ### QR Code does not scan
-
 If you're not able to scan the QR code, make sure your phone's camera is focusing correctly, and also make sure that the contrast on the two colors in your terminal is high enough. For example, WebStorm's default themes may not have enough contrast for terminal QR codes to be scannable with the system barcode scanners that the Expo app uses.
 
 If this causes problems for you, you may want to try changing your terminal's color theme to have more contrast, or running Create React Native App from a different terminal. You can also manually enter the URL printed by the packager script in the Expo app's search bar to load it manually.
 
-
-
 For other errors, try following the hints/instructions on the terminal. Also, feel free to contact us for any unsolvable error.
 
-
+<br>
 
 ## Updating to New Releases
-
 You should only need to update the global installation of `create-react-native-app` very rarely, ideally never.
 
 Updating the `react-native-scripts` dependency of your app should be as simple as bumping the version number in `package.json` and reinstalling your project's dependencies.
