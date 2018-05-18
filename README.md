@@ -24,7 +24,7 @@
   * [Node Command Not Found](#node-command-not-found)
   * [Npm Stuck at "Starting Packager"](#npm-stuck-at-starting-packager)
   * ["Unable to Start Server" Error](#unable-to-start-server-error)
-  * [Unable to Login] (#unable-to-login)
+  * [Unable to Login](#unable-to-login)
   * [Networking](#networking)
   * [iOS Simulator won't open](#ios-simulator-wont-open)
   * [QR Code does not scan](#qr-code-does-not-scan)
@@ -110,19 +110,24 @@ To sign up follow these steps:
 Once you are authenticated you will be sent to the Home screen. Here you will find the core functionality of our app.
 
 **Search Bar**:
-  On the upper right hand corner you can find the search icon. Pressing it reveals the Search Area. In the search area you can
-  specify your origin, destination, and desired departure date. After specifying your search query, press the submit button to
-  search the database and all available rides matching the info entered will be displayed.
+
+  - On the upper right hand corner you can find the search icon. Pressing it reveals the Search Area.
+  - In the search area you can specify your origin, destination, and desired departure date. 
+  - After specifying your search query, press the submit button to search the database and all available rides matching the info
+  entered will be displayed.
   
   We have yet to completely implement the searching functionality, so instead of searching the database, a polyline will be 
   created from the specified origin to the destination. In the future the functionality will be as has been described above.
   
 **Floating Button**:
-  The floating button will bring up the option of whether to create a ride or to request a ride. Pressing on either option will 
-  send you to a separate screen.
+
+  -The floating button will bring up the option of whether to create a ride or to request a ride. 
+  
+  Pressing on either option will send you to a separate screen.
   
 **Menu options**:
-  Pressign the icon on the upper left hand corner will give the option to view the rides as a list or in the map. (Not functional
+
+  Pressing the icon on the upper left hand corner will give the option to view the rides as a list or in the map. (Not functional
   yet)
   
 ### Create Ride Screen
