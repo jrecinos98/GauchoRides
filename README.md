@@ -80,7 +80,7 @@ Make sure Node and Npm have been installed by running `nodejs -v` and `npm -v`.
 ### Run On Physical Device
 1. Download [Expo App](https://expo.io) app on your phone from App Store or Google Play Store.
 2. On project's root directory, run: `sudo npm start`
-3. Press `p` on the the terminal to run the project in production mode. In this mode warning messages are dismissed to emulate how the finished app would work.
+3. Press `d` on the the terminal to run the project in production mode. In this mode warning messages are dismissed to emulate how the finished app would work.
 4. Open the Expo App and scan the QR code on the terminal. Alternatively, you can press `s` on terminal if you would like to receive a link through text message (Not guaranteed to work on Android).
 5. Wait until the app finishes building (loading bar is at the bottom).
 
