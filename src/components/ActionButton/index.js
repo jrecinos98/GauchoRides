@@ -14,6 +14,10 @@ export default class ActionButton extends Component{
         }
     }
 
+    show(toShow) {
+        this.setState({showActionButton: toShow});
+    }
+
     /**
      * Handles the toggling of the action button. Showing it or hiding it.
      */

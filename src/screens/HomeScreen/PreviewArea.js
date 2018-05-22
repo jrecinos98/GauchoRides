@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
 import { DIMENSION } from '../../Constants';
+import Controller from './Controller';
 
 
 export default class PreviewArea extends Component {
@@ -12,7 +13,7 @@ export default class PreviewArea extends Component {
         }
     }
 
-    displayComponent(toDisplay) {
+    show(toDisplay) {
         this.setState({
             toDisplay: toDisplay
         });
@@ -48,7 +49,7 @@ export default class PreviewArea extends Component {
                     style={customStyle.buttonContainer}
                     onPress={() => {
                         this.previewBar.scrollTo({x: this.getSnapPosition(index), y: 0, animated: true});
-                        this.props.onPreviewPress(index);
+                        Controller.focusRide(index);
                     }}>
 
                     <Text style={customStyle.buttonText}>

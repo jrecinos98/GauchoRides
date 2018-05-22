@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
+import Controller from './Controller';
 
 export default class SearchArea extends Component {
 
@@ -12,25 +13,45 @@ export default class SearchArea extends Component {
 
         this.state = {
             chosenDate: new Date(),
-            showSearchArea: false,
+            showSearchArea: true,
             showIOSDatePicker: false
         };
         this.pickupInput = "";
         this.dropoffInput = "";
         this.setDate = this.setDate.bind(this);
-        // this.pickAndroidDate();
     }
 
     setDate(newDate) {
         this.setState({chosenDate: newDate})
     }
 
-    ShowHideTextComponentView() {
-        if(this.state.showSearchArea === true)
-            this.setState({showSearchArea: false})
-        else
-            this.setState({showSearchArea: true})
-    };
+    show(toShow) {
+        this.setState({showSearchArea: toShow})
+    }
+
+    submit() {
+        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
+            Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
+            Controller.toggleDisplay();
+            this.searchInputs = undefined;
+        }
+    }
+
+    getDateString() {
+        return this.state.chosenDate ? this.state.chosenDate.toLocaleString() : "";
+    }
+
+    displayDatePicker() {
+        if (Platform.OS === 'android') {
+            this.pickAndroidTime();
+            this.pickAndroidDate();
+        }
+        else if (Platform.OS === 'ios') {
+            this.setState((prevState) => {
+                return {showIOSDatePicker: !prevState.showIOSDatePicker};
+            });
+        }
+    }
 
     async pickAndroidDate() {
         try {
@@ -77,6 +98,8 @@ export default class SearchArea extends Component {
     }
 
     render() {
+        if (!this.state.showSearchArea)
+            return null;
 
         const customStyle = {
             buttonContainer: [styles.buttonContainer, {
@@ -85,9 +108,18 @@ export default class SearchArea extends Component {
             }]
         };
 
-        return (
-            this.state.showSearchArea ?
+        let iOSDatePicker; 
+        if (Platform.OS === 'ios' && this.state.showIOSDatePicker) {
+            iOSDatePicker = (
+                <View style={styles.TimeDateWrapper}>
+                    <DatePickerIOS
+                        date={this.state.chosenDate}
+                        onDateChange={this.setDate}
+                    />
+                </View>);
+        }
 
+        return (
             <ScrollView style={styles.container}>
 
                 <SearchBox
@@ -95,46 +127,21 @@ export default class SearchArea extends Component {
                         this.searchInputs = searchInputs;
                     }}/>
 
-                {
-                    (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
-                        <View style={styles.TimeDateWrapper}>
-                            <DatePickerIOS
-                                date={this.state.chosenDate}
-                                onDateChange={this.setDate}
-                            />
-                        </View>
-                    : null
-                }
+                {iOSDatePicker}
 
                 <View style={customStyle.buttonContainer}>
                     <Button
-                        onPress={()=> {
-                            if (Platform.OS === 'android') {
-                                this.pickAndroidTime();
-                                this.pickAndroidDate();
-                            }
-
-                            if (Platform.OS === 'ios') {
-                                this.setState((prevState) => {
-                                    return {showIOSDatePicker: !prevState.showIOSDatePicker};
-                                });
-                            }
-                        }}
-                        title={
-                            this.state.chosenDate ? this.state.chosenDate.toLocaleString() : "Choose Date!"
-                        }/>
+                        onPress={()=> this.displayDatePicker()}
+                        title={this.getDateString()}/>
                 </View>
 
                 <View style={customStyle.buttonContainer}>
                     <Button
-                        onPress={() => {
-                            this.ShowHideTextComponentView();
-                            this.props.onSubmit(this.searchInputs);
-                        }}
+                        onPress={() => this.submit()}
                         title="Find Ride!"/>
                 </View>
-            </ScrollView> : null
 
+            </ScrollView>
         );
 
     }

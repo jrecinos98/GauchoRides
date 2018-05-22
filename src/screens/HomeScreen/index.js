@@ -13,6 +13,7 @@ import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import CreateRideScreen from "../CreateRideScreen";
 import ActionButton from '../../components/ActionButton';
+import Controller from './Controller';
 
 
 export default class HomeScreen extends Component {
@@ -35,25 +36,9 @@ export default class HomeScreen extends Component {
 
         this.displaySearch = false;
         this.firstSearch=true;
-    }
 
-    setMenuRef = (ref) => {
-        this.menu = ref;
-    }
-
-    hideMenu = () => {
-        this.menu.hide();
-    }
-
-    showMenu = () => {
-        this.menu.show();
-    }
-
-    toggleSearchAndPreview(){
-        this.searchArea.ShowHideTextComponentView();
-        this.displaySearch = !this.displaySearch;
-        this.previewArea.displayComponent(!this.displaySearch);
-
+        Controller.setRef(this, Controller.home);
+        console.log(Controller.refs.home);
     }
 
     static navigationOptions = {
@@ -61,6 +46,10 @@ export default class HomeScreen extends Component {
             <Ionicons name="ios-home" style={{ color: tintColor, fontSize: 20 }} />
         )
     };
+
+    navigateScreen(screen) {
+        this.props.screenProps.rootNavigation.navigate(screen, {transition: 'vertical'});
+    }
 
     render() {
 
@@ -103,107 +92,66 @@ export default class HomeScreen extends Component {
                         name='ios-search'
                         style={customStyle.options}
                         onPress={() => {
-                            this.toggleSearchAndPreview();
-                            !this.firstSearch ? this.actionButton.ShowHideButtonComponent() : null;
-
+                            Controller.toggleDisplay();
                         }}/>
                     <Text style={customStyle.title}>Home</Text>
                     <View style={customStyle.menu}>
                         <Menu
-                            ref={this.setMenuRef}
-                            button={<Ionicons name='ios-menu'
-                                              style={{
-                                                  fontSize: DIMENSION.ICON.SIZE,
-                                                  color: this.state.color_theme.APP_FOCUS
-                                              }}
-                                              onPress={this.showMenu}/>}
-                        >
-                            <MenuItem onPress={this.hideMenu} disabled>
+                            ref={(instance) => Controller.setRef(instance, Controller.menu)}
+                            button={
+                                <Ionicons
+                                    name='ios-menu'
+                                    style={{
+                                      fontSize: DIMENSION.ICON.SIZE,
+                                      color: this.state.color_theme.APP_FOCUS
+                                    }}
+                                    onPress={() => Controller.showMenu(true)}/>
+                            }>
+                            <MenuItem onPress={() => Controller.showMenu(false)} disabled>
                                 View in Map
                             </MenuItem>
                             <MenuDivider/>
                             <MenuItem onPress={() => {
-
-                                this.props.screenProps.rootNavigation.navigate("ListScreen", {transition: 'vertical'});
-                                this.hideMenu();
-
+                                this.navigateScreen('ListScreen');
+                                Controller.showMenu(false);
                             }}>View as List</MenuItem>
                         </Menu>
                     </View>
 
-
                 </View>
 
-                <View style={{flex:1}}>
-                    <View style={styles.contentContainer}>
 
+                <View style={{flex:1}}>
+
+                    <View style={styles.contentContainer}>
                         <MapArea
-                            ref={(instance) => {
-                                this.mapArea = instance;
-                            }}
+                            ref={(instance) => Controller.setRef(instance, Controller.map)}
+                            color_theme={this.state.color_theme}
                             onPreview={(rides) => {
                                 this.setState({
                                     rides: rides,
                                 });
-                            }}
-                            onMarkerPress={(index) => {
-                                console.log("PRESSED");
-                                if (this.previewArea.previewBar === undefined) {
-                                    this.previewArea.displayComponent(!this.displaySearch);
-                                }
-                                this.previewArea.previewBar.scrollTo({
-                                    x: this.previewArea.getSnapPosition(index),
-                                    y: 0,
-                                    animated: true
-                                });
-                            }}
-                            color_theme={this.state.color_theme}>
-
-                        </MapArea>
+                            }}/>
                         <SearchArea
-                            ref={(instance) => {
-                                this.searchArea = instance;
-                            }}
-                            onSubmit={(searchInputs) => {
-                                if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
-                                    return;
-
-                                let origin = searchInputs.pickupInput;
-                                let destin = searchInputs.dropoffInput;
-
-                                this.mapArea.createRoute(origin.toString(), destin.toString());
-                                this.toggleSearchAndPreview();
-                                if (this.firstSearch) {
-                                    this.firstSearch = false;
-                                }
-                                this.actionButton.ShowHideButtonComponent();
-                            }}
+                            ref={(instance) => Controller.setRef(instance, Controller.search)}
                             color_theme={this.state.color_theme}/>
                     </View>
 
                     <View style={styles.previewContainer}>
-
                         <PreviewArea
-                            ref={(instance) => {
-                                this.previewArea = instance;
-                            }}
-                            onPreviewPress={(index) => {
-                                this.mapArea.rideMap.moveMapCamera(index);
-                            }}
+                            ref={(instance) => Controller.setRef(instance, Controller.preview)}
                             color_theme={this.state.color_theme}
                             rides={this.state.rides}/>
                     </View>
 
                     <ActionButton
-                        ref={(instance) => {
-                            this.actionButton = instance;
-                        }}
+                        ref={(instance) => Controller.setRef(instance, Controller.actionbutton)}
                         color_theme={this.state.color_theme}
                         onRideRequestPress={() => {
-                            this.props.screenProps.rootNavigation.navigate("RequestRide", {transition: 'vertical'});
+                            this.navigateScreen('RequestRide');
                         }}
                         onRideCreatePress={() => {
-                            this.props.screenProps.rootNavigation.navigate("CreateRide", {transition: 'vertical'});
+                            this.navigateScreen('CreateRide');
                         }}
                     />
                 </View>
@@ -211,6 +159,7 @@ export default class HomeScreen extends Component {
         );
     }
 }
+
 export const HomeStack = StackNavigator({
         Home: {
             screen: HomeScreen,

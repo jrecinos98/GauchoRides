@@ -4,6 +4,7 @@ import RideMap from '../../components/RideMap';
 import { getMapTheme } from '../../Utility';
 import { STRING } from '../../Constants';
 import Location from '../../actors/Location';
+import Controller from './Controller';
 
 const mode = 'driving'; // 'walking';
 const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
@@ -82,9 +83,9 @@ export default class MapArea extends Component {
 
                 //Preview new rides
                 let lastIndex = this.state.coords_list.length - 1;
+                // this.rideMap.moveMapCamera(lastIndex);
                 this.props.onPreview(this.state.coords_list);
-                this.rideMap.moveMapCamera(lastIndex);
-                this.props.onMarkerPress(lastIndex);
+                Controller.focusRide(lastIndex);
             }
         })
         .catch(e => {console.warn(e)});
@@ -111,7 +112,7 @@ export default class MapArea extends Component {
                 map_theme={this.state.map_theme}
                 userLoc={this.state.userLoc}
                 coords_list={this.state.coords_list}
-                onMarkerPress={(index)=>{this.props.onMarkerPress(index);}}/>
+                onMarkerPress={(index)=> Controller.focusRide(index)}/>
         );
     }
 }
