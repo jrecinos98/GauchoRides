@@ -48,6 +48,7 @@ export default class RequestArea extends Component {
                     this.state.chosenDate.getHours(),
                     this.state.chosenDate.getMinutes()
                 ));
+                this.pickAndroidTime();
             }
         }
         catch ({code, message}) {
@@ -115,7 +116,6 @@ export default class RequestArea extends Component {
                     <Button
                         onPress={()=> {
                             if (Platform.OS === 'android') {
-                                this.pickAndroidTime();
                                 this.pickAndroidDate();
                             }
 
