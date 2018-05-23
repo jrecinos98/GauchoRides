@@ -117,9 +117,9 @@ export default class RideHistory extends Component {
           style={{ height: 1, width: '100%', backgroundColor: 'black'}}>
         </View>
       )
-
-
     }
+
+
 
     render() {
         return (

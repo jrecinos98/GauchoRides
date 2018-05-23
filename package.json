@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "jest": "^22.4.3",
     "jest-expo": "26.0.0",
     "react-native-scripts": "1.13.1",
     "react-test-renderer": "16.3.0-alpha.1",
@@ -17,7 +18,13 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!native-base-shoutem-theme)/"
+    ],
+    "testMatch": [
+      "**/tests/**/*Test.js"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
