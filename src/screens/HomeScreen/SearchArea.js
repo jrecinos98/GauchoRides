@@ -6,6 +6,7 @@ import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
 import Controller from './Controller';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
+import DatePicker from '../../components/DatePicker';
 
 export default class SearchArea extends Component {
 
@@ -13,17 +14,11 @@ export default class SearchArea extends Component {
         super(props);
 
         this.state = {
-            chosenDate: new Date(),
-            showSearchArea: true,
-            showIOSDatePicker: false
+            showSearchArea: true
         };
         this.pickupInput = "";
         this.dropoffInput = "";
-        this.setDate = this.setDate.bind(this);
-    }
-
-    setDate(newDate) {
-        this.setState({chosenDate: newDate})
+        this.chosenDate = new Date();
     }
 
     show(toShow) {
@@ -35,67 +30,7 @@ export default class SearchArea extends Component {
             Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
             Controller.toggleDisplay();
             this.searchInputs = undefined;
-        }
-    }
-
-    getDateString() {
-        return this.state.chosenDate ? this.state.chosenDate.toLocaleString() : "";
-    }
-
-    displayDatePicker() {
-        if (Platform.OS === 'android') {
-            this.pickAndroidTime();
-            this.pickAndroidDate();
-        }
-        else if (Platform.OS === 'ios') {
-            this.setState((prevState) => {
-                return {showIOSDatePicker: !prevState.showIOSDatePicker};
-            });
-        }
-    }
-
-    async pickAndroidDate() {
-        try {
-            const {action, year, month, day} = await DatePickerAndroid.open({
-                date: this.state.chosenDate
-            });
-
-            if (action !== DatePickerAndroid.dismissedAction) {
-                this.setDate(new Date(
-                    year,
-                    month,
-                    day,
-                    this.state.chosenDate.getHours(),
-                    this.state.chosenDate.getMinutes()
-                ));
-                this.pickAndroidTime();
-            }
-        }
-        catch ({code, message}) {
-            console.warn('Cannot open date picker', message);
-        }
-    }
-
-    async pickAndroidTime() {
-        try {
-            const {action, hour, minute} = await TimePickerAndroid.open({
-                hour: this.state.chosenDate.hour,
-                minute: this.state.chosenDate.minute,
-                is24Hour: false
-            });
-
-            if (action !== TimePickerAndroid.dismissedAction) {
-                this.setDate(new Date(
-                    this.state.chosenDate.getFullYear(),
-                    this.state.chosenDate.getMonth(),
-                    this.state.chosenDate.getDate(),
-                    hour,
-                    minute
-                ));
-            }
-        }
-        catch ({code, message}) {
-            console.warn('Cannot open time picker', message);
+            this.chosenDate = new Date();
         }
     }
 
@@ -110,17 +45,6 @@ export default class SearchArea extends Component {
             }]
         };
 
-        let iOSDatePicker; 
-        if (Platform.OS === 'ios' && this.state.showIOSDatePicker) {
-            iOSDatePicker = (
-                <View style={styles.TimeDateWrapper}>
-                    <DatePickerIOS
-                        date={this.state.chosenDate}
-                        onDateChange={this.setDate}
-                    />
-                </View>);
-        }
-
         return (
             <ScrollView style={styles.container}>
 
@@ -131,13 +55,11 @@ export default class SearchArea extends Component {
 
                 <DirectRideSwitch/>
 
-                {iOSDatePicker}
-
-                <View style={customStyle.buttonContainer}>
-                    <Button
-                        onPress={()=> this.displayDatePicker()}
-                        title={this.getDateString()}/>
-                </View>
+                <DatePicker
+                    color_theme={this.props.color_theme}
+                    onDateChange={(date) => {
+                        this.chosenDate = date;
+                    }}/>
 
                 <View style={customStyle.buttonContainer}>
                     <Button
@@ -173,12 +95,5 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 10,
         shadowOpacity: 0.25
-    },
-    TimeDateWrapper:{
-        marginLeft:15,
-        marginRight:10,
-        backgroundColor:"#fff",
-        opacity:0.9,
-        borderRadius:7
     }
 })
