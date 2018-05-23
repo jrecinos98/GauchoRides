@@ -108,7 +108,7 @@ export default class CreateRideScreen extends Component {
 							"My Ride",
 							5,
 							User.currentUser.id,
-							{},
+							[],
 							Math.floor(chosenDate / 1000),
 							new Area(34.415411, -119.858272, 5, searchInputs.pickupInput),
 							new Area(34.045837, -118.257538, 5, searchInputs.dropoffInput)

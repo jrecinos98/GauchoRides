@@ -56,6 +56,18 @@ export default class RequestRideScreen extends Component {
         });
     }
 
+    extractCity(text) {
+        if (text === "")
+            return "";
+
+        text = text.replace(", USA", "");
+
+        if ((text.match(/,/g) || []).length <= 1)
+            return text.trim();
+        else
+            return text.substring(text.indexOf(', ') + 1).trim();
+    }
+
     //Render the component
     render() {
 
@@ -103,26 +115,24 @@ export default class RequestRideScreen extends Component {
 
                 <RequestArea
                     color_theme={driver_this.state.color_theme}
-                    onSubmit={(searchInputs, chosenDate) => {
-                        // if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
-                        //     return;
+                    onSubmit={(searchInputs, chosenDate, chosenSeats) => {
 
-                        // let ride = new Ride(
-                        //     0,
-                        //     "My Ride",
-                        //     5,
-                        //     User.currentUser.id,
-                        //     {},
-                        //     Math.floor(chosenDate / 1000),
-                        //     new Area(34.415411, -119.858272, 5, searchInputs.pickupInput),
-                        //     new Area(34.045837, -118.257538, 5, searchInputs.dropoffInput)
-                        // );
+                        let ride = new Ride(
+                            0,
+                            "Request Ride!",
+                            chosenSeats,
+                            0,
+                            [User.currentUser.id],
+                            Math.floor(chosenDate / 1000),
+                            new Area(0, 0, 0, searchInputs.pickupInput),
+                            new Area(0, 0, 0, searchInputs.dropoffInput)
+                        );
 
-                        // let pickupCity = this.extractCity(searchInputs.pickupInput);
-                        // let dropoffCity = this.extractCity(searchInputs.dropoffInput);
-                        // Database.createRide(ride, pickupCity, dropoffCity);
+                        let pickupCity = this.extractCity(searchInputs.pickupInput);
+                        let dropoffCity = this.extractCity(searchInputs.dropoffInput);
+                        Database.createRide(ride, pickupCity, dropoffCity);
 
-                        // this.props.navigation.goBack(null);
+                        this.props.navigation.goBack(null);
                     }}/>
 
 

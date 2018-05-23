@@ -29,6 +29,8 @@ export default class SeatPicker extends Component{
 	}
 
 	render(){
+		this.props.onSeatsChange(this.state.seats);
+
 		const customStyle = {
 			button: [styles.button, {
 				backgroundColor: this.props.color_theme.APP_BACKGROUND

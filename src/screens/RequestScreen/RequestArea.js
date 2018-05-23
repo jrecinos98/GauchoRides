@@ -12,21 +12,20 @@ export default class RequestArea extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            showSearchArea: true
-        };
         this.pickupInput = "";
         this.dropoffInput = "";
         this.chosenDate = new Date();
+        this.chosenSeats = 0;
     }
 
-    ShowHideTextComponentView() {
-        if(this.state.showSearchArea === true)
-            this.setState({showSearchArea: false})
-        else
-            this.setState({showSearchArea: true})
-    };
+    submit() {
+        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
+            this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats);
+            this.searchInputs = undefined;
+            this.chosenDate = new Date();
+            this.chosenSeats = 0;
+        }
+    }
 
     render() {
 
@@ -38,8 +37,6 @@ export default class RequestArea extends Component {
         };
 
         return (
-            this.state.showSearchArea ?
-
             <ScrollView style={styles.container}>
 
                 <SearchBox
@@ -47,7 +44,11 @@ export default class RequestArea extends Component {
                         this.searchInputs = searchInputs;
                     }}/>
 
-                <SeatPicker color_theme={this.props.color_theme}/>
+                <SeatPicker
+                    color_theme={this.props.color_theme}
+                    onSeatsChange={(seats) => {
+                        this.chosenSeats = seats;
+                    }}/>
 
                 <DatePicker
                     color_theme={this.props.color_theme}
@@ -57,13 +58,11 @@ export default class RequestArea extends Component {
 
                 <View style={customStyle.buttonContainer}>
                     <Button
-                        onPress={() => {
-                            this.ShowHideTextComponentView();
-                            this.props.onSubmit(this.searchInputs, this.state.chosenDate);
-                        }}
-                        title="Create Ride!"/>
+                        onPress={() => this.submit()}
+                        title="Request Ride!"/>
                 </View>
-            </ScrollView> : null
+
+            </ScrollView>
 
         );
 

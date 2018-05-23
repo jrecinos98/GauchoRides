@@ -12,22 +12,10 @@ export default class CreateArea extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            showSearchArea: true
-        };
-
         this.pickupInput = "";
         this.dropoffInput = "";
         this.chosenDate = new Date();
     }
-
-    ShowHideTextComponentView() {
-        if(this.state.showSearchArea === true)
-            this.setState({showSearchArea: false})
-        else
-            this.setState({showSearchArea: true})
-    };
 
     render() {
 
@@ -39,8 +27,6 @@ export default class CreateArea extends Component {
         };
 
         return (
-            this.state.showSearchArea ?
-
             <ScrollView style={styles.container}>
 
                 <SearchBox
@@ -59,12 +45,12 @@ export default class CreateArea extends Component {
                 <View style={customStyle.buttonContainer}>
                     <Button
                         onPress={() => {
-                            this.ShowHideTextComponentView();
-                            this.props.onSubmit(this.searchInputs, this.state.chosenDate);
+                            this.props.onSubmit(this.searchInputs, this.chosenDate);
                         }}
                         title="Create Ride!"/>
                 </View>
-            </ScrollView> : null
+
+            </ScrollView>
 
         );
 

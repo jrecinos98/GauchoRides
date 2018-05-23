@@ -6,7 +6,7 @@ export default class Ride {
 	description: string;
 	seats: 0;
 	driver: 0;
-	riders: {};
+	riders: [];
 	time: 0;
 	origin: Area;
 	destination: Area;
