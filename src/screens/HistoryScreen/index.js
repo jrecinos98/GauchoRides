@@ -34,7 +34,14 @@ export default class HistoryScreen extends Component {
     
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
-            <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }} />
+            <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }}
+            
+                //onPress={() => {
+                 //   this.RideHistory.setState({ refreshing:true});
+               // }}
+           // }
+
+            />
         )
     };
 
@@ -67,11 +74,17 @@ export default class HistoryScreen extends Component {
                 <View style={customStyle.topBar}/>
                 <Text style={customStyle.title}>History</Text>
                 <View style={styles.historyContainer}>
-                    <RideHistory style={{
-                        flex: 1,
-                        aspectRatio: 0.5,
-                        resizeMode: 'contain'
-                    }}/>
+                    <RideHistory
+                        style={{
+                            flex: 1,
+                            aspectRatio: 0.5,
+                            resizeMode: 'contain'
+                        }}
+                        ref={(refreshing) => {
+                            this.RideHistory = refreshing
+                        }}
+                    />
+
                 </View>
 
             </View>

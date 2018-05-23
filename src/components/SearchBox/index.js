@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {Text} from "react-native";
 import { View, InputGroup, Input } from "native-base";
-import { Switch } from 'react-native-switch';
 import { Ionicons } from '@expo/vector-icons';
 import styles from "./SearchBoxStyles.js";
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -83,21 +82,6 @@ export default class SearchBox extends Component {
 						<Ionicons name="ios-search" size={15} color="#FF5E3A" style={styles.searchIcon}/>
 					}
 				/>
-
-				<View style={styles.secondInputWrapper}>
-					<Text style={styles.label}>Direct Rides Only</Text>
-					<View style={styles.switchWrapper}>
-						<Switch
-							value={this.state.directRide}
-							onValueChange={(val) => {this.setState({directRide: val})}}
-							disabled={false}
-							activeText={"ON"}
-							inActiveText={"OFF"}
-							backgroundActive={'green'}
-							backgroundInactive={'gray'}
-							changeValueImmediately={true}/>
-					 </View>
-				</View>
 
 			</View>
 		);

@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
+import DirectRideSwitch from '../../components/DirectRideSwitch';
 
 
 export default class CreateArea extends Component {
@@ -47,6 +48,7 @@ export default class CreateArea extends Component {
                     this.state.chosenDate.getHours(),
                     this.state.chosenDate.getMinutes()
                 ));
+                this.pickAndroidTime();
             }
         }
         catch ({code, message}) {
@@ -97,6 +99,8 @@ export default class CreateArea extends Component {
                         this.searchInputs = searchInputs;
                     }}/>
 
+                <DirectRideSwitch/>
+
                 {
                     (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
                         <View style={styles.TimeDateWrapper}>
@@ -112,7 +116,6 @@ export default class CreateArea extends Component {
                     <Button
                         onPress={()=> {
                             if (Platform.OS === 'android') {
-                                this.pickAndroidTime();
                                 this.pickAndroidDate();
                             }
 

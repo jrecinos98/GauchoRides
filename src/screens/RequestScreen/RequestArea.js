@@ -4,12 +4,12 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
-import Controller from './Controller';
-import DirectRideSwitch from '../../components/DirectRideSwitch';
+import SeatPicker from '../../components/SeatPicker';
 
-export default class SearchArea extends Component {
 
-	constructor(props) {
+export default class RequestArea extends Component {
+
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -19,40 +19,20 @@ export default class SearchArea extends Component {
         };
         this.pickupInput = "";
         this.dropoffInput = "";
-        this.setDate = this.setDate.bind(this);
+        // this.pickAndroidDate();
     }
 
     setDate(newDate) {
         this.setState({chosenDate: newDate})
     }
 
-    show(toShow) {
-        this.setState({showSearchArea: toShow})
-    }
+    ShowHideTextComponentView() {
+        if(this.state.showSearchArea === true)
+            this.setState({showSearchArea: false})
+        else
+            this.setState({showSearchArea: true})
+    };
 
-    submit() {
-        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
-            Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
-            Controller.toggleDisplay();
-            this.searchInputs = undefined;
-        }
-    }
-
-    getDateString() {
-        return this.state.chosenDate ? this.state.chosenDate.toLocaleString() : "";
-    }
-
-    displayDatePicker() {
-        if (Platform.OS === 'android') {
-            this.pickAndroidTime();
-            this.pickAndroidDate();
-        }
-        else if (Platform.OS === 'ios') {
-            this.setState((prevState) => {
-                return {showIOSDatePicker: !prevState.showIOSDatePicker};
-            });
-        }
-    }
 
     async pickAndroidDate() {
         try {
@@ -75,6 +55,7 @@ export default class SearchArea extends Component {
             console.warn('Cannot open date picker', message);
         }
     }
+
 
     async pickAndroidTime() {
         try {
@@ -100,8 +81,6 @@ export default class SearchArea extends Component {
     }
 
     render() {
-        if (!this.state.showSearchArea)
-            return null;
 
         const customStyle = {
             buttonContainer: [styles.buttonContainer, {
@@ -110,18 +89,9 @@ export default class SearchArea extends Component {
             }]
         };
 
-        let iOSDatePicker; 
-        if (Platform.OS === 'ios' && this.state.showIOSDatePicker) {
-            iOSDatePicker = (
-                <View style={styles.TimeDateWrapper}>
-                    <DatePickerIOS
-                        date={this.state.chosenDate}
-                        onDateChange={this.setDate}
-                    />
-                </View>);
-        }
-
         return (
+            this.state.showSearchArea ?
+
             <ScrollView style={styles.container}>
 
                 <SearchBox
@@ -129,23 +99,47 @@ export default class SearchArea extends Component {
                         this.searchInputs = searchInputs;
                     }}/>
 
-                <DirectRideSwitch/>
+                <SeatPicker color_theme={this.props.color_theme}/>
 
-                {iOSDatePicker}
+                {
+                    (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
+                        <View style={styles.TimeDateWrapper}>
+                            <DatePickerIOS
+                                date={this.state.chosenDate}
+                                onDateChange={(date) => this.setDate(date)}
+                            />
+                        </View>
+                    : null
+                }
 
                 <View style={customStyle.buttonContainer}>
                     <Button
-                        onPress={()=> this.displayDatePicker()}
-                        title={this.getDateString()}/>
+                        onPress={()=> {
+                            if (Platform.OS === 'android') {
+                                this.pickAndroidDate();
+                            }
+
+                            if (Platform.OS === 'ios') {
+                                this.setState((prevState) => {
+                                    return {showIOSDatePicker: !prevState.showIOSDatePicker};
+                                });
+                            }
+                        }}
+                        title={
+                            this.state.chosenDate ? this.state.chosenDate.toLocaleString() : "Choose Date!"
+                        }/>
                 </View>
 
                 <View style={customStyle.buttonContainer}>
                     <Button
-                        onPress={() => this.submit()}
-                        title="Find Ride!"/>
+                        onPress={() => {
+                            this.ShowHideTextComponentView();
+                            this.props.onSubmit(this.searchInputs, this.state.chosenDate);
+                        }}
+                        title="Create Ride!"/>
                 </View>
+            </ScrollView> : null
 
-            </ScrollView>
         );
 
     }
@@ -154,11 +148,11 @@ export default class SearchArea extends Component {
 
 //var width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
+    container: {
+        flex: 1,
         flexDirection: 'column',
         top: 15
-	},
+    },
     buttonContainer: {
         marginLeft:15,
         marginRight:10,
@@ -180,5 +174,9 @@ const styles = StyleSheet.create({
         backgroundColor:"#fff",
         opacity:0.9,
         borderRadius:7
+    },
+    seatSlider: {
+        marginLeft: 20,
+        marginRight: 20
     }
 })
