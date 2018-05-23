@@ -16,13 +16,19 @@ import ListScreen from './ListScreen';
 export var MainScreenInstance = null;
 export var MyAppStack=null;
 
-//Main screen of the app.
+/**
+ * Contains the Navigator objects which dictate the available Screens and allows navigation within the app.
+ */
 export default class Main extends Component{
 
 	static navigationOptions = {
 		header: null
 	};
 
+    /**
+	 * Retrieves the theme from local storage and sets the app theme
+     * @param props
+     */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -33,6 +39,9 @@ export default class Main extends Component{
 		this.updateTheme();
 	}
 
+    /**
+	 * Sets the theme of the app
+     */
 	updateTheme() {
 		getTheme(function(theme) {
 			MainScreenInstance.setState({
@@ -51,7 +60,12 @@ export default class Main extends Component{
 }
 
 
-//Tab navigator for main screen.
+/*
+ * Tab navigator for main screen.
+ * @param color_theme
+ * @returns {*}
+ * @constructor
+ */
 const AppTabNavigator = (color_theme) => TabNavigator(
 	{
 		Home: {
@@ -94,6 +108,12 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 	}
 );
 
+/*
+ * Stack containing screens that render over the TabNavigator screens.
+ * @param Tab_Navigator
+ * @returns {*}
+ * @constructor
+ */
 const AppStack = (Tab_Navigator) => StackNavigator(
     {
         Main: {
@@ -121,7 +141,10 @@ const AppStack = (Tab_Navigator) => StackNavigator(
     });
 
 
-
+/*
+ * Animates the way screens appear.
+ * @returns {{screenInterpolator: (function(*=): {opacity, transform})}}
+ */
 const customAnimationFunc = () => ({
     screenInterpolator: sceneProps => {
         return CardStackStyleInterpolator.forVertical(sceneProps);

@@ -6,6 +6,9 @@ import {COLOR} from "../../Constants";
 import {getTheme} from "../../Utility";
 import {RATING_COLOR} from "../../Constants";
 
+/**
+ * A container Component for all the ChiliComponent objects. The object retrieves the user rating and displays the components it holds accordingly.
+ */
 export default class SexyRating extends Component{
 
     constructor(props) {

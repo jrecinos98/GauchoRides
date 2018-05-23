@@ -11,18 +11,18 @@ sudo apt-get install -y nodejs
 sudo npm install npm@latest -g
 
 # Fix npm server bug
-sudo sysctl -w fs.inotify.max_user_instances=1024
-sudo sysctl -w fs.inotify.max_user_watches=12288
+# sudo sysctl -w fs.inotify.max_user_instances=1024
+# sudo sysctl -w fs.inotify.max_user_watches=12288
 
 # Install project packages (node_modules/)
-sudo npm install
+npm install
 
 # Done installing
 echo
 echo "Done setting up the packages. To run project:"
 echo
-echo "    ----------------"
-echo "   | sudo npm start |"
-echo "    ----------------"
+echo 	 	"  ------------------  "
+echo 		"  | sudo npm start |  "
+echo	 	"  ------------------  "
 echo
 echo "You will need to download Expo app on your phone too."

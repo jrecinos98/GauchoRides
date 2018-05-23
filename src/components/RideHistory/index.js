@@ -7,8 +7,14 @@ import Ride from "../../actors/Ride.js";
 import { Ionicons } from '@expo/vector-icons';
 import Database from '../../Database';
 
-
+/**
+ * Container component that displays a ride from the user history.
+ */
 export default class RideHistory extends Component {
+    /**
+     * Initializes the RideHistory object
+     * @param props
+     */
     constructor(props){
       super(props);
       this.state = {
@@ -29,18 +35,16 @@ export default class RideHistory extends Component {
       });
     }
 
-
-
     errData(err){
       console.log('Error!');
       console.log(err);
     }
-
     epochToDate(epoch){
      
       var d = new Date(epoch*1000);
       return d;
     }
+
     /*
     riderOrDriverImage(){
       if(this.gotData()=="driver"){

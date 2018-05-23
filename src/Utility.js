@@ -1,7 +1,10 @@
 import{ AsyncStorage } from "react-native";
 import { COLOR, STRING } from './Constants';
 
-//Get theme for app
+/*
+ * Retrieves the previously selected theme from local storage.
+ * @param callback
+ */
 export function getTheme(callback) {
 
 	try {
@@ -22,7 +25,10 @@ export function getTheme(callback) {
 	}
 }
 
-//Get theme for map
+/*
+ * Retrieves the previously selected map theme from local storage
+ * @param callback
+ */
 export function getMapTheme(callback) {
 
 	try {

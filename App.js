@@ -16,10 +16,14 @@ YellowBox.ignoreWarnings([
 ]);
 
 
-//Initialize database on start
+/**
+ * Initialize Database
+ */
 Database.initialize();
 
-
+/**
+ * Main class in project. It serves as the entry point of the app.Authentication is performed here and the user is sent to Login Screen if not authenticated or the Main Stack otherwise.
+ */
 export default class App extends React.Component {
 
     constructor(props) {
@@ -33,7 +37,7 @@ export default class App extends React.Component {
 
     componentDidMount(){
 
-        // Called everytime databse authentication is changed (login or logout)
+        // Called every time database authentication is changed (login or logout)
         Database.onAuthChanged((user) => {
 
             if (user != null) {
@@ -67,6 +71,10 @@ export default class App extends React.Component {
 
     }
 
+    /**
+     * If user does not exist create it on Firebase
+     * @param fbUser
+     */
     createNewUser(fbUser) {
         //console.log(fbUser);
         let newUser = new User(fbUser, User.newUserFromFB);
@@ -95,9 +103,9 @@ export default class App extends React.Component {
 
 
 }
-
 const RootStack = StackNavigator({
     Main: {screen: Main},
 }, {
     initialRouteName: "Main",
 });
+

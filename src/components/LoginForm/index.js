@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
 import { COLOR } from "../../Constants";
 
+/**
+ * Returns a component that contains two text inputs to collect email and password in Login screen.
+ */
 export default class LoginForm extends Component {
 
     constructor(props) {

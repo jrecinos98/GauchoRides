@@ -117,11 +117,9 @@ export default class CreateRideScreen extends Component {
 						let pickupCity = this.extractCity(searchInputs.pickupInput);
 						let dropoffCity = this.extractCity(searchInputs.dropoffInput);
 						Database.createRide(ride, pickupCity, dropoffCity);
+
+						this.props.navigation.goBack(null);
 					}}/>
-
-				<Button onPress={() => this.createTestRide(i++)} title="Create Test Ride On Database"> </Button>
-
-				<Button onPress={() => this.getTestRide()} title="Get Test Ride From Database"> </Button>
 
 			</View>
 		);

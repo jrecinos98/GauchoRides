@@ -8,7 +8,7 @@ import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
-import CreateArea from '../CreateRideScreen/CreateArea';
+import RequestArea from './RequestArea';
 import { getTheme } from '../../Utility';
 import Database from '../../Database';
 
@@ -101,7 +101,29 @@ export default class RequestRideScreen extends Component {
                     <Text style={customStyle.title}>Request Ride</Text>
                 </View>
 
-                <CreateArea color_theme={driver_this.state.color_theme}/>
+                <RequestArea
+                    color_theme={driver_this.state.color_theme}
+                    onSubmit={(searchInputs, chosenDate) => {
+                        // if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
+                        //     return;
+
+                        // let ride = new Ride(
+                        //     0,
+                        //     "My Ride",
+                        //     5,
+                        //     User.currentUser.id,
+                        //     {},
+                        //     Math.floor(chosenDate / 1000),
+                        //     new Area(34.415411, -119.858272, 5, searchInputs.pickupInput),
+                        //     new Area(34.045837, -118.257538, 5, searchInputs.dropoffInput)
+                        // );
+
+                        // let pickupCity = this.extractCity(searchInputs.pickupInput);
+                        // let dropoffCity = this.extractCity(searchInputs.dropoffInput);
+                        // Database.createRide(ride, pickupCity, dropoffCity);
+
+                        // this.props.navigation.goBack(null);
+                    }}/>
 
 
             </View>

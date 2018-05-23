@@ -10,7 +10,7 @@ var object;
 
 // Test constructor
 test('Test: constructor(props)', () => {
-	object = renderer.create(<CreateRideScreen />).toTree().instance;
+	object = renderer.create(<CreateRideScreen />).getInstance();
 });
 
 // Test color theme
@@ -30,7 +30,7 @@ test('Test: extractCity(text)', () => {
 	expect(object.extractCity('CA')).toBe('CA');
 });
 
-// // Create a sample test ride on Database.
+// Create a sample test ride on Database.
 // function createTestRide(index) {
 // 	let ride = new Ride(
 // 		0,

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+/**
+ *  Component used to center a text view.
+ */
 export default class CenterText extends Component{
     render(){
         return(

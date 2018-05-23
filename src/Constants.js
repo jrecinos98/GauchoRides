@@ -1,5 +1,6 @@
-
-// String constants
+/**
+ * String constants
+ */
 export const STRING = {
 	THEME: {
 		DARK: 		"Dark Theme",
@@ -12,7 +13,9 @@ export const STRING = {
 	}
 };
 
-// Dimension constants
+/**
+ *  Dimension constants
+ */
 export const DIMENSION = {
 	TOPBAR: {HEIGHT: 50},
 	ICON:{
@@ -28,13 +31,18 @@ export const DIMENSION = {
 };
 
 
-// Firebase constants
+/**
+ * Firebase constants
+ * @type {{USERS_PATH: string, RIDES_PATH: string}}
+ */
 export const FIREBASE = {
 	USERS_PATH: 'users',
 	RIDES_PATH: 'rides'
 };
 
-// Color constants
+/**
+ * Color constants
+ */
 export const COLOR = {
 
 	THEME_DARK: {
@@ -81,12 +89,25 @@ export const COLOR = {
 	}
 
 };
-
+/**
+ *Constant colors for the rating components
+ */
 export const RATING_COLOR ={
     CHILI_COLOR:            '#c21807',
     WHEEL_COLOR:			'#000000',
     UNSELECTED:       		'#888888',
 
+};
+
+/**
+ * Constant variables used to test project
+ * @type {{TEST_EMAIL: string, TEST_PASSWORD: string}}
+ */
+export const TEST_CONSTANTS = {
+	DATABASE: {
+        TEST_EMAIL:				'mariocuellar.98@gmail.com',
+        TEST_PASSWORD:			'ILoveUCSB'
+	},
 };
 
 // Color constants

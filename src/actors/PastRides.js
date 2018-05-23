@@ -1,3 +1,6 @@
+/**
+ * An object that contains the information of a past ride.
+ */
 export default class PastRides {
 	id: 0;
 	description: string;

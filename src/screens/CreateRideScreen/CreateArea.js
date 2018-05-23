@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
+import DirectRideSwitch from '../../components/DirectRideSwitch';
+
 
 export default class CreateArea extends Component {
 
@@ -24,13 +26,13 @@ export default class CreateArea extends Component {
     setDate(newDate) {
         this.setState({chosenDate: newDate})
     }
-
     ShowHideTextComponentView() {
         if(this.state.showSearchArea === true)
             this.setState({showSearchArea: false})
         else
             this.setState({showSearchArea: true})
     };
+
 
     async pickAndroidDate() {
         try {
@@ -52,6 +54,7 @@ export default class CreateArea extends Component {
             console.warn('Cannot open date picker', message);
         }
     }
+
 
     async pickAndroidTime() {
         try {
@@ -94,6 +97,8 @@ export default class CreateArea extends Component {
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
                     }}/>
+
+                <DirectRideSwitch/>
 
                 {
                     (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?

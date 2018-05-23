@@ -2,12 +2,15 @@ import{ AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { FIREBASE } from './Constants';
+import {TEST_CONSTANTS} from "./Constants";
 import User from './actors/User';
 import Ride from './actors/User';
 
 var firestore = null;
 
-//Firebase configuration
+/*
+ * Firebase configuration for our project
+ */
 const firebaseConfig = {
     apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
     authDomain: "ucsb-rideshare-app.firebaseapp.com",
@@ -16,8 +19,14 @@ const firebaseConfig = {
     storageBucket: "ucsb-rideshare-app.appspot.com",
 };
 
+/**
+ * A wrapper class for all the Firebase methods we use.
+ */
 export default class Database {
 
+    /**
+	 * Initialize Firestore.
+     */
 	static initialize() {
 		if (!firebase.apps.length) {
 		    firebase.initializeApp(firebaseConfig);
@@ -32,23 +41,40 @@ export default class Database {
 		}
 	}
 	//timestampsInSnapshots: true
-
+    /**
+	 * On authentication pass the User info to callback method
+     * @param callback
+     */
 	static onAuthChanged(callback) {
 		firebase.auth().onAuthStateChanged((user) => {
 			callback(user);
 		});
 	}
 
+    /**
+	 * Signs up an user on firebase and authenticates the user
+     * @param email The user email
+     * @param password The user password
+     */
 	static signupWithEmail(email, password) {
-		firebase.auth().createUserWithEmailAndPassword(email, password)
-		.then(function(fbUser){
-		    alert("Account created.");
-		})
-		.catch(function(error) {
-		    alert("Account already existed.")
-		});
-	}
+        var created = false;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(function (fbUser) {
+                created = true;
+                alert("Account created.");
+            })
+            .catch(function (error) {
+                alert("Account already existed.");
+            });
+        return created;
 
+    }
+
+    /**
+	 * Signs in an already registere user using email and password
+     * @param email
+     * @param password
+     */
 	static loginWithEmail(email, password) {
 		firebase.auth().signInWithEmailAndPassword(email, password)
 		.then(function (user) {
@@ -60,6 +86,10 @@ export default class Database {
 		})
 	}
 
+    /**
+	 * Authenticates the user by using the Facebook API
+     * @returns {Promise<void>}
+     */
 	static async loginWithFacebook() {
 		const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
 		('615345508804840', {
@@ -74,22 +104,39 @@ export default class Database {
 		}
 	}
 
+    /**
+	 * Logs out a user. Forces user to log in again.
+     * @returns {Promise<void>}
+     */
 	static async logout() {
 		await firebase.auth().signOut();
 	}
 
+    /**
+	 * Creates user on Firebase.
+     * @param user
+     */
 	static createUser(user) {
 		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((ref) => {
 			console.log(ref);
 		});
 	}
 
+    /**
+	 * Updates a user information on firebase
+     * @param user
+     */
 	static updateUser(user) {
 		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((status) => {
 			console.log(status);
 		});
 	}
 
+    /**
+	 * Retrieves a User from Firebase
+     * @param id
+     * @param callback
+     */
 	static getUser(id, callback) {
 		firestore.collection(FIREBASE.USERS_PATH ).doc(id).get()
 		.then(function(doc) {
@@ -100,7 +147,10 @@ export default class Database {
 		});
 	}
 
-
+    /**
+	 * Retrieves rides that the user has taken a part in
+     * @param callback
+     */
 	static getUserHistory(callback){
 		var rideList = new Array();
 		for (var id in User.currentUser.rides){
@@ -114,7 +164,12 @@ export default class Database {
 	}
 //rideList[i].origin.name
 
-
+    /**
+	 * Creates a ride on Firestore.
+     * @param ride
+     * @param originCity
+     * @param destinCity
+     */
 	static createRide(ride, originCity, destinCity) {
 
 		// "6586 Picasso Rd, Isla Vista, CA 93117"
@@ -137,12 +192,23 @@ export default class Database {
 		});
 	}
 
+    /**
+	 * Updates a previously created ride.
+     * @param originCity
+     * @param destinCity
+     * @param ride
+     */
 	static updateRide(originCity, destinCity, ride) {
 		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc(ride.id).set(ride.toObject()).then((ref) => {
 			console.log("Ride updated!");
 		});
 	}
 
+    /**
+	 * Retrieves a previously created ride using the ID
+     * @param id
+     * @param callback
+     */
 	static getRide(id, callback) {
 		firestore.collection(FIREBASE.RIDES_PATH).doc(id).get()
 		.then(function(doc) {

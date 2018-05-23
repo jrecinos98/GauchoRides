@@ -1,3 +1,6 @@
+/**
+ * An object used to represent a ride. It contains all the information about the ride, such as who the driver was, the date, the destination, date , time, etc..
+ */
 export default class Ride {
 	id: 0;
 	description: string;
