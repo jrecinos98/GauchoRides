@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
+import DirectRideSwitch from '../../components/DirectRideSwitch';
 
 export default class SearchArea extends Component {
 
@@ -94,6 +95,8 @@ export default class SearchArea extends Component {
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
                     }}/>
+
+                <DirectRideSwitch/>
 
                 {
                     (Platform.OS === 'ios' && this.state.showIOSDatePicker) ?
