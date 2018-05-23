@@ -30,13 +30,13 @@ export default class SeatPicker extends Component{
 
 	render(){
 		const customStyle = {
-            button: [styles.button, {
-                backgroundColor: this.props.color_theme.APP_BACKGROUND
-            }],
-            text: [styles.text, {
-            	color: this.props.color_theme.APP_FOCUS
-            }]
-        };
+			button: [styles.button, {
+				backgroundColor: this.props.color_theme.APP_BACKGROUND
+			}],
+			text: [styles.text, {
+				color: this.props.color_theme.APP_FOCUS
+			}]
+		};
 
 		return (
 			<View style={styles.container}>
@@ -62,25 +62,25 @@ export default class SeatPicker extends Component{
 
 const styles = {
 	container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        borderRadius: 10,
-        marginLeft:15,
-        marginRight:10,
-    },
-    button: {
-    	width: 30,
-    	height: 30,
-    	alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: null,
-        borderRadius: 5,
-        margin: 10
-    },
-    text: {
-    	color: null
-    }
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		flexDirection: 'row',
+		backgroundColor: 'white',
+		borderRadius: 10,
+		marginLeft:15,
+		marginRight:10,
+	},
+	button: {
+		width: 30,
+		height: 30,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: null,
+		borderRadius: 5,
+		margin: 10
+	},
+	text: {
+		color: null
+	}
 }
