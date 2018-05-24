@@ -11,6 +11,7 @@ import { COLOR, DIMENSION } from '../../Constants';
 import RequestArea from './RequestArea';
 import { getTheme } from '../../Utility';
 import Database from '../../Database';
+import Spinner from '../../components/Spinner';
 
 var i = 0;
 
@@ -116,6 +117,7 @@ export default class RequestRideScreen extends Component {
                 <RequestArea
                     color_theme={driver_this.state.color_theme}
                     onSubmit={(searchInputs, chosenDate, chosenSeats) => {
+                        this.spinner.show(true);
 
                         let ride = new Ride(
                             0,
@@ -133,8 +135,10 @@ export default class RequestRideScreen extends Component {
                         Database.createRide(ride, pickupCity, dropoffCity);
 
                         this.props.navigation.goBack(null);
+                        this.spinner.show(false);
                     }}/>
 
+                <Spinner ref={(instance) => this.spinner = instance}/>
 
             </View>
         );

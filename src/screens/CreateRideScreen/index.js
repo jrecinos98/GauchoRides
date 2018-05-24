@@ -13,6 +13,7 @@ import { getTheme } from '../../Utility';
 import Database from '../../Database';
 
 import {extractCity} from "../../Utility";
+import Spinner from '../../components/Spinner';
 
 const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
 const mode = 'driving'; // 'walking';
@@ -94,6 +95,8 @@ export default class CreateRideScreen extends Component {
 					onSubmit={async (searchInputs, chosenDate) => {
 						if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
                             return;
+
+                        this.spinner.show(true);
                         var ORIGIN = searchInputs.pickupInput;
                         var DESTINATION = searchInputs.dropoffInput;
                         let originLatLon = {};
@@ -128,7 +131,10 @@ export default class CreateRideScreen extends Component {
 						Database.createRide(ride, pickupCity, dropoffCity);
 
 						this.props.navigation.goBack(null);
+						this.spinner.show(false);
 					}}/>
+
+				<Spinner ref={(instance) => this.spinner = instance}/>
 
 			</View>
 		);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid, ScrollView, Button, TouchableOpacity, Dimensions } from "react-native";
+import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid, ScrollView, Button, TouchableOpacity, Dimensions, Modal, ActivityIndicator } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapArea from './MapArea';
@@ -14,7 +14,7 @@ import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import CreateRideScreen from "../CreateRideScreen";
 import ActionButton from '../../components/ActionButton';
 import Controller from './Controller';
-
+import Spinner from '../../components/Spinner';
 
 export default class HomeScreen extends Component {
 
@@ -156,7 +156,11 @@ export default class HomeScreen extends Component {
                             this.navigateScreen('CreateRide');
                         }}
                     />
+
+                    <Spinner ref={(instance) => Controller.setRef(instance, Controller.spinner)}/>
+
                 </View>
+
             </View>
         );
     }

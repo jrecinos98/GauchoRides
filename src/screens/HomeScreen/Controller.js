@@ -12,6 +12,7 @@ export default class Controller {
 	static search = 'search';
 	static menu = 'menu';
 	static actionbutton = 'actionbutton';
+	static spinner = 'spinner';
 
 	static displaySearch = true;
 
@@ -55,5 +56,9 @@ export default class Controller {
 			this.refs.menu.show();
 		else
 			this.refs.menu.hide();
+	}
+
+	static showSpinner(toShow) {
+		this.refs.spinner.show(toShow);
 	}
 }
