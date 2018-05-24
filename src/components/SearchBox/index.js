@@ -15,7 +15,8 @@ export default class SearchBox extends Component {
 		this.state = {
 			directRide: true,
 			pickupInput: "",
-			dropoffInput: ""
+			dropoffInput: "",
+			
 		};
 	}
 

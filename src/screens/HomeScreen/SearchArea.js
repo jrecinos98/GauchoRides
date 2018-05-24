@@ -31,7 +31,7 @@ export default class SearchArea extends Component {
     }
 
     async submit() {
-        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
+        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== "" && this.searchInputs.dropoffInput !== "") {
 
            // Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
 

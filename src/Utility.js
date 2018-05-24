@@ -41,7 +41,10 @@ export function getMapTheme(callback) {
 	}
 }
 
-
+export function extractCity(searchArray){
+	
+}
+/*
 export function extractCity(text) {
     if (text === "")
         return "";
@@ -49,7 +52,7 @@ export function extractCity(text) {
     let address_list = text.split(',');
     return address_list[address_list.length - 2].trim() + "," + address_list[address_list.length - 1].trim();
 }
-
+*/
 export function getOriginLatLon(ride){
     return ride.origin.latitude.toString()+","+ride.origin.longitude.toString()
 }
