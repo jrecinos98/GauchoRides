@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
 
     },
     imageWrapper: {
-        flex: 1,
+        //flex: 1,
         marginTop: null,
         alignItems: 'center',
         justifyContent: 'center'

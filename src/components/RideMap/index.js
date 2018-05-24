@@ -50,8 +50,8 @@ export default class RideMap extends Component {
      * @returns {{latitude: number, longitude: number, latitudeDelta: number, longitudeDelta: number}}
      */
     getRegion(index) {
-        let origin = this.props.coords_list[index][0];
-        let destin = this.props.coords_list[index][this.props.coords_list[index].length - 1];
+        let origin = this.props.ride_list[index].origin;
+        let destin = this.props.ride_list[index].destination;
 
         if (Platform.OS === "ios") {
             return {
@@ -89,7 +89,7 @@ export default class RideMap extends Component {
             return null;
 
         //Return empty map if coords is null
-        if (this.props.coords_list == null) {
+        if (this.props.ride_list == null) {
             return (
                 <MapView
                     provider={PROVIDER_GOOGLE}
@@ -106,19 +106,13 @@ export default class RideMap extends Component {
         }
 
         //Generate polylines
-        let polyLines = this.props.coords_list.map((coords, index) => {
+        let markers = this.props.ride_list.map((ride, index) => {
             let color = this.selectColor(index);
-            let origin = coords[0];
-            let destin = coords[coords.length - 1];
+            let origin = ride.origin;
+            let destin = ride.destination;
 
             return (
                 <View key={index}>
-
-                    <Polyline
-                        coordinates={coords}
-                        strokeColor={color}
-                        strokeWidth={10 - index}/>
-
                     <Marker
                         coordinate={{
                             latitude: origin.latitude,
@@ -141,12 +135,13 @@ export default class RideMap extends Component {
                             this.props.onMarkerPress(index);
                             this.moveMapCamera(index);
                         }}>
-
+{/*
                         <View style={styles.markerView}>
                             <Ionicons
                                 style={[styles.markerIcon, {color: color}]}
                                 name='ios-car'/>
                         </View>
+                    */}
 
                     </Marker>
 
@@ -173,7 +168,7 @@ export default class RideMap extends Component {
                 <CurLocMarker
                     userLoc={this.props.userLoc}/>
 
-                {polyLines}
+                {markers}
                 {/*
                 <Marker style={ {flex: 1}} coordinate={{longitude: this.props.originLon, latitude: this.props.originLat}/>
 

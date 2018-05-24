@@ -20,9 +20,10 @@ export default class Controller {
 	}
 	static displayRides(rideList){
 		this.rides= rideList;
-		for (let i=0; i< this.rides.length; i++){
-			this.refs.map.dropPin(this.rides[i], this.rides[i]);
-		}
+		//for (let i=0; i< this.rides.length; i++){
+		//this.refs.map.dropPin(this.rides[i], this.rides[i]);
+		//}
+		this.refs.map.dropPins(rideList);
 
 	}
 	static toggleDisplay() {

@@ -53,11 +53,11 @@ export default class PreviewArea extends Component {
                     }}>
 
                     <Text style={customStyle.buttonText}>
-                        Origin: {preview[0].latitude}, {preview[0].longitude}
+                        Origin: {preview.origin.name}
                     </Text>
 
                     <Text style={customStyle.buttonText}>
-                        Destination: {preview[preview.length - 1].latitude}, {preview[preview.length - 1].longitude}
+                        Destination: {preview.destination.name}
                     </Text>
 
                 </TouchableOpacity>
