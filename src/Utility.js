@@ -45,13 +45,9 @@ export function getMapTheme(callback) {
 export function extractCity(text) {
     if (text === "")
         return "";
-
     text = text.replace(", USA", "");
-
-    if ((text.match(/,/g) || []).length <= 1)
-        return text.trim();
-    else
-        return text.substring(text.indexOf(', ') + 1).trim();
+    let address_list = text.split(',');
+    return address_list[address_list.length - 2].trim() + "," + address_list[address_list.length - 1].trim();
 }
 
 export function getOriginLatLon(ride){
