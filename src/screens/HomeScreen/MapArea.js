@@ -19,7 +19,7 @@ export default class MapArea extends Component {
         this.state = {
             userLoc: null,
             error: null,
-            coords_list: [],
+            ride_list: [],
             map_theme: STRING.THEME.DARK
         }
 
@@ -66,30 +66,10 @@ export default class MapArea extends Component {
     }
 
     //Get route from google direction api
-    createRoute(origin, destin) {
-
-        fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${APIKEY}&mode=${mode}`)
-        .then(response => response.json())
-        .then(async responseJson => {
-            if (responseJson.routes.length) {
-                let coords = this.decode(responseJson.routes[0].overview_polyline.points);
-                //Attach route's coordinates to the coordinate list
-                this.setState((prevState) => {
-                    prevState.coords_list.push(coords);
-                    return prevState;
-                });
-
-                //Preview new rides
-                let lastIndex = this.state.coords_list.length - 1;
-                // this.rideMap.moveMapCamera(lastIndex);
-                this.props.onPreview(this.state.coords_list);
-                Controller.focusRide(lastIndex);
-            }
-        })
-        .catch(e => {console.warn(e)});
-    }
-    dropPin(origin,destin){
-
+    dropPins(rideList){
+        console.log("HERE RIDES: " , rideList)
+        this.setState({ride_list: rideList});
+        this.props.onPreview(rideList);
     }
 
     //Transforms something like this geocFltrhVvDsEtA}ApSsVrDaEvAcBSYOS_@... to an array of coordinates
@@ -112,7 +92,7 @@ export default class MapArea extends Component {
                 }}
                 map_theme={this.state.map_theme}
                 userLoc={this.state.userLoc}
-                coords_list={this.state.coords_list}
+                ride_list={this.state.ride_list}
                 onMarkerPress={(index)=> Controller.focusRide(index)}/>
         );
     }

@@ -38,13 +38,12 @@ export default class SearchArea extends Component {
             Controller.toggleDisplay();
             let origin = extractCity(this.searchInputs.pickupInput);
             let destin = extractCity(this.searchInputs.dropoffInput);
-            await Database.getRides(origin, destin, (rideList) => {
+            await Database.getRides(origin, destin,(rideList) => {
                 this.setState( {rides: rideList});
                 console.log("Rides: " , this.state.rides);
-                for (let i=0; i< this.state.rides.length; i++){
-                    Controller.drawMapRoute(getOriginLatLon(this.state.rides[i]), getDestLatLon(this.state.rides[i]));
-                }
-
+                Controller.displayRides(rideList);
+               //for (let i=0; i< this.state.rides.length; i++){
+                    //Controller.drawMapRoute(getOriginLatLon(this.state.rides[i]), getDestLatLon(this.state.rides[i]
                // Controller.displayRides(this.state.rides);
             });
             this.searchInputs = undefined;

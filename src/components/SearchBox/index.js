@@ -36,6 +36,7 @@ export default class SearchBox extends Component {
 					nearbyPlacesAPI='GooglePlacesSearch'
 					getDefaultValue={() => ''}
 					onPress={(data, details = null) => {
+						//console.log(data);
 						this.setState({pickupInput: data.description});
 						this.props.onChangeText(this.state);
 					}}

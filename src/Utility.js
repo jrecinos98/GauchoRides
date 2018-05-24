@@ -56,3 +56,17 @@ export function getOriginLatLon(ride){
 export function getDestLatLon(ride){
     return ride.destination.latitude.toString()+","+ride.destination.longitude.toString()
 }
+
+export function createRoute(origin, destin, callback) {
+        fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${APIKEY}&mode=${mode}`)
+        .then(response => response.json())
+        .then(async responseJson => {
+            if (responseJson.routes.length) {
+                let coords = this.decode(responseJson.routes[0].overview_polyline.points);           
+                // this.rideMap.moveMapCamera(lastIndex);
+                callback(coords_list);
+            }
+
+        })
+        .catch(e => {console.warn(e)});
+    }

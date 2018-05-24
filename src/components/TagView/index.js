@@ -26,7 +26,7 @@ export default class CenterText extends Component {
 		});
 
 		return(
-			<ScrollView style={{flex: 1}}>
+			<ScrollView style={{flex: 1}} pagingEnabled={true}>
 				<View style={styles.tagContainer}>
 					{tagsDisplay}
 				</View>

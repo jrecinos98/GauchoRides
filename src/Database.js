@@ -232,6 +232,7 @@ export default class Database {
                     //singleRide[doc.id]= doc.data();
                     //console.log(singleRide);
                     rideList.push(doc.data());
+                    console.log(doc.data())
                 });
                 callBack(rideList);
             })
