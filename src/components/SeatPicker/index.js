@@ -41,22 +41,23 @@ export default class SeatPicker extends Component{
 		};
 
 		return (
-			<View style={styles.container}>
-				<Text> Seats: </Text>
+			<View style={styles.secondInputWrapper}>
+			<Text style={styles.label}>Seats</Text>
+				<View style={styles.container}>
+					<TouchableOpacity
+						style={customStyle.button}
+						onPress={() => this.decrement()}>
+						<Text style={customStyle.text}> - </Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity
-					style={customStyle.button}
-					onPress={() => this.decrement()}>
-					<Text style={customStyle.text}> - </Text>
-				</TouchableOpacity>
+					<Text> {this.state.seats} </Text>
 
-				<Text> {this.state.seats} </Text>
-
-				<TouchableOpacity
-					style={customStyle.button}
-					onPress={() => this.increment()}>
-					<Text style={customStyle.text}> + </Text>
-				</TouchableOpacity>
+					<TouchableOpacity
+						style={customStyle.button}
+						onPress={() => this.increment()}>
+						<Text style={customStyle.text}> + </Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		);
 	}
@@ -66,21 +67,34 @@ const styles = {
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'start',
 		flexDirection: 'row',
 		backgroundColor: 'white',
 		borderRadius: 10,
+	},
+	secondInputWrapper:{
 		marginLeft:15,
 		marginRight:10,
+		marginTop:0,
+		marginBottom:5,
+		backgroundColor:"#fff",
+		opacity:0.7,
+		borderRadius:7,
+	},
+	label:{
+			fontSize:10,
+			fontStyle: "italic",
+			marginLeft:10,
+			marginTop:10,
+			marginBottom:0
 	},
 	button: {
 		width: 30,
 		height: 30,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: null,
-		borderRadius: 5,
-		margin: 10
+		backgroundColor: 'white',
+		borderRadius: 5
 	},
 	text: {
 		color: null

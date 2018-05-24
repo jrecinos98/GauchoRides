@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAnd
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
-import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
 
 
@@ -15,7 +14,6 @@ export default class RequestArea extends Component {
         this.pickupInput = "";
         this.dropoffInput = "";
         this.chosenDate = new Date();
-        this.chosenSeats = 0;
     }
 
     submit() {
@@ -23,7 +21,6 @@ export default class RequestArea extends Component {
             this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats);
             this.searchInputs = undefined;
             this.chosenDate = new Date();
-            this.chosenSeats = 0;
         }
     }
 
@@ -42,12 +39,6 @@ export default class RequestArea extends Component {
                 <SearchBox
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
-                    }}/>
-
-                <SeatPicker
-                    color_theme={this.props.color_theme}
-                    onSeatsChange={(seats) => {
-                        this.chosenSeats = seats;
                     }}/>
 
                 <DatePicker
