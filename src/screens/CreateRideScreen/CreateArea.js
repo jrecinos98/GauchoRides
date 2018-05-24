@@ -5,6 +5,7 @@ import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
+import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
 
 
@@ -15,6 +16,7 @@ export default class CreateArea extends Component {
         this.pickupInput = "";
         this.dropoffInput = "";
         this.chosenDate = new Date();
+        this.chosenSeats = 0;
     }
 
     render() {
@@ -32,6 +34,12 @@ export default class CreateArea extends Component {
                 <SearchBox
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
+                    }}/>
+
+                <SeatPicker
+                    color_theme={this.props.color_theme}
+                    onSeatsChange={(seats) => {
+                        this.chosenSeats = seats;
                     }}/>
 
                 <DirectRideSwitch/>

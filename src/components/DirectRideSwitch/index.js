@@ -38,6 +38,7 @@ const styles = {
         marginLeft:15,
         marginRight:10,
         marginTop:0,
+				marginBottom:5,
         backgroundColor:"#fff",
         opacity:0.7,
         borderRadius:7
