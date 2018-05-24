@@ -9,6 +9,7 @@ import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import TagView from '../../components/TagView';
 
 export default class ProfileScreen extends Component {
     static profile_this = null;
@@ -73,10 +74,6 @@ export default class ProfileScreen extends Component {
             }],
             imageWrapper: [styles.imageWrapper, {
                 marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
-            }],
-            tagStyle: [styles.tagStyle, {
-                backgroundColor: profile_this.state.color_theme.BGCOLOR,
-                borderColor: profile_this.state.color_theme.BGCOLOR,
             }]
         };
 
@@ -99,6 +96,7 @@ export default class ProfileScreen extends Component {
                 </View>
 
                 <View style={customStyle.container}>
+
                     <View style={styles.imageWrapper}>
                         <Text style={customStyle.userName}>{User.currentUser.name}</Text>
                         <BounceProfileImage
@@ -107,16 +105,12 @@ export default class ProfileScreen extends Component {
                     </View>
 
                     <View style={styles.ratingContainer}>
-
                         <Text style={customStyle.textStyle}>RATINGS</Text>
                         <WheelRating/>
                         <SexyRating/>
-                        <View style={styles.tagContainer}>
-                            <Text style={customStyle.tagStyle}> Respected(10) </Text>
-                            <Text style={customStyle.tagStyle}> Inspirational(5) </Text>
-                            <Text style={customStyle.tagStyle}> Caring(3) </Text>
-                            <Text style={customStyle.tagStyle}> Skip ride!(1) </Text>
-                        </View>
+                        <TagView
+                            tags={User.currentUser.tags}
+                            color_theme={this.state.color_theme}/>
                     </View>
                 </View>
             </View>
@@ -132,12 +126,6 @@ const styles = StyleSheet.create({
         backgroundColor: null,
         flex: 1,
 
-    },
-    tagContainer: {
-        flexDirection: 'row',
-        margin: 5,
-        flexWrap: 'wrap',
-        justifyContent: "center"
     },
     ratingContainer: {
         flex: 1,
@@ -155,7 +143,6 @@ const styles = StyleSheet.create({
         textShadowColor: 'rgba(0, 0, 0, 0.6)',
         textShadowOffset: {width: -1, height: 1},
         textShadowRadius: 6,
-
     },
     userName: {
         textShadowColor: 'rgba(0, 0, 0, 0.6)',
@@ -184,12 +171,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: null,
         paddingTop: null
-    },
-    tagStyle: {
-        margin: 3,
-        borderWidth: 1.5,
-        fontSize: 20,
-        height: 25,
-
     }
 });
