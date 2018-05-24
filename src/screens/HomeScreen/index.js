@@ -38,7 +38,7 @@ export default class HomeScreen extends Component {
         this.firstSearch=true;
 
         Controller.setRef(this, Controller.home);
-        console.log(Controller.refs.home);
+        //console.log(Controller.refs.home);
     }
 
     static navigationOptions = {
@@ -134,7 +134,9 @@ export default class HomeScreen extends Component {
                             }}/>
                         <SearchArea
                             ref={(instance) => Controller.setRef(instance, Controller.search)}
-                            color_theme={this.state.color_theme}/>
+                            color_theme={this.state.color_theme}
+
+                        />
                     </View>
 
                     <View style={styles.previewContainer}>

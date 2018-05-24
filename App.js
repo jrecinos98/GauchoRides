@@ -76,7 +76,7 @@ export default class App extends React.Component {
      * @param fbUser
      */
     createNewUser(fbUser) {
-        //console.log(fbUser);
+
         let newUser = new User(fbUser, User.newUserFromFB);
         User.currentUser = newUser;
         Database.createUser(newUser);
@@ -84,15 +84,14 @@ export default class App extends React.Component {
 
     render() {
         if (!this.state.loaded) {
-            //console.log("Not Loaded");
             return (
                 <LoginBackground/>
             );
         }
         else {
-            //console.log(this.state.loaded);
+
             if (this.state.loggedIn ) {
-                console.log(User.currentUser);
+
                 return (
                     <RootStack/>
                 );

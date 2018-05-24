@@ -7,6 +7,10 @@ import CreateButton from '../../components/ActionButton';
 import Controller from './Controller';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
 import DatePicker from '../../components/DatePicker';
+import {extractCity} from "../../Utility";
+import Database from "../../Database"
+import {getOriginLatLon} from "../../Utility";
+import {getDestLatLon} from "../../Utility";
 
 export default class SearchArea extends Component {
 
@@ -14,7 +18,8 @@ export default class SearchArea extends Component {
         super(props);
 
         this.state = {
-            showSearchArea: true
+            showSearchArea: true,
+            rides: {}
         };
         this.pickupInput = "";
         this.dropoffInput = "";
@@ -25,10 +30,23 @@ export default class SearchArea extends Component {
         this.setState({showSearchArea: toShow})
     }
 
-    submit() {
+    async submit() {
         if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
-            Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
+
+           // Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
+
             Controller.toggleDisplay();
+            let origin = extractCity(this.searchInputs.pickupInput);
+            let destin = extractCity(this.searchInputs.dropoffInput);
+            await Database.getRides(origin, destin, (rideList) => {
+                this.setState( {rides: rideList});
+                console.log("Rides: " , this.state.rides);
+                for (let i=0; i< this.state.rides.length; i++){
+                    Controller.drawMapRoute(getOriginLatLon(this.state.rides[i]), getDestLatLon(this.state.rides[i]));
+                }
+
+               // Controller.displayRides(this.state.rides);
+            });
             this.searchInputs = undefined;
             this.chosenDate = new Date();
         }
@@ -63,7 +81,11 @@ export default class SearchArea extends Component {
 
                 <View style={customStyle.buttonContainer}>
                     <Button
-                        onPress={() => this.submit()}
+                        onPress={() => {
+                            this.submit().then(()=>{
+                                //console.log(this.state.rides);
+                            });
+                        }}
                         title="Find Ride!"/>
                 </View>
 

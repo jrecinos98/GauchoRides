@@ -71,10 +71,8 @@ export default class MapArea extends Component {
         fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${APIKEY}&mode=${mode}`)
         .then(response => response.json())
         .then(async responseJson => {
-
             if (responseJson.routes.length) {
                 let coords = this.decode(responseJson.routes[0].overview_polyline.points);
-
                 //Attach route's coordinates to the coordinate list
                 this.setState((prevState) => {
                     prevState.coords_list.push(coords);
@@ -89,6 +87,9 @@ export default class MapArea extends Component {
             }
         })
         .catch(e => {console.warn(e)});
+    }
+    dropPin(origin,destin){
+
     }
 
     //Transforms something like this geocFltrhVvDsEtA}ApSsVrDaEvAcBSYOS_@... to an array of coordinates

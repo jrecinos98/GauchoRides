@@ -1,6 +1,9 @@
 
+import {getDestLatLon} from "../../Utility";
+import {getOriginLatLon} from "../../Utility";
 
 export default class Controller {
+	static rides = {};
 	static refs = {};
 
 	static home = 'home';
@@ -15,7 +18,13 @@ export default class Controller {
 	static setRef(ref, type) {
 		this.refs[type] = ref;
 	}
+	static displayRides(rideList){
+		this.rides= rideList;
+		for (let i=0; i< this.rides.length; i++){
+			this.refs.map.dropPin(this.rides[i], this.rides[i]);
+		}
 
+	}
 	static toggleDisplay() {
 		this.displaySearch = !this.displaySearch;
 

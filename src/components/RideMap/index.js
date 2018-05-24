@@ -13,6 +13,9 @@ import CurLocMarker from './CurLocMarker';
  *
  */
 export default class RideMap extends Component {
+    constructor(props){
+        super(props);
+    }
 
     /**
      *  Get map style based on the previously selected map theme.
@@ -171,6 +174,15 @@ export default class RideMap extends Component {
                     userLoc={this.props.userLoc}/>
 
                 {polyLines}
+                {/*
+                <Marker style={ {flex: 1}} coordinate={{longitude: this.props.originLon, latitude: this.props.originLat}/>
+
+                {this.props.markers.map(marker => (
+                    <Marker
+                        style={{flex: 1}}
+                        coordinate={{longitude: marker.latlng, latitude: marker.la}}
+                    />
+                ))}*/}
 
             </MapView>
 

@@ -118,7 +118,7 @@ export default class Database {
      */
 	static createUser(user) {
 		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((ref) => {
-			console.log(ref);
+			//console.log(ref);
 		});
 	}
 
@@ -128,7 +128,7 @@ export default class Database {
      */
 	static updateUser(user) {
 		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((status) => {
-			console.log(status);
+			//console.log(status);
 		});
 	}
 
@@ -220,5 +220,25 @@ export default class Database {
 		    console.log("Error getting document:", error);
 		});
 	}
+    static getRides(origin, destination, callBack){
+        //console.log(origin, destination);
+        var ride = firestore.collection(FIREBASE.RIDES_PATH).doc(origin).collection(destination);
+        let rideList=[];
+        ride.get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                   // console.log(doc.data());
+                    //var singleRide={};
+                    //singleRide[doc.id]= doc.data();
+                    //console.log(singleRide);
+                    rideList.push(doc.data());
+                });
+                callBack(rideList);
+            })
+            .catch(err => {
+                console.log("Error getting documents", err)
+            });
+    }
+
 
 }

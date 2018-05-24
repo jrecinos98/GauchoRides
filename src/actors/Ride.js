@@ -34,4 +34,12 @@ export default class Ride {
 			destination: this.destination.toObject()
 		};
 	}
+
+	getOriginLatLon(){
+
+		return this.origin[0].latitude.toString()+","+this.origin[0].longitude.toString()
+	}
+	getDestLatLon(){
+		return this.destination[0].latitude.toString()+","+this.destination[0].longitude.toString()
+	}
 }

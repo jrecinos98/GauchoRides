@@ -12,7 +12,11 @@ import CreateArea from './CreateArea';
 import { getTheme } from '../../Utility';
 import Database from '../../Database';
 
-var i = 0;
+import {extractCity} from "../../Utility";
+
+const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
+const mode = 'driving'; // 'walking';
+
 
 //Main component for driver screen
 export default class CreateRideScreen extends Component {
@@ -40,18 +44,6 @@ export default class CreateRideScreen extends Component {
 			<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
 		)
 	};
-
-	extractCity(text) {
-		if (text === "")
-			return "";
-
-		text = text.replace(", USA", "");
-
-		if ((text.match(/,/g) || []).length <= 1)
-			return text.trim();
-		else
-			return text.substring(text.indexOf(', ') + 1).trim();
-	}
 
 	//Render the component
 	render() {
@@ -99,23 +91,40 @@ export default class CreateRideScreen extends Component {
 
 				<CreateArea
 					color_theme={driver_this.state.color_theme}
-					onSubmit={(searchInputs, chosenDate) => {
+					onSubmit={async (searchInputs, chosenDate) => {
 						if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
-							return;
+                            return;
+                        var ORIGIN = searchInputs.pickupInput;
+                        var DESTINATION = searchInputs.dropoffInput;
+                        let originLatLon = {};
+                        let destLatLon = {};
+                        await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${ORIGIN}&key=${APIKEY}`)
+                            .then(response => response.json())
+                            .then(async responseJson => {
+                                originLatLon = responseJson.results[0].geometry.location;
+                                await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${DESTINATION}&key=${APIKEY}`)
+                                    .then(response => response.json())
+                                    .then(async responseJson => {
+                                        destLatLon = responseJson.results[0].geometry.location;
+                                    });
+                            });
 
-						let ride = new Ride(
-							0,
-							"My Ride",
-							5,
-							User.currentUser.id,
-							[],
-							Math.floor(chosenDate / 1000),
-							new Area(34.415411, -119.858272, 5, searchInputs.pickupInput),
-							new Area(34.045837, -118.257538, 5, searchInputs.dropoffInput)
+                        //console.log("Origin: ", originLatLon.lat);
+                        //console.log("Destination: ", destLatLon);
+
+                        let ride = new Ride(
+                            0,
+                            "My Ride",
+                            5,
+                            User.currentUser.id,
+                            [],
+                            Math.floor(chosenDate / 1000),
+							new Area(originLatLon.lat, originLatLon.lng, 5, searchInputs.pickupInput),
+							new Area(destLatLon.lat, destLatLon.lng, 5, searchInputs.dropoffInput)
 						);
 
-						let pickupCity = this.extractCity(searchInputs.pickupInput);
-						let dropoffCity = this.extractCity(searchInputs.dropoffInput);
+						let pickupCity = extractCity(searchInputs.pickupInput);
+						let dropoffCity = extractCity(searchInputs.dropoffInput);
 						Database.createRide(ride, pickupCity, dropoffCity);
 
 						this.props.navigation.goBack(null);

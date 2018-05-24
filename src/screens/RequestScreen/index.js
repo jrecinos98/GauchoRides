@@ -52,7 +52,7 @@ export default class RequestRideScreen extends Component {
         //console.log("DriverTest: ", User.currentUser);
         let id = Object.keys(User.currentUser.rides)[0];
         Database.getRide(id, (ride) => {
-            console.log(ride);
+            //console.log(ride);
         });
     }
 

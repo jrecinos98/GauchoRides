@@ -40,3 +40,23 @@ export function getMapTheme(callback) {
 		console.log(error);
 	}
 }
+
+
+export function extractCity(text) {
+    if (text === "")
+        return "";
+
+    text = text.replace(", USA", "");
+
+    if ((text.match(/,/g) || []).length <= 1)
+        return text.trim();
+    else
+        return text.substring(text.indexOf(', ') + 1).trim();
+}
+
+export function getOriginLatLon(ride){
+    return ride.origin.latitude.toString()+","+ride.origin.longitude.toString()
+}
+export function getDestLatLon(ride){
+    return ride.destination.latitude.toString()+","+ride.destination.longitude.toString()
+}
