@@ -67,7 +67,7 @@ const styles = {
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'start',
+		justifyContent: 'flex-start',
 		flexDirection: 'row',
 		backgroundColor: 'white',
 		borderRadius: 10,
