@@ -279,3 +279,14 @@ To learn more about Flow, check out [its documentation](https://flow.org/).
 
 # Gaucho Rides
 Rideshare App for UCSB students
+<<<<<<< HEAD
+=======
+
+# How to use the app
+First, you will need to log in with your facebook account or sign up with the edu email. Once you enter the home screen, click the icon which looks like a magnifying glass to find a ride if you are a rider. If you can't find a satisfied one, you could click the + button on the screen and request a new one. Or, if you are a driver, you can also click that + button to create a ride.
+
+By choosing the book icon in navigation bar, you switch to the History page. This page will display all of your recent rides with the name labels, origins and destinations in list. 
+
+The third page is the Profile page. The system will auto-grab your profile image, and your full name from facebook if you log in by this way. It also shows user's rating and comments from other people.
+
+>>>>>>> dae7c358ece4d5846e8ae07e0c73abeebbaad217
