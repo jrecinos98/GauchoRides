@@ -64,7 +64,7 @@ export default class RideHistory extends Component {
       const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
       this.setState({ loading:true });
       this.setState({loading:false, refreshing:false});
-      fetch(url)
+      fetch(Database.getUserHistory())
 
         .then(res => {
         this.setState({
@@ -87,7 +87,6 @@ export default class RideHistory extends Component {
       }), () => {
         this.makeRemoteRequest();
       }
-
     };
 
     renderItem = ({ item }) => {
