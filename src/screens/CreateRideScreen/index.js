@@ -15,8 +15,6 @@ import Database from '../../Database';
 import {extractCity} from "../../Utility";
 import Spinner from '../../components/Spinner';
 
-const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
-const mode = 'driving'; // 'walking';
 
 
 //Main component for driver screen
@@ -93,28 +91,18 @@ export default class CreateRideScreen extends Component {
 				<CreateArea
 					color_theme={driver_this.state.color_theme}
 					onSubmit={async (searchInputs, chosenDate) => {
-						if (searchInputs === undefined || searchInputs.pickupInput === undefined || searchInputs.dropoffInput === undefined)
+						if (searchInputs === undefined || searchInputs.pickupInput === ""|| searchInputs.dropoffInput === "")
                             return;
-
-                        this.spinner.show(true);
-                        var ORIGIN = searchInputs.pickupInput;
-                        var DESTINATION = searchInputs.dropoffInput;
-                        let originLatLon = {};
-                        let destLatLon = {};
-                        await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${ORIGIN}&key=${APIKEY}`)
-                            .then(response => response.json())
-                            .then(async responseJson => {
-                                originLatLon = responseJson.results[0].geometry.location;
-                                await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${DESTINATION}&key=${APIKEY}`)
-                                    .then(response => response.json())
-                                    .then(async responseJson => {
-                                        destLatLon = responseJson.results[0].geometry.location;
-                                    });
-                            });
-
-                        //console.log("Origin: ", originLatLon.lat);
-                        //console.log("Destination: ", destLatLon);
-
+                        if (searchInputs.pickupArray.length < 3){
+                        	alert("Please specify a City and State for your starting location.");
+                        	return;
+                        }
+                        if (searchInputs.dropoffArray.length < 3){
+                        	alert("Please specify a City and State for your destination.")
+                        	return;
+                        }
+                        //console.log(searchInputs)
+                        this.spinner.show(true);                     
                         let ride = new Ride(
                             0,
                             "My Ride",
@@ -122,12 +110,11 @@ export default class CreateRideScreen extends Component {
                             User.currentUser.id,
                             [],
                             Math.floor(chosenDate / 1000),
-							new Area(originLatLon.lat, originLatLon.lng, 5, searchInputs.pickupInput),
-							new Area(destLatLon.lat, destLatLon.lng, 5, searchInputs.dropoffInput)
+							new Area(searchInputs.pickupCoords.lat, searchInputs.pickupCoords.lng, 5, searchInputs.pickupInput),
+							new Area(searchInputs.dropoffLatLon.lat, searchInputs.dropoffLatLon.lng, 5, searchInputs.dropoffInput)
 						);
-
-						let pickupCity = extractCity(searchInputs.pickupInput);
-						let dropoffCity = extractCity(searchInputs.dropoffInput);
+						let pickupCity = extractCity(searchInputs.pickupArray);
+						let dropoffCity = extractCity(searchInputs.dropoffArray);
 						Database.createRide(ride, pickupCity, dropoffCity);
 
 						this.props.navigation.goBack(null);

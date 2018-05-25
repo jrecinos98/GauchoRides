@@ -32,16 +32,21 @@ export default class SearchArea extends Component {
 
     async submit() {
         if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== "" && this.searchInputs.dropoffInput !== "") {
-
-           // Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
-
+            if (this.searchInputs.pickupArray.length < 3){
+                alert("Please specify a City and State for your starting location.");
+                return;
+            }
+            if (this.searchInputs.dropoffArray.length < 3){
+                alert("Please specify a City and State for your destination.")
+                return;
+            }
             Controller.toggleDisplay();
-            let origin = extractCity(this.searchInputs.pickupInput);
-            let destin = extractCity(this.searchInputs.dropoffInput);
+            let origin = extractCity(this.searchInputs.pickupArray);
+            let destin = extractCity(this.searchInputs.dropoffArray);
             Controller.showSpinner(true);
             await Database.getRides(origin, destin,(rideList) => {
                 this.setState( {rides: rideList});
-                console.log("Rides: " , this.state.rides);
+                //console.log("Rides: " , this.state.rides);
                 Controller.displayRides(rideList);
                 Controller.showSpinner(false);
                //for (let i=0; i< this.state.rides.length; i++){
@@ -66,7 +71,6 @@ export default class SearchArea extends Component {
 
         return (
             <ScrollView style={styles.container}>
-
                 <SearchBox
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;

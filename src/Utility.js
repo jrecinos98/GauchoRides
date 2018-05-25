@@ -1,5 +1,7 @@
 import{ AsyncStorage } from "react-native";
 import { COLOR, STRING } from './Constants';
+import {GOOG_APIKEY} from './Constants'
+import {TRANSPORT_MODE} from './Constants'
 
 /*
  * Retrieves the previously selected theme from local storage.
@@ -42,17 +44,23 @@ export function getMapTheme(callback) {
 }
 
 export function extractCity(searchArray){
-	
+	var text= "";
+	//console.log(searchArray)
+	if (searchArray === undefined){
+		return text
+	}
+
+	//If no ZIP code was input
+	if (isNaN(searchArray[searchArray.length-2].value)){
+		text= searchArray[searchArray.length-3].value.toString()+", "+searchArray[searchArray.length-2].value.toString()
+	}
+	//If the array contains a zip code.
+	else{
+		text= searchArray[searchArray.length-4].value.toString()+", "+searchArray[searchArray.length-3].value.toString()
+	}
+	return text;	
 }
-/*
-export function extractCity(text) {
-    if (text === "")
-        return "";
-    text = text.replace(", USA", "");
-    let address_list = text.split(',');
-    return address_list[address_list.length - 2].trim() + "," + address_list[address_list.length - 1].trim();
-}
-*/
+
 export function getOriginLatLon(ride){
     return ride.origin.latitude.toString()+","+ride.origin.longitude.toString()
 }
@@ -61,7 +69,7 @@ export function getDestLatLon(ride){
 }
 
 export function createRoute(origin, destin, callback) {
-        fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${APIKEY}&mode=${mode}`)
+        fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destin}&key=${GOOG_APIKEY}&mode=${TRANSPORT_MODE}`)
         .then(response => response.json())
         .then(async responseJson => {
             if (responseJson.routes.length) {
