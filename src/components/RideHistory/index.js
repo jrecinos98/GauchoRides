@@ -38,39 +38,7 @@ export default class RideHistory extends Component {
     }
     */
 
-    componentDidMount() {
-        this.makeRemoteRequest();
-    }
 
-    makeRemoteRequest = () => {
-        const {page, seed} = this.state;
-        const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
-        this.setState({loading: true});
-        this.setState({loading: false, refreshing: false});
-        fetch(Database.getUserHistory())
-
-            .then(res => {
-                this.setState({
-                    loading: false,
-                    refreshing: false,
-                });
-            })
-            .catch(error => {
-                this.setState({loading: false, refreshing: false,});
-
-            });
-    };
-
-
-    handleRefresh = () => {
-        this.setState({
-            page: 1,
-            refreshing: true,
-            seed: this.state.seed + 1,
-        }), () => {
-            this.makeRemoteRequest();
-        }
-    };
 
     renderItem = ({item}) => {
         return (

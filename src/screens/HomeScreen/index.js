@@ -38,7 +38,7 @@ export default class HomeScreen extends Component {
         this.firstSearch=true;
 
         Controller.setRef(this, Controller.home);
-        //console.log(Controller.refs.home);
+
     }
 
     static navigationOptions = {

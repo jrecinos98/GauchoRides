@@ -17,8 +17,8 @@ export default class RequestArea extends Component {
     }
 
     submit() {
-        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
-            this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats);
+        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== "" && this.searchInputs.dropoffInput !== "") {
+            this.props.onSubmit(this.searchInputs, this.chosenDate);
             this.searchInputs = undefined;
             this.chosenDate = new Date();
         }

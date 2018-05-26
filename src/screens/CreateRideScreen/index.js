@@ -90,23 +90,23 @@ export default class CreateRideScreen extends Component {
 
 				<CreateArea
 					color_theme={driver_this.state.color_theme}
-					onSubmit={async (searchInputs, chosenDate) => {
+					onSubmit={async (searchInputs, chosenDate, chosenSeats, description) => {
 						if (searchInputs === undefined || searchInputs.pickupInput === ""|| searchInputs.dropoffInput === "")
                             return;
                         if (searchInputs.pickupArray.length < 3){
-                        	alert("Please specify a City and State for your starting location.");
-                        	return;
+                            alert("Please be more specific on your starting location.");
+                            return;
                         }
                         if (searchInputs.dropoffArray.length < 3){
-                        	alert("Please specify a City and State for your destination.")
-                        	return;
+                            alert("Please be more specific on your destination.");
+                            return;
                         }
                         //console.log(searchInputs)
-                        this.spinner.show(true);                     
+                        this.spinner.show(true);
                         let ride = new Ride(
                             0,
-                            "My Ride",
-                            5,
+							description,
+                            chosenSeats,
                             User.currentUser.id,
                             [],
                             Math.floor(chosenDate / 1000),
@@ -116,7 +116,6 @@ export default class CreateRideScreen extends Component {
 						let pickupCity = extractCity(searchInputs.pickupArray);
 						let dropoffCity = extractCity(searchInputs.dropoffArray);
 						Database.createRide(ride, pickupCity, dropoffCity);
-
 						this.props.navigation.goBack(null);
 						this.spinner.show(false);
 					}}/>
