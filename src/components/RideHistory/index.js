@@ -24,16 +24,9 @@ export default class RideHistory extends Component {
             seed: 1,
             error: null,
             loading: false,
-            refreshing: false
 
         };
     }
-
-    errData(err) {
-        console.log('Error!');
-        console.log(err);
-    }
-
     /*
     riderOrDriverImage(){
       if(this.gotData()=="driver"){
@@ -80,11 +73,10 @@ export default class RideHistory extends Component {
     };
 
     renderItem = ({item}) => {
-        //console.log(item);
         return (
             <ListItem item={item}/>
         )
-    }
+    };
 
     renderSeparator = () => {
         return (
@@ -92,7 +84,7 @@ export default class RideHistory extends Component {
                 style={{height: 1, width: '100%', backgroundColor: 'black'}}>
             </View>
         )
-    }
+    };
 
 
     render() {
@@ -106,8 +98,8 @@ export default class RideHistory extends Component {
                     keyExtractor={(item, index) => index}
                     ItemSeparatorComponent={this.renderSeparator}
                     extraData={this.refreshing}
-                    refreshing={this.state.refreshing}
-                    onRefresh={this.handleRefresh}
+                    refreshing={this.props.refreshing}
+                    onRefresh={this.props.onRefresh}
                 />
 
 

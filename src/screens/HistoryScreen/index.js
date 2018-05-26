@@ -1,14 +1,15 @@
-import React, { Component} from "react";
-import {StatusBar, View, Text, StyleSheet} from "react-native";
-import {Ionicons} from '@expo/vector-icons';
+import React, { Component } from "react";
+import { StatusBar, View, Text, StyleSheet } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
 import RideHistory from '../../components/RideHistory';
 
-import {StackNavigator, NavigationActions} from 'react-navigation';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {COLOR, DIMENSION} from '../../Constants';
-import {getTheme} from '../../Utility';
+import { StackNavigator, NavigationActions } from 'react-navigation';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { COLOR, DIMENSION } from '../../Constants';
+import { getTheme } from '../../Utility';
 import Database from "../../Database";
+
 
 
 export default class HistoryScreen extends Component {
@@ -20,29 +21,25 @@ export default class HistoryScreen extends Component {
         history_this = this;
         history_this.state = {
             data: [],
-            page: 1,
-            seed: 1,
-            error: null,
             loading: false,
             refreshing: false,
             color_theme: COLOR.THEME_LIGHT
         };
-
-        getTheme(function (theme) {
+        getTheme(function(theme) {
             history_this.setState({
                 color_theme: theme
             });
         });
 
         Database.getUserHistory((list) => {
-            this.setState({data: list});
+           this.setState({data: list});
         });
     }
 
 
     static navigationOptions = {
-        tabBarIcon: ({tintColor}) => (
-            <Ionicons name="md-book" style={{color: tintColor, fontSize: 20}}
+        tabBarIcon: ({ tintColor}) => (
+            <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }}
             />
         )
     };
@@ -68,7 +65,7 @@ export default class HistoryScreen extends Component {
 
         };
 
-        let statusTheme = (history_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+        let statusTheme = (history_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
 
         return (
             <View style={styles.container}>
@@ -83,10 +80,19 @@ export default class HistoryScreen extends Component {
                             resizeMode: 'contain'
                         }}
                         ref={(refreshing) => {
+                           /* Database.getUserHistory((list)=>{
+                                this.setState({data: list})
+                            });*/
                             this.RideHistory = refreshing
                         }}
-                        data={this.state.data}
-
+                        data = {this.state.data}
+                        refreshing ={this.state.refreshing}
+                        onRefresh ={()=>{
+                            this.setState({refreshing: true});
+                            Database.getUserHistory((list) => {
+                                this.setState({data: list, refreshing: false})
+                            })
+                        }}
                     />
 
                 </View>
