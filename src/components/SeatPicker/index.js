@@ -75,7 +75,7 @@ const styles = {
 	secondInputWrapper:{
 		flex: 1,
 		marginLeft:15,
-		marginRight:10,
+		marginRight: 5,
 		marginTop:0,
 		marginBottom:5,
 		backgroundColor:"#fff",

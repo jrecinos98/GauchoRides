@@ -4,28 +4,19 @@ import {
     View,
     FlatList
 } from "react-native";
-import styles from "./RideHistoryStyles.js";
-import Database from '../../Database';
+import styles from "./ListViewStyles.js";
 import ListItem from "../ListItem"
 
 /**
  * Container component that displays a ride from the user history.
  */
-export default class RideHistory extends Component {
+export default class ListView extends Component {
     /**
-     * Initializes the RideHistory object
+     * Initializes the ListView object
      * @param props
      */
     constructor(props) {
         super(props);
-        this.state = {
-            data: [],
-            page: 1,
-            seed: 1,
-            error: null,
-            loading: false,
-
-        };
     }
     /*
     riderOrDriverImage(){
@@ -37,14 +28,6 @@ export default class RideHistory extends Component {
       }
     }
     */
-
-
-
-    renderItem = ({item}) => {
-        return (
-            <ListItem item={item}/>
-        )
-    };
 
     renderSeparator = () => {
         return (
@@ -58,21 +41,17 @@ export default class RideHistory extends Component {
     render() {
         return (
             <View style={styles.container}>
-
                 <Text style={styles.title}>Drive History</Text>
                 <FlatList
                     data={this.props.data}
-                    renderItem={this.renderItem}
+                    renderItem={this.props.renderItem}
                     keyExtractor={(item, index) => index}
                     ItemSeparatorComponent={this.renderSeparator}
                     extraData={this.refreshing}
                     refreshing={this.props.refreshing}
                     onRefresh={this.props.onRefresh}
                 />
-
-
             </View>
-
 
         );
     }

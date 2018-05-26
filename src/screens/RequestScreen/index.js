@@ -7,7 +7,7 @@ import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import {COLOR, DIMENSION, FIREBASE} from '../../Constants';
 import RequestArea from './RequestArea';
 import { getTheme } from '../../Utility';
 import Database from '../../Database';
@@ -117,7 +117,7 @@ export default class RequestRideScreen extends Component {
                         );
                         let pickupCity = extractCity(searchInputs.pickupArray);
                         let dropoffCity = extractCity(searchInputs.dropoffArray);
-                        Database.createRide(ride, pickupCity, dropoffCity);
+                        Database.createRide(FIREBASE.REQUESTS_PATH,ride, pickupCity, dropoffCity);
 
                         this.props.navigation.goBack(null);
                         this.spinner.show(false);

@@ -152,7 +152,7 @@ export default class Database {
      * @param callback
      */
 	static getUserHistory(callback){
-		var rideList = new Array();
+		let rideList = [];
 		for (var id in User.currentUser.rides){
 		    Database.getRide(id, (ride) => {
 				rideList.push(ride);
@@ -165,46 +165,52 @@ export default class Database {
 
     /**
 	 * Creates a ride on Firestore.
+	 * @param path
      * @param ride
      * @param originCity
      * @param destinCity
      */
-	static createRide(ride, originCity, destinCity) {
-
-		// "6586 Picasso Rd, Isla Vista, CA 93117"
-		// const originCity = "Isla Vista, CA";
-		// const destinCity = "Los Angeles, CA";
-		// const originCityLoc = {latitude: 34.413329, longitude: -119.860972};
-		// const destinCityLoc = {latitude: 34.052234, longitude: -118.243685};
-		// firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).set({"Location": originCityLoc});
-		// firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc("Location").set(destinCityLoc);
-
-		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
-
+	static createRide(path, ride, originCity, destinCity) {
+		firestore.collection(path).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
 			//Update ride information on firebase
 			ride.id = ref.id;
-			Database.updateRide(originCity, destinCity, ride);
+			Database.updateRide(path, originCity, destinCity, ride);
 
 			//Update driver information on firebase
 			User.currentUser.rides[originCity + '/' + destinCity + '/' + ride.id] = 'driver';
 			Database.updateUser(User.currentUser);
 		});
 	}
+/*
+	static createRequest(ride, originCity, destinCity){
+        firestore.collection(FIREBASE.REQUESTS_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
+
+            //Update ride information on firebase
+            ride.id = ref.id;
+            Database.updateRide(path, originCity, destinCity, ride);
+
+            //Update driver information on firebase
+            User.currentUser.rides[originCity + '/' + destinCity + '/' + ride.id] = 'passenger';
+            Database.updateUser(User.currentUser);
+        });
+	}
+	*/
 
     /**
 	 * Updates a previously created ride.
+	 * @param path
      * @param originCity
      * @param destinCity
      * @param ride
      */
-	static updateRide(originCity, destinCity, ride) {
-		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc(ride.id).set(ride.toObject()).then((ref) => {
+	static updateRide(path, originCity, destinCity, ride) {
+		firestore.collection(path).doc(originCity).collection(destinCity).doc(ride.id).set(ride.toObject()).then((ref) => {
 		});
 	}
 
     /**
 	 * Retrieves a previously created ride using the ID
-     * @param id
+     * @param id The id specifies the path of the ride.
      * @param callback
      */
 	static getRide(id, callback) {
@@ -218,7 +224,21 @@ export default class Database {
 		    console.log("Error getting document:", error);
 		});
 	}
-    static getRides(origin, destination, callBack){
+
+	static getRequest(id, callback){
+        firestore.collection(FIREBASE.REQUESTS_PATH).doc(id).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    callback(doc.data());
+                }
+            })
+            .catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+    }
+
+
+    static retrieveRideList(origin, destination, callBack){
         var ride = firestore.collection(FIREBASE.RIDES_PATH).doc(origin).collection(destination);
         let rideList=[];
         ride.get()

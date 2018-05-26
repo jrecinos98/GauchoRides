@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid, ScrollView, Button, TouchableOpacity, Dimensions, Modal, ActivityIndicator } from "react-native";
+import { StatusBar, View, Text, StyleSheet} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import Icon from 'react-native-vector-icons/Ionicons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
 import PreviewArea from './PreviewArea';
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, STRING, DIMENSION } from '../../Constants';
+import { COLOR, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
-import CreateRideScreen from "../CreateRideScreen";
+import CreateScreen from "../CreateScreen";
 import ActionButton from '../../components/ActionButton';
 import Controller from './Controller';
 import Spinner from '../../components/Spinner';
@@ -172,7 +171,7 @@ export const HomeStack = StackNavigator({
             screen: HomeScreen,
         },
         CreateRide: {
-            screen: CreateRideScreen,
+            screen: CreateScreen,
         }
     },
     {

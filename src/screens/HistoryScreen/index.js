@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { StatusBar, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
-import RideHistory from '../../components/RideHistory';
-
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import ListView from '../../components/ListView';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
 import Database from "../../Database";
-
+import ListItem from "../../components/ListItem"
 
 
 export default class HistoryScreen extends Component {
@@ -39,6 +37,11 @@ export default class HistoryScreen extends Component {
         tabBarIcon: ({ tintColor}) => (
             <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }}
             />
+        )
+    };
+    renderItem = ({item}) => {
+        return (
+            <ListItem item={item}/>
         )
     };
 
@@ -71,8 +74,9 @@ export default class HistoryScreen extends Component {
                 <View style={customStyle.topBar}/>
                 <Text style={customStyle.title}>History</Text>
                 <View style={styles.historyContainer}>
-                    <RideHistory
+                    <ListView
                         style={styles.rideHistStyle}
+                        renderItem={this.renderItem}
                         data={this.state.data}
                         refreshing={this.refreshing}
                         onRefresh={() => {

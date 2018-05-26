@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { COLOR, STRING } from '../Constants';
 import { getTheme } from '../Utility';
 
-import CreateRideScreen from './CreateRideScreen';
+import CreateScreen from './CreateScreen';
 import HomeScreen, {HomeStack, PassengerStack} from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
@@ -87,7 +87,7 @@ const AppTabNavigator = (color_theme) => TabNavigator(
         },
 		initialRouteName: 'Home',
 		animationEnabled:true,
-		swipeEnabled:false,
+		swipeEnabled: Platform.OS === 'android',
 		tabBarPosition:"bottom",
 		tabBarOptions:{
 			style:{
@@ -121,7 +121,7 @@ const AppStack = (Tab_Navigator) => StackNavigator(
             screen: ({navigation})=> <Tab_Navigator screenProps ={{rootNavigation: navigation}}/>
         },
         CreateRide: {
-            screen: CreateRideScreen,
+            screen: CreateScreen,
         },
         RequestRide: {
             screen: RequestRideScreen

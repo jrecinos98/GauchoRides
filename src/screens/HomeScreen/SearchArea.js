@@ -39,7 +39,7 @@ export default class SearchArea extends Component {
             let origin = extractCity(this.searchInputs.pickupArray);
             let destin = extractCity(this.searchInputs.dropoffArray);
             Controller.showSpinner(true);
-            await Database.getRides(origin, destin,(rideList) => {
+            await Database.retrieveRideList(origin, destin,(rideList) => {
                 this.setState( {rides: rideList});
                 Controller.displayRides(rideList);
                 Controller.showSpinner(false);

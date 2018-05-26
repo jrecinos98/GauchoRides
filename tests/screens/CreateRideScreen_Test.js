@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateRideScreen from '../../src/screens/CreateRideScreen';
+import CreateScreen from '../../src/screens/CreateScreen';
 import renderer from 'react-test-renderer';
 import Database from '../../src/Database';
 import User from '../../src/actors/User';
@@ -10,7 +10,7 @@ var object;
 
 // Test constructor
 test('Test: constructor(props)', () => {
-	object = renderer.create(<CreateRideScreen />).getInstance();
+	object = renderer.create(<CreateScreen />).getInstance();
 });
 
 // Test color theme

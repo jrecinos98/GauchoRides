@@ -40,7 +40,8 @@ export const DIMENSION = {
  */
 export const FIREBASE = {
 	USERS_PATH: 'users',
-	RIDES_PATH: 'rides'
+	RIDES_PATH: 'rides',
+	REQUESTS_PATH: 'requests'
 };
 
 /**

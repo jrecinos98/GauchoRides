@@ -4,7 +4,7 @@ import { View, InputGroup, Input } from "native-base";
 
 
 
-export default class CreateRideDescription extends Component {
+export default class DescriptionBox extends Component {
 
 	constructor(props) {
 		super(props);
@@ -12,23 +12,25 @@ export default class CreateRideDescription extends Component {
 			text: ''
 		};
 	}
+	updateText(text){
+        this.setState({text});
+        this.props.onTextChange(text);
+    }
 
 	render() {
 		return (
 			<View style={styles.secondInputWrapper}>
-				<Text style={styles.label}>Extra Details</Text>
 				<View style={styles.switchWrapper}>
 					<TextInput
 						style={styles.descriptionInput}
-						onChangeText={(text) => {
-							this.setState({text: text});
-							this.props.onDescriptionChange(text);
-						}}
-						value={this.state.text}
-						maxLength={200}
-						multiline={true}
 						placeholder="Additional ride descriptions..."
-					/>
+        				onChangeText={(text) => this.updateText(text)}
+                        autoCorrect={true}
+                        underlineColorAndroid='transparent'
+        				value={this.state.text}
+                        maxLength = {200}
+                        multiline ={true}
+      				/>
 
 				 </View>
 			</View>
