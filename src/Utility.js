@@ -75,14 +75,23 @@ export function getDestLatLon(ride) {
 }
 
 export function createRide(path, searchInputs, chosenDate, chosenSeats, description, price, callback){
-    if (searchInputs === undefined || searchInputs.pickupInput === ""|| searchInputs.dropoffInput === ""|| chosenDate===""|| isNaN(price))
+    if (searchInputs === undefined || searchInputs.pickupInput === ""|| searchInputs.dropoffInput === ""|| chosenDate==="") {
+        callback(false);
         return;
+    }
     if (searchInputs.pickupArray.length < 3){
         alert("Please be more specific on your starting location.");
+        callback(false);
         return;
     }
     if (searchInputs.dropoffArray.length < 3){
         alert("Please be more specific on your destination.");
+        callback(false);
+        return;
+    }
+    if(isNaN(price)){
+        alert("please enter a valid price");
+        callback(false);
         return;
     }
     //console.log(searchInputs)
@@ -100,7 +109,7 @@ export function createRide(path, searchInputs, chosenDate, chosenSeats, descript
     let pickupCity = extractCity(searchInputs.pickupArray);
     let dropoffCity = extractCity(searchInputs.dropoffArray);
     Database.createRide(path,ride, pickupCity, dropoffCity);
-    callback();
+    callback(true);
 }
 
 export function createRoute(origin, destin, callback) {

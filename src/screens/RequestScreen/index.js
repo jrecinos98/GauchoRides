@@ -92,9 +92,14 @@ export default class RequestRideScreen extends Component {
                     color_theme={driver_this.state.color_theme}
                     onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
-                        createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, () => {
-                            this.props.navigation.goBack(null);
-                            this.spinner.show(false);
+                        createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, (successful) => {
+                            if(successful) {
+                                this.props.navigation.goBack(null);
+                                this.spinner.show(false);
+                            }
+                            else{
+                                this.spinner.show(false)
+                            }
                         });
                     }}/>
 

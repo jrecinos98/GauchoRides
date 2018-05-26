@@ -48,7 +48,12 @@ export default class CreateArea extends Component {
                        // color_theme={this.props.color_theme}
 						title={"Price"}
                         onPriceChange={(price) => {
-                            this.price = parseFloat(price);
+                            if (price === "" || isNaN(price)){
+                                this.price= 15;
+                            }
+                            else{
+                                this.price = parseFloat(price);
+                            }
                         }}
                     />
                 </View>

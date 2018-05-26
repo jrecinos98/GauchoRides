@@ -76,10 +76,15 @@ export default class CreateScreen extends Component {
 
 					onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
-						createRide(FIREBASE.RIDES_PATH, searchInputs,chosenDate, chosenSeats, description, price, () => {
-                            this.props.navigation.goBack(null);
-                            this.spinner.show(false);
-						});
+						createRide(FIREBASE.RIDES_PATH, searchInputs, chosenDate, chosenSeats, description, price, (successful) => {
+                            if (successful) {
+                                this.props.navigation.goBack(null);
+                                this.spinner.show(false);
+                            }
+                            else {
+                                this.spinner.show(false)
+                            }
+                        });
 					}}/>
 
 				<Spinner ref={(instance) => this.spinner = instance}/>

@@ -45,7 +45,12 @@ export default class RequestArea extends Component {
                 <PriceInput
                     title={"Amount Offered"}
                     onPriceChange={(price) => {
-                        this.price = parseFloat(price);
+                        if (price === "" || isNaN(price)) {
+                            this.price = 15;
+                        }
+                        else {
+                            this.price = parseFloat(price);
+                        }
                     }}
 
                 />
