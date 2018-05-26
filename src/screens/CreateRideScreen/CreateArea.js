@@ -49,7 +49,7 @@ export default class CreateArea extends Component {
 					<RidePrice
 						color_theme={this.props.color_theme}
 						onPriceChange={(price) => {
-							this.chosenPrice = parseInt(price);
+							this.chosenPrice = parseFloat(price);
 						}}
 					/>
 				</View>
