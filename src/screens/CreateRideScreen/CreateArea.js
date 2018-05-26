@@ -7,7 +7,8 @@ import CreateButton from '../../components/ActionButton';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
 import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
-
+import RidePrice from '../../components/RidePrice';
+import CreateRideDescription from '../../components/CreateRideDescription';
 
 export default class CreateArea extends Component {
 
@@ -42,13 +43,28 @@ export default class CreateArea extends Component {
                         this.chosenSeats = seats;
                     }}/>
 
+                 <RidePrice
+                    color_theme={this.props.color_theme}
+                    onDateChange={(date) => {
+                        this.chosenDate = date;
+                    }}/>
+
                 <DirectRideSwitch/>
+
+               
 
                 <DatePicker
                     color_theme={this.props.color_theme}
                     onDateChange={(date) => {
                         this.chosenDate = date;
                     }}/>
+
+                <CreateRideDescription
+                    color_theme={this.props.color_theme}
+                    onDateChange={(date) => {
+                        this.chosenDate = date;
+                    }}/>
+
 
                 <View style={customStyle.buttonContainer}>
                     <Button
