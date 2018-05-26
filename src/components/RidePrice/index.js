@@ -21,7 +21,10 @@ export default class RidePrice extends Component {
 					<Text style={styles.dollarSign}> $ </Text>
 					<TextInput
 						style={styles.dollarInput}
-						onChangeText={(text) => this.setState({text})}
+						onChangeText={(text) => {
+							this.setState({text: text});
+							this.props.onPriceChange(text);
+						}}
 						value={this.state.text}
 						placeholder="15.00"
 						keyboardType="numeric"

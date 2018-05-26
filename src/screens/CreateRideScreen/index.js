@@ -90,14 +90,14 @@ export default class CreateRideScreen extends Component {
 
 				<CreateArea
 					color_theme={driver_this.state.color_theme}
-					onSubmit={async (searchInputs, chosenDate, chosenSeats, description) => {
-						if (searchInputs === undefined || searchInputs.pickupInput === ""|| searchInputs.dropoffInput === "")
+					onSubmit={async (inputs) => {
+						if (inputs.searchInputs === undefined || inputs.searchInputs.pickupInput === ""|| inputs.searchInputs.dropoffInput === "")
                             return;
-                        if (searchInputs.pickupArray.length < 3){
+                        if (inputs.searchInputs.pickupArray.length < 3){
                             alert("Please be more specific on your starting location.");
                             return;
                         }
-                        if (searchInputs.dropoffArray.length < 3){
+                        if (inputs.searchInputs.dropoffArray.length < 3){
                             alert("Please be more specific on your destination.");
                             return;
                         }
@@ -105,16 +105,17 @@ export default class CreateRideScreen extends Component {
                         this.spinner.show(true);
                         let ride = new Ride(
                             0,
-							description,
-                            chosenSeats,
+							inputs.chosenDescription,
+                            inputs.chosenSeats,
                             User.currentUser.id,
                             [],
-                            Math.floor(chosenDate / 1000),
-							new Area(searchInputs.pickupCoords.lat, searchInputs.pickupCoords.lng, 5, searchInputs.pickupInput),
-							new Area(searchInputs.dropoffLatLon.lat, searchInputs.dropoffLatLon.lng, 5, searchInputs.dropoffInput)
+                            Math.floor(inputs.chosenDate / 1000),
+                            inputs.chosenPrice,
+							new Area(inputs.searchInputs.pickupCoords.lat, inputs.searchInputs.pickupCoords.lng, 5, inputs.searchInputs.pickupInput),
+							new Area(inputs.searchInputs.dropoffLatLon.lat, inputs.searchInputs.dropoffLatLon.lng, 5, inputs.searchInputs.dropoffInput)
 						);
-						let pickupCity = extractCity(searchInputs.pickupArray);
-						let dropoffCity = extractCity(searchInputs.dropoffArray);
+						let pickupCity = extractCity(inputs.searchInputs.pickupArray);
+						let dropoffCity = extractCity(inputs.searchInputs.dropoffArray);
 						Database.createRide(ride, pickupCity, dropoffCity);
 						this.props.navigation.goBack(null);
 						this.spinner.show(false);

@@ -18,7 +18,8 @@ export default class CreateArea extends Component {
 		this.dropoffInput = "";
 		this.chosenDate = new Date();
 		this.chosenSeats = 1;
-		this.description = "My Ride";
+		this.chosenDescription = "";
+		this.chosenPrice = 0;
 	}
 
 	render() {
@@ -47,17 +48,17 @@ export default class CreateArea extends Component {
 						}}/>
 					<RidePrice
 						color_theme={this.props.color_theme}
-						// onChangeText={(date) => {
-						//   this.chosenDate = date;
-						// }}
+						onPriceChange={(price) => {
+							this.chosenPrice = parseInt(price);
+						}}
 					/>
 				</View>
 
 				<CreateRideDescription
 					color_theme={this.props.color_theme}
-					// onDateChange={(date) => {
-					//   this.chosenDate = date;
-					// }}
+					onDescriptionChange={(description) => {
+						this.chosenDescription = description;
+					}}
 				/>
 
 
@@ -76,7 +77,14 @@ export default class CreateArea extends Component {
 				<View style={customStyle.buttonContainer}>
 					<Button
 						onPress={() => {
-							this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats, this.description);
+							let inputs = {
+								searchInputs: this.searchInputs,
+								chosenDate: this.chosenDate,
+								chosenSeats: this.chosenSeats,
+								chosenDescription: this.chosenDescription,
+								chosenPrice: this.chosenPrice
+							}
+							this.props.onSubmit(inputs);
 						}}
 						title="Create Ride!"/>
 				</View>

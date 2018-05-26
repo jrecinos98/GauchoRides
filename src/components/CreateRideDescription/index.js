@@ -20,7 +20,10 @@ export default class CreateRideDescription extends Component {
 				<View style={styles.switchWrapper}>
 					<TextInput
 						style={styles.descriptionInput}
-						onChangeText={(text) => this.setState({text})}
+						onChangeText={(text) => {
+							this.setState({text: text});
+							this.props.onDescriptionChange(text);
+						}}
 						value={this.state.text}
 						maxLength={200}
 						multiline={true}

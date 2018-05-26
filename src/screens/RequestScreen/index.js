@@ -111,6 +111,7 @@ export default class RequestRideScreen extends Component {
                             [User.currentUser.id],
                             [],
                             Math.floor(chosenDate / 1000),
+                            0,
                             new Area(searchInputs.pickupCoords.lat, searchInputs.pickupCoords.lng, 5, searchInputs.pickupInput),
                             new Area(searchInputs.dropoffLatLon.lat, searchInputs.dropoffLatLon.lng, 5, searchInputs.dropoffInput)
                         );
