@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 import { DIMENSION } from '../../Constants';
 import Controller from './Controller';
 
@@ -37,6 +38,12 @@ export default class PreviewArea extends Component {
             }],
             buttonText: [styles.buttonText, {
                 color: this.props.color_theme.APP_FOCUS
+            }],
+            expandButton: [styles.expandButton, {
+                backgroundColor: this.props.color_theme.APP_BACKGROUND
+            }],
+            expandIcon: [styles.expandIcon, {
+                color: this.props.color_theme.APP_FOCUS
             }]
         };
 
@@ -44,23 +51,33 @@ export default class PreviewArea extends Component {
         let preview_items = this.props.rides.map((preview, index) => {
 
             return (
-                <TouchableOpacity
+                <View
                     key={index}
-                    style={customStyle.buttonContainer}
-                    onPress={() => {
-                        this.previewBar.scrollTo({x: this.getSnapPosition(index), y: 0, animated: true});
-                        Controller.focusRide(index);
-                    }}>
+                    style={styles.previewContainer}>
 
-                    <Text style={customStyle.buttonText}>
-                        Origin: {preview.origin.name}
-                    </Text>
+                    <TouchableOpacity
+                        style={customStyle.expandButton}>
+                        <Ionicons name="ios-arrow-up" style={customStyle.expandIcon} />
+                    </TouchableOpacity>
 
-                    <Text style={customStyle.buttonText}>
-                        Destination: {preview.destination.name}
-                    </Text>
+                    <TouchableOpacity
+                        key={index}
+                        style={customStyle.buttonContainer}
+                        onPress={() => {
+                            this.previewBar.scrollTo({x: this.getSnapPosition(index), y: 0, animated: true});
+                            Controller.focusRide(index);
+                        }}>
 
-                </TouchableOpacity>
+                        <Text style={customStyle.buttonText}>
+                            Origin: {preview.origin.name}
+                        </Text>
+
+                        <Text style={customStyle.buttonText}>
+                            Destination: {preview.destination.name}
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
             );
         });
 
@@ -75,6 +92,7 @@ export default class PreviewArea extends Component {
                 decelerationRate={0}
                 snapToInterval={DIMENSION.PREVIEW.WIDTH + 2 * DIMENSION.PREVIEW.MARGIN}
                 snapToAlignment={"center"}>
+
                 {preview_items}
 
             </ScrollView>
@@ -85,9 +103,6 @@ export default class PreviewArea extends Component {
 //var width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
     buttonContainer: {
-        marginLeft:5,
-        marginRight:5,
-        marginBottom:0,
         backgroundColor: null,
         borderRadius: 10,
         padding: 10,
@@ -105,6 +120,25 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         color: null,
         fontWeight: "700",
-
+    },
+    previewContainer: {
+        marginLeft:5,
+        marginRight:5,
+        marginBottom:0,
+        width: DIMENSION.PREVIEW.WIDTH,
+        height: DIMENSION.PREVIEW.HEIGHT + 22
+    },
+    expandButton: {
+        height: 20,
+        marginBottom: 2,
+        backgroundColor: null,
+        borderRadius: 10,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    expandIcon: {
+        color: null,
+        fontSize: 20
     }
 });
