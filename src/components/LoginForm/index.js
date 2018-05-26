@@ -24,6 +24,7 @@ export default class LoginForm extends Component {
                     returnKeyType="next"
                     autoCorrect={false}
                     autoCapitalize={"none"}
+                    underlineColorAndroid='grey'
                     onSubmitEditing={()=> {
                         this.passWordInput.focus();
                     }}
@@ -38,6 +39,7 @@ export default class LoginForm extends Component {
                     returnKeyType="go"
                     secureTextEntry={true}
                     autoCorrect={false}
+                    underlineColorAndroid='grey'
                     autoCapitalize={"none"}
                     ref={(input) => {
                         this.passWordInput= input;

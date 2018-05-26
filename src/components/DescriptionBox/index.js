@@ -23,7 +23,7 @@ export default class DescriptionBox extends Component {
 				<View style={styles.switchWrapper}>
 					<TextInput
 						style={styles.descriptionInput}
-						placeholder="Additional ride descriptions..."
+						placeholder= {this.props.description}
         				onChangeText={(text) => this.updateText(text)}
                         autoCorrect={true}
                         underlineColorAndroid='transparent'
@@ -61,6 +61,7 @@ const styles = {
 	descriptionInput: {
 		borderColor: 'gray',
 		borderWidth: 1,
+		height: 70,
 		fontSize: 15,
 		borderRadius: 7,
 		padding: 10

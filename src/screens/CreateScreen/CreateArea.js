@@ -19,7 +19,7 @@ export default class CreateArea extends Component {
         this.chosenDate = new Date();
         this.chosenSeats = 1;
         this.description = "My Ride";
-        this.price = 0;
+        this.price = 15;
     }
 
     render() {
@@ -45,7 +45,8 @@ export default class CreateArea extends Component {
                             this.chosenSeats = seats;
                         }}/>
                     <PriceInput
-                        color_theme={this.props.color_theme}
+                       // color_theme={this.props.color_theme}
+						title={"Price"}
                         onPriceChange={(price) => {
                             this.price = parseFloat(price);
                         }}
@@ -53,6 +54,7 @@ export default class CreateArea extends Component {
                 </View>
                 <DescriptionBox
                     color_theme={this.props.color_theme}
+					description={"Additional information ..."}
                     onTextChange={(text) => {
                         this.description = text;
                     }}

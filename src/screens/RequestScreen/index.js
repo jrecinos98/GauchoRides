@@ -9,7 +9,7 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import {COLOR, DIMENSION, FIREBASE} from '../../Constants';
 import RequestArea from './RequestArea';
-import { getTheme } from '../../Utility';
+import {createRide, getTheme} from '../../Utility';
 import Database from '../../Database';
 import Spinner from '../../components/Spinner';
 import {extractCity} from "../../Utility";
@@ -90,37 +90,12 @@ export default class RequestRideScreen extends Component {
 
                 <RequestArea
                     color_theme={driver_this.state.color_theme}
-                    onSubmit={(searchInputs, chosenDate) => {
-                        console.log(searchInputs);
-                        if (searchInputs === undefined || searchInputs.pickupInput === ""|| searchInputs.dropoffInput === "")
-                            return;
-                        if (searchInputs.pickupArray.length < 3){
-                            alert("Please be more specific on your starting location.");
-                            return;
-                        }
-                        if (searchInputs.dropoffArray.length < 3){
-                            alert("Please be more specific on your destination.");
-                            return;
-                        }
+                    onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
-
-                        let ride = new Ride(
-                            0,
-                            "Request Ride!",
-                            0,
-                            [User.currentUser.id],
-                            [],
-                            Math.floor(chosenDate / 1000),
-                            0,
-                            new Area(searchInputs.pickupCoords.lat, searchInputs.pickupCoords.lng, 5, searchInputs.pickupInput),
-                            new Area(searchInputs.dropoffLatLon.lat, searchInputs.dropoffLatLon.lng, 5, searchInputs.dropoffInput)
-                        );
-                        let pickupCity = extractCity(searchInputs.pickupArray);
-                        let dropoffCity = extractCity(searchInputs.dropoffArray);
-                        Database.createRide(FIREBASE.REQUESTS_PATH,ride, pickupCity, dropoffCity);
-
-                        this.props.navigation.goBack(null);
-                        this.spinner.show(false);
+                        createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, () => {
+                            this.props.navigation.goBack(null);
+                            this.spinner.show(false);
+                        });
                     }}/>
 
                 <Spinner ref={(instance) => this.spinner = instance}/>
