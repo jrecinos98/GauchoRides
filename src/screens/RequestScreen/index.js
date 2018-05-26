@@ -12,6 +12,7 @@ import RequestArea from './RequestArea';
 import { getTheme } from '../../Utility';
 import Database from '../../Database';
 import Spinner from '../../components/Spinner';
+import {extractCity} from "../../Utility";
 
 var i = 0;
 
@@ -41,33 +42,6 @@ export default class RequestRideScreen extends Component {
             <Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
         )
     };
-
-    //Called when component is mounted.
-    componentDidMount(){
-        this.getTestRide();
-    }
-
-
-    //Get user's first ride from database.
-    getTestRide() {
-        //console.log("DriverTest: ", User.currentUser);
-        let id = Object.keys(User.currentUser.rides)[0];
-        Database.getRide(id, (ride) => {
-            //console.log(ride);
-        });
-    }
-
-    extractCity(text) {
-        if (text === "")
-            return "";
-
-        text = text.replace(", USA", "");
-
-        if ((text.match(/,/g) || []).length <= 1)
-            return text.trim();
-        else
-            return text.substring(text.indexOf(', ') + 1).trim();
-    }
 
     //Render the component
     render() {
@@ -116,22 +90,32 @@ export default class RequestRideScreen extends Component {
 
                 <RequestArea
                     color_theme={driver_this.state.color_theme}
-                    onSubmit={(searchInputs, chosenDate, chosenSeats) => {
+                    onSubmit={(searchInputs, chosenDate) => {
+                        console.log(searchInputs);
+                        if (searchInputs === undefined || searchInputs.pickupInput === ""|| searchInputs.dropoffInput === "")
+                            return;
+                        if (searchInputs.pickupArray.length < 3){
+                            alert("Please be more specific on your starting location.");
+                            return;
+                        }
+                        if (searchInputs.dropoffArray.length < 3){
+                            alert("Please be more specific on your destination.");
+                            return;
+                        }
                         this.spinner.show(true);
 
                         let ride = new Ride(
                             0,
                             "Request Ride!",
-                            chosenSeats,
                             0,
                             [User.currentUser.id],
+                            [],
                             Math.floor(chosenDate / 1000),
-                            new Area(0, 0, 0, searchInputs.pickupInput),
-                            new Area(0, 0, 0, searchInputs.dropoffInput)
+                            new Area(searchInputs.pickupCoords.lat, searchInputs.pickupCoords.lng, 5, searchInputs.pickupInput),
+                            new Area(searchInputs.dropoffLatLon.lat, searchInputs.dropoffLatLon.lng, 5, searchInputs.dropoffInput)
                         );
-
-                        let pickupCity = this.extractCity(searchInputs.pickupInput);
-                        let dropoffCity = this.extractCity(searchInputs.dropoffInput);
+                        let pickupCity = extractCity(searchInputs.pickupArray);
+                        let dropoffCity = extractCity(searchInputs.dropoffArray);
                         Database.createRide(ride, pickupCity, dropoffCity);
 
                         this.props.navigation.goBack(null);

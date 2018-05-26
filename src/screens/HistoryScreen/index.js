@@ -21,8 +21,6 @@ export default class HistoryScreen extends Component {
         history_this = this;
         history_this.state = {
             data: [],
-            loading: false,
-            refreshing: false,
             color_theme: COLOR.THEME_LIGHT
         };
         getTheme(function(theme) {
@@ -30,7 +28,7 @@ export default class HistoryScreen extends Component {
                 color_theme: theme
             });
         });
-
+        this.refreshing= false;
         Database.getUserHistory((list) => {
            this.setState({data: list});
         });
@@ -65,7 +63,7 @@ export default class HistoryScreen extends Component {
 
         };
 
-        let statusTheme = (history_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (history_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
             <View style={styles.container}>
@@ -74,23 +72,16 @@ export default class HistoryScreen extends Component {
                 <Text style={customStyle.title}>History</Text>
                 <View style={styles.historyContainer}>
                     <RideHistory
-                        style={{
-                            flex: 1,
-                            aspectRatio: 0.5,
-                            resizeMode: 'contain'
-                        }}
-                        ref={(refreshing) => {
-                           /* Database.getUserHistory((list)=>{
-                                this.setState({data: list})
-                            });*/
-                            this.RideHistory = refreshing
-                        }}
-                        data = {this.state.data}
-                        refreshing ={this.state.refreshing}
-                        onRefresh ={()=>{
-                            this.setState({refreshing: true});
+                        style={styles.rideHistStyle}
+                        data={this.state.data}
+                        refreshing={this.refreshing}
+                        onRefresh={() => {
                             Database.getUserHistory((list) => {
-                                this.setState({data: list, refreshing: false})
+                                if (this.state.data.length === list.length) {
+                                }
+                                else {
+                                    this.setState({data: list})
+                                }
                             })
                         }}
                     />
@@ -102,18 +93,21 @@ export default class HistoryScreen extends Component {
     }
 }
 
-//var width = Dimensions.get("window").width;
+//var width=Dimensions.get("window").width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //alignItems: 'center',
-        // justifyContent: 'center',
         flexDirection: 'column'
     },
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
         height: null
+    },
+    rideHistStyle: {
+        flex: 1,
+        aspectRatio: 0.5,
+        resizeMode: 'contain'
     },
     title: {
         color: null,

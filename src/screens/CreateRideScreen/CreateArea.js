@@ -17,7 +17,8 @@ export default class CreateArea extends Component {
         this.pickupInput = "";
         this.dropoffInput = "";
         this.chosenDate = new Date();
-        this.chosenSeats = 0;
+        this.chosenSeats = 1;
+        this.description = "My Ride";
     }
 
     render() {
@@ -72,7 +73,7 @@ export default class CreateArea extends Component {
                 <View style={customStyle.buttonContainer}>
                     <Button
                         onPress={() => {
-                            this.props.onSubmit(this.searchInputs, this.chosenDate);
+                            this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats, this.description);
                         }}
                         title="Create Ride!"/>
                 </View>

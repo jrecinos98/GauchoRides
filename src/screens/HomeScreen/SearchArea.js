@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, TouchableOpacity,
-        Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Button} from "react-native";
 import SearchBox from '../../components/SearchBox';
-import { COLOR } from "../../Constants"
-import CreateButton from '../../components/ActionButton';
 import Controller from './Controller';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
 import DatePicker from '../../components/DatePicker';
 import {extractCity} from "../../Utility";
-import Database from "../../Database"
-import {getOriginLatLon} from "../../Utility";
-import {getDestLatLon} from "../../Utility";
+import Database from "../../Database";
 
 export default class SearchArea extends Component {
 
@@ -33,11 +28,11 @@ export default class SearchArea extends Component {
     async submit() {
         if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== "" && this.searchInputs.dropoffInput !== "") {
             if (this.searchInputs.pickupArray.length < 3){
-                alert("Please specify a City and State for your starting location.");
+                alert("Please be more specific on your starting location.");
                 return;
             }
             if (this.searchInputs.dropoffArray.length < 3){
-                alert("Please specify a City and State for your destination.")
+                alert("Please be more specific on your destination.");
                 return;
             }
             Controller.toggleDisplay();
@@ -46,7 +41,6 @@ export default class SearchArea extends Component {
             Controller.showSpinner(true);
             await Database.getRides(origin, destin,(rideList) => {
                 this.setState( {rides: rideList});
-                //console.log("Rides: " , this.state.rides);
                 Controller.displayRides(rideList);
                 Controller.showSpinner(false);
                //for (let i=0; i< this.state.rides.length; i++){
@@ -88,7 +82,7 @@ export default class SearchArea extends Component {
                     <Button
                         onPress={() => {
                             this.submit().then(()=>{
-                                //console.log(this.state.rides);
+
                             });
                         }}
                         title="Find Ride!"/>

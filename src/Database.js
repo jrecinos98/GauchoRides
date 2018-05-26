@@ -154,11 +154,10 @@ export default class Database {
 	static getUserHistory(callback){
 		var rideList = new Array();
 		for (var id in User.currentUser.rides){
-			console.log("list going");
-			Database.getRide(id, (ride) => {
+		    Database.getRide(id, (ride) => {
 				rideList.push(ride);
-				callback(rideList);
-			})
+                callback(rideList);
+			});
 		}
 
 	}
@@ -200,7 +199,6 @@ export default class Database {
      */
 	static updateRide(originCity, destinCity, ride) {
 		firestore.collection(FIREBASE.RIDES_PATH).doc(originCity).collection(destinCity).doc(ride.id).set(ride.toObject()).then((ref) => {
-			console.log("Ride updated!");
 		});
 	}
 
@@ -221,18 +219,13 @@ export default class Database {
 		});
 	}
     static getRides(origin, destination, callBack){
-        //console.log(origin, destination);
         var ride = firestore.collection(FIREBASE.RIDES_PATH).doc(origin).collection(destination);
         let rideList=[];
         ride.get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
-                   // console.log(doc.data());
-                    //var singleRide={};
-                    //singleRide[doc.id]= doc.data();
-                    //console.log(singleRide);
                     rideList.push(doc.data());
-                    console.log(doc.data())
+                   // console.log(doc.data())
                 });
                 callBack(rideList);
             })
