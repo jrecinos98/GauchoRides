@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text,TextInput } from "react-native";
 import { View, InputGroup, Input } from "native-base";
-
+import {Ionicons} from '@expo/vector-icons';
 
 
 export default class RidePrice extends Component {
@@ -17,14 +17,21 @@ export default class RidePrice extends Component {
 		return (
 			<View style={styles.secondInputWrapper}>
 				<Text style={styles.label}>Price</Text>
-				<View style={styles.switchWrapper}>
-					<TextInput
-        				style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        				onChangeText={(text) => this.setState({text})}
-        				value={this.state.text}
-      				/>
+				
+					<View style={styles.container}>
+						<Text style={{fontWeight: 'bold', fontSize: 30}}>
+						$
+						</Text>
+						<TextInput
+        					style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        					onChangeText={(text) => this.setState({text})}
+        					value={this.state.text}
+        					maxLength = {3}
+        					placeHolder = "$"
+      					/>
 
-				 </View>
+				 	</View>
+			
 			</View>
 		);
 	}
@@ -48,6 +55,11 @@ const styles = {
         marginBottom:0
     },
     switchWrapper: {
-        margin: 10
+        margin: 20
+    },
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        marginBottom: 3
     }
 }
