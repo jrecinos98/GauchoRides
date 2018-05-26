@@ -45,7 +45,7 @@ export default class ListView extends Component {
                 <FlatList
                     data={this.props.data}
                     renderItem={this.props.renderItem}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     ItemSeparatorComponent={this.renderSeparator}
                     extraData={this.refreshing}
                     refreshing={this.props.refreshing}

@@ -28,9 +28,11 @@ export default class HomeScreen extends Component {
         };
 
         getTheme((theme) => {
-            this.setState({
-                color_theme: theme
-            });
+            if (this.refs.classRef) {
+                this.setState({
+                    color_theme: theme
+                });
+            }
         });
 
         this.displaySearch = false;
@@ -82,7 +84,9 @@ export default class HomeScreen extends Component {
         const { navigateToRoot } = this.props.screenProps.rootNavigation.navigate;
         return (
 
-            <View style={styles.container}>
+            <View
+                ref="classRef"
+                style={styles.container}>
 
                 <StatusBar barStyle={statusTheme}/>
 
