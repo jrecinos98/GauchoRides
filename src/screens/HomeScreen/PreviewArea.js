@@ -48,7 +48,7 @@ export default class PreviewArea extends Component {
         };
 
         //Generate polylines
-        let preview_items = this.props.rides.map((preview, index) => {
+        let preview_items = this.props.rides.map((ride, index) => {
 
             return (
                 <View
@@ -56,7 +56,10 @@ export default class PreviewArea extends Component {
                     style={styles.previewContainer}>
 
                     <TouchableOpacity
-                        style={customStyle.expandButton}>
+                        style={customStyle.expandButton}
+                        onPress={() => {
+                            this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: ride});
+                        }}>
                         <Ionicons name="ios-arrow-up" style={customStyle.expandIcon} />
                     </TouchableOpacity>
 
@@ -69,11 +72,11 @@ export default class PreviewArea extends Component {
                         }}>
 
                         <Text style={customStyle.buttonText}>
-                            Origin: {preview.origin.name}
+                            Origin: {ride.origin.name}
                         </Text>
 
                         <Text style={customStyle.buttonText}>
-                            Destination: {preview.destination.name}
+                            Destination: {ride.destination.name}
                         </Text>
                     </TouchableOpacity>
 

@@ -143,7 +143,8 @@ export default class HomeScreen extends Component {
                         <PreviewArea
                             ref={(instance) => Controller.setRef(instance, Controller.preview)}
                             color_theme={this.state.color_theme}
-                            rides={this.state.rides}/>
+                            rides={this.state.rides}
+                            screenProps={this.props.screenProps}/>
                     </View>
 
                     <ActionButton
