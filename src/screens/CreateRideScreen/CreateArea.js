@@ -45,9 +45,17 @@ export default class CreateArea extends Component {
 
                  <RidePrice
                     color_theme={this.props.color_theme}
-                    onDateChange={(date) => {
-                        this.chosenDate = date;
-                    }}/>
+                    //onChangeText={(date) => {
+                    //    this.chosenDate = date;
+                    //}}
+                  />
+                 <CreateRideDescription
+                    color_theme={this.props.color_theme}
+                    //onDateChange={(date) => {
+                    //    this.chosenDate = date;
+                    //}}
+                  />
+
 
                 <DirectRideSwitch/>
 
@@ -59,12 +67,7 @@ export default class CreateArea extends Component {
                         this.chosenDate = date;
                     }}/>
 
-                <CreateRideDescription
-                    color_theme={this.props.color_theme}
-                    onDateChange={(date) => {
-                        this.chosenDate = date;
-                    }}/>
-
+               
 
                 <View style={customStyle.buttonContainer}>
                     <Button

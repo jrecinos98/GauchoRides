@@ -16,7 +16,7 @@ export default class CreateRideDescription extends Component {
 	render() {
 		return (
 			<View style={styles.secondInputWrapper}>
-				<Text style={styles.label}>Price</Text>
+				<Text style={styles.label}>Extra Details</Text>
 				<View style={styles.switchWrapper}>
 					<TextInput
         				style={{height: 40, borderColor: 'gray', borderWidth: 1}}
