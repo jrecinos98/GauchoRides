@@ -1,6 +1,8 @@
 import { GiftedChat } from 'react-native-gifted-chat'
+import User from "../../../src/actors/User";
 
-class Example extends React.Component {
+
+class Messenger extends React.Component {
   state = {
     messages: [],
   }
@@ -14,8 +16,8 @@ class Example extends React.Component {
           createdAt: new Date(),
           user: {
             _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
+            name: {User.currentUser.name},
+            avatar: {uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'},
           },
         },
       ],
