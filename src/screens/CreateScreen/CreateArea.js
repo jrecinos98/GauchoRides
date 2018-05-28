@@ -7,10 +7,7 @@ import CreateButton from '../../components/ActionButton';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
 import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
-<<<<<<< HEAD:src/screens/CreateRideScreen/CreateArea.js
-=======
 import PriceInput from '../../components/PriceInput';
->>>>>>> 2b137126c15b85201363517f09c154c75b8e76ea:src/screens/CreateScreen/CreateArea.js
 import DescriptionBox from '../../components/DescriptionBox';
 
 export default class CreateArea extends Component {
@@ -20,14 +17,9 @@ export default class CreateArea extends Component {
         this.pickupInput = "";
         this.dropoffInput = "";
         this.chosenDate = new Date();
-<<<<<<< HEAD:src/screens/CreateRideScreen/CreateArea.js
-        this.chosenSeats = 0;
         this.description = "";
-=======
         this.chosenSeats = 1;
-        this.description = "My Ride";
         this.price = 15;
->>>>>>> 2b137126c15b85201363517f09c154c75b8e76ea:src/screens/CreateScreen/CreateArea.js
     }
 
     render() {
@@ -65,23 +57,14 @@ export default class CreateArea extends Component {
                         }}
                     />
                 </View>
-                <DescriptionBox
-                    color_theme={this.props.color_theme}
-					description={"Additional information ..."}
-                    onTextChange={(text) => {
-                        this.description = text;
-                    }}
-                />
+
                 <DirectRideSwitch/>
 
-<<<<<<< HEAD:src/screens/CreateRideScreen/CreateArea.js
                 <DescriptionBox
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
                     }}/>
-=======
->>>>>>> 2b137126c15b85201363517f09c154c75b8e76ea:src/screens/CreateScreen/CreateArea.js
-
+										
                 <DatePicker
                     color_theme={this.props.color_theme}
                     onDateChange={(date) => {

@@ -42,7 +42,7 @@ const styles = {
         height: 40,
         marginBottom: 10,
         marginTop:10,
-        color: 'black',
+        color: '#000000',
         paddingHorizontal: 10
     },
     secondInputWrapper:{
