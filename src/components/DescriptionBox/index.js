@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text,TextInput } from "react-native";
+import { Text,TextInput, KeyboardAvoidingView } from "react-native";
 import { View, InputGroup, Input } from "native-base";
 
 
@@ -20,7 +20,7 @@ export default class DescriptionBox extends Component {
 
 	render() {
 		return (
-			<View style={styles.secondInputWrapper}>
+			<KeyboardAvoidingView  behavior="padding" style={styles.secondInputWrapper} enabled>
 				<View style={styles.DescriptionWrapper}>
 					<TextInput
 						style={styles.descriptionInput}
@@ -35,7 +35,7 @@ export default class DescriptionBox extends Component {
       				/>
 
 				 </View>
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 }

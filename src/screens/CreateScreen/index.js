@@ -73,7 +73,8 @@ export default class CreateScreen extends Component {
 				</View>
 				<CreateArea
 					color_theme={driver_this.state.color_theme}
-
+                    originTag={'Set Pick-Up Location'}
+                    destinationTag={'Set Drop-Off Location'}
 					onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
 						createRide(FIREBASE.RIDES_PATH, searchInputs, chosenDate, chosenSeats, description, price, (successful) => {

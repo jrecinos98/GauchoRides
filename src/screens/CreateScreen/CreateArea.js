@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, TouchableOpacity,
-		Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView,
+		Button, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
-import DirectRideSwitch from '../../components/DirectRideSwitch';
+import CustomSwitch from '../../components/Switch';
 import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
 import PriceInput from '../../components/PriceInput';
@@ -32,57 +32,59 @@ export default class CreateArea extends Component {
         };
 
         return (
-            <ScrollView style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior={ "padding"} enabled>
+                <ScrollView style={styles.container}>
 
-                <SearchBox
-                    onChangeText={(searchInputs) => {
-                        this.searchInputs = searchInputs;
-                    }}/>
-                <View style={styles.seatPriceContainer}>
-                    <SeatPicker
-                        color_theme={this.props.color_theme}
-                        onSeatsChange={(seats) => {
-                            this.chosenSeats = seats;
+                    <SearchBox
+                        originTag={this.props.originTag}
+                        destinationTag={this.props.destinationTag}
+                        onChangeText={(searchInputs) => {
+                            this.searchInputs = searchInputs;
                         }}/>
-                    <PriceInput
-                       // color_theme={this.props.color_theme}
-						title={"Price"}
-                        onPriceChange={(price) => {
-                            if (price === "" || isNaN(price)){
-                                this.price= 15;
-                            }
-                            else{
-                                this.price = parseFloat(price);
-                            }
+                    <View style={styles.seatPriceContainer}>
+                        <SeatPicker
+                            color_theme={this.props.color_theme}
+                            onSeatsChange={(seats) => {
+                                this.chosenSeats = seats;
+                            }}/>
+                        <PriceInput
+                            // color_theme={this.props.color_theme}
+                            title={"Price"}
+                            onPriceChange={(price) => {
+                                if (price === "" || isNaN(price)) {
+                                    this.price = 15;
+                                }
+                                else {
+                                    this.price = parseFloat(price);
+                                }
+                            }}
+                        />
+                    </View>
+                    <DescriptionBox
+                        description={"Additional information ..."}
+                        onTextChange={(text) => {
+                            this.description = text;
                         }}
                     />
-                </View>
-                <DescriptionBox
-					description={"Additional information ..."}
-                    onTextChange={(text) => {
-                        this.description = text;
-                    }}
-                />
-                <DirectRideSwitch/>
+
+                    <DatePicker
+                        color_theme={this.props.color_theme}
+                        onDateChange={(date) => {
+                            this.chosenDate = date;
+                        }}/>
 
 
-                <DatePicker
-                    color_theme={this.props.color_theme}
-                    onDateChange={(date) => {
-                        this.chosenDate = date;
-                    }}/>
+                    <View style={customStyle.buttonContainer}>
+                        <Button
+                            onPress={() => {
+                                this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats, this.description, this.price);
+                            }}
+                            title="Create Ride!"/>
+                    </View>
 
+                </ScrollView>
 
-                <View style={customStyle.buttonContainer}>
-                    <Button
-                        onPress={() => {
-                            this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats, this.description, this.price);
-                        }}
-                        title="Create Ride!"/>
-                </View>
-
-            </ScrollView>
-
+            </KeyboardAvoidingView>
         );
 
     }

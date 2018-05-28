@@ -138,6 +138,8 @@ export default class HomeScreen extends Component {
                         <SearchArea
                             ref={(instance) => Controller.setRef(instance, Controller.search)}
                             color_theme={this.state.color_theme}
+                            originTag={'Choose Pick-Up Location'}
+                            destinationTag={'Choose Drop-Off Location'}
 
                         />
                     </View>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, ScrollView, Button} from "react-native";
 import SearchBox from '../../components/SearchBox';
 import Controller from './Controller';
-import DirectRideSwitch from '../../components/DirectRideSwitch';
+import CustomSwitch from '../../components/Switch';
 import DatePicker from '../../components/DatePicker';
 import {extractCity} from "../../Utility";
 import Database from "../../Database";
@@ -66,11 +66,14 @@ export default class SearchArea extends Component {
         return (
             <ScrollView style={styles.container}>
                 <SearchBox
+
+                    originTag={this.props.originTag}
+                    destinationTag={this.props.destinationTag}
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
                     }}/>
 
-                <DirectRideSwitch/>
+                <CustomSwitch/>
 
                 <DatePicker
                     color_theme={this.props.color_theme}
