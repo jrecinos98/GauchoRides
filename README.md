@@ -259,34 +259,3 @@ npm start
 
 The above example would cause the development server to listen on `exp://my-custom-ip-address-or-hostname:19000`.
 
-## Adding Flow
-
-Flow is a static type checker that helps you write code with fewer bugs. Check out this [introduction to using static types in JavaScript](https://medium.com/@preethikasireddy/why-use-static-types-in-javascript-part-1-8382da1e0adb) if you are new to this concept.
-
-React Native works with [Flow](http://flowtype.org/) out of the box, as long as your Flow version matches the one used in the version of React Native.
-
-To add a local dependency to the correct Flow version to a Create React Native App project, follow these steps:
-
-1. Find the Flow `[version]` at the bottom of the included [.flowconfig](.flowconfig)
-2. Run `npm install --save-dev flow-bin@x.y.z` (or `yarn add --dev flow-bin@x.y.z`), where `x.y.z` is the .flowconfig version number.
-3. Add `"flow": "flow"` to the `scripts` section of your `package.json`.
-4. Add `// @flow` to any files you want to type check (for example, to `App.js`).
-
-Now you can run `npm run flow` (or `yarn flow`) to check the files for type errors.
-You can optionally use a [plugin for your IDE or editor](https://flow.org/en/docs/editors/) for a better integrated experience.
-
-To learn more about Flow, check out [its documentation](https://flow.org/).
-
-# Gaucho Rides
-Rideshare App for UCSB students
-<<<<<<< HEAD
-=======
-
-# How to use the app
-First, you will need to log in with your facebook account or sign up with the edu email. Once you enter the home screen, click the icon which looks like a magnifying glass to find a ride if you are a rider. If you can't find a satisfied one, you could click the + button on the screen and request a new one. Or, if you are a driver, you can also click that + button to create a ride.
-
-By choosing the book icon in navigation bar, you switch to the History page. This page will display all of your recent rides with the name labels, origins and destinations in list. 
-
-The third page is the Profile page. The system will auto-grab your profile image, and your full name from facebook if you log in by this way. It also shows user's rating and comments from other people.
-
->>>>>>> dae7c358ece4d5846e8ae07e0c73abeebbaad217
