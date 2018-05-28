@@ -102,7 +102,8 @@ const styles = {
         flex: 1
     },
     dollarSign: {
-        fontSize: 30
+        fontSize: 20,
+				marginRight: 5
     },
     label:{
         fontSize:12,
@@ -110,13 +111,7 @@ const styles = {
         marginLeft:10,
         marginTop:10,
         marginBottom:0,
-        alignItems: "center",
-        textAlign: "center"
     },
-    switchWrapper: {
-        margin: 20
-    },
-
     container: {
         flex: 1,
         flexDirection: 'row',
@@ -127,8 +122,8 @@ const styles = {
     dollarInput: {
         textAlign: 'center',
         fontSize: 20,
-        height: 40,
-        width: 100,
+        height: 35,
+        width: 85,
         borderColor: 'gray',
         borderWidth: 1,
         borderRadius: 7
