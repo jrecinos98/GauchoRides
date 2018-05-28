@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, TouchableOpacity,
-        Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Button} from "react-native";
 import SearchBox from '../../components/SearchBox';
-import { COLOR } from "../../Constants"
-import CreateButton from '../../components/ActionButton';
 import Controller from './Controller';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
 import DatePicker from '../../components/DatePicker';
 import {extractCity} from "../../Utility";
-import Database from "../../Database"
-import {getOriginLatLon} from "../../Utility";
-import {getDestLatLon} from "../../Utility";
+import Database from "../../Database";
 
 export default class SearchArea extends Component {
 
@@ -31,17 +26,23 @@ export default class SearchArea extends Component {
     }
 
     async submit() {
-        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
-
-           // Controller.drawMapRoute(this.searchInputs.pickupInput, this.searchInputs.dropoffInput);
-
+        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== "" && this.searchInputs.dropoffInput !== "") {
+            if (this.searchInputs.pickupArray.length < 3){
+                alert("Please be more specific on your starting location.");
+                return;
+            }
+            if (this.searchInputs.dropoffArray.length < 3){
+                alert("Please be more specific on your destination.");
+                return;
+            }
             Controller.toggleDisplay();
-            let origin = extractCity(this.searchInputs.pickupInput);
-            let destin = extractCity(this.searchInputs.dropoffInput);
-            await Database.getRides(origin, destin,(rideList) => {
+            let origin = extractCity(this.searchInputs.pickupArray);
+            let destin = extractCity(this.searchInputs.dropoffArray);
+            Controller.showSpinner(true);
+            await Database.retrieveRideList(origin, destin,(rideList) => {
                 this.setState( {rides: rideList});
-                console.log("Rides: " , this.state.rides);
                 Controller.displayRides(rideList);
+                Controller.showSpinner(false);
                //for (let i=0; i< this.state.rides.length; i++){
                     //Controller.drawMapRoute(getOriginLatLon(this.state.rides[i]), getDestLatLon(this.state.rides[i]
                // Controller.displayRides(this.state.rides);
@@ -64,7 +65,6 @@ export default class SearchArea extends Component {
 
         return (
             <ScrollView style={styles.container}>
-
                 <SearchBox
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
@@ -82,7 +82,7 @@ export default class SearchArea extends Component {
                     <Button
                         onPress={() => {
                             this.submit().then(()=>{
-                                //console.log(this.state.rides);
+
                             });
                         }}
                         title="Find Ride!"/>

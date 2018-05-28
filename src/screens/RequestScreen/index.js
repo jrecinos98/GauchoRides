@@ -7,10 +7,12 @@ import Ride from '../../actors/Ride';
 import Area from '../../actors/Area';
 import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import {COLOR, DIMENSION, FIREBASE} from '../../Constants';
 import RequestArea from './RequestArea';
-import { getTheme } from '../../Utility';
+import {createRide, getTheme} from '../../Utility';
 import Database from '../../Database';
+import Spinner from '../../components/Spinner';
+import {extractCity} from "../../Utility";
 
 var i = 0;
 
@@ -40,33 +42,6 @@ export default class RequestRideScreen extends Component {
             <Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
         )
     };
-
-    //Called when component is mounted.
-    componentDidMount(){
-        this.getTestRide();
-    }
-
-
-    //Get user's first ride from database.
-    getTestRide() {
-        //console.log("DriverTest: ", User.currentUser);
-        let id = Object.keys(User.currentUser.rides)[0];
-        Database.getRide(id, (ride) => {
-            //console.log(ride);
-        });
-    }
-
-    extractCity(text) {
-        if (text === "")
-            return "";
-
-        text = text.replace(", USA", "");
-
-        if ((text.match(/,/g) || []).length <= 1)
-            return text.trim();
-        else
-            return text.substring(text.indexOf(', ') + 1).trim();
-    }
 
     //Render the component
     render() {
@@ -115,26 +90,20 @@ export default class RequestRideScreen extends Component {
 
                 <RequestArea
                     color_theme={driver_this.state.color_theme}
-                    onSubmit={(searchInputs, chosenDate, chosenSeats) => {
-
-                        let ride = new Ride(
-                            0,
-                            "Request Ride!",
-                            chosenSeats,
-                            0,
-                            [User.currentUser.id],
-                            Math.floor(chosenDate / 1000),
-                            new Area(0, 0, 0, searchInputs.pickupInput),
-                            new Area(0, 0, 0, searchInputs.dropoffInput)
-                        );
-
-                        let pickupCity = this.extractCity(searchInputs.pickupInput);
-                        let dropoffCity = this.extractCity(searchInputs.dropoffInput);
-                        Database.createRide(ride, pickupCity, dropoffCity);
-
-                        this.props.navigation.goBack(null);
+                    onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
+                        this.spinner.show(true);
+                        createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, (successful) => {
+                            if(successful) {
+                                this.props.navigation.goBack(null);
+                                this.spinner.show(false);
+                            }
+                            else{
+                                this.spinner.show(false)
+                            }
+                        });
                     }}/>
 
+                <Spinner ref={(instance) => this.spinner = instance}/>
 
             </View>
         );

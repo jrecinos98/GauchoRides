@@ -3,20 +3,23 @@
  */
 export default class Ride {
 	id: 0;
+	price: 0;
 	description: string;
 	seats: 0;
 	driver: 0;
-	riders: [];
+	passengers: [];
 	time: 0;
 	origin: Area;
 	destination: Area;
 
-	constructor (id, description, seats, driver, riders, time, origin, destination) {
+
+	constructor (id, price, description, seats, driver, passengers, time, origin, destination) {
 		this.id = id;
+		this.price = price;
 		this.description = description;
 		this.seats = seats;
 		this.driver = driver;
-		this.riders = riders;
+		this.passengers = passengers;
 		this.time = time;
 		this.origin = origin;
 		this.destination = destination;
@@ -25,21 +28,16 @@ export default class Ride {
 	toObject() {
 		return {
 			id: this.id,
+			price: this.price,
 			description: this.description,
 			seats: this.seats,
 			driver: this.driver,
-			riders: this.riders,
+			passengers: this.passengers,
 			time: this.time,
+			price: this.price,
 			origin: this.origin.toObject(),
 			destination: this.destination.toObject()
 		};
 	}
 
-	getOriginLatLon(){
-
-		return this.origin[0].latitude.toString()+","+this.origin[0].longitude.toString()
-	}
-	getDestLatLon(){
-		return this.destination[0].latitude.toString()+","+this.destination[0].longitude.toString()
-	}
 }

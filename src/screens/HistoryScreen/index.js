@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { StatusBar, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
-import RideHistory from '../../components/RideHistory';
-
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import ListView from '../../components/ListView';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
-
-
+import Database from "../../Database";
+import ListItem from "../../components/ListItem"
 
 
 export default class HistoryScreen extends Component {
@@ -19,29 +17,31 @@ export default class HistoryScreen extends Component {
     constructor(props) {
         super(props);
         history_this = this;
-
         history_this.state = {
+            data: [],
             color_theme: COLOR.THEME_LIGHT
-        }
-
+        };
         getTheme(function(theme) {
             history_this.setState({
                 color_theme: theme
             });
         });
+        this.refreshing= false;
+        Database.getUserHistory((list) => {
+           this.setState({data: list});
+        });
     }
 
-    
+
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
             <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }}
-            
-                //onPress={() => {
-                 //   this.RideHistory.setState({ refreshing:true});
-               // }}
-           // }
-
             />
+        )
+    };
+    renderItem = ({item}) => {
+        return (
+            <ListItem item={item}/>
         )
     };
 
@@ -66,7 +66,7 @@ export default class HistoryScreen extends Component {
 
         };
 
-        let statusTheme = (history_this.state.color_theme == COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (history_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
             <View style={styles.container}>
@@ -74,14 +74,19 @@ export default class HistoryScreen extends Component {
                 <View style={customStyle.topBar}/>
                 <Text style={customStyle.title}>History</Text>
                 <View style={styles.historyContainer}>
-                    <RideHistory
-                        style={{
-                            flex: 1,
-                            aspectRatio: 0.5,
-                            resizeMode: 'contain'
-                        }}
-                        ref={(refreshing) => {
-                            this.RideHistory = refreshing
+                    <ListView
+                        style={styles.rideHistStyle}
+                        renderItem={this.renderItem}
+                        data={this.state.data}
+                        refreshing={this.refreshing}
+                        onRefresh={() => {
+                            Database.getUserHistory((list) => {
+                                if (this.state.data.length === list.length) {
+                                }
+                                else {
+                                    this.setState({data: list})
+                                }
+                            })
                         }}
                     />
 
@@ -92,18 +97,21 @@ export default class HistoryScreen extends Component {
     }
 }
 
-//var width = Dimensions.get("window").width;
+//var width=Dimensions.get("window").width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //alignItems: 'center',
-        // justifyContent: 'center',
         flexDirection: 'column'
     },
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
         height: null
+    },
+    rideHistStyle: {
+        flex: 1,
+        aspectRatio: 0.5,
+        resizeMode: 'contain'
     },
     title: {
         color: null,

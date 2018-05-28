@@ -8,7 +8,7 @@ import Ride from '../actors/Ride';
 import Area from '../actors/Area';
 import LoginForm from "../components/LoginForm";
 import LoginBackground from "../components/LoginBackground";
-import LoginButton from "../components/LoginButton";
+import OpacityButton from "../components/OpacityButton";
 import Database from '../Database';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -101,12 +101,12 @@ export default class LogInScreen extends Component {
 
                 <KeyboardAvoidingView behavior="padding">
                     <View style={loginStyle.buttonContainer}>
-                        <LoginButton
+                        <OpacityButton
                             title="LOGIN"
                             callback={() => {
                                 this.logInUser(this.state.email, this.state.password);
                             }}/>
-                        <LoginButton
+                        <OpacityButton
                             title="CONTINUE WITH FACEBOOK"
                             callback={() => {
                                 Database.loginWithFacebook();

@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, ProgressBarAndroid, ScrollView, Button, TouchableOpacity, Dimensions } from "react-native";
+import { StatusBar, View, Text, StyleSheet} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import Icon from 'react-native-vector-icons/Ionicons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
 import PreviewArea from './PreviewArea';
-import { StackNavigator, NavigationActions } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, STRING, DIMENSION } from '../../Constants';
+import { COLOR, DIMENSION } from '../../Constants';
 import { getTheme } from '../../Utility';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
-import CreateRideScreen from "../CreateRideScreen";
+import CreateScreen from "../CreateScreen";
 import ActionButton from '../../components/ActionButton';
 import Controller from './Controller';
-
+import Spinner from '../../components/Spinner';
 
 export default class HomeScreen extends Component {
 
@@ -29,16 +28,18 @@ export default class HomeScreen extends Component {
         };
 
         getTheme((theme) => {
-            this.setState({
-                color_theme: theme
-            });
+            if (this.refs.classRef) {
+                this.setState({
+                    color_theme: theme
+                });
+            }
         });
 
         this.displaySearch = false;
         this.firstSearch=true;
 
         Controller.setRef(this, Controller.home);
-        //console.log(Controller.refs.home);
+
     }
 
     static navigationOptions = {
@@ -83,7 +84,9 @@ export default class HomeScreen extends Component {
         const { navigateToRoot } = this.props.screenProps.rootNavigation.navigate;
         return (
 
-            <View style={styles.container}>
+            <View
+                ref="classRef"
+                style={styles.container}>
 
                 <StatusBar barStyle={statusTheme}/>
 
@@ -143,7 +146,8 @@ export default class HomeScreen extends Component {
                         <PreviewArea
                             ref={(instance) => Controller.setRef(instance, Controller.preview)}
                             color_theme={this.state.color_theme}
-                            rides={this.state.rides}/>
+                            rides={this.state.rides}
+                            screenProps={this.props.screenProps}/>
                     </View>
 
                     <ActionButton
@@ -156,7 +160,11 @@ export default class HomeScreen extends Component {
                             this.navigateScreen('CreateRide');
                         }}
                     />
+
+                    <Spinner ref={(instance) => Controller.setRef(instance, Controller.spinner)}/>
+
                 </View>
+
             </View>
         );
     }
@@ -167,7 +175,7 @@ export const HomeStack = StackNavigator({
             screen: HomeScreen,
         },
         CreateRide: {
-            screen: CreateRideScreen,
+            screen: CreateScreen,
         }
     },
     {

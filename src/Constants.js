@@ -1,3 +1,6 @@
+
+export const TRANSPORT_MODE = 'driving'; // 'walking';
+export const GOOG_APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
 /**
  * String constants
  */
@@ -37,7 +40,8 @@ export const DIMENSION = {
  */
 export const FIREBASE = {
 	USERS_PATH: 'users',
-	RIDES_PATH: 'rides'
+	RIDES_PATH: 'rides',
+	REQUESTS_PATH: 'requests'
 };
 
 /**

@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, TouchableOpacity,
         Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
-import { COLOR } from "../../Constants"
-import CreateButton from '../../components/ActionButton';
 import DatePicker from '../../components/DatePicker';
-
+import DescriptionBox from '../../components/DescriptionBox'
+import PriceInput from '../../components/PriceInput'
 
 export default class RequestArea extends Component {
 
@@ -14,11 +13,13 @@ export default class RequestArea extends Component {
         this.pickupInput = "";
         this.dropoffInput = "";
         this.chosenDate = new Date();
+        this.description="";
+        this.price= 15;
     }
 
     submit() {
-        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== undefined && this.searchInputs.dropoffInput !== undefined) {
-            this.props.onSubmit(this.searchInputs, this.chosenDate, this.chosenSeats);
+        if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== "" && this.searchInputs.dropoffInput !== "") {
+            this.props.onSubmit(this.searchInputs, this.chosenDate);
             this.searchInputs = undefined;
             this.chosenDate = new Date();
         }
@@ -41,6 +42,24 @@ export default class RequestArea extends Component {
                         this.searchInputs = searchInputs;
                     }}/>
 
+                <PriceInput
+                    title={"Amount Offered"}
+                    onPriceChange={(price) => {
+                        if (price === "" || isNaN(price)) {
+                            this.price = 15;
+                        }
+                        else {
+                            this.price = parseFloat(price);
+                        }
+                    }}
+
+                />
+                <DescriptionBox
+                    description={"Additional information ..."}
+                    onTextChange={(text) => {
+                        this.description = text;
+                    }}
+                />
                 <DatePicker
                     color_theme={this.props.color_theme}
                     onDateChange={(date) => {
@@ -49,7 +68,9 @@ export default class RequestArea extends Component {
 
                 <View style={customStyle.buttonContainer}>
                     <Button
-                        onPress={() => this.submit()}
+                        onPress={() =>
+                            this.props.onSubmit(this.searchInputs, this.chosenDate, 0 , this.description, this.price)
+                        }
                         title="Request Ride!"/>
                 </View>
 

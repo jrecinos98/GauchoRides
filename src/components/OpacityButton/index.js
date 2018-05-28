@@ -5,7 +5,7 @@ import { COLOR } from "../../Constants";
 /**
  * Component used as buttons in the Login screen
  */
-export default class LoginButton extends Component{
+export default class OpacityButton extends Component{
 
     render(){
         return(

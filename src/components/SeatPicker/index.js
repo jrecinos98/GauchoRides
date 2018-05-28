@@ -42,7 +42,7 @@ export default class SeatPicker extends Component{
 
 		return (
 			<View style={styles.secondInputWrapper}>
-			<Text style={styles.label}>Seats</Text>
+				<Text style={styles.label}>Seats</Text>
 				<View style={styles.container}>
 					<TouchableOpacity
 						style={customStyle.button}
@@ -50,7 +50,7 @@ export default class SeatPicker extends Component{
 						<Text style={customStyle.text}> - </Text>
 					</TouchableOpacity>
 
-					<Text> {this.state.seats} </Text>
+					<Text style={styles.seatText}> {this.state.seats} </Text>
 
 					<TouchableOpacity
 						style={customStyle.button}
@@ -67,14 +67,15 @@ const styles = {
 	container: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'start',
+		justifyContent: 'center',
 		flexDirection: 'row',
 		backgroundColor: 'white',
 		borderRadius: 10,
 	},
 	secondInputWrapper:{
+		flex: 1,
 		marginLeft:15,
-		marginRight:10,
+		marginRight: 5,
 		marginTop:0,
 		marginBottom:5,
 		backgroundColor:"#fff",
@@ -82,11 +83,11 @@ const styles = {
 		borderRadius:7,
 	},
 	label:{
-			fontSize:10,
-			fontStyle: "italic",
-			marginLeft:10,
-			marginTop:10,
-			marginBottom:0
+		fontSize:10,
+		fontStyle: "italic",
+		marginLeft:10,
+		marginTop:10,
+		marginBottom: 0
 	},
 	button: {
 		width: 30,
@@ -98,5 +99,9 @@ const styles = {
 	},
 	text: {
 		color: null
+	},
+	seatText: {
+		marginLeft: 5,
+		marginRight: 5
 	}
 }

@@ -6,8 +6,6 @@ import { STRING } from '../../Constants';
 import Location from '../../actors/Location';
 import Controller from './Controller';
 
-const mode = 'driving'; // 'walking';
-const APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
 
 export default class MapArea extends Component {
 
@@ -67,7 +65,6 @@ export default class MapArea extends Component {
 
     //Get route from google direction api
     dropPins(rideList){
-        console.log("HERE RIDES: " , rideList)
         this.setState({ride_list: rideList});
         this.props.onPreview(rideList);
     }

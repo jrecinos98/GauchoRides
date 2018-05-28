@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
 import { COLOR, STRING } from '../../Constants';
-import LoginButton from "../../components/LoginButton";
+import OpacityButton from "../../components/OpacityButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
 import { MainScreenInstance } from "../Main";
@@ -134,7 +134,7 @@ export default class SettingScreen extends Component{
 
                     <View style={customStyle.divider}/>
                     <CenterText style={customStyle.titleText}> App Exit: </CenterText>
-                    <LoginButton
+                    <OpacityButton
                         title="Logout"
                         callback={async () => {
                             Database.logout();
