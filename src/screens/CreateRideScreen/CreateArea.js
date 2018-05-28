@@ -7,7 +7,7 @@ import CreateButton from '../../components/ActionButton';
 import DirectRideSwitch from '../../components/DirectRideSwitch';
 import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
-
+import DescriptionBox from '../../components/DescriptionBox';
 
 export default class CreateArea extends Component {
 
@@ -17,6 +17,7 @@ export default class CreateArea extends Component {
         this.dropoffInput = "";
         this.chosenDate = new Date();
         this.chosenSeats = 0;
+        this.description = "";
     }
 
     render() {
@@ -44,11 +45,17 @@ export default class CreateArea extends Component {
 
                 <DirectRideSwitch/>
 
+                <DescriptionBox
+                    onChangeText={(searchInputs)=>{
+                        this.searchInputs = searchInputs;
+                    }}/>
+
                 <DatePicker
                     color_theme={this.props.color_theme}
                     onDateChange={(date) => {
                         this.chosenDate = date;
                     }}/>
+
 
                 <View style={customStyle.buttonContainer}>
                     <Button
