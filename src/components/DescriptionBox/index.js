@@ -12,6 +12,7 @@ export default class DescriptionBox extends Component {
 			text: ''
 		};
 	}
+
 	updateText(text){
         this.setState({text});
         this.props.onTextChange(text);
@@ -20,12 +21,13 @@ export default class DescriptionBox extends Component {
 	render() {
 		return (
 			<View style={styles.secondInputWrapper}>
-				<View style={styles.switchWrapper}>
+				<View style={styles.DescriptionWrapper}>
 					<TextInput
 						style={styles.descriptionInput}
 						placeholder= {this.props.description}
         				onChangeText={(text) => this.updateText(text)}
                         autoCorrect={true}
+						autoCapitalize={"sentences"}
                         underlineColorAndroid='transparent'
         				value={this.state.text}
                         maxLength = {200}
@@ -49,13 +51,13 @@ const styles = {
 		borderRadius:7
 	},
 	label:{
-		fontSize:10,
+		fontSize:12,
 		fontStyle: "italic",
 		marginLeft:10,
 		marginTop:10,
 		marginBottom:0
 	},
-	switchWrapper: {
+	DescriptionWrapper: {
 		margin: 10
 	},
 	descriptionInput: {

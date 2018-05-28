@@ -38,7 +38,7 @@ const styles = {
         //alignItems: 'center',
         justifyContent: 'center'
     },
-    switchWrapper: {
+    DescriptionWrapper: {
         margin: 10
     },
     logoContainer: {

@@ -83,7 +83,7 @@ const styles = {
 		borderRadius:7,
 	},
 	label:{
-		fontSize:10,
+		fontSize:12,
 		fontStyle: "italic",
 		marginLeft:10,
 		marginTop:10,
@@ -101,6 +101,7 @@ const styles = {
 		color: null
 	},
 	seatText: {
+		fontSize: 20,
 		marginLeft: 5,
 		marginRight: 5
 	}

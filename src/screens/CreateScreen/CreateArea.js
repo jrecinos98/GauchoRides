@@ -18,7 +18,7 @@ export default class CreateArea extends Component {
         this.dropoffInput = "";
         this.chosenDate = new Date();
         this.chosenSeats = 1;
-        this.description = "My Ride";
+        this.description = "";
         this.price = 15;
     }
 
@@ -58,7 +58,6 @@ export default class CreateArea extends Component {
                     />
                 </View>
                 <DescriptionBox
-                    color_theme={this.props.color_theme}
 					description={"Additional information ..."}
                     onTextChange={(text) => {
                         this.description = text;
