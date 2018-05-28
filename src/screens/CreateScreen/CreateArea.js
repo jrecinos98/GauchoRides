@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, KeyboardAvoidingView,
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
-import CustomSwitch from '../../components/Switch';
+import CustomSwitch from '../../components/CustomSwitch';
 import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
 import PriceInput from '../../components/PriceInput';

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, ScrollView, Button} from "react-native";
 import SearchBox from '../../components/SearchBox';
 import Controller from './Controller';
-import CustomSwitch from '../../components/Switch';
+import CustomSwitch from '../../components/CustomSwitch';
 import DatePicker from '../../components/DatePicker';
 import {extractCity} from "../../Utility";
 import Database from "../../Database";
