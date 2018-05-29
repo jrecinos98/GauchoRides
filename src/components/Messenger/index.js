@@ -2,7 +2,7 @@ import { GiftedChat } from 'react-native-gifted-chat'
 import User from "../../../src/actors/User";
 
 
-class Messenger extends React.Component {
+export class Messenger extends React.Component {
   state = {
     messages: [],
   }

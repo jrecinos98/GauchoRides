@@ -58,6 +58,12 @@ export default class ProfileScreen extends Component {
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
                 color: profile_this.state.color_theme.APP_FOCUS
             }],
+            messages: [styles.message,{ 
+                fontSize: DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                color: profile_this.state.color_theme.APP_FOCUS
+            }],
+
             title: [styles.title, {
                 fontSize: DIMENSION.TITLE.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
@@ -86,14 +92,28 @@ export default class ProfileScreen extends Component {
                 <StatusBar barStyle={statusTheme}/>
 
                 <View style={customStyle.topBar}>
+
                     <Ionicons
                         name='ios-settings'
                         style={customStyle.settings}
                         onPress={() => {
                            this.props.screenProps.rootNavigation.navigate("Settings");
                         }}/>
+
                     <Text style={customStyle.title}>Profile</Text>
+
+                    <View style={customStyle.message}>
+                        <Ionicons
+                            name='ios-chatbubbles'
+                            style={customStyle.messages}
+                            onPress={() => {
+                                this.props.screenProps.rootNavigation.navigate("MessagesScreen");
+                            }}/>
+                    </View>
+
                 </View>
+
+                
 
                 <View style={customStyle.container}>
 
@@ -171,5 +191,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: null,
         paddingTop: null
+    },
+    message: {
+        //flex:1,
+        paddingLeft: 20,
+        paddingTop: null,
+        alignSelf: 'flex-start',
+        position: 'absolute',
     }
 });
