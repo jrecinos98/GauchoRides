@@ -1,55 +1,49 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { COLOR } from "../../Constants";
+import { Text, TextInput } from "react-native";
+import { View, InputGroup, Input } from "native-base";
 
-/**
- * Returns a component that contains two text inputs to collect email and password in Login screen.
- */
+
 export default class DescriptionBox extends Component {
 
     constructor(props) {
         super(props);
-        this.description = "";
+        this.state = {
+            text: ''
+        };
+    }
+
+    updateText(text){
+        this.setState({text});
+        this.props.onTextChange(text);
     }
 
     render() {
         return (
-          <View style={styles.secondInputWrapper}>
-          <Text style={styles.label}>{"About Me (Optional)"}</Text>
-            <View style={styles.textContainer}>
-                <TextInput style={styles.input}
-                  multiline={true}
-                  maxLength={250}
-                  keyboardType="default"
-                  placeholderTextColor={null}
-                  placeholder="Description"
-                  autoCapitalize={"sentences"}
-                  onChangeText={(description) => {
-                      this.description = description;
-                  }}/>
-            </View>
+            <View behavior="padding" style={styles.container} enabled>
+                <View style={styles.descriptionWrapper}>
+                    <TextInput
+                        style={styles.descriptionInput}
+                        placeholder= {this.props.description}
+                        onChangeText={(text) => this.updateText(text)}
+                        autoCorrect={true}
+                        autoCapitalize={"sentences"}
+                        underlineColorAndroid='transparent'
+                        value={this.state.text}
+                        maxLength = {250}
+                        multiline ={true}
+                    />
+                </View>
           </View>
         );
     }
-
 }
 
 const styles = {
-    textContainer: {
-        backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND_OPAQUE,
-    },
-    input: {
-        height: 40,
-        marginBottom: 10,
-        marginTop:10,
-        color: '#000000',
-        paddingHorizontal: 10
-    },
-    secondInputWrapper:{
+    container:{
         marginLeft:15,
         marginRight:10,
         marginTop:0,
-    		marginBottom:5,
+        marginBottom:5,
         backgroundColor:"#fff",
         opacity:0.7,
         borderRadius:7
@@ -60,5 +54,16 @@ const styles = {
         marginLeft:10,
         marginTop:10,
         marginBottom:0
+    },
+    descriptionWrapper: {
+        margin: 10
+    },
+    descriptionInput: {
+        borderColor: 'gray',
+        borderWidth: 1,
+        height: 70,
+        fontSize: 15,
+        borderRadius: 7,
+        padding: 10
     }
 }

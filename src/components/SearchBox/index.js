@@ -32,7 +32,7 @@ export default class SearchBox extends Component {
 
 				<GooglePlacesAutocomplete
 				//  predefinedPlaces={[homePlace, workPlace]}
-					placeholder='Choose Pick-Up Location'
+					placeholder={this.props.originTag}
 					minLength={4}
 					autoFocus={false}
 					returnKeyType={'search'}
@@ -71,7 +71,7 @@ export default class SearchBox extends Component {
 
 				<GooglePlacesAutocomplete
 				 	//predefinedPlaces={[homePlace, workPlace]}
-					placeholder='Choose Drop-Off Location'
+					placeholder={this.props.destinationTag}
 					minLength={4}
 					autoFocus={false}
 					returnKeyType={'search'}

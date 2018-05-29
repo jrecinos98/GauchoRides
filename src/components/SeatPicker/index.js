@@ -87,7 +87,8 @@ const styles = {
 		fontStyle: "italic",
 		marginLeft:10,
 		marginTop:10,
-		marginBottom: 0
+		marginBottom: 0,
+		textAlign: "center"
 	},
 	button: {
 		width: 30,

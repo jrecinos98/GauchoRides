@@ -89,6 +89,9 @@ export default class RequestRideScreen extends Component {
                 </View>
 
                 <RequestArea
+
+                    originTag={'Set Pick-Up Location'}
+                    destinationTag={'Set Drop-Off Location'}
                     color_theme={driver_this.state.color_theme}
                     onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);

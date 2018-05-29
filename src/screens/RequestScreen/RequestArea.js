@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, TouchableOpacity,
-        Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
+import { View, Text, StyleSheet,
+        Button, KeyboardAvoidingView, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import DatePicker from '../../components/DatePicker';
 import DescriptionBox from '../../components/DescriptionBox'
@@ -38,6 +38,9 @@ export default class RequestArea extends Component {
             <ScrollView style={styles.container}>
 
                 <SearchBox
+
+                    originTag={this.props.originTag}
+                    destinationTag={this.props.destinationTag}
                     onChangeText={(searchInputs)=>{
                         this.searchInputs = searchInputs;
                     }}/>

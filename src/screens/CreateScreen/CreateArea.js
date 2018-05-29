@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, TouchableOpacity,
-		Button, TouchableHighlight, Alert, Dimensions, Platform, ScrollView } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView,
+		Button, ScrollView } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
-import DirectRideSwitch from '../../components/DirectRideSwitch';
+import CustomSwitch from '../../components/CustomSwitch';
 import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
 import PriceInput from '../../components/PriceInput';
@@ -35,42 +35,46 @@ export default class CreateArea extends Component {
             <ScrollView style={styles.container}>
 
                 <SearchBox
+                    originTag={this.props.originTag}
+                    destinationTag={this.props.destinationTag}
                     onChangeText={(searchInputs) => {
                         this.searchInputs = searchInputs;
                     }}/>
+
                 <View style={styles.seatPriceContainer}>
+
                     <SeatPicker
                         color_theme={this.props.color_theme}
                         onSeatsChange={(seats) => {
                             this.chosenSeats = seats;
                         }}/>
+
                     <PriceInput
-                       // color_theme={this.props.color_theme}
-						title={"Price"}
+                        // color_theme={this.props.color_theme}
+                        title={"Price"}
                         onPriceChange={(price) => {
-                            if (price === "" || isNaN(price)){
-                                this.price= 15;
+                            if (price === "" || isNaN(price)) {
+                                this.price = 15;
                             }
-                            else{
+                            else {
                                 this.price = parseFloat(price);
                             }
-                        }}
-                    />
+                        }}/>
                 </View>
 
-                <DirectRideSwitch/>
-
                 <DescriptionBox
-                    onChangeText={(searchInputs)=>{
-                        this.searchInputs = searchInputs;
+                    description={"Additional information ..."}
+                    onTextChange={(text) => {
+                        this.description = text;
                     }}/>
-										
+
+                <CustomSwitch/>
+									
                 <DatePicker
                     color_theme={this.props.color_theme}
                     onDateChange={(date) => {
                         this.chosenDate = date;
                     }}/>
-
 
                 <View style={customStyle.buttonContainer}>
                     <Button
@@ -81,7 +85,6 @@ export default class CreateArea extends Component {
                 </View>
 
             </ScrollView>
-
         );
 
     }
