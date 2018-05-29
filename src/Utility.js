@@ -127,3 +127,15 @@ export function createRoute(origin, destin, callback) {
             console.warn(e)
         });
 }
+
+export function formatDate(date) {
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    let day = date.getDate();
+    let month = months[date.getMonth()];
+    let year = date.getFullYear();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+
+    return month + ' ' + day + ', ' + hour + ':' + minute;
+}

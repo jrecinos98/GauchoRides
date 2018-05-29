@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from
 import { Ionicons } from '@expo/vector-icons';
 import { DIMENSION } from '../../Constants';
 import Controller from './Controller';
+import { formatDate } from '../../Utility';
 
 
 export default class PreviewArea extends Component {
@@ -36,7 +37,10 @@ export default class PreviewArea extends Component {
                 backgroundColor: this.props.color_theme.APP_BACKGROUND,
                 shadowColor: this.props.color_theme.APP_UNFOCUS
             }],
-            buttonText: [styles.buttonText, {
+            dataKey: [styles.dataKey, {
+                color: this.props.color_theme.APP_FOCUS
+            }],
+            dataValue: [styles.dataValue, {
                 color: this.props.color_theme.APP_FOCUS
             }],
             expandButton: [styles.expandButton, {
@@ -71,13 +75,46 @@ export default class PreviewArea extends Component {
                             Controller.focusRide(index);
                         }}>
 
-                        <Text style={customStyle.buttonText}>
-                            Origin: {ride.origin.name}
-                        </Text>
+                        <View style={styles.dataRow}>
+                            <Text style={customStyle.dataKey}> Driver: </Text>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode={"tail"}
+                                style={customStyle.dataValue}>
+                                {ride.driver}
+                            </Text>
+                        </View>
 
-                        <Text style={customStyle.buttonText}>
-                            Destination: {ride.destination.name}
-                        </Text>
+                        <View style={styles.dataRow}>
+                            <Text style={customStyle.dataKey}> Time: </Text>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode={"tail"}
+                                style={customStyle.dataValue}>
+                                {formatDate(new Date(ride.time))}
+                            </Text>
+                        </View>
+
+                        <View style={styles.dataRow}>
+                            <Text style={customStyle.dataKey}> Price: </Text>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode={"tail"}
+                                style={customStyle.dataValue}>
+                                ${(ride.price) ? ride.price : 0}
+                            </Text>
+                        </View>
+
+                        <View style={styles.dataRow}>
+                            <Text style={customStyle.dataKey}> Seats: </Text>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode={"tail"}
+                                style={customStyle.dataValue}>
+                                {ride.seats - ((ride.passengers) ? ride.passengers.length : 0)} / {ride.seats}
+                            </Text>
+                        </View>
+
                     </TouchableOpacity>
 
                 </View>
@@ -119,10 +156,21 @@ const styles = StyleSheet.create({
         width: DIMENSION.PREVIEW.WIDTH,
         height: DIMENSION.PREVIEW.HEIGHT
     },
-    buttonText:{
-        marginLeft: 10,
+    dataRow: {
+        flex: 1,
+        alignSelf: 'stretch',
+        flexDirection: 'row'
+    },
+    dataKey:{
         color: null,
         fontWeight: "700",
+        width: 70
+    },
+    dataValue: {
+        color: null,
+        fontWeight: "700",
+        flex: 1,
+        alignSelf: 'stretch'
     },
     previewContainer: {
         marginLeft:5,
