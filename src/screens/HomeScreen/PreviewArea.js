@@ -107,7 +107,7 @@ export default class PreviewArea extends Component {
                         }}>
 
                         <Image
-                            source={{uri: 'https://graph.facebook.com/' + this.getDriverPicture(index) + '/picture?type=small'}}
+                            source={{uri: 'https://graph.facebook.com/' + this.getDriverPicture(index) + '/picture?type=large'}}
                             borderRadius={25}
                             style={styles.driverImage}/>
 
