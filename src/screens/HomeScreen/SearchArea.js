@@ -4,7 +4,7 @@ import SearchBox from '../../components/SearchBox';
 import Controller from './Controller';
 import CustomSwitch from '../../components/CustomSwitch';
 import DatePicker from '../../components/DatePicker';
-import {extractCity} from "../../Utility";
+import Utility from "../../Utility";
 import Database from "../../Database";
 
 export default class SearchArea extends Component {
@@ -36,8 +36,8 @@ export default class SearchArea extends Component {
                 return;
             }
             Controller.toggleDisplay();
-            let origin = extractCity(this.searchInputs.pickupArray);
-            let destin = extractCity(this.searchInputs.dropoffArray);
+            let origin = Utility.extractCity(this.searchInputs.pickupArray);
+            let destin = Utility.extractCity(this.searchInputs.dropoffArray);
             Controller.showSpinner(true);
             await Database.retrieveRideList(origin, destin,(rideList) => {
                 this.setState( {rides: rideList});

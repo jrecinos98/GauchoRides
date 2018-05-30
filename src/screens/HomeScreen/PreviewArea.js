@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image
 import { Ionicons } from '@expo/vector-icons';
 import { DIMENSION } from '../../Constants';
 import Controller from './Controller';
-import { formatDate } from '../../Utility';
+import Utility from '../../Utility';
 import Database from '../../Database';
 
 
@@ -128,7 +128,7 @@ export default class PreviewArea extends Component {
                                     numberOfLines={1}
                                     ellipsizeMode={"tail"}
                                     style={customStyle.dataValue}>
-                                    {formatDate(new Date(ride.time * 1000))}
+                                    {Utility.formatDate(new Date(ride.time * 1000))}
                                 </Text>
                             </View>
 

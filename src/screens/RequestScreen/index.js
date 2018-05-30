@@ -9,7 +9,7 @@ import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import {COLOR, DIMENSION, FIREBASE} from '../../Constants';
 import RequestArea from './RequestArea';
-import {createRide, getTheme} from '../../Utility';
+import Utility from '../../Utility';
 import Database from '../../Database';
 import Spinner from '../../components/Spinner';
 import {extractCity} from "../../Utility";
@@ -29,7 +29,7 @@ export default class RequestRideScreen extends Component {
             color_theme: COLOR.THEME_LIGHT
         };
 
-        getTheme(function(theme) {
+        Utility.getTheme(function(theme) {
             driver_this.setState({
                 color_theme: theme
             });
@@ -95,7 +95,7 @@ export default class RequestRideScreen extends Component {
                     color_theme={driver_this.state.color_theme}
                     onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
-                        createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, (successful) => {
+                        Utility.createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, (successful) => {
                             if(successful) {
                                 this.props.navigation.goBack(null);
                                 this.spinner.show(false);

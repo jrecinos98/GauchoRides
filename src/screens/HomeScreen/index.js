@@ -7,7 +7,7 @@ import PreviewArea from './PreviewArea';
 import { StackNavigator } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
-import { getTheme } from '../../Utility';
+import Utility from '../../Utility';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
 import CreateScreen from "../CreateScreen";
@@ -27,7 +27,7 @@ export default class HomeScreen extends Component {
             rides: [],
         };
 
-        getTheme((theme) => {
+        Utility.getTheme((theme) => {
             if (this.refs.classRef) {
                 this.setState({
                     color_theme: theme

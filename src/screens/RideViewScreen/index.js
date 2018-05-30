@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
 import { COLOR, STRING } from '../../Constants';
-import { getTheme } from '../../Utility';
+import Utility from '../../Utility';
 import { Ionicons } from '@expo/vector-icons';
 import CenterText from "../../components/CenterText";
 import Database from '../../Database';
@@ -17,7 +17,7 @@ export default class RideViewScreen extends Component{
         };
 
         const rideview_this = this;
-        getTheme(function(app_theme) {
+        Utility.getTheme(function(app_theme) {
             rideview_this.setState({
                 color_theme: app_theme
             });

@@ -1,7 +1,4 @@
 
-import {getDestLatLon} from "../../Utility";
-import {getOriginLatLon} from "../../Utility";
-
 export default class Controller {
 	static rides;
 	static refs;

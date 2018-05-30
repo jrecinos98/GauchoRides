@@ -5,8 +5,7 @@ import { RideMap } from '../../components/RideMap'; //adding map
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import CreateArea from './CreateArea';
-import { getTheme } from '../../Utility';
-import {createRide} from "../../Utility";
+import Utility from '../../Utility';
 import Spinner from '../../components/Spinner';
 import {FIREBASE} from "../../Constants";
 
@@ -23,7 +22,7 @@ export default class CreateScreen extends Component {
 			color_theme: COLOR.THEME_LIGHT
 		};
 
-		getTheme(function(theme) {
+		Utility.getTheme(function(theme) {
 			driver_this.setState({
 				color_theme: theme
 			});
@@ -77,7 +76,7 @@ export default class CreateScreen extends Component {
                     destinationTag={'Set Drop-Off Location'}
 					onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
-						createRide(FIREBASE.RIDES_PATH, searchInputs, chosenDate, chosenSeats, description, price, (successful) => {
+						Utility.createRide(FIREBASE.RIDES_PATH, searchInputs, chosenDate, chosenSeats, description, price, (successful) => {
                             if (successful) {
                                 this.props.navigation.goBack(null);
                                 this.spinner.show(false);

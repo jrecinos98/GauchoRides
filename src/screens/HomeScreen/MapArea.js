@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import RideMap from '../../components/RideMap';
-import { getMapTheme } from '../../Utility';
+import Utility from '../../Utility';
 import { STRING } from '../../Constants';
 import Location from '../../actors/Location';
 import Controller from './Controller';
@@ -23,7 +23,7 @@ export default class MapArea extends Component {
 
         //Get map theme
         mapArea_this = this;
-        getMapTheme(function(map_theme) {
+        Utility.getMapTheme(function(map_theme) {
             mapArea_this.setState({
                 map_theme: map_theme
             });
