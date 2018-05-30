@@ -44,7 +44,7 @@ export default class Controller {
 		this.refs.map.createRoute(origin.toString(), destin.toString());
 	}
 
-	static focusRide(index) {
+	static focusPreview(index) {
 		if (this.refs.preview.previewBar === undefined)
 		    this.refs.preview.show(!this.displaySearch);
 
@@ -53,7 +53,13 @@ export default class Controller {
 		    y: 0,
 		    animated: true
 		});
-		this.refs.map.rideMap.moveMapCamera(index);
+	}
+
+	static focusMap(index) {
+		if (this.refs.preview.previewBar === undefined)
+		    this.refs.preview.show(!this.displaySearch);
+
+		this.refs.map.rideMap.focusRide(index);
 	}
 
 	static showMenu(toShow) {
