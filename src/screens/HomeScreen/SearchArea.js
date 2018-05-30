@@ -78,7 +78,7 @@ export default class SearchArea extends Component {
                             this.searchInputs = searchInputs;
                         }}/>
 
-                    <CustomSwitch/>
+                    <CustomSwitch label={this.props.switchLabel}/>
 
                     <DatePicker
                         color_theme={this.props.color_theme}

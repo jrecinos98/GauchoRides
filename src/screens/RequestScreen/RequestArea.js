@@ -41,7 +41,6 @@ export default class RequestArea extends Component {
                     keyboardShouldPersistTaps={'always'}>
 
                     <SearchBox
-
                         originTag={this.props.originTag}
                         destinationTag={this.props.destinationTag}
                         onChangeText={(searchInputs)=>{

@@ -137,6 +137,7 @@ export default class HomeScreen extends Component {
                             color_theme={this.state.color_theme}
                             originTag={'Choose Pick-Up Location'}
                             destinationTag={'Choose Drop-Off Location'}
+                            switchLabel= {"Direct Rides Only"}
 
                         />
                     </View>

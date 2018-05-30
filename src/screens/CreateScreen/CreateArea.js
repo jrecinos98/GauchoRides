@@ -71,7 +71,7 @@ export default class CreateArea extends Component {
                             this.description = text;
                         }}/>
 
-                    <CustomSwitch/>
+                    <CustomSwitch label={"Auto-Fill"}/>
 
                     <DatePicker
                         color_theme={this.props.color_theme}
@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center'
 	}
-})
+});
