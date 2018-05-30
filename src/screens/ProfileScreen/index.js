@@ -101,7 +101,7 @@ export default class ProfileScreen extends Component {
                         <Text style={customStyle.userName}>{User.currentUser.name}</Text>
                         <BounceProfileImage
                             source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}}
-                            borderRadius={72}/>
+                            borderRadius={75}/>
                     </View>
 
                     <View style={styles.ratingContainer}>

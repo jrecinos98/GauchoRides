@@ -108,7 +108,7 @@ export default class PreviewArea extends Component {
 
                         <Image
                             source={{uri: 'https://graph.facebook.com/' + this.getDriverPicture(index) + '/picture?type=large'}}
-                            borderRadius={25}
+                            borderRadius={35}
                             style={styles.driverImage}/>
 
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -236,8 +236,8 @@ const styles = StyleSheet.create({
     driverImage: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 50,
-        height: 50,
-        margin: 10
+        width: 70,
+        height: 70,
+        margin: 5
     }
 });
