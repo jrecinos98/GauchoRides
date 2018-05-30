@@ -148,7 +148,7 @@ export default class PreviewArea extends Component {
                                     numberOfLines={1}
                                     ellipsizeMode={"tail"}
                                     style={customStyle.dataValue}>
-                                    {ride.seats - ((ride.passengers) ? ride.passengers.length : 0)} / {ride.seats}
+                                    {ride.seats - ((ride.passengers) ? ride.passengers.length : 0)}/{ride.seats} Available
                                 </Text>
                             </View>
                         </View>
