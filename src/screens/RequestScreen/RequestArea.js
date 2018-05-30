@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet,
-        Button, KeyboardAvoidingView, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Button, KeyboardAvoidingView, ScrollView, Keyboard, TouchableWithoutFeedback } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import DatePicker from '../../components/DatePicker';
 import DescriptionBox from '../../components/DescriptionBox'
@@ -35,52 +34,55 @@ export default class RequestArea extends Component {
         };
 
         return (
-            <ScrollView
-                style={styles.container}
-                keyboardShouldPersistTaps={'always'}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} accessible={false}>
 
-                <SearchBox
+                <ScrollView
+                    style={styles.container}
+                    keyboardShouldPersistTaps={'always'}>
 
-                    originTag={this.props.originTag}
-                    destinationTag={this.props.destinationTag}
-                    onChangeText={(searchInputs)=>{
-                        this.searchInputs = searchInputs;
-                    }}/>
+                    <SearchBox
 
-                <PriceInput
-                    title={"Amount Offered"}
-                    onPriceChange={(price) => {
-                        if (price === "" || isNaN(price)) {
-                            this.price = 15;
-                        }
-                        else {
-                            this.price = parseFloat(price);
-                        }
-                    }}
+                        originTag={this.props.originTag}
+                        destinationTag={this.props.destinationTag}
+                        onChangeText={(searchInputs)=>{
+                            this.searchInputs = searchInputs;
+                        }}/>
 
-                />
-                <DescriptionBox
-                    description={"Additional information ..."}
-                    onTextChange={(text) => {
-                        this.description = text;
-                    }}
-                />
-                <DatePicker
-                    color_theme={this.props.color_theme}
-                    onDateChange={(date) => {
-                        this.chosenDate = date;
-                    }}/>
+                    <PriceInput
+                        title={"Amount Offered"}
+                        onPriceChange={(price) => {
+                            if (price === "" || isNaN(price)) {
+                                this.price = 15;
+                            }
+                            else {
+                                this.price = parseFloat(price);
+                            }
+                        }}
 
-                <View style={customStyle.buttonContainer}>
-                    <Button
-                        onPress={() =>
-                            this.props.onSubmit(this.searchInputs, this.chosenDate, 0 , this.description, this.price)
-                        }
-                        title="Request Ride!"/>
-                </View>
+                    />
+                    <DescriptionBox
+                        description={"Additional information ..."}
+                        onTextChange={(text) => {
+                            this.description = text;
+                        }}
+                    />
+                    <DatePicker
+                        color_theme={this.props.color_theme}
+                        onDateChange={(date) => {
+                            this.chosenDate = date;
+                        }}/>
 
-            </ScrollView>
+                    <View style={customStyle.buttonContainer}>
+                        <Button
+                            onPress={() =>
+                                this.props.onSubmit(this.searchInputs, this.chosenDate, 0 , this.description, this.price)
+                            }
+                            title="Request Ride!"/>
+                    </View>
 
+                </ScrollView>
+
+            </TouchableWithoutFeedback>
         );
 
     }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, ScrollView, Button} from "react-native";
+import { View, StyleSheet, ScrollView, Button, Keyboard, TouchableWithoutFeedback } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import Controller from './Controller';
 import CustomSwitch from '../../components/CustomSwitch';
@@ -64,37 +64,41 @@ export default class SearchArea extends Component {
         };
 
         return (
-            <ScrollView
-                style={styles.container}
-                keyboardShouldPersistTaps={'always'}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} accessible={false}>
 
-                <SearchBox
+                <ScrollView
+                    style={styles.container}
+                    keyboardShouldPersistTaps={'always'}>
 
-                    originTag={this.props.originTag}
-                    destinationTag={this.props.destinationTag}
-                    onChangeText={(searchInputs)=>{
-                        this.searchInputs = searchInputs;
-                    }}/>
+                    <SearchBox
 
-                <CustomSwitch/>
+                        originTag={this.props.originTag}
+                        destinationTag={this.props.destinationTag}
+                        onChangeText={(searchInputs)=>{
+                            this.searchInputs = searchInputs;
+                        }}/>
 
-                <DatePicker
-                    color_theme={this.props.color_theme}
-                    onDateChange={(date) => {
-                        this.chosenDate = date;
-                    }}/>
+                    <CustomSwitch/>
 
-                <View style={customStyle.buttonContainer}>
-                    <Button
-                        onPress={() => {
-                            this.submit().then(()=>{
+                    <DatePicker
+                        color_theme={this.props.color_theme}
+                        onDateChange={(date) => {
+                            this.chosenDate = date;
+                        }}/>
 
-                            });
-                        }}
-                        title="Find Ride!"/>
-                </View>
+                    <View style={customStyle.buttonContainer}>
+                        <Button
+                            onPress={() => {
+                                this.submit().then(()=>{
 
-            </ScrollView>
+                                });
+                            }}
+                            title="Find Ride!"/>
+                    </View>
+
+                </ScrollView>
+
+            </TouchableWithoutFeedback>
         );
 
     }
