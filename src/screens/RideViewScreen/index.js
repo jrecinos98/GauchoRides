@@ -56,7 +56,7 @@ export default class RideViewScreen extends Component{
                 <CenterText style={customStyle.titleText}> Origin: {ride.origin.name}</CenterText>
                 <CenterText style={customStyle.titleText}> Destination: {ride.destination.name}</CenterText>
                 <CenterText style={customStyle.titleText}> Seats: {ride.seats}</CenterText>
-                <CenterText style={customStyle.titleText}> Time: {new Date(ride.time).toString()}</CenterText>
+                <CenterText style={customStyle.titleText}> Time: {new Date(ride.time * 1000).toString()}</CenterText>
                 <CenterText style={customStyle.titleText}> Price: {ride.price}</CenterText>
 
             </ScrollView>

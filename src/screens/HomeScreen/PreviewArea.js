@@ -128,7 +128,7 @@ export default class PreviewArea extends Component {
                                     numberOfLines={1}
                                     ellipsizeMode={"tail"}
                                     style={customStyle.dataValue}>
-                                    {formatDate(new Date(ride.time))}
+                                    {formatDate(new Date(ride.time * 1000))}
                                 </Text>
                             </View>
 
