@@ -137,5 +137,25 @@ export function formatDate(date) {
     let hour = date.getHours();
     let minute = date.getMinutes();
 
-    return month + ' ' + day + ', ' + hour + ':' + minute;
+    let prefixH = "";
+    let prefixM = "";
+    let ampm = "AM";
+
+    if (hour > 12) {
+        hour -= 12;
+        ampm = "PM";
+    }
+
+    if (hour == 0) {
+        hour = 12;
+        ampm = "AM";
+    }
+
+    if (hour < 10)
+        prefixH = "0";
+
+    if (minute < 10)
+        prefixM = "0";
+
+    return month + ' ' + day + ', ' + prefixH + hour + ':' + prefixM + minute + ' ' + ampm;
 }
