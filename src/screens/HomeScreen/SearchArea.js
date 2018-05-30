@@ -64,7 +64,10 @@ export default class SearchArea extends Component {
         };
 
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView
+                style={styles.container}
+                keyboardShouldPersistTaps={'always'}>
+
                 <SearchBox
 
                     originTag={this.props.originTag}
