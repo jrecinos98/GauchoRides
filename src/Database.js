@@ -138,14 +138,27 @@ export default class Database {
      * @param callback
      */
 	static getUser(id, callback) {
-		firestore.collection(FIREBASE.USERS_PATH ).doc(id).get()
+		firestore.collection(FIREBASE.USERS_PATH).doc(id).get()
 		.then(function(doc) {
 			callback(doc.data());
 		})
 		.catch(function(error) {
-		    console.log("Error getting document:", error);
+			console.log("Error getting document:", error);
 		});
 	}
+
+
+	static getUserList(id_list, callback) {
+		let userList = [];
+		for (let i = 0; i < id_list.length; i++){
+			let id = id_list[i];
+			Database.getUser(id, (user) => {
+				userList.push(user);
+				callback(userList);
+			});
+		}
+	}
+
 
     /**
 	 * Retrieves rides that the user has taken a part in
@@ -156,7 +169,7 @@ export default class Database {
 		for (var id in User.currentUser.rides){
 		    Database.getRide(id, (ride) => {
 				rideList.push(ride);
-                callback(rideList);
+				callback(rideList);
 			});
 		}
 

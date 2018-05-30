@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { DIMENSION } from '../../Constants';
 import Controller from './Controller';
 import { formatDate } from '../../Utility';
+import Database from '../../Database';
 
 
 export default class PreviewArea extends Component {
@@ -11,14 +12,39 @@ export default class PreviewArea extends Component {
 	constructor(props) {
         super(props);
         this.state = {
-            toDisplay: false
+            toDisplay: false,
+            driverList: []
         }
+        this.prevRides = [];
     }
 
     show(toDisplay) {
         this.setState({
             toDisplay: toDisplay
         });
+    }
+
+    loadDriverList(rides) {
+        if (rides === undefined)
+            return;
+
+        let idList = [];
+        for (let i = 0; i < rides.length; i++)
+            idList.push(rides[i].driver);
+
+        Database.getUserList(idList, (driverList) => {
+            this.setState({
+                driverList: driverList
+            });
+        });
+    }
+
+    getDriverName(index) {
+        return (this.state.driverList.length > index) ? this.state.driverList[index].name : '';
+    }
+
+    getDriverPicture(index) {
+        return (this.state.driverList.length > index && this.state.driverList[index].fbID) ? this.state.driverList[index].fbID : '';
     }
 
     getSnapPosition(index) {
@@ -31,6 +57,11 @@ export default class PreviewArea extends Component {
 
         if (!this.state.toDisplay)
             return null;
+
+        if (this.props.rides != this.prevRides) {
+            this.prevRides = this.props.rides;
+            this.loadDriverList(this.props.rides);
+        }
 
         const customStyle = {
             buttonContainer: [styles.buttonContainer, {
@@ -75,44 +106,51 @@ export default class PreviewArea extends Component {
                             Controller.focusRide(index);
                         }}>
 
-                        <View style={styles.dataRow}>
-                            <Text style={customStyle.dataKey}> Driver: </Text>
-                            <Text
-                                numberOfLines={1}
-                                ellipsizeMode={"tail"}
-                                style={customStyle.dataValue}>
-                                {ride.driver}
-                            </Text>
-                        </View>
+                        <Image
+                            source={{uri: 'https://graph.facebook.com/' + this.getDriverPicture(index) + '/picture?type=small'}}
+                            borderRadius={25}
+                            style={styles.driverImage}/>
 
-                        <View style={styles.dataRow}>
-                            <Text style={customStyle.dataKey}> Time: </Text>
-                            <Text
-                                numberOfLines={1}
-                                ellipsizeMode={"tail"}
-                                style={customStyle.dataValue}>
-                                {formatDate(new Date(ride.time))}
-                            </Text>
-                        </View>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Driver: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    {this.getDriverName(index)}
+                                </Text>
+                            </View>
 
-                        <View style={styles.dataRow}>
-                            <Text style={customStyle.dataKey}> Price: </Text>
-                            <Text
-                                numberOfLines={1}
-                                ellipsizeMode={"tail"}
-                                style={customStyle.dataValue}>
-                                ${(ride.price) ? ride.price : 0}
-                            </Text>
-                        </View>
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Time: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    {formatDate(new Date(ride.time))}
+                                </Text>
+                            </View>
 
-                        <View style={styles.dataRow}>
-                            <Text style={customStyle.dataKey}> Seats: </Text>
-                            <Text
-                                numberOfLines={1}
-                                ellipsizeMode={"tail"}
-                                style={customStyle.dataValue}>
-                                {ride.seats - ((ride.passengers) ? ride.passengers.length : 0)} / {ride.seats}
-                            </Text>
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Price: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    ${(ride.price) ? ride.price : 0}
+                                </Text>
+                            </View>
+
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Seats: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    {ride.seats - ((ride.passengers) ? ride.passengers.length : 0)} / {ride.seats}
+                                </Text>
+                            </View>
                         </View>
 
                     </TouchableOpacity>
@@ -154,7 +192,10 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 0.25,
         width: DIMENSION.PREVIEW.WIDTH,
-        height: DIMENSION.PREVIEW.HEIGHT
+        height: DIMENSION.PREVIEW.HEIGHT,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     dataRow: {
         flex: 1,
@@ -164,7 +205,7 @@ const styles = StyleSheet.create({
     dataKey:{
         color: null,
         fontWeight: "700",
-        width: 70
+        width: 60
     },
     dataValue: {
         color: null,
@@ -191,5 +232,12 @@ const styles = StyleSheet.create({
     expandIcon: {
         color: null,
         fontSize: 20
+    },
+    driverImage: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 50,
+        height: 50,
+        margin: 10
     }
 });
