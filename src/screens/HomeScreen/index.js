@@ -35,11 +35,8 @@ export default class HomeScreen extends Component {
             }
         });
 
-        this.displaySearch = false;
-        this.firstSearch=true;
-
+        Controller.initialize();
         Controller.setRef(this, Controller.home);
-
     }
 
     static navigationOptions = {
