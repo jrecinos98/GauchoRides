@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, Image, StyleSheet } from "react-native";
-import { getTheme } from '../../Utility';
 
 /**
  * Single component used to represent the driving rating object

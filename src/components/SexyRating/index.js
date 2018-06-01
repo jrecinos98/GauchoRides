@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import {  View, StyleSheet } from "react-native";
 import ChiliComponent from './ChiliComponent'
 import User from '../../actors/User'
-import {COLOR} from "../../Constants";
-import {getTheme} from "../../Utility";
-import {RATING_COLOR} from "../../Constants";
+import { COLOR, RATING_COLOR } from "../../Constants";
+import Utility from "../../Utility";
 
 /**
  * A container Component for all the ChiliComponent objects. The object retrieves the user rating and displays the components it holds accordingly.
@@ -18,7 +17,7 @@ export default class SexyRating extends Component{
             color_theme: COLOR.THEME_LIGHT
         };
         //this.getRating= this.getRating.bind(this);
-        getTheme(function (theme) {
+        Utility.getTheme(function (theme) {
             chili_this.setState({
                 color_theme: theme
             });

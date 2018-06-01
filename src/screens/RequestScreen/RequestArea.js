@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet,
-        Button, KeyboardAvoidingView, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Button, KeyboardAvoidingView, ScrollView, Keyboard, TouchableWithoutFeedback } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import DatePicker from '../../components/DatePicker';
 import DescriptionBox from '../../components/DescriptionBox'
@@ -35,50 +34,54 @@ export default class RequestArea extends Component {
         };
 
         return (
-            <ScrollView style={styles.container}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()} accessible={false}>
 
-                <SearchBox
+                <ScrollView
+                    style={styles.container}
+                    keyboardShouldPersistTaps={'always'}>
 
-                    originTag={this.props.originTag}
-                    destinationTag={this.props.destinationTag}
-                    onChangeText={(searchInputs)=>{
-                        this.searchInputs = searchInputs;
-                    }}/>
+                    <SearchBox
+                        originTag={this.props.originTag}
+                        destinationTag={this.props.destinationTag}
+                        onChangeText={(searchInputs)=>{
+                            this.searchInputs = searchInputs;
+                        }}/>
 
-                <PriceInput
-                    title={"Amount Offered"}
-                    onPriceChange={(price) => {
-                        if (price === "" || isNaN(price)) {
-                            this.price = 15;
-                        }
-                        else {
-                            this.price = parseFloat(price);
-                        }
-                    }}
+                    <PriceInput
+                        title={"Amount Offered"}
+                        onPriceChange={(price) => {
+                            if (price === "" || isNaN(price)) {
+                                this.price = 15;
+                            }
+                            else {
+                                this.price = parseFloat(price);
+                            }
+                        }}
 
-                />
-                <DescriptionBox
-                    description={"Additional information ..."}
-                    onTextChange={(text) => {
-                        this.description = text;
-                    }}
-                />
-                <DatePicker
-                    color_theme={this.props.color_theme}
-                    onDateChange={(date) => {
-                        this.chosenDate = date;
-                    }}/>
+                    />
+                    <DescriptionBox
+                        description={"Additional information ..."}
+                        onTextChange={(text) => {
+                            this.description = text;
+                        }}
+                    />
+                    <DatePicker
+                        color_theme={this.props.color_theme}
+                        onDateChange={(date) => {
+                            this.chosenDate = date;
+                        }}/>
 
-                <View style={customStyle.buttonContainer}>
-                    <Button
-                        onPress={() =>
-                            this.props.onSubmit(this.searchInputs, this.chosenDate, 0 , this.description, this.price)
-                        }
-                        title="Request Ride!"/>
-                </View>
+                    <View style={customStyle.buttonContainer}>
+                        <Button
+                            onPress={() =>
+                                this.props.onSubmit(this.searchInputs, this.chosenDate, 0 , this.description, this.price)
+                            }
+                            title="Request Ride!"/>
+                    </View>
 
-            </ScrollView>
+                </ScrollView>
 
+            </TouchableWithoutFeedback>
         );
 
     }

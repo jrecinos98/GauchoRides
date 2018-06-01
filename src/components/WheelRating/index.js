@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import {  View, StyleSheet } from "react-native";
 import WheelComponent from './WheelComponent'
-import {COLOR} from "../../Constants";
-import {getTheme} from "../../Utility";
+import { COLOR, RATING_COLOR } from "../../Constants";
+import Utility from "../../Utility";
 import User from '../../actors/User';
-import {RATING_COLOR} from "../../Constants";
 
 /**
  * Container class for all the WheelComponent objects. The object retrieves the user rating and displays the components it holds accordingly.
@@ -17,7 +16,7 @@ export default class WheelRating extends Component{
             color_theme: COLOR.THEME_LIGHT
         };
         //this.getRating= this.getRating.bind(this);
-        getTheme(function (theme) {
+        Utility.getTheme(function (theme) {
             wheel_this.setState({
                 color_theme: theme
             });

@@ -6,7 +6,7 @@ import {COLOR, DIMENSION} from "../../Constants";
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { Ionicons } from '@expo/vector-icons';
 import {getStatusBarHeight} from "react-native-status-bar-height";
-import {getTheme} from "../../Utility";
+import Utility from "../../Utility";
 
 export default class ListScreen extends Component {
     menu = null;
@@ -54,7 +54,7 @@ export default class ListScreen extends Component {
             ]
         };
 
-        getTheme(function(theme) {
+        Utility.getTheme(function(theme) {
             rider_this.setState({
                 color_theme: theme
             });

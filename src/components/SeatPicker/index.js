@@ -42,7 +42,7 @@ export default class SeatPicker extends Component{
 
 		return (
 			<View style={styles.secondInputWrapper}>
-				<Text style={styles.label}>Seats</Text>
+				<Text style={styles.label}>Available Seats</Text>
 				<View style={styles.container}>
 					<TouchableOpacity
 						style={customStyle.button}

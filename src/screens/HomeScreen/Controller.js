@@ -1,10 +1,8 @@
 
-import {getDestLatLon} from "../../Utility";
-import {getOriginLatLon} from "../../Utility";
-
 export default class Controller {
-	static rides = {};
-	static refs = {};
+	static rides;
+	static refs;
+	static displaySearch;
 
 	static home = 'home';
 	static map = 'map';
@@ -14,11 +12,17 @@ export default class Controller {
 	static actionbutton = 'actionbutton';
 	static spinner = 'spinner';
 
-	static displaySearch = true;
+
+	static initialize() {
+		this.rides = {};
+		this.refs = {};
+		this.displaySearch = true;
+	}
 
 	static setRef(ref, type) {
 		this.refs[type] = ref;
 	}
+
 	static displayRides(rideList){
 		this.rides= rideList;
 		//for (let i=0; i< this.rides.length; i++){
@@ -27,6 +31,7 @@ export default class Controller {
 		this.refs.map.dropPins(rideList);
 
 	}
+
 	static toggleDisplay() {
 		this.displaySearch = !this.displaySearch;
 
@@ -39,7 +44,7 @@ export default class Controller {
 		this.refs.map.createRoute(origin.toString(), destin.toString());
 	}
 
-	static focusRide(index) {
+	static focusPreview(index) {
 		if (this.refs.preview.previewBar === undefined)
 		    this.refs.preview.show(!this.displaySearch);
 
@@ -48,7 +53,13 @@ export default class Controller {
 		    y: 0,
 		    animated: true
 		});
-		this.refs.map.rideMap.moveMapCamera(index);
+	}
+
+	static focusMap(index) {
+		if (this.refs.preview.previewBar === undefined)
+		    this.refs.preview.show(!this.displaySearch);
+
+		this.refs.map.rideMap.focusRide(index);
 	}
 
 	static showMenu(toShow) {

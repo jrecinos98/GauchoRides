@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import ListView from '../../components/ListView';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
-import { getTheme } from '../../Utility';
+import Utility from '../../Utility';
 import Database from "../../Database";
 import ListItem from "../../components/ListItem"
 
@@ -21,7 +21,7 @@ export default class HistoryScreen extends Component {
             data: [],
             color_theme: COLOR.THEME_LIGHT
         };
-        getTheme(function(theme) {
+        Utility.getTheme(function(theme) {
             history_this.setState({
                 color_theme: theme
             });

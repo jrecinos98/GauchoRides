@@ -3,7 +3,7 @@ import{ AsyncStorage, View, Test, StyleSheet, Platform, StatusBar, Text} from "r
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import { COLOR, STRING } from '../Constants';
-import { getTheme } from '../Utility';
+import Utility from '../Utility';
 
 import CreateScreen from './CreateScreen';
 import HomeScreen, {HomeStack, PassengerStack} from './HomeScreen';
@@ -45,7 +45,7 @@ export default class Main extends Component{
 	 * Sets the theme of the app
      */
 	updateTheme() {
-		getTheme(function(theme) {
+		Utility.getTheme(function(theme) {
 			MainScreenInstance.setState({
 				color_theme: theme
 			});

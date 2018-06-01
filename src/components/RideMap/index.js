@@ -8,13 +8,19 @@ import DarkTheme from './DarkTheme.json';
 import OldTheme from './OldTheme.json';
 import { STRING } from '../../Constants';
 import CurLocMarker from './CurLocMarker';
+import Utility from '../../Utility';
 
 /**
  *
  */
 export default class RideMap extends Component {
+
     constructor(props){
         super(props);
+        this.state = {
+            markerIndex: -1,
+            coords: []
+        };
     }
 
     /**
@@ -79,6 +85,17 @@ export default class RideMap extends Component {
         this.mapView.animateToRegion(this.getRegion(index));
     }
 
+    focusRide(index) {
+        Utility.createRoute(this.props.ride_list[index].origin.name, this.props.ride_list[index].destination.name, (coords) => {
+            this.setState({
+                markerIndex: index,
+                coords: coords
+            });
+            this.props.onMarkerPress(index);
+            this.moveMapCamera(index);
+        });
+    }
+
     render() {
 
         //Get map theme style
@@ -114,27 +131,23 @@ export default class RideMap extends Component {
             return (
                 <View key={index}>
                     <Marker
+                        zIndex={(this.state.markerIndex == index) ? 100 : index}
                         coordinate={{
                             latitude: origin.latitude,
                             longitude: origin.longitude
                         }}
                         pinColor={color}
-                        onPress={()=>{
-                            this.props.onMarkerPress(index);
-                            this.moveMapCamera(index);
-                        }}/>
+                        onPress={() => this.focusRide(index)}/>
 
                     <Marker
+                        zIndex={(this.state.markerIndex == index) ? 100 : index}
                         style={{flex:1}}
                         coordinate={{
                             latitude: destin.latitude,
                             longitude: destin.longitude
                         }}
                         pinColor={color}
-                        onPress={()=>{
-                            this.props.onMarkerPress(index);
-                            this.moveMapCamera(index);
-                        }}>
+                        onPress={() => this.focusRide(index)}>
 {/*
                         <View style={styles.markerView}>
                             <Ionicons
@@ -169,6 +182,12 @@ export default class RideMap extends Component {
                     userLoc={this.props.userLoc}/>
 
                 {markers}
+
+                <Polyline
+                    coordinates={this.state.coords}
+                    strokeColor={this.selectColor(this.state.markerIndex)}
+                    strokeWidth={5}/>
+
                 {/*
                 <Marker style={ {flex: 1}} coordinate={{longitude: this.props.originLon, latitude: this.props.originLat}/>
 

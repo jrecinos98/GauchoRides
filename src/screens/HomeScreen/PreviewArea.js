@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { DIMENSION } from '../../Constants';
 import Controller from './Controller';
+import Utility from '../../Utility';
+import Database from '../../Database';
 
 
 export default class PreviewArea extends Component {
@@ -10,14 +12,39 @@ export default class PreviewArea extends Component {
 	constructor(props) {
         super(props);
         this.state = {
-            toDisplay: false
+            toDisplay: false,
+            driverList: []
         }
+        this.prevRides = [];
     }
 
     show(toDisplay) {
         this.setState({
             toDisplay: toDisplay
         });
+    }
+
+    loadDriverList(rides) {
+        if (rides === undefined)
+            return;
+
+        let idList = [];
+        for (let i = 0; i < rides.length; i++)
+            idList.push(rides[i].driver);
+
+        Database.getUserList(idList, (driverList) => {
+            this.setState({
+                driverList: driverList
+            });
+        });
+    }
+
+    getDriverName(index) {
+        return (this.state.driverList.length > index) ? this.state.driverList[index].name : '';
+    }
+
+    getDriverPicture(index) {
+        return (this.state.driverList.length > index && this.state.driverList[index].fbID) ? this.state.driverList[index].fbID : '';
     }
 
     getSnapPosition(index) {
@@ -31,12 +58,20 @@ export default class PreviewArea extends Component {
         if (!this.state.toDisplay)
             return null;
 
+        if (this.props.rides != this.prevRides) {
+            this.prevRides = this.props.rides;
+            this.loadDriverList(this.props.rides);
+        }
+
         const customStyle = {
             buttonContainer: [styles.buttonContainer, {
                 backgroundColor: this.props.color_theme.APP_BACKGROUND,
                 shadowColor: this.props.color_theme.APP_UNFOCUS
             }],
-            buttonText: [styles.buttonText, {
+            dataKey: [styles.dataKey, {
+                color: this.props.color_theme.APP_FOCUS
+            }],
+            dataValue: [styles.dataValue, {
                 color: this.props.color_theme.APP_FOCUS
             }],
             expandButton: [styles.expandButton, {
@@ -68,16 +103,56 @@ export default class PreviewArea extends Component {
                         style={customStyle.buttonContainer}
                         onPress={() => {
                             this.previewBar.scrollTo({x: this.getSnapPosition(index), y: 0, animated: true});
-                            Controller.focusRide(index);
+                            Controller.focusMap(index);
                         }}>
 
-                        <Text style={customStyle.buttonText}>
-                            Origin: {ride.origin.name}
-                        </Text>
+                        <Image
+                            source={{uri: 'https://graph.facebook.com/' + this.getDriverPicture(index) + '/picture?type=large'}}
+                            borderRadius={35}
+                            style={styles.driverImage}/>
 
-                        <Text style={customStyle.buttonText}>
-                            Destination: {ride.destination.name}
-                        </Text>
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Driver: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    {this.getDriverName(index)}
+                                </Text>
+                            </View>
+
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Time: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    {Utility.formatDate(new Date(ride.time * 1000))}
+                                </Text>
+                            </View>
+
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Price: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    ${(ride.price) ? ride.price : 0}
+                                </Text>
+                            </View>
+
+                            <View style={styles.dataRow}>
+                                <Text style={customStyle.dataKey}> Seats: </Text>
+                                <Text
+                                    numberOfLines={1}
+                                    ellipsizeMode={"tail"}
+                                    style={customStyle.dataValue}>
+                                    {ride.seats - ((ride.passengers) ? ride.passengers.length : 0)}/{ride.seats} Available
+                                </Text>
+                            </View>
+                        </View>
+
                     </TouchableOpacity>
 
                 </View>
@@ -117,12 +192,26 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
         shadowOpacity: 0.25,
         width: DIMENSION.PREVIEW.WIDTH,
-        height: DIMENSION.PREVIEW.HEIGHT
+        height: DIMENSION.PREVIEW.HEIGHT,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    buttonText:{
-        marginLeft: 10,
+    dataRow: {
+        flex: 1,
+        alignSelf: 'stretch',
+        flexDirection: 'row'
+    },
+    dataKey:{
         color: null,
         fontWeight: "700",
+        width: 60
+    },
+    dataValue: {
+        color: null,
+        fontWeight: "700",
+        flex: 1,
+        alignSelf: 'stretch'
     },
     previewContainer: {
         marginLeft:5,
@@ -143,5 +232,12 @@ const styles = StyleSheet.create({
     expandIcon: {
         color: null,
         fontSize: 20
+    },
+    driverImage: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        height: 70,
+        margin: 5
     }
 });

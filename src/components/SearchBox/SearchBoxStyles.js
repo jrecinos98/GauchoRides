@@ -2,7 +2,7 @@ import { Dimensions } from "react-native";
 let width = Dimensions.get("window").width; //full width
 const styles = {
     container:{
-        width:width
+        width: width
     },
     inputSearch:{
         fontSize:14

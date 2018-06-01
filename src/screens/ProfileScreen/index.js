@@ -4,7 +4,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import User from "../../../src/actors/User";
-import { getTheme } from '../../Utility';
+import Utility from '../../Utility';
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
@@ -22,7 +22,7 @@ export default class ProfileScreen extends Component {
             color_theme: COLOR.THEME_LIGHT,
         };
 
-        getTheme(function (theme) {
+        Utility.getTheme(function (theme) {
             profile_this.setState({
                 color_theme: theme
             });
@@ -121,7 +121,7 @@ export default class ProfileScreen extends Component {
                         <Text style={customStyle.userName}>{User.currentUser.name}</Text>
                         <BounceProfileImage
                             source={{uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'}}
-                            borderRadius={72}/>
+                            borderRadius={75}/>
                     </View>
 
                     <View style={styles.ratingContainer}>

@@ -17,7 +17,7 @@ export default class CustomSwitch extends Component {
 		return (
 
 			<View style={styles.secondInputWrapper}>
-                <Text style={styles.label}>Direct Rides</Text>
+                <Text style={styles.label}>{this.props.label}</Text>
 				<View style={styles.switchWrapper}>
 					<Switch
 						value={this.state.switchState}
