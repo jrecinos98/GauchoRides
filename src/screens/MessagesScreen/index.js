@@ -5,7 +5,7 @@ import OpacityButton from "../../components/OpacityButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
 import { MainScreenInstance } from "../Main";
-import { getTheme } from '../../Utility';
+import Utility from '../../Utility';
 import Database from '../../Database';
 
 
@@ -24,7 +24,7 @@ export default class MessagesScreen extends Component {
             color_theme: COLOR.THEME_LIGHT
         };
 
-        getTheme(function(app_theme) {
+        Utility.getTheme(function(app_theme) {
             settings_this.setState({
                 color_theme: app_theme
             });
