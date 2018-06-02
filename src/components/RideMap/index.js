@@ -21,6 +21,8 @@ export default class RideMap extends Component {
             markerIndex: -1,
             coords: []
         };
+        this.prevRidelist = [];
+        this.coordsCache = [];
     }
 
     /**
@@ -56,6 +58,9 @@ export default class RideMap extends Component {
      * @returns {{latitude: number, longitude: number, latitudeDelta: number, longitudeDelta: number}}
      */
     getRegion(index) {
+        if (this.props.ride_list[index] == undefined)
+            return {};
+
         let origin = this.props.ride_list[index].origin;
         let destin = this.props.ride_list[index].destination;
 
@@ -86,11 +91,26 @@ export default class RideMap extends Component {
     }
 
     focusRide(index) {
-        Utility.createRoute(this.props.ride_list[index].origin.name, this.props.ride_list[index].destination.name, (coords) => {
+        let origin = this.props.ride_list[index].origin.name;
+        let destin = this.props.ride_list[index].destination.name;
+
+        if (this.coordsCache[origin + destin] !== undefined) {
+            this.setState({
+                markerIndex: index,
+                coords: this.coordsCache[origin + destin]
+            });
+            this.props.onMarkerPress(index);
+            this.moveMapCamera(index);
+            console.log("I love saving resources.");
+            return;
+        }
+
+        Utility.createRoute(origin, destin, (coords) => {
             this.setState({
                 markerIndex: index,
                 coords: coords
             });
+            this.coordsCache[origin + destin] = coords;
             this.props.onMarkerPress(index);
             this.moveMapCamera(index);
         });
@@ -106,7 +126,7 @@ export default class RideMap extends Component {
             return null;
 
         //Return empty map if coords is null
-        if (this.props.ride_list == null) {
+        if (this.props.ride_list == null || this.props.ride_list == undefined || this.props.ride_list.length <= 0) {
             return (
                 <MapView
                     provider={PROVIDER_GOOGLE}
@@ -118,6 +138,7 @@ export default class RideMap extends Component {
                         longitudeDelta: 0.1
                     }}
                     customMapStyle={mapStyle}>
+                    <CurLocMarker userLoc={this.props.userLoc}/>
                 </MapView>
             );
         }
@@ -147,19 +168,29 @@ export default class RideMap extends Component {
                             longitude: destin.longitude
                         }}
                         pinColor={color}
-                        onPress={() => this.focusRide(index)}>
-{/*
-                        <View style={styles.markerView}>
-                            <Ionicons
-                                style={[styles.markerIcon, {color: color}]}
-                                name='ios-car'/>
-                        </View>
-                    */}
-
-                    </Marker>
-
+                        onPress={() => this.focusRide(index)}/>
                 </View>);
         });
+
+        //Reset and update class variables
+        if (this.props.ride_list != this.prevRidelist) {
+            this.prevRidelist = this.props.ride_list;
+            this.coordsCache = [];
+            this.focusRide(0); //This will update marker index
+        }
+
+        let region = null;
+        if (this.state.coords.length >= 2 && this.state.markerIndex != -1) {
+            region = this.getRegion(this.state.markerIndex);
+        }
+        else {
+            region = {
+                latitude: this.props.userLoc.latitude,
+                longitude: this.props.userLoc.longitude,
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1
+            }
+        }
 
         //Draw components
         return (
@@ -170,16 +201,10 @@ export default class RideMap extends Component {
                 }}
                 provider={PROVIDER_GOOGLE}
                 style={styles.map}
-                region={{
-                    latitude: this.props.userLoc.latitude,
-                    longitude: this.props.userLoc.longitude,
-                    latitudeDelta: 0.1,
-                    longitudeDelta: 0.1
-                }}
+                region={region}
                 customMapStyle={mapStyle}>
 
-                <CurLocMarker
-                    userLoc={this.props.userLoc}/>
+                <CurLocMarker userLoc={this.props.userLoc}/>
 
                 {markers}
 
@@ -187,16 +212,6 @@ export default class RideMap extends Component {
                     coordinates={this.state.coords}
                     strokeColor={this.selectColor(this.state.markerIndex)}
                     strokeWidth={5}/>
-
-                {/*
-                <Marker style={ {flex: 1}} coordinate={{longitude: this.props.originLon, latitude: this.props.originLat}/>
-
-                {this.props.markers.map(marker => (
-                    <Marker
-                        style={{flex: 1}}
-                        coordinate={{longitude: marker.latlng, latitude: marker.la}}
-                    />
-                ))}*/}
 
             </MapView>
 

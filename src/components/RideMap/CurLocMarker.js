@@ -67,7 +67,7 @@ export default class CurLocMarker extends Component {
 
 const styles = {
     markerIcon: {
-        fontSize: 25,
+        fontSize: 15,
         alignSelf: 'center'
     }
 }

@@ -45,7 +45,12 @@ export default class ListItem extends Component {
                         Date: {this.epochToDate(this.props.item.time).toString()}
                     </Text>
                 </View>
+<<<<<<< HEAD
+            </View>
+=======
+                <Ionicons name={this.futureRide(this.epochToDate(this.props.item.time)).toString()} size={65}/>
             </TouchableOpacity>
+>>>>>>> 07f69b74163df6a70e85e2dae6ea735aa558be8d
         )
     }
 }

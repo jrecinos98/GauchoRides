@@ -61,7 +61,11 @@ export default class HistoryScreen extends Component {
     };
     renderItem = ({item}) => {
         return (
-            <ListItem item={item}/>
+            <ListItem
+                item={item}
+                onPress={() => {
+                    this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                }}/>
         )
     };
 
