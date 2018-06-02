@@ -149,6 +149,11 @@ export default class Database {
 
 
 	static getUserList(id_list, callback) {
+		if (id_list == undefined) {
+			callback([]);
+			return;
+		}
+
 		let userList = [];
 		for (let i = 0; i < id_list.length; i++){
 			let id = id_list[i];
