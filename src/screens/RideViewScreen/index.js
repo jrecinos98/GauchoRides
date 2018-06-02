@@ -6,6 +6,7 @@ import Utility from '../../Utility';
 import { Ionicons } from '@expo/vector-icons';
 import CenterText from "../../components/CenterText";
 import Database from '../../Database';
+import WheelRating from '../../components/WheelRating';
 
 
 export default class RideViewScreen extends Component{
@@ -88,6 +89,7 @@ export default class RideViewScreen extends Component{
                         <Text style={customStyle.titleText}>
                             {driver.name}
                         </Text>
+                        <WheelRating/>
                     </View>
                 </View>
 

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {
     Text,
     View,
+    TouchableOpacity,
 } from "react-native";
 import {Ionicons} from '@expo/vector-icons';
 
@@ -37,7 +38,9 @@ export default class ListItem extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <TouchableOpacity
+                style={styles.container}
+                onPress={() => this.props.onPress()}>
 
                 <Ionicons name="ios-car" size={65}/>
 
@@ -56,7 +59,7 @@ export default class ListItem extends Component {
                 
                 </View>
                 <Ionicons name={this.futureRide(this.epochToDate(this.props.item.time)).toString()} size={65}/>
-            </View>
+            </TouchableOpacity>
         )
     }
 }
