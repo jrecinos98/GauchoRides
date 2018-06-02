@@ -170,6 +170,11 @@ export default class Database {
      * @param callback
      */
 	static getUserHistory(callback){
+		if (User.currentUser.rides == undefined || Object.keys(User.currentUser.rides).length == 0) {
+			callback([], []);
+			return;
+		}
+
 		let futureRideList = [];
 		let completedRideList = [];
 		var d=new Date().getTime()/1000;
