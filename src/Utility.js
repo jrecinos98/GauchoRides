@@ -109,8 +109,8 @@ export default class Utility {
             new Area(searchInputs.pickupCoords.lat, searchInputs.pickupCoords.lng, 5, searchInputs.pickupInput),
             new Area(searchInputs.dropoffCoords.lat, searchInputs.dropoffCoords.lng, 5, searchInputs.dropoffInput)
         );
-        let pickupCity = extractCity(searchInputs.pickupArray);
-        let dropoffCity = extractCity(searchInputs.dropoffArray);
+        let pickupCity = this.extractCity(searchInputs.pickupArray);
+        let dropoffCity = this.extractCity(searchInputs.dropoffArray);
         Database.createRide(path,ride, pickupCity, dropoffCity);
         callback(true);
     }

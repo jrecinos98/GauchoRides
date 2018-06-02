@@ -16,11 +16,31 @@ export default class ListItem extends Component {
         return d;
     }
 
+    futureRide(epoch){
+        var d = new Date()
+        var statusIcon;
+        if (epoch>d){
+            statusIcon="ios-clock";
+            return statusIcon;
+        }
+        else{
+            statusIcon="ios-checkmark-circle";
+            return statusIcon;
+        }
+    }
+
+    //riderOrDriver(){
+    //    if(this.props.item.)
+    //}
+
+
+
     render() {
         return (
             <View style={styles.container}>
 
                 <Ionicons name="ios-car" size={65}/>
+
                 <View style={{flex: 1, justifyContent: 'center', marginLeft: 5}}>
                     <Text style={styles.originTextSyle}>
                         From: {this.props.item.origin.name}
@@ -32,7 +52,10 @@ export default class ListItem extends Component {
                     <Text style={styles.dateTextStyle}>
                         Date: {this.epochToDate(this.props.item.time).toString()}
                     </Text>
+
+                
                 </View>
+                <Ionicons name={this.futureRide(this.epochToDate(this.props.item.time)).toString()} size={65}/>
             </View>
         )
     }

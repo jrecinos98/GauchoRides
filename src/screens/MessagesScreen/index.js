@@ -81,7 +81,7 @@ export default class MessagesScreen extends Component {
                                 this.props.navigation.goBack(null)
                             }}/>
 
-                        <CenterText style={customStyle.titleText}> Settings </CenterText>
+                        <CenterText style={customStyle.titleText}> Messages </CenterText>
                     </View>
 
                     

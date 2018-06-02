@@ -41,8 +41,9 @@ export default class ListView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Drive History</Text>
-                <FlatList
+                <Text style={styles.title}>Future Rides</Text>
+
+                 <FlatList
                     data={this.props.data}
                     renderItem={this.props.renderItem}
                     keyExtractor={(item, index) => index.toString()}
@@ -51,6 +52,9 @@ export default class ListView extends Component {
                     refreshing={this.props.refreshing}
                     onRefresh={this.props.onRefresh}
                 />
+
+                <Text style={styles.title}>Past Rides</Text>
+
             </View>
 
         );
