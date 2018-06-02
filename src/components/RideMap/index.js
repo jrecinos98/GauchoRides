@@ -22,6 +22,7 @@ export default class RideMap extends Component {
             coords: []
         };
         this.prevRidelist = [];
+        this.coordsCache = [];
     }
 
     /**
@@ -87,11 +88,25 @@ export default class RideMap extends Component {
     }
 
     focusRide(index) {
-        Utility.createRoute(this.props.ride_list[index].origin.name, this.props.ride_list[index].destination.name, (coords) => {
+        let origin = this.props.ride_list[index].origin.name;
+        let destin = this.props.ride_list[index].destination.name;
+
+        if (this.coordsCache[origin + destin] !== undefined) {
+            this.setState({
+                markerIndex: index
+            });
+            this.props.onMarkerPress(index);
+            this.moveMapCamera(index);
+            console.log("I love saving resources.");
+            return;
+        }
+
+        Utility.createRoute(origin, destin, (coords) => {
             this.setState({
                 markerIndex: index,
                 coords: coords
             });
+            this.coordsCache[origin + destin] = coords;
             this.props.onMarkerPress(index);
             this.moveMapCamera(index);
         });
@@ -153,9 +168,11 @@ export default class RideMap extends Component {
                 </View>);
         });
 
+        //Reset and update class variables
         if (this.props.ride_list != this.prevRidelist) {
             this.prevRidelist = this.props.ride_list;
-            this.focusRide(0);
+            this.coordsCache = [];
+            this.focusRide(0); //This will update marker index
         }
 
         let region = null;
