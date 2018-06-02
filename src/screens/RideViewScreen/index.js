@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
+import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity,
+        ScrollView, Dimensions, Modal, AsyncStorage, Image } from "react-native";
 import { COLOR, STRING } from '../../Constants';
 import Utility from '../../Utility';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,15 +14,36 @@ export default class RideViewScreen extends Component{
         super(props);
 
         this.state = {
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: COLOR.THEME_LIGHT,
+            driver: {},
+            riders: []
         };
 
         const rideview_this = this;
+        let ride = this.props.navigation.state.params.ride;
+
         Utility.getTheme(function(app_theme) {
             rideview_this.setState({
                 color_theme: app_theme
             });
         });
+
+        Database.getUser(ride.driver, (driver) => {
+            this.setState({
+                driver: driver
+            });
+        });
+
+        Database.getUserList(ride.passengers, (riders) => {
+            console.log('ending');
+            this.setState({
+                riders: riders
+            });
+        });
+    }
+
+    registerRide(ride, user_id) {
+
     }
 
     render(){
@@ -39,6 +61,8 @@ export default class RideViewScreen extends Component{
         };
 
         let ride = this.props.navigation.state.params.ride;
+        let driver = this.state.driver;
+        let riders = this.state.riders;
 
         return(
             <ScrollView style={customStyle.container}>
@@ -51,6 +75,20 @@ export default class RideViewScreen extends Component{
                             this.props.navigation.goBack(null)
                         }}/>
                     <CenterText style={customStyle.titleText}> Ride Information </CenterText>
+                </View>
+
+
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <Image
+                        source={{uri: 'https://graph.facebook.com/' + driver.fbID + '/picture?type=large'}}
+                        borderRadius={50}
+                        style={styles.driverImage}/>
+
+                    <View style={styles.driverTextWrapper}>
+                        <Text style={customStyle.titleText}>
+                            {driver.name}
+                        </Text>
+                    </View>
                 </View>
 
                 <CenterText style={customStyle.titleText}> Origin: {ride.origin.name}</CenterText>
@@ -83,4 +121,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: null
     },
+    driverTextWrapper: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    driverImage: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 100,
+        height: 100,
+        margin: 5
+    }
 });
