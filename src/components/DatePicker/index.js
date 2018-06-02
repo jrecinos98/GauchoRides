@@ -24,7 +24,6 @@ export default class DatePicker extends Component {
 
     displayDatePicker() {
         if (Platform.OS === 'android') {
-            this.pickAndroidTime();
             this.pickAndroidDate();
         }
         else if (Platform.OS === 'ios') {
@@ -102,13 +101,13 @@ export default class DatePicker extends Component {
         return (
             <View style={styles.container}>
 
-                {iOSDatePicker}
-
                 <View style={customStyle.buttonContainer}>
                     <Button
                         onPress={()=> this.displayDatePicker()}
                         title={this.getDateString()}/>
                 </View>
+
+                {iOSDatePicker}
 
             </View>
         );

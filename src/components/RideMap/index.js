@@ -58,6 +58,9 @@ export default class RideMap extends Component {
      * @returns {{latitude: number, longitude: number, latitudeDelta: number, longitudeDelta: number}}
      */
     getRegion(index) {
+        if (this.props.ride_list[index] == undefined)
+            return {};
+
         let origin = this.props.ride_list[index].origin;
         let destin = this.props.ride_list[index].destination;
 
