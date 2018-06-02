@@ -20,7 +20,7 @@ export default class ListItem extends Component {
         var d = new Date()
         var statusIcon;
         if (epoch>d){
-            statusIcon="ios-clock";
+            statusIcon="ios-hammer";
             return statusIcon;
         }
         else{
