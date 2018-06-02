@@ -71,7 +71,7 @@ const styles = {
     },
     welcome: {
         fontSize: 20,
-        textAligh: 'center',
+        textAlign: 'center',
         margin: 10,
     },
     instructions: {
