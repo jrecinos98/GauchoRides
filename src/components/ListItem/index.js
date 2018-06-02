@@ -16,18 +16,7 @@ export default class ListItem extends Component {
         return d;
     }
 
-    futureRide(epoch){
-        var d = new Date()
-        var statusIcon;
-        if (epoch>d){
-            statusIcon="ios-hammer";
-            return statusIcon;
-        }
-        else{
-            statusIcon="ios-checkmark-circle";
-            return statusIcon;
-        }
-    }
+
 
     //riderOrDriver(){
     //    if(this.props.item.)
@@ -52,10 +41,7 @@ export default class ListItem extends Component {
                     <Text style={styles.dateTextStyle}>
                         Date: {this.epochToDate(this.props.item.time).toString()}
                     </Text>
-
-                
                 </View>
-                <Ionicons name={this.futureRide(this.epochToDate(this.props.item.time)).toString()} size={65}/>
             </View>
         )
     }

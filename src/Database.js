@@ -165,15 +165,42 @@ export default class Database {
      * @param callback
      */
 	static getUserHistory(callback){
-		let rideList = [];
+		let futureRideList = [];
+		let completedRideList = [];
+		var d=new Date().getTime()/1000;
 		for (var id in User.currentUser.rides){
 		    Database.getRide(id, (ride) => {
-				rideList.push(ride);
-				callback(rideList);
+		    	if(ride.time>=d){
+		    		futureRideList.push(ride);
+		    		callback(futureRideList, completedRideList);
+		    	}
+		    	else{
+		    		completedRideList.push(ride);
+		    		callback(futureRideList, completedRideList);
+
+		    	}
+				
 			});
 		}
-
 	}
+
+
+
+
+ futureRide(date){
+        var d = new Date();
+        var statusIcon;
+        if (date>d){
+            statusIcon="ios-hammer";
+            return statusIcon;
+        }
+        else{
+            statusIcon="ios-checkmark-circle";
+            return statusIcon;
+        }
+    }
+
+
 //rideList[i].origin.name
 
     /**

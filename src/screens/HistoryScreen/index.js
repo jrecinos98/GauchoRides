@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet } from "react-native";
+import { StatusBar, View, Text, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import ListView from '../../components/ListView';
@@ -19,7 +19,9 @@ export default class HistoryScreen extends Component {
         history_this = this;
         history_this.state = {
             data: [],
-            color_theme: COLOR.THEME_LIGHT
+            data2: [],
+            color_theme: COLOR.THEME_LIGHT,
+            refreshing: false
         };
         Utility.getTheme(function(theme) {
             history_this.setState({
@@ -27,9 +29,18 @@ export default class HistoryScreen extends Component {
             });
         });
         this.refreshing= false;
-        Database.getUserHistory((list) => {
-           this.setState({data: list});
+        Database.getUserHistory((list, list2) => {
+            this.setState({data: list, data2: list2});
         });
+
+    }
+
+    _onRefresh(){
+        this.setState({refreshing: true});
+        Database.getUserHistory((list, list2) => {
+            this.setState({refreshing: false, data: list, data2: list2});
+        })
+
     }
 
  //   findFutureRides(){
@@ -82,8 +93,18 @@ export default class HistoryScreen extends Component {
                 <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}/>
                 <Text style={customStyle.title}>History</Text>
-                <View style={styles.historyContainer}>
+
+                <ScrollView
+
+                    style={styles.historyContainer}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh.bind(this)}/>
+                    }>
+                   
                     <ListView
+                        title={"Upcoming Rides"}
                         style={styles.rideHistStyle}
                         renderItem={this.renderItem}
                         data={this.state.data}
@@ -99,8 +120,23 @@ export default class HistoryScreen extends Component {
                         }}
                     />
 
-                </View>
-
+                    <ListView
+                        title={"Completed Rides"}
+                        style={styles.rideHistStyle}
+                        renderItem={this.renderItem}
+                        data={this.state.data2}
+                        refreshing={this.refreshing}
+                        onRefresh={() => {
+                            Database.getUserHistory((list) => {
+                                if (this.state.data2.length === list.length) {
+                                }
+                                else {
+                                    this.setState({data2: list})
+                                }
+                            })
+                        }}
+                    />
+                </ScrollView>
             </View>
         );
     }

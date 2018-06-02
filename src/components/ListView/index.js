@@ -41,7 +41,8 @@ export default class ListView extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Future Rides</Text>
+
+                <Text style={styles.welcome}>{this.props.title}</Text>
 
                  <FlatList
                     data={this.props.data}
@@ -52,8 +53,6 @@ export default class ListView extends Component {
                     refreshing={this.props.refreshing}
                     onRefresh={this.props.onRefresh}
                 />
-
-                <Text style={styles.title}>Past Rides</Text>
 
             </View>
 
