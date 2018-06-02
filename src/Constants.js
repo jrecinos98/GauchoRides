@@ -27,7 +27,7 @@ export const DIMENSION = {
 	},
 	TITLE: {SIZE: 20},
 	PREVIEW: {
-		WIDTH: 300,
+		WIDTH: 275,
 		HEIGHT: 100,
 		MARGIN: 5
 	}

@@ -93,7 +93,8 @@ export default class RideMap extends Component {
 
         if (this.coordsCache[origin + destin] !== undefined) {
             this.setState({
-                markerIndex: index
+                markerIndex: index,
+                coords: this.coordsCache[origin + destin]
             });
             this.props.onMarkerPress(index);
             this.moveMapCamera(index);
