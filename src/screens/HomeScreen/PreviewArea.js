@@ -59,7 +59,7 @@ export default class PreviewArea extends Component {
         if (!this.state.toDisplay)
             return null;
 
-        if (this.props.rides != this.prevRides) {
+        if (this.props.rides !== this.prevRides) {
             this.prevRides = this.props.rides;
             this.loadDriverList(this.props.rides);
         }

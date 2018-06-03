@@ -5,7 +5,6 @@ import {
     FlatList
 } from "react-native";
 import styles from "./ListViewStyles.js";
-import ListItem from "../ListItem"
 
 /**
  * Container component that displays a ride from the user history.

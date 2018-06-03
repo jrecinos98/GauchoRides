@@ -130,7 +130,7 @@ export default class RideViewScreen extends Component{
                 <CenterText style={customStyle.titleText}> Origin: {ride.origin.name}</CenterText>
                 <CenterText style={customStyle.titleText}> Destination: {ride.destination.name}</CenterText>
                 <CenterText style={customStyle.titleText}> Seats: {ride.seats}</CenterText>
-                <CenterText style={customStyle.titleText}> Time: {new Date(ride.time * 1000).toString()}</CenterText>
+                <CenterText style={customStyle.titleText}> Time: {Utility.formatDate(new Date(ride.time * 1000))}</CenterText>
                 <CenterText style={customStyle.titleText}> Price: {ride.price}</CenterText>
 
                 {this.getConfirmButton(ride, User.currentUser, customStyle)}
@@ -160,8 +160,8 @@ const styles = StyleSheet.create({
         color: null
     },
     driverTextWrapper: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'
     },
     driverImage: {
         alignItems: 'center',

@@ -28,12 +28,6 @@ export default class CreateScreen extends Component {
 			});
 		});
 	}
-	//Render driver screen tab icon and top bar.
-	static navigationOptions = {
-		tabBarIcon: ({ tintColor}) => (
-			<Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
-		)
-	};
 	//Render the component
 	render() {
 		const customStyle = {

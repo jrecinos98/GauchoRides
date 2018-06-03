@@ -5,6 +5,7 @@ import { FIREBASE } from './Constants';
 import {TEST_CONSTANTS} from "./Constants";
 import User from './actors/User';
 import Ride from './actors/User';
+import Utility from "./Utility"
 
 var firestore = null;
 
@@ -169,46 +170,62 @@ export default class Database {
 	 * Retrieves rides that the user has taken a part in
      * @param callback
      */
-	static getUserHistory(callback){
-		if (User.currentUser.rides == undefined || Object.keys(User.currentUser.rides).length == 0) {
+	static async getUserHistory(callback){
+		if (User.currentUser.rides === undefined || Object.keys(User.currentUser.rides).length === 0) {
 			callback([], []);
 			return;
 		}
 
 		let futureRideList = [];
 		let completedRideList = [];
-		var d=new Date().getTime()/1000;
-		for (var id in User.currentUser.rides){
-		    Database.getRide(id, (ride) => {
-		    	if(ride.time>=d){
-		    		futureRideList.push(ride);
-		    		callback(futureRideList, completedRideList);
-		    	}
-		    	else{
-		    		completedRideList.push(ride);
-		    		callback(futureRideList, completedRideList);
+		let rideRequestList=[];
+		Database.retrieveUserRequests((list)=>{
+			rideRequestList=list;
+		});
 
-		    	}
-				
-			});
-		}
+		var d= new Date().getTime()/1000;
+        for (var id in User.currentUser.rides){
+            let ride = await Database.getRide(id);
+            if(ride.time>=d){
+                futureRideList.push(ride);
+            }
+            else{
+                completedRideList.push(ride);
+            }
+        }
+        callback(futureRideList, completedRideList, rideRequestList);
 	}
-
-
-
-
- futureRide(date){
-        var d = new Date();
-        var statusIcon;
-        if (date>d){
-            statusIcon="ios-hammer";
-            return statusIcon;
-        }
-        else{
-            statusIcon="ios-checkmark-circle";
-            return statusIcon;
-        }
+    static getRequest(id) {
+        return new Promise(resolve => {
+            firestore.collection(FIREBASE.REQUESTS_PATH).doc(id).get()
+                .then(function (doc) {
+                    if (doc.exists) {
+                        resolve(doc.data());
+                    }
+                    else {
+                        resolve({});
+                    }
+                })
+                .catch(function (error) {
+                    console.log("Error getting document:", error);
+                });
+        });
     }
+    static async retrieveUserRequests(callback){
+        if (User.currentUser.requests === undefined || Object.keys(User.currentUser.requests).length === 0) {
+            callback([], []);
+            return;
+        }
+        let requestList = [];
+        for (let id in User.currentUser.requests){
+            let request= await Database.getRequest(id);
+            requestList.push(request);
+        }
+        callback(requestList)
+    }
+
+
+
 
 
 //rideList[i].origin.name
@@ -227,10 +244,16 @@ export default class Database {
 			Database.updateRide(path, ride);
 
 			//Update driver information on firebase
-			User.currentUser.rides[ride.id] = 'driver';
+			if(path === FIREBASE.RIDES_PATH) {
+                User.currentUser.rides[ride.id] = 'driver';
+            }
+            else{
+				User.currentUser.requests[ride.id]= "creator";
+			}
 			Database.updateUser(User.currentUser);
 		});
 	}
+
 /*
 	static createRequest(ride, originCity, destinCity){
         firestore.collection(FIREBASE.REQUESTS_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
@@ -262,30 +285,42 @@ export default class Database {
      * @param id The id specifies the path of the ride.
      * @param callback
      */
-	static getRide(id, callback) {
-		firestore.collection(FIREBASE.RIDES_PATH).doc(id).get()
-		.then(function(doc) {
-		    if (doc.exists) {
-				callback(doc.data());
-		    }
-		})
-		.catch(function(error) {
-		    console.log("Error getting document:", error);
+	static getRide(id) {
+		return new Promise(resolve => {
+            firestore.collection(FIREBASE.RIDES_PATH).doc(id).get()
+                .then(function(doc) {
+                    if (doc.exists) {
+                        resolve(doc.data());
+                    }
+                    else {
+                    	resolve({});
+					}
+                })
+                .catch(function(error) {
+                    console.log("Error getting document:", error);
+                });
 		});
 	}
 
-	static getRequest(id, callback){
-        firestore.collection(FIREBASE.REQUESTS_PATH).doc(id).get()
-            .then(function(doc) {
-                if (doc.exists) {
-                    callback(doc.data());
-                }
-            })
-            .catch(function(error) {
-                console.log("Error getting document:", error);
-            });
-    }
 
+	static getAllRequests(callback){
+		let requestList=[];
+		firestore.collection(FIREBASE.REQUESTS_PATH).get()
+            .then(snapshot => {
+            	//console.log(snapshot)
+                snapshot.forEach(doc => {
+                	console.log(doc.data());
+                    requestList.push(doc.data());
+                    // console.log(doc.data())
+                });
+                callback(requestList);
+            })
+            .catch(err => {
+                console.log("Error getting documents", err)
+            });
+
+
+	}
 
     static retrieveRideList(origin, destination, callBack){
         var ride = firestore.collection(FIREBASE.RIDES_PATH).doc(origin).collection(destination);

@@ -6,14 +6,16 @@ import { COLOR, STRING } from '../Constants';
 import Utility from '../Utility';
 
 import CreateScreen from './CreateScreen';
-import HomeScreen, {HomeStack, PassengerStack} from './HomeScreen';
+import  {HomeStack} from './HomeScreen';
 import ProfileScreen from './ProfileScreen';
 import HistoryScreen from './HistoryScreen';
 import SettingScreen from "./SettingScreen";
-import RequestRideScreen from "./RequestScreen";
+import CreateRequestScreen from "./CreateRequestScreen";
 import RideViewScreen from "./RideViewScreen";
 import UserViewScreen from "./UserViewScreen";
 import MessagesScreen from "./MessagesScreen";
+import RequestScreen from "./RequestScreen";
+
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import ListScreen from './ListScreen';
 export var MainScreenInstance = null;
@@ -74,6 +76,9 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 		Home: {
 			screen: HomeStack
 		},
+		Requests:{
+			screen: RequestScreen
+		},
 		History:{
 			screen: HistoryScreen
 		},
@@ -126,7 +131,7 @@ const AppStack = (Tab_Navigator) => StackNavigator(
             screen: CreateScreen,
         },
         RequestRide: {
-            screen: RequestRideScreen
+            screen: CreateRequestScreen
         },
         Settings: {
             screen: SettingScreen

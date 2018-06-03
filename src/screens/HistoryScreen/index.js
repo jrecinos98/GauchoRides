@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, ScrollView, RefreshControl } from "react-native";
+import { StatusBar, View, Text, StyleSheet, ScrollView, RefreshControl, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import ListView from '../../components/ListView';
@@ -12,33 +12,35 @@ import ListItem from "../../components/ListItem"
 
 export default class HistoryScreen extends Component {
 
-    static history_this = null;
-
     constructor(props) {
         super(props);
-        history_this = this;
-        history_this.state = {
+        this.state = {
             data: [],
             data2: [],
-            color_theme: COLOR.THEME_LIGHT,
+            requests: [],
+            color_theme: COLOR.THEME_CLASSIC,
             refreshing: false
         };
-        Utility.getTheme(function(theme) {
-            history_this.setState({
+        Utility.getTheme((theme) => {
+            this.setState({
                 color_theme: theme
             });
         });
         this.refreshing= false;
-        Database.getUserHistory((list, list2) => {
-            this.setState({data: list, data2: list2});
-        });
 
+
+    }
+
+    componentDidMount(){
+        Database.getUserHistory((list, list2, requestList) => {
+            this.setState({data: list, data2: list2, requests: requestList });
+        });
     }
 
     _onRefresh(){
         this.setState({refreshing: true});
-        Database.getUserHistory((list, list2) => {
-            this.setState({refreshing: false, data: list, data2: list2});
+        Database.getUserHistory((list, list2, requestList) => {
+            this.setState({refreshing: false, data: list, data2: list2, requests: requestList});
         })
 
     }
@@ -55,16 +57,52 @@ export default class HistoryScreen extends Component {
 
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
-            <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }}
-            />
-        )
+            <Image
+                source={require("../../../public/assets/info_book.png")}
+                style={{
+                    tintColor: tintColor,
+                    width: 30,
+                    height: 30,
+                    resizeMode: "contain"
+
+                }}
+            />)
     };
-    renderItem = ({item}) => {
+
+
+    renderOnGoing = ({item}) => {
         return (
             <ListItem
                 item={item}
+                itemBgColor={"#e9e9e9"}
+                filePath={require("../../../public/assets/car_unchecked.png")}
+                imageStyle={styles.upcomingStyle}
                 onPress={() => {
                     this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                }}/>
+        )
+    };
+    renderCompleted = ({item}) => {
+        return (
+            <ListItem
+                item={item}
+                itemBgColor={"#e9e9e9"}
+                imageStyle={styles.pastStyle}
+                filePath={require("../../../public/assets/completed_ride.png")}
+                onPress={() => {
+                    this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                }}/>
+        )
+    };
+    renderRequests = ({item}) => {
+        return(
+            <ListItem
+                item={item}
+                itemBgColor={"#e9e9e9"}
+                imageStyle={styles.requestStyle}
+                filePath={require("../../../public/assets/request_hand.png")}
+                onPress={() => {
+                    //this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
                 }}/>
         )
     };
@@ -75,13 +113,13 @@ export default class HistoryScreen extends Component {
 
             topBar: [styles.topBar, {
                 height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
-                backgroundColor: history_this.state.color_theme.APP_BACKGROUND
+                backgroundColor: this.state.color_theme.APP_BACKGROUND
             }],
 
             title: [styles.title, {
                 fontSize: DIMENSION.TITLE.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
-                color: history_this.state.color_theme.APP_FOCUS
+                color: this.state.color_theme.APP_FOCUS
             }],
 
             historyContainer: [styles.historyContainer, {
@@ -90,7 +128,7 @@ export default class HistoryScreen extends Component {
 
         };
 
-        let statusTheme = (history_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
             <View style={styles.container}>
@@ -109,8 +147,8 @@ export default class HistoryScreen extends Component {
                    
                     <ListView
                         title={"Upcoming Rides"}
-                        style={styles.rideHistStyle}
-                        renderItem={this.renderItem}
+                        style={styles.upcomingListStyle}
+                        renderItem={this.renderOnGoing}
                         data={this.state.data}
                         refreshing={this.refreshing}
                         onRefresh={() => {
@@ -127,7 +165,7 @@ export default class HistoryScreen extends Component {
                     <ListView
                         title={"Completed Rides"}
                         style={styles.rideHistStyle}
-                        renderItem={this.renderItem}
+                        renderItem={this.renderCompleted}
                         data={this.state.data2}
                         refreshing={this.refreshing}
                         onRefresh={() => {
@@ -136,6 +174,22 @@ export default class HistoryScreen extends Component {
                                 }
                                 else {
                                     this.setState({data2: list})
+                                }
+                            })
+                        }}
+                    />
+                    <ListView
+                        title={"Requested Rides"}
+                        style={styles.requestedListStyle}
+                        renderItem={this.renderRequests}
+                        data={this.state.requests}
+                        refreshing={this.refreshing}
+                        onRefresh={() => {
+                            Database.retrieveUserRequests((list) => {
+                                if (this.state.data.length === list.length) {
+                                }
+                                else {
+                                    this.setState({requests: list})
                                 }
                             })
                         }}
@@ -150,7 +204,26 @@ export default class HistoryScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
+    },
+    upcomingStyle: {
+        width: 55,
+        height: 55,
+        resizeMode: "contain",
+        tintColor: "red",
+
+    },
+    pastStyle: {
+        width: 65,
+        height: 65,
+        resizeMode: "contain",
+        tintColor: "green"
+    },
+    requestStyle: {
+        width: 65,
+        height: 65,
+        resizeMode: "contain",
+        //tintColor: "green"
     },
     topBar: {
         backgroundColor: null,
@@ -160,7 +233,20 @@ const styles = StyleSheet.create({
     rideHistStyle: {
         flex: 1,
         aspectRatio: 0.5,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        marginTop: "10",
+    },
+    upcomingListStyle: {
+        flex: 1,
+        aspectRatio: 0.5,
+        resizeMode: 'contain',
+        marginTop: "10"
+    },
+    requestedListStyle: {
+        flex: 1,
+        aspectRatio: 0.5,
+        resizeMode: 'contain',
+        marginTop: "10"
     },
     title: {
         color: null,

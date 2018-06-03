@@ -11,7 +11,9 @@ export default class User {
 	drive_rating: 0.0;
 	tags: {};
 	rides: {};
+	requests: {};
 	follows: {};
+	messages: {};
 
 	//registers a user. Checks if the user signed in with fb or email and save the data accordingly.
 	constructor (object, newUserFromFB) {
@@ -25,7 +27,9 @@ export default class User {
 			this.drive_rating = 4.5;
 			this.tags = {};
 			this.rides = {};
+			this.requests= {};
 			this.follows = {};
+			this.messages={};
 		}
 		else {
 			this.id = object.id;
@@ -35,9 +39,13 @@ export default class User {
 			this.description = object.description;
 			this.sexy_rating = object.sexy_rating;
 			this.drive_rating = object.drive_rating;
+
+			//Make more efficient by knowing the path beforehand
 			this.tags = ('tags' in object) ? object.tags : {};
 			this.rides = ('rides' in object) ? object.rides : {};
+			this.requests=('requests' in object) ? object.requests : {};
 			this.follows = ('follows' in object) ? object.follows : {};
+			this.messages=('messages' in object) ? object.messages : {};
 		}
 	}
 
@@ -52,7 +60,10 @@ export default class User {
 			drive_rating: this.drive_rating,
 			tags: this.tags,
 			rides: this.rides,
-			follows: this.follows
+			requests: this.requests,
+			follows: this.follows,
+			messages: this.messages
+
 		};
 	}
 }
