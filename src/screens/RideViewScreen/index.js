@@ -45,9 +45,11 @@ export default class RideViewScreen extends Component{
         });
     }
 
-    registerRide(ride, user_id) {
-        ride.passengers.push(user_id);
+    registerRide(ride, user) {
+        ride.passengers.push(user.id);
+        user.rides[ride.id] = 'passenger';
         Database.updateRide(FIREBASE.RIDES_PATH, ride);
+        Database.updateUser(user);
         this.props.navigation.goBack(null);
     }
 
@@ -108,7 +110,7 @@ export default class RideViewScreen extends Component{
                         <OpacityButton
                             title={"Confirm Ride!"}
                             callback={() => {
-                                this.registerRide(ride, User.currentUser.id);
+                                this.registerRide(ride, User.currentUser);
                             }}/>
                     :
                         undefined
