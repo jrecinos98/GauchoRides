@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity, Platform } from "react-native";
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
