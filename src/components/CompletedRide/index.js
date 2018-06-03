@@ -6,16 +6,12 @@ import {
     Image
 } from "react-native";
 import {Ionicons} from '@expo/vector-icons';
+import User from "../../actors/User";
+import Utility from "../../Utility"
 
 export default class CompletedRide extends Component {
     constructor(props) {
         super(props)
-    }
-
-    epochToDate(epoch) {
-
-        var d = new Date(epoch * 1000);
-        return d;
     }
 
 
@@ -40,6 +36,8 @@ export default class CompletedRide extends Component {
                        }}/>
 
                 <View style={{flex: 1, justifyContent: 'center', marginLeft: 5}}>
+
+                    <Text style={styles.roleStyle}>Role: {this.props.item.driver === User.currentUser.id? "Driver": "Passenger"}</Text>
                     <Text style={styles.originTextSyle}>
                         From: {this.props.item.origin.name}
                     </Text>
@@ -48,7 +46,7 @@ export default class CompletedRide extends Component {
                     </Text>
 
                     <Text style={styles.dateTextStyle}>
-                        Date: {this.epochToDate(this.props.item.time).toString()}
+                        Date: {Utility.formatDate(new Date(1000*this.props.item.time))}
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -61,18 +59,23 @@ const styles = {
         flexDirection: 'row',
         marginBottom: 3
     },
+    roleStyle: {
+        fontSize: 16,
+        color: 'gray',
+        marginBottom: 10
+    },
     originTextSyle: {
         fontSize: 16,
-        color: 'grey',
+        color: 'blue',
         marginBottom: 10
     },
     destinTextStyle: {
         fontSize: 16,
-        color: 'red',
+        color: 'green',
         marginBottom: 10,
     },
     dateTextStyle: {
         fontSize: 16,
-        color: 'grey'
+        color: 'black'
     }
 };

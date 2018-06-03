@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet, ScrollView, RefreshControl } from "react-native";
+import { StatusBar, View, Text, StyleSheet, ScrollView, RefreshControl, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import ListView from '../../components/ListView';
@@ -56,9 +56,16 @@ export default class HistoryScreen extends Component {
 
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
-            <Ionicons name="md-book" style={{ color: tintColor, fontSize: 20 }}
-            />
-        )
+            <Image
+                source={require("../../../public/assets/info_book.png")}
+                style={{
+                    tintColor: tintColor,
+                    width: 24,
+                    height: 24,
+                    resizeMode: "contain"
+
+                }}
+            />)
     };
     renderIncomplete = ({item}) => {
         return (
@@ -160,7 +167,7 @@ export default class HistoryScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     topBar: {
         backgroundColor: null,
@@ -170,7 +177,8 @@ const styles = StyleSheet.create({
     rideHistStyle: {
         flex: 1,
         aspectRatio: 0.5,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        marginTop: "10"
     },
     title: {
         color: null,

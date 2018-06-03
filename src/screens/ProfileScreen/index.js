@@ -30,9 +30,18 @@ export default class ProfileScreen extends Component {
     }
 
 
+
     static navigationOptions = {
-        tabBarIcon: ({tintColor}) => (
-            <Ionicons name="ios-contact" style={{color: tintColor, fontSize: 20}}/>
+        tabBarIcon: ({ tintColor}) => (
+            <Image
+                source={require("../../../public/assets/profile_icon.png")}
+                style={{
+                    tintColor: tintColor,
+                    width: 26,
+                    height: 26,
+                    resizeMode: "contain"
+                }}
+            />
         )
     };
     openMessenger(){

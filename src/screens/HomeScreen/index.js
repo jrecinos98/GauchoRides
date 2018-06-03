@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, View, Text, StyleSheet} from "react-native";
+import { StatusBar, View, Text, StyleSheet, Image} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import MapArea from './MapArea';
 import SearchArea from './SearchArea';
@@ -39,10 +39,19 @@ export default class HomeScreen extends Component {
         Controller.setRef(this, Controller.home);
     }
 
+
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
-            <Ionicons name="ios-home" style={{ color: tintColor, fontSize: 20 }} />
-        )
+            <Image
+                source={require("../../../public/assets/car_search.png")}
+                style={{
+                    tintColor: tintColor,
+                    width: 22,
+                    height: 22,
+                    resizeMode: "contain"
+
+                }}
+            />)
     };
 
     navigateScreen(screen) {

@@ -97,9 +97,6 @@ export default class Utility {
             callback(false);
             return;
         }
-
-        //latitude, longitude, radius, name
-        //console.log(searchInputs)
         let ride = new Ride({
             id: 0,
             price: price,

@@ -36,14 +36,18 @@ export default class RequestScreen extends Component{
         })
 
     }
+
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
             <Image
-                source={require("../../../public/assets/car_plus.png")}
+                source={require("../../../public/assets/guy_request.png")}
                 style={{
                     tintColor: tintColor,
-                    width: 24,
-                    height: 24, }}/>
+                    width: 26,
+                    height: 26,
+                    resizeMode: "contain"
+                }}
+            />
         )
     };
 

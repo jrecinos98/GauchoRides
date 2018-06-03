@@ -197,18 +197,6 @@ export default class Database {
 
 
 
- futureRide(date){
-        var d = new Date();
-        var statusIcon;
-        if (date>d){
-            statusIcon="ios-hammer";
-            return statusIcon;
-        }
-        else{
-            statusIcon="ios-checkmark-circle";
-            return statusIcon;
-        }
-    }
 
 
 //rideList[i].origin.name
@@ -227,7 +215,12 @@ export default class Database {
 			Database.updateRide(path, ride);
 
 			//Update driver information on firebase
-			User.currentUser.rides[ride.id] = 'driver';
+			if(path === FIREBASE.RIDES_PATH) {
+                User.currentUser.rides[ride.id] = 'driver';
+            }
+            else{
+				User.currentUser.requests[ride.id]= "passenger";
+			}
 			Database.updateUser(User.currentUser);
 		});
 	}
