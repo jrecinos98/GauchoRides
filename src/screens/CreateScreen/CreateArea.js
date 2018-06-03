@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Button, ScrollView, Platform } from "react-native";
 import SearchBox from '../../components/SearchBox';
 import { COLOR } from "../../Constants"
 import CreateButton from '../../components/ActionButton';
@@ -30,8 +30,12 @@ export default class CreateArea extends Component {
             }]
         };
 
+        let persistTaps = (Platform.OS == 'ios') ? "never" : "always";
+
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView
+                style={styles.container}
+                keyboardShouldPersistTaps={persistTaps}>
 
                 <SearchBox
                     originTag={this.props.originTag}
