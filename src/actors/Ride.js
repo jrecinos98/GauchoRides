@@ -1,3 +1,5 @@
+import Area from './Area';
+
 /**
  * An object used to represent a ride. It contains all the information about the ride, such as who the driver was, the date, the destination, date , time, etc..
  */
@@ -13,16 +15,16 @@ export default class Ride {
 	destination: Area;
 
 
-	constructor (id, price, description, seats, driver, passengers, time, origin, destination) {
-		this.id = id;
-		this.price = price;
-		this.description = description;
-		this.seats = seats;
-		this.driver = driver;
-		this.passengers = passengers;
-		this.time = time;
-		this.origin = origin;
-		this.destination = destination;
+	constructor (object) {
+		this.id = object.id;
+		this.price = object.price;
+		this.description = object.description;
+		this.seats = object.seats;
+		this.driver = object.driver;
+		this.passengers = object.passengers;
+		this.time = object.time;
+		this.origin = new Area(object.origin);
+		this.destination = new Area(object.destination);
 	}
 
 	toObject() {

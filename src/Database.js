@@ -224,7 +224,7 @@ export default class Database {
 		firestore.collection(path).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
 			//Update ride information on firebase
 			ride.id = originCity + '/' + destinCity + '/' + ref.id;
-			Database.updateRide(path, originCity, destinCity, ride);
+			Database.updateRide(path, ride);
 
 			//Update driver information on firebase
 			User.currentUser.rides[ride.id] = 'driver';
@@ -253,9 +253,8 @@ export default class Database {
      * @param destinCity
      * @param ride
      */
-	static updateRide(path, originCity, destinCity, ride) {
-		firestore.collection(path).doc(originCity).collection(destinCity).doc(ride.id).set(ride.toObject()).then((ref) => {
-		});
+	static updateRide(path, ride) {
+		firestore.collection(path).doc(ride.id).set(ride.toObject())
 	}
 
     /**

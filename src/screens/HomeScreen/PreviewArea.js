@@ -5,6 +5,7 @@ import { DIMENSION } from '../../Constants';
 import Controller from './Controller';
 import Utility from '../../Utility';
 import Database from '../../Database';
+import Ride from '../../actors/Ride';
 
 
 export default class PreviewArea extends Component {
@@ -93,7 +94,7 @@ export default class PreviewArea extends Component {
                     <TouchableOpacity
                         style={customStyle.expandButton}
                         onPress={() => {
-                            this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: ride});
+                            this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: new Ride(ride)});
                         }}>
                         <Ionicons name="ios-arrow-up" style={customStyle.expandIcon} />
                     </TouchableOpacity>

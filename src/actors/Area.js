@@ -5,11 +5,11 @@ export default class Area {
 	radius: 0.0;
 	name: String;
 
-	constructor (latitude, longitude, radius, name) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.radius = radius;
-		this.name = name;
+	constructor (object) {
+		this.latitude = object.latitude;
+		this.longitude = object.longitude;
+		this.radius = object.radius;
+		this.name = object.name;
 	}
 
 	toObject() {

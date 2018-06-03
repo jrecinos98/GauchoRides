@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity,
         ScrollView, Dimensions, Modal, AsyncStorage, Image } from "react-native";
-import { COLOR, STRING } from '../../Constants';
-import Utility from '../../Utility';
+import { COLOR, STRING, FIREBASE } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import CenterText from "../../components/CenterText";
 import Database from '../../Database';
+import Utility from '../../Utility';
 import WheelRating from '../../components/WheelRating';
+import OpacityButton from '../../components/OpacityButton';
+import User from '../../actors/User';
 
 
 export default class RideViewScreen extends Component{
@@ -44,7 +46,9 @@ export default class RideViewScreen extends Component{
     }
 
     registerRide(ride, user_id) {
-
+        ride.passengers.push(user_id);
+        Database.updateRide(FIREBASE.RIDES_PATH, ride);
+        this.props.navigation.goBack(null);
     }
 
     render(){
@@ -98,6 +102,18 @@ export default class RideViewScreen extends Component{
                 <CenterText style={customStyle.titleText}> Seats: {ride.seats}</CenterText>
                 <CenterText style={customStyle.titleText}> Time: {new Date(ride.time * 1000).toString()}</CenterText>
                 <CenterText style={customStyle.titleText}> Price: {ride.price}</CenterText>
+
+                {
+                    (ride.driver !== User.currentUser.id && !ride.passengers.includes(User.currentUser.id)) ?
+                        <OpacityButton
+                            title={"Confirm Ride!"}
+                            callback={() => {
+                                this.registerRide(ride, User.currentUser.id);
+                            }}/>
+                    :
+                        undefined
+                }
+
 
             </ScrollView>
         );

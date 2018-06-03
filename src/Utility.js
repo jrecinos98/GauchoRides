@@ -97,18 +97,30 @@ export default class Utility {
             callback(false);
             return;
         }
+
+        //latitude, longitude, radius, name
         //console.log(searchInputs)
-        let ride = new Ride(
-            0,
-            price,
-            description,
-            chosenSeats,
-            User.currentUser.id,
-            [],
-            Math.floor(chosenDate / 1000),
-            new Area(searchInputs.pickupCoords.lat, searchInputs.pickupCoords.lng, 5, searchInputs.pickupInput),
-            new Area(searchInputs.dropoffCoords.lat, searchInputs.dropoffCoords.lng, 5, searchInputs.dropoffInput)
-        );
+        let ride = new Ride({
+            id: 0,
+            price: price,
+            description: description,
+            seats: chosenSeats,
+            driver: User.currentUser.id,
+            passengers: [],
+            time: Math.floor(chosenDate / 1000),
+            origin: new Area({
+                latitude: searchInputs.pickupCoords.lat,
+                longitude: searchInputs.pickupCoords.lng,
+                radius: 5,
+                name: searchInputs.pickupInput
+            }),
+            destination: new Area({
+                latitude: searchInputs.dropoffCoords.lat,
+                longitude: searchInputs.dropoffCoords.lng,
+                radius: 5,
+                name: searchInputs.dropoffInput
+            })
+        });
         let pickupCity = this.extractCity(searchInputs.pickupArray);
         let dropoffCity = this.extractCity(searchInputs.dropoffArray);
         Database.createRide(path,ride, pickupCity, dropoffCity);
