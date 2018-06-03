@@ -7,7 +7,8 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import Utility from '../../Utility';
 import Database from "../../Database";
-import ListItem from "../../components/ListItem"
+import IncompleteRide from "../../components/IncompleteRide"
+import CompletedRide from "../../components/CompletedRide"
 
 
 export default class HistoryScreen extends Component {
@@ -59,9 +60,18 @@ export default class HistoryScreen extends Component {
             />
         )
     };
-    renderItem = ({item}) => {
+    renderIncomplete = ({item}) => {
         return (
-            <ListItem
+            <IncompleteRide
+                item={item}
+                onPress={() => {
+                    this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                }}/>
+        )
+    };
+    renderCompleted = ({item}) => {
+        return (
+            <CompletedRide
                 item={item}
                 onPress={() => {
                     this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
@@ -110,7 +120,7 @@ export default class HistoryScreen extends Component {
                     <ListView
                         title={"Upcoming Rides"}
                         style={styles.rideHistStyle}
-                        renderItem={this.renderItem}
+                        renderItem={this.renderIncomplete}
                         data={this.state.data}
                         refreshing={this.refreshing}
                         onRefresh={() => {
@@ -127,7 +137,7 @@ export default class HistoryScreen extends Component {
                     <ListView
                         title={"Completed Rides"}
                         style={styles.rideHistStyle}
-                        renderItem={this.renderItem}
+                        renderItem={this.renderCompleted}
                         data={this.state.data2}
                         refreshing={this.refreshing}
                         onRefresh={() => {

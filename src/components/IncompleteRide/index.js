@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import {Ionicons} from '@expo/vector-icons';
 
-export default class ListItem extends Component {
+export default class IncompleteRide extends Component {
     constructor(props) {
         super(props)
     }

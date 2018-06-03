@@ -1,138 +1,144 @@
 import React, { Component } from "react";
-import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native";
+import { StatusBar, View, Text, StyleSheet, ScrollView, RefreshControl, Image} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { RideMap } from '../../components/RideMap'; //adding map
-import User from '../../actors/User';
-import Ride from '../../actors/Ride';
-import Area from '../../actors/Area';
-import { StackNavigator, NavigationActions } from 'react-navigation';
+
+import ListView from '../../components/ListView';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import {COLOR, DIMENSION, FIREBASE} from '../../Constants';
-import RequestArea from './RequestArea';
+import { COLOR, DIMENSION } from '../../Constants';
 import Utility from '../../Utility';
-import Database from '../../Database';
-import Spinner from '../../components/Spinner';
-import {extractCity} from "../../Utility";
+import Database from "../../Database";
+import IncompleteRide from "../../components/IncompleteRide";
 
-var i = 0;
-
-//Main component for driver screen
-export default class RequestRideScreen extends Component {
-
-    static driver_this = null;
-
-    constructor(props) {
+export default class RequestScreen extends Component{
+	  constructor(props) {
         super(props);
-        driver_this = this;
-
-        driver_this.state = {
-            color_theme: COLOR.THEME_LIGHT
+        this.state = {
+            data: [],
+            color_theme: COLOR.THEME_LIGHT,
+            refreshing: false
         };
-
         Utility.getTheme(function(theme) {
-            driver_this.setState({
+            this.setState({
                 color_theme: theme
             });
         });
+        this.refreshing= false;
+        Database.getUserHistory((list, list2) => {
+            this.setState({data: list, data2: list2});
+        });
+
     }
 
-    //Render driver screen tab icon and top bar.
+    _onRefresh(){
+        this.setState({refreshing: true});
+        Database.getUserHistory((list, list2) => {
+            this.setState({refreshing: false, data: list, data2: list2});
+        })
+
+    }
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
-            <Ionicons name="ios-car" style={{ color: tintColor, fontSize: 20  }} />
+            <Image
+                source={require("../../../public/assets/car_plus.png")}
+                style={{
+                    tintColor: tintColor,
+                    width: 24,
+                    height: 24, }}/>
         )
     };
 
-    //Render the component
-    render() {
+    renderItem = ({item}) => {
+        return (
+            <IncompleteRide
+                item={item}
+                onPress={() => {
+                    this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                }}/>
+        )
+    };
 
+    render(){
         const customStyle = {
-
             topBar: [styles.topBar, {
                 height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
-                backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
+                backgroundColor: this.state.color_theme.APP_BACKGROUND
             }],
-
             title: [styles.title, {
                 fontSize: DIMENSION.TITLE.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
-                color: driver_this.state.color_theme.APP_FOCUS
+                color: this.state.color_theme.APP_FOCUS
             }],
-            backArrow: [styles.backArrow, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
-                color: driver_this.state.color_theme.APP_FOCUS
-            }],
-
         };
-
-        let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
-            <View style = {styles.container}>
-
+            <View style={styles.container}>
                 <StatusBar barStyle={statusTheme}/>
-                <View style={customStyle.topBar}>
-                    {
-                        (Platform.OS === 'ios') ?
-                            <Ionicons
+                <View style={customStyle.topBar}/>
+                <Text style={customStyle.title}>History</Text>
 
-                                name='ios-arrow-back'
-                                style={customStyle.backArrow}
-                                onPress={() => {
-                                    this.props.navigation.goBack(null);
-                                }}/>
-                            : null
-                    }
+                <ScrollView
 
-                    <Text style={customStyle.title}>Request Ride</Text>
-                </View>
+                    style={styles.historyContainer}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh.bind(this)}/>
+                    }>
 
-                <RequestArea
+                    <ListView
+                        title={"Upcoming Rides"}
+                        style={styles.rideHistStyle}
+                        renderItem={this.renderItem}
+                        data={this.state.data}
+                        refreshing={this.refreshing}
+                        onRefresh={() => {
+                            Database.getUserHistory((list) => {
+                                if (this.state.data.length === list.length) {
+                                }
+                                else {
+                                    this.setState({data: list})
+                                }
+                            })
+                        }}
+                    />
 
-                    originTag={'Set Pick-Up Location'}
-                    destinationTag={'Set Drop-Off Location'}
-                    color_theme={driver_this.state.color_theme}
-                    onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
-                        this.spinner.show(true);
-                        Utility.createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, (successful) => {
-                            if(successful) {
-                                this.props.navigation.goBack(null);
-                                this.spinner.show(false);
-                            }
-                            else{
-                                this.spinner.show(false)
-                            }
-                        });
-                    }}/>
-
-                <Spinner ref={(instance) => this.spinner = instance}/>
-
+                    <ListView
+                        title={"Completed Rides"}
+                        style={styles.rideHistStyle}
+                        renderItem={this.renderItem}
+                        data={this.state.data2}
+                        refreshing={this.refreshing}
+                        onRefresh={() => {
+                            Database.getUserHistory((list) => {
+                                if (this.state.data2.length === list.length) {
+                                }
+                                else {
+                                    this.setState({data2: list})
+                                }
+                            })
+                        }}
+                    />
+                </ScrollView>
             </View>
         );
     }
 }
-
-//Style sheet for driver main screen.
+//var width=Dimensions.get("window").width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //alignItems: 'center',
-        // justifyContent: 'center',
         flexDirection: 'column'
-    },
-    backArrow: {
-        paddingLeft: 25,
-        paddingTop: null,
-        fontSize: null,
-        color: null,
-        alignSelf: 'flex-start',
-        position: 'absolute',
     },
     topBar: {
         backgroundColor: null,
         alignSelf: 'stretch',
         height: null
+    },
+    rideHistStyle: {
+        flex: 1,
+        aspectRatio: 0.5,
+        resizeMode: 'contain'
     },
     title: {
         color: null,
@@ -141,5 +147,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         fontSize: null,
         paddingTop: null
+    },
+    historyContainer: {
+        marginTop: null,
+        flex: 1
     }
 });
