@@ -7,39 +7,40 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import Utility from '../../Utility';
 import Database from "../../Database";
-import IncompleteRide from "../../components/IncompleteRide"
-import CompletedRide from "../../components/CompletedRide"
+import ListItem from "../../components/ListItem"
 
 
 export default class HistoryScreen extends Component {
 
-    static history_this = null;
-
     constructor(props) {
         super(props);
-        history_this = this;
-        history_this.state = {
+        this.state = {
             data: [],
             data2: [],
-            color_theme: COLOR.THEME_LIGHT,
+            requests: [],
+            color_theme: COLOR.THEME_CLASSIC,
             refreshing: false
         };
-        Utility.getTheme(function(theme) {
-            history_this.setState({
+        Utility.getTheme((theme) => {
+            this.setState({
                 color_theme: theme
             });
         });
         this.refreshing= false;
-        Database.getUserHistory((list, list2) => {
-            this.setState({data: list, data2: list2});
-        });
 
+
+    }
+
+    componentDidMount(){
+        Database.getUserHistory((list, list2, requestList) => {
+            this.setState({data: list, data2: list2, requests: requestList });
+        });
     }
 
     _onRefresh(){
         this.setState({refreshing: true});
-        Database.getUserHistory((list, list2) => {
-            this.setState({refreshing: false, data: list, data2: list2});
+        Database.getUserHistory((list, list2, requestList) => {
+            this.setState({refreshing: false, data: list, data2: list2, requests: requestList});
         })
 
     }
@@ -60,17 +61,21 @@ export default class HistoryScreen extends Component {
                 source={require("../../../public/assets/info_book.png")}
                 style={{
                     tintColor: tintColor,
-                    width: 24,
-                    height: 24,
+                    width: 30,
+                    height: 30,
                     resizeMode: "contain"
 
                 }}
             />)
     };
-    renderIncomplete = ({item}) => {
+
+
+    renderOnGoing = ({item}) => {
         return (
-            <IncompleteRide
+            <ListItem
                 item={item}
+                filePath={require("../../../public/assets/car_unchecked.png")}
+                imageStyle={styles.upcomingStyle}
                 onPress={() => {
                     this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
                 }}/>
@@ -78,8 +83,21 @@ export default class HistoryScreen extends Component {
     };
     renderCompleted = ({item}) => {
         return (
-            <CompletedRide
+            <ListItem
                 item={item}
+                imageStyle={styles.pastStyle}
+                filePath={require("../../../public/assets/completed_ride.png")}
+                onPress={() => {
+                    this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                }}/>
+        )
+    };
+    renderRequests = ({item}) => {
+        return(
+            <ListItem
+                item={item}
+                imageStyle={styles.requestStyle}
+                filePath={require("../../../public/assets/request_hand.png")}
                 onPress={() => {
                     this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
                 }}/>
@@ -92,13 +110,13 @@ export default class HistoryScreen extends Component {
 
             topBar: [styles.topBar, {
                 height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
-                backgroundColor: history_this.state.color_theme.APP_BACKGROUND
+                backgroundColor: this.state.color_theme.APP_BACKGROUND
             }],
 
             title: [styles.title, {
                 fontSize: DIMENSION.TITLE.SIZE,
                 paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
-                color: history_this.state.color_theme.APP_FOCUS
+                color: this.state.color_theme.APP_FOCUS
             }],
 
             historyContainer: [styles.historyContainer, {
@@ -107,7 +125,7 @@ export default class HistoryScreen extends Component {
 
         };
 
-        let statusTheme = (history_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
             <View style={styles.container}>
@@ -127,7 +145,7 @@ export default class HistoryScreen extends Component {
                     <ListView
                         title={"Upcoming Rides"}
                         style={styles.rideHistStyle}
-                        renderItem={this.renderIncomplete}
+                        renderItem={this.renderOnGoing}
                         data={this.state.data}
                         refreshing={this.refreshing}
                         onRefresh={() => {
@@ -157,6 +175,22 @@ export default class HistoryScreen extends Component {
                             })
                         }}
                     />
+                    <ListView
+                        title={"Requested Rides"}
+                        style={styles.rideHistStyle}
+                        renderItem={this.renderRequests}
+                        data={this.state.requests}
+                        refreshing={this.refreshing}
+                        onRefresh={() => {
+                            Database.retrieveUserRequests((list) => {
+                                if (this.state.data.length === list.length) {
+                                }
+                                else {
+                                    this.setState({requests: list})
+                                }
+                            })
+                        }}
+                    />
                 </ScrollView>
             </View>
         );
@@ -168,6 +202,24 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
+    },
+    upcomingStyle: {
+        width: 55,
+        height: 55,
+        resizeMode: "contain",
+        tintColor: "red"
+    },
+    pastStyle: {
+        width: 65,
+        height: 65,
+        resizeMode: "contain",
+        tintColor: "green"
+    },
+    requestStyle: {
+        width: 65,
+        height: 65,
+        resizeMode: "contain",
+        //tintColor: "green"
     },
     topBar: {
         backgroundColor: null,

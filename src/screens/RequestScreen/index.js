@@ -7,26 +7,31 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { COLOR, DIMENSION } from '../../Constants';
 import Utility from '../../Utility';
 import Database from "../../Database";
-import IncompleteRide from "../../components/IncompleteRide";
+import ListItem from "../../components/ListItem";
 
 export default class RequestScreen extends Component{
-	  constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             data: [],
-            color_theme: COLOR.THEME_LIGHT,
+            color_theme: COLOR.THEME_CLASSIC,
             refreshing: false
         };
-        Utility.getTheme(function(theme) {
+        Utility.getTheme((theme) => {
             this.setState({
                 color_theme: theme
             });
         });
         this.refreshing= false;
-        Database.getUserHistory((list, list2) => {
-            this.setState({data: list, data2: list2});
+        Database.retrieveUserRequests((list)=> {
+            this.setState({data: list});
         });
 
+    }
+    componentDidMount(){
+        Database.retrieveUserRequests((list) => {
+            this.setState({data: list});
+        });
     }
 
     _onRefresh(){
@@ -53,12 +58,12 @@ export default class RequestScreen extends Component{
 
     renderItem = ({item}) => {
         return (
-            <IncompleteRide
-                item={item}
+            <ListItem
+                item={item}imageStyle={styles.requestStyle}
+                filePath={require("../../../public/assets/request_hand.png")}
                 onPress={() => {
                     this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
-                }}/>
-        )
+                }}/>)
     };
 
     render(){
@@ -79,8 +84,7 @@ export default class RequestScreen extends Component{
             <View style={styles.container}>
                 <StatusBar barStyle={statusTheme}/>
                 <View style={customStyle.topBar}/>
-                <Text style={customStyle.title}>History</Text>
-
+                <Text style={customStyle.title}>List of Requests</Text>
                 <ScrollView
 
                     style={styles.historyContainer}
@@ -89,36 +93,18 @@ export default class RequestScreen extends Component{
                             refreshing={this.state.refreshing}
                             onRefresh={this._onRefresh.bind(this)}/>
                     }>
-
                     <ListView
-                        title={"Upcoming Rides"}
+                        title={"Requested Rides"}
                         style={styles.rideHistStyle}
                         renderItem={this.renderItem}
                         data={this.state.data}
                         refreshing={this.refreshing}
                         onRefresh={() => {
-                            Database.getUserHistory((list) => {
+                            Database.retrieveUserRequests((list) => {
                                 if (this.state.data.length === list.length) {
                                 }
                                 else {
                                     this.setState({data: list})
-                                }
-                            })
-                        }}
-                    />
-
-                    <ListView
-                        title={"Completed Rides"}
-                        style={styles.rideHistStyle}
-                        renderItem={this.renderItem}
-                        data={this.state.data2}
-                        refreshing={this.refreshing}
-                        onRefresh={() => {
-                            Database.getUserHistory((list) => {
-                                if (this.state.data2.length === list.length) {
-                                }
-                                else {
-                                    this.setState({data2: list})
                                 }
                             })
                         }}
@@ -133,6 +119,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column'
+    },
+
+    requestStyle: {
+        width: 65,
+        height: 65,
+        resizeMode: "contain",
+        //tintColor: "green"
     },
     topBar: {
         backgroundColor: null,

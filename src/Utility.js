@@ -1,5 +1,5 @@
 import{ AsyncStorage } from "react-native";
-import { COLOR, STRING } from './Constants';
+import {COLOR, FIREBASE, STRING} from './Constants';
 import {GOOG_APIKEY} from './Constants'
 import {TRANSPORT_MODE} from './Constants'
 import User from "./actors/User";
@@ -97,12 +97,16 @@ export default class Utility {
             callback(false);
             return;
         }
+        let driver=User.currentUser.id;
+        if(path === FIREBASE.REQUESTS_PATH){
+            driver= "N/A";
+        }
         let ride = new Ride({
             id: 0,
             price: price,
             description: description,
             seats: chosenSeats,
-            driver: User.currentUser.id,
+            driver: driver,
             passengers: [],
             time: Math.floor(chosenDate / 1000),
             origin: new Area({

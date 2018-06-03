@@ -23,7 +23,7 @@ export default class HomeScreen extends Component {
         super(props);
 
         this.state = {
-            color_theme: COLOR.THEME_LIGHT,
+            color_theme: COLOR.THEME_CLASSIC,
             rides: [],
         };
 
@@ -46,8 +46,8 @@ export default class HomeScreen extends Component {
                 source={require("../../../public/assets/car_search.png")}
                 style={{
                     tintColor: tintColor,
-                    width: 22,
-                    height: 22,
+                    width: 24,
+                    height: 24,
                     resizeMode: "contain"
 
                 }}

@@ -19,7 +19,7 @@ export default class ProfileScreen extends Component {
         profile_this = this;
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         profile_this.state = {
-            color_theme: COLOR.THEME_LIGHT,
+            color_theme: COLOR.THEME_CLASSIC,
         };
 
         Utility.getTheme(function (theme) {

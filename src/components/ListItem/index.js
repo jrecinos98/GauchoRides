@@ -3,18 +3,15 @@ import {
     Text,
     View,
     TouchableOpacity,
+    Image
 } from "react-native";
 import {Ionicons} from '@expo/vector-icons';
+import User from "../../actors/User";
+import Utility from "../../Utility"
 
 export default class ListItem extends Component {
     constructor(props) {
         super(props)
-    }
-
-    epochToDate(epoch) {
-
-        var d = new Date(epoch * 1000);
-        return d;
     }
 
 
@@ -24,16 +21,28 @@ export default class ListItem extends Component {
     //}
 
 
-
     render() {
+        let role ="";
+        if(this.props.item.driver === User.currentUser.id){
+            role= "Driver";
+        }
+        else if (this.props.item.driver === "N/A"){
+            role="Creator/Passenger"
+        }
+        else{
+            role="Passenger"
+        }
         return (
             <TouchableOpacity
                 style={styles.container}
                 onPress={() => this.props.onPress()}>
 
-                <Ionicons name="ios-car" size={65}/>
+                <Image source={this.props.filePath}
+                       style={this.props.imageStyle}/>
 
                 <View style={{flex: 1, justifyContent: 'center', marginLeft: 5}}>
+
+                    <Text style={styles.roleStyle}>Role: {role}</Text>
                     <Text style={styles.originTextSyle}>
                         From: {this.props.item.origin.name}
                     </Text>
@@ -42,15 +51,10 @@ export default class ListItem extends Component {
                     </Text>
 
                     <Text style={styles.dateTextStyle}>
-                        Date: {this.epochToDate(this.props.item.time).toString()}
+                        Date: {Utility.formatDate(new Date(this.props.item.time*1000))}
                     </Text>
                 </View>
-<<<<<<< HEAD
-            </View>
-=======
-                <Ionicons name={this.futureRide(this.epochToDate(this.props.item.time)).toString()} size={65}/>
             </TouchableOpacity>
->>>>>>> 07f69b74163df6a70e85e2dae6ea735aa558be8d
         )
     }
 }
@@ -60,18 +64,23 @@ const styles = {
         flexDirection: 'row',
         marginBottom: 3
     },
+    roleStyle: {
+        fontSize: 16,
+        color: 'gray',
+        marginBottom: 10
+    },
     originTextSyle: {
         fontSize: 16,
-        color: 'grey',
+        color: 'blue',
         marginBottom: 10
     },
     destinTextStyle: {
         fontSize: 16,
-        color: 'red',
+        color: 'green',
         marginBottom: 10,
     },
     dateTextStyle: {
         fontSize: 16,
-        color: 'grey'
+        color: 'black'
     }
 };

@@ -13,6 +13,7 @@ export default class User {
 	rides: {};
 	requests: {};
 	follows: {};
+	messages: {};
 
 	//registers a user. Checks if the user signed in with fb or email and save the data accordingly.
 	constructor (object, newUserFromFB) {
@@ -28,6 +29,7 @@ export default class User {
 			this.rides = {};
 			this.requests= {};
 			this.follows = {};
+			this.messages={};
 		}
 		else {
 			this.id = object.id;
@@ -43,6 +45,7 @@ export default class User {
 			this.rides = ('rides' in object) ? object.rides : {};
 			this.requests=('requests' in object) ? object.requests : {};
 			this.follows = ('follows' in object) ? object.follows : {};
+			this.messages=('messages' in object) ? object.messages : {};
 		}
 	}
 
@@ -57,7 +60,10 @@ export default class User {
 			drive_rating: this.drive_rating,
 			tags: this.tags,
 			rides: this.rides,
-			follows: this.follows
+			requests: this.requests,
+			follows: this.follows,
+			messages: this.messages
+
 		};
 	}
 }

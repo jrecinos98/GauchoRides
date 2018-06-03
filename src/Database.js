@@ -5,6 +5,7 @@ import { FIREBASE } from './Constants';
 import {TEST_CONSTANTS} from "./Constants";
 import User from './actors/User';
 import Ride from './actors/User';
+import Utility from "./Utility"
 
 var firestore = null;
 
@@ -170,23 +171,28 @@ export default class Database {
      * @param callback
      */
 	static getUserHistory(callback){
-		if (User.currentUser.rides == undefined || Object.keys(User.currentUser.rides).length == 0) {
+		if (User.currentUser.rides === undefined || Object.keys(User.currentUser.rides).length === 0) {
 			callback([], []);
 			return;
 		}
 
 		let futureRideList = [];
 		let completedRideList = [];
-		var d=new Date().getTime()/1000;
+		let rideRequestList=[];
+		Database.retrieveUserRequests((list)=>{
+			rideRequestList=list;
+		});
+
+		var d= new Date().getTime()/1000;
 		for (var id in User.currentUser.rides){
 		    Database.getRide(id, (ride) => {
 		    	if(ride.time>=d){
 		    		futureRideList.push(ride);
-		    		callback(futureRideList, completedRideList);
+		    		callback(futureRideList, completedRideList, rideRequestList);
 		    	}
 		    	else{
 		    		completedRideList.push(ride);
-		    		callback(futureRideList, completedRideList);
+		    		callback(futureRideList, completedRideList, rideRequestList);
 
 		    	}
 				
@@ -219,7 +225,7 @@ export default class Database {
                 User.currentUser.rides[ride.id] = 'driver';
             }
             else{
-				User.currentUser.requests[ride.id]= "passenger";
+				User.currentUser.requests[ride.id]= "creator";
 			}
 			Database.updateUser(User.currentUser);
 		});
@@ -267,6 +273,8 @@ export default class Database {
 		});
 	}
 
+
+
 	static getRequest(id, callback){
         firestore.collection(FIREBASE.REQUESTS_PATH).doc(id).get()
             .then(function(doc) {
@@ -278,7 +286,50 @@ export default class Database {
                 console.log("Error getting document:", error);
             });
     }
+	static retrieveUserRequests(callback){
+        if (User.currentUser.requests === undefined || Object.keys(User.currentUser.requests).length === 0) {
+            callback([], []);
+            return;
+        }
 
+        let requestList = [];
+       // let completedRideList = [];
+       // var d= Utility.formatDate((new Date(new Date().getTime())));
+        for (var id in User.currentUser.requests){
+            Database.getRequest(id, (request) => {
+                /*if(request.time>=d){
+                    futureRideList.push(ride);
+                    callback(futureRideList, completedRideList);
+                }
+                else{
+                    completedRideList.push(ride);
+                    callback(futureRideList, completedRideList);
+
+                }*/
+                requestList.push(request);
+                callback(requestList)
+
+            });
+        }
+	}
+	static getAllRequests(callback){
+		let requestList=[];
+		firestore.collection(FIREBASE.REQUESTS_PATH).get()
+            .then(snapshot => {
+            	//console.log(snapshot)
+                snapshot.forEach(doc => {
+                	console.log(doc.data());
+                    requestList.push(doc.data());
+                    // console.log(doc.data())
+                });
+                callback(requestList);
+            })
+            .catch(err => {
+                console.log("Error getting documents", err)
+            });
+
+
+	}
 
     static retrieveRideList(origin, destination, callBack){
         var ride = firestore.collection(FIREBASE.RIDES_PATH).doc(origin).collection(destination);
