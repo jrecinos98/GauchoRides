@@ -5,7 +5,6 @@ import {
     TouchableOpacity,
     Image
 } from "react-native";
-import {Ionicons} from '@expo/vector-icons';
 import User from "../../actors/User";
 import Utility from "../../Utility"
 
@@ -15,10 +14,6 @@ export default class ListItem extends Component {
     }
 
 
-
-    //riderOrDriver(){
-    //    if(this.props.item.)
-    //}
 
 
     render() {

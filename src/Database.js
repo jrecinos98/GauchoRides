@@ -170,7 +170,7 @@ export default class Database {
 	 * Retrieves rides that the user has taken a part in
      * @param callback
      */
-	static getUserHistory(callback){
+	static async getUserHistory(callback){
 		if (User.currentUser.rides === undefined || Object.keys(User.currentUser.rides).length === 0) {
 			callback([], []);
 			return;
@@ -184,22 +184,45 @@ export default class Database {
 		});
 
 		var d= new Date().getTime()/1000;
-		for (var id in User.currentUser.rides){
-		    Database.getRide(id, (ride) => {
-		    	if(ride.time>=d){
-		    		futureRideList.push(ride);
-		    		callback(futureRideList, completedRideList, rideRequestList);
-		    	}
-		    	else{
-		    		completedRideList.push(ride);
-		    		callback(futureRideList, completedRideList, rideRequestList);
-
-		    	}
-				
-			});
-		}
+        for (var id in User.currentUser.rides){
+            let ride = await Database.getRide(id);
+            if(ride.time>=d){
+                futureRideList.push(ride);
+            }
+            else{
+                completedRideList.push(ride);
+            }
+        }
+        callback(futureRideList, completedRideList, rideRequestList);
 	}
-
+    static getRequest(id) {
+        return new Promise(resolve => {
+            firestore.collection(FIREBASE.REQUESTS_PATH).doc(id).get()
+                .then(function (doc) {
+                    if (doc.exists) {
+                        resolve(doc.data());
+                    }
+                    else {
+                        resolve({});
+                    }
+                })
+                .catch(function (error) {
+                    console.log("Error getting document:", error);
+                });
+        });
+    }
+    static async retrieveUserRequests(callback){
+        if (User.currentUser.requests === undefined || Object.keys(User.currentUser.requests).length === 0) {
+            callback([], []);
+            return;
+        }
+        let requestList = [];
+        for (let id in User.currentUser.requests){
+            let request= await Database.getRequest(id);
+            requestList.push(request);
+        }
+        callback(requestList)
+    }
 
 
 
@@ -230,6 +253,7 @@ export default class Database {
 			Database.updateUser(User.currentUser);
 		});
 	}
+
 /*
 	static createRequest(ride, originCity, destinCity){
         firestore.collection(FIREBASE.REQUESTS_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
@@ -261,57 +285,24 @@ export default class Database {
      * @param id The id specifies the path of the ride.
      * @param callback
      */
-	static getRide(id, callback) {
-		firestore.collection(FIREBASE.RIDES_PATH).doc(id).get()
-		.then(function(doc) {
-		    if (doc.exists) {
-				callback(doc.data());
-		    }
-		})
-		.catch(function(error) {
-		    console.log("Error getting document:", error);
+	static getRide(id) {
+		return new Promise(resolve => {
+            firestore.collection(FIREBASE.RIDES_PATH).doc(id).get()
+                .then(function(doc) {
+                    if (doc.exists) {
+                        resolve(doc.data());
+                    }
+                    else {
+                    	resolve({});
+					}
+                })
+                .catch(function(error) {
+                    console.log("Error getting document:", error);
+                });
 		});
 	}
 
 
-
-	static getRequest(id, callback){
-        firestore.collection(FIREBASE.REQUESTS_PATH).doc(id).get()
-            .then(function(doc) {
-                if (doc.exists) {
-                    callback(doc.data());
-                }
-            })
-            .catch(function(error) {
-                console.log("Error getting document:", error);
-            });
-    }
-	static retrieveUserRequests(callback){
-        if (User.currentUser.requests === undefined || Object.keys(User.currentUser.requests).length === 0) {
-            callback([], []);
-            return;
-        }
-
-        let requestList = [];
-       // let completedRideList = [];
-       // var d= Utility.formatDate((new Date(new Date().getTime())));
-        for (var id in User.currentUser.requests){
-            Database.getRequest(id, (request) => {
-                /*if(request.time>=d){
-                    futureRideList.push(ride);
-                    callback(futureRideList, completedRideList);
-                }
-                else{
-                    completedRideList.push(ride);
-                    callback(futureRideList, completedRideList);
-
-                }*/
-                requestList.push(request);
-                callback(requestList)
-
-            });
-        }
-	}
 	static getAllRequests(callback){
 		let requestList=[];
 		firestore.collection(FIREBASE.REQUESTS_PATH).get()

@@ -75,7 +75,7 @@ const AppTabNavigator = (color_theme) => TabNavigator(
 		Home: {
 			screen: HomeStack
 		},
-		Requested:{
+		Requests:{
 			screen: RequestScreen
 		},
 		History:{

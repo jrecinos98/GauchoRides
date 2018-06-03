@@ -36,8 +36,8 @@ export default class RequestScreen extends Component{
 
     _onRefresh(){
         this.setState({refreshing: true});
-        Database.getUserHistory((list, list2) => {
-            this.setState({refreshing: false, data: list, data2: list2});
+        Database.retrieveUserRequests((list) => {
+            this.setState({refreshing: false, data: list});
         })
 
     }
@@ -59,7 +59,8 @@ export default class RequestScreen extends Component{
     renderItem = ({item}) => {
         return (
             <ListItem
-                item={item}imageStyle={styles.requestStyle}
+                item={item}
+                imageStyle={styles.requestStyle}
                 filePath={require("../../../public/assets/request_hand.png")}
                 onPress={() => {
                    // this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
