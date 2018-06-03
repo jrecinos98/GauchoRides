@@ -12,6 +12,7 @@ import HistoryScreen from './HistoryScreen';
 import SettingScreen from "./SettingScreen";
 import RequestRideScreen from "./RequestScreen";
 import RideViewScreen from "./RideViewScreen";
+import UserViewScreen from "./UserViewScreen";
 import MessagesScreen from "./MessagesScreen";
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
 import ListScreen from './ListScreen';
@@ -135,6 +136,9 @@ const AppStack = (Tab_Navigator) => StackNavigator(
         },
         RideViewScreen: {
 			screen: RideViewScreen
+        },
+        UserViewScreen: {
+			screen: UserViewScreen
         },
         MessagesScreen: {
         	screen: MessagesScreen

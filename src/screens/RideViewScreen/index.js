@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity,
+import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, TouchableHighlight,
         ScrollView, Dimensions, Modal, AsyncStorage, Image } from "react-native";
 import { COLOR, STRING, FIREBASE } from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
@@ -112,10 +112,12 @@ export default class RideViewScreen extends Component{
 
 
                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <Image
-                        source={{uri: 'https://graph.facebook.com/' + driver.fbID + '/picture?type=large'}}
-                        borderRadius={50}
-                        style={styles.driverImage}/>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate("UserViewScreen", {user: driver})}>
+                        <Image
+                            source={{uri: 'https://graph.facebook.com/' + driver.fbID + '/picture?type=large'}}
+                            borderRadius={50}
+                            style={styles.driverImage}/>
+                    </TouchableHighlight>
 
                     <View style={styles.driverTextWrapper}>
                         <Text style={customStyle.titleText}>
