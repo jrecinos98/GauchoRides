@@ -53,6 +53,32 @@ export default class RideViewScreen extends Component{
         this.props.navigation.goBack(null);
     }
 
+    getConfirmButton(ride, user, customStyle) {
+        if (ride.driver === User.currentUser.id)
+            return (
+                <CenterText style={customStyle.titleText}>
+                    You are the driver!
+                </CenterText>
+            );
+
+        else if (ride.passengers.includes(User.currentUser.id))
+            return (
+                <CenterText style={customStyle.titleText}>
+                    You already registered!
+                </CenterText>
+            );
+
+        else
+            return (
+                <OpacityButton
+                    title={"Confirm Ride!"}
+                    callback={() => {
+                        this.registerRide(ride, User.currentUser);
+                    }}
+                />
+            );
+    }
+
     render(){
 
         const customStyle = {
@@ -105,17 +131,7 @@ export default class RideViewScreen extends Component{
                 <CenterText style={customStyle.titleText}> Time: {Utility.formatDate(new Date(ride.time * 1000))}</CenterText>
                 <CenterText style={customStyle.titleText}> Price: {ride.price}</CenterText>
 
-                {
-                    (ride.driver !== User.currentUser.id && !ride.passengers.includes(User.currentUser.id)) ?
-                        <OpacityButton
-                            title={"Confirm Ride!"}
-                            callback={() => {
-                                this.registerRide(ride, User.currentUser);
-                            }}/>
-                    :
-                        undefined
-                }
-
+                {this.getConfirmButton(ride, User.currentUser, customStyle)}
 
             </ScrollView>
         );
