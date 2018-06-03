@@ -62,7 +62,7 @@ export default class RequestScreen extends Component{
                 item={item}imageStyle={styles.requestStyle}
                 filePath={require("../../../public/assets/request_hand.png")}
                 onPress={() => {
-                    this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                   // this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
                 }}/>)
     };
 

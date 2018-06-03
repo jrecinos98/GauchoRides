@@ -74,6 +74,7 @@ export default class HistoryScreen extends Component {
         return (
             <ListItem
                 item={item}
+                itemBgColor={"#e9e9e9"}
                 filePath={require("../../../public/assets/car_unchecked.png")}
                 imageStyle={styles.upcomingStyle}
                 onPress={() => {
@@ -85,6 +86,7 @@ export default class HistoryScreen extends Component {
         return (
             <ListItem
                 item={item}
+                itemBgColor={"#e9e9e9"}
                 imageStyle={styles.pastStyle}
                 filePath={require("../../../public/assets/completed_ride.png")}
                 onPress={() => {
@@ -96,10 +98,11 @@ export default class HistoryScreen extends Component {
         return(
             <ListItem
                 item={item}
+                itemBgColor={"#e9e9e9"}
                 imageStyle={styles.requestStyle}
                 filePath={require("../../../public/assets/request_hand.png")}
                 onPress={() => {
-                    this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
+                    //this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
                 }}/>
         )
     };
@@ -144,7 +147,7 @@ export default class HistoryScreen extends Component {
                    
                     <ListView
                         title={"Upcoming Rides"}
-                        style={styles.rideHistStyle}
+                        style={styles.upcomingListStyle}
                         renderItem={this.renderOnGoing}
                         data={this.state.data}
                         refreshing={this.refreshing}
@@ -177,7 +180,7 @@ export default class HistoryScreen extends Component {
                     />
                     <ListView
                         title={"Requested Rides"}
-                        style={styles.rideHistStyle}
+                        style={styles.requestedListStyle}
                         renderItem={this.renderRequests}
                         data={this.state.requests}
                         refreshing={this.refreshing}
@@ -207,7 +210,8 @@ const styles = StyleSheet.create({
         width: 55,
         height: 55,
         resizeMode: "contain",
-        tintColor: "red"
+        tintColor: "red",
+
     },
     pastStyle: {
         width: 65,
@@ -227,6 +231,18 @@ const styles = StyleSheet.create({
         height: null
     },
     rideHistStyle: {
+        flex: 1,
+        aspectRatio: 0.5,
+        resizeMode: 'contain',
+        marginTop: "10",
+    },
+    upcomingListStyle: {
+        flex: 1,
+        aspectRatio: 0.5,
+        resizeMode: 'contain',
+        marginTop: "10"
+    },
+    requestedListStyle: {
         flex: 1,
         aspectRatio: 0.5,
         resizeMode: 'contain',

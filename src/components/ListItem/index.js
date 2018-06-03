@@ -32,9 +32,14 @@ export default class ListItem extends Component {
         else{
             role="Passenger"
         }
+        const customStyle = {
+            container: [styles.container, {
+                backgroundColor: this.props.itemBgColor
+            }]
+        };
         return (
             <TouchableOpacity
-                style={styles.container}
+                style={customStyle.container}
                 onPress={() => this.props.onPress()}>
 
                 <Image source={this.props.filePath}
