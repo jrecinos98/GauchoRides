@@ -68,6 +68,13 @@ export default class RideViewScreen extends Component{
                 </CenterText>
             );
 
+        else if (ride.passengers.length >= ride.seats)
+            return (
+                <CenterText style={customStyle.titleText}>
+                    Seats already filled up. Sorry.
+                </CenterText>
+            );
+
         else
             return (
                 <OpacityButton
