@@ -90,7 +90,7 @@ export default class HistoryScreen extends Component {
                 item={item}
                 itemBgColor={"#e9e9e9"}
                 imageStyle={styles.requestStyle}
-                filePath={require("../../../public/assets/request_hand.png")}
+                filePath2={require("../../../public/assets/request_hand.png")}
                 onPress={() => {
                     //this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
                 }}/>
