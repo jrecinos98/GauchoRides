@@ -13,16 +13,12 @@ export default class ListItem extends Component {
         super(props)
     }
     test(){
-        var place= ''
         if(this.props.item.driver == User.currentUser.id){
             return this.props.filePath;
           
         }
-        else if (this.props.item.driver === "N/A"){
-            return this.props.filePath2;
-        }
         else{
-            return this.props.filePath3;
+            return this.props.filePath2;
         }
 
     }
