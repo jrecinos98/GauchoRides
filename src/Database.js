@@ -186,11 +186,13 @@ export default class Database {
 		var d= new Date().getTime()/1000;
         for (var id in User.currentUser.rides){
             let ride = await Database.getRide(id);
-            if(ride.time>=d){
-                futureRideList.push(ride);
-            }
-            else{
-                completedRideList.push(ride);
+            if (Object.keys(ride).length !== 0) {
+                if(ride.time >= d) {
+                    futureRideList.push(ride);
+                }
+                else{
+                    completedRideList.push(ride);
+                }
             }
         }
         callback(futureRideList, completedRideList, rideRequestList);
