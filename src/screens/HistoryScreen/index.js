@@ -79,6 +79,7 @@ export default class HistoryScreen extends Component {
                 itemBgColor={"#e9e9e9"}
                 imageStyle={styles.pastStyle}
                 filePath={require("../../../public/assets/completed_ride.png")}
+                filePath2={require("../../../public/assets/completed_ride.png")}
                 onPress={() => {
                     this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
                 }}/>
