@@ -12,10 +12,16 @@ export default class ListItem extends Component {
     constructor(props) {
         super(props)
     }
+    test(){
+        if(this.props.item.driver == User.currentUser.id){
+            return this.props.filePath;
+          
+        }
+        else{
+            return this.props.filePath2;
+        }
 
-
-
-
+    }
     render() {
         let role ="";
         if(this.props.item.driver === User.currentUser.id){
@@ -37,7 +43,7 @@ export default class ListItem extends Component {
                 style={customStyle.container}
                 onPress={() => this.props.onPress()}>
 
-                <Image source={this.props.filePath}
+                <Image source={this.test()}
                        style={this.props.imageStyle}/>
 
                 <View style={{flex: 1, justifyContent: 'center', marginLeft: 5}}>
