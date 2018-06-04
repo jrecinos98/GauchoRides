@@ -32,9 +32,7 @@ export default class HistoryScreen extends Component {
     }
 
     componentDidMount(){
-        Database.getUserHistory((list, list2, requestList) => {
-            this.setState({data: list, data2: list2, requests: requestList });
-        });
+        this._onRefresh();
     }
 
     _onRefresh(){
@@ -163,11 +161,8 @@ export default class HistoryScreen extends Component {
                         refreshing={this.refreshing}
                         onRefresh={() => {
                             Database.getUserHistory((list) => {
-                                if (this.state.data2.length === list.length) {
-                                }
-                                else {
-                                    this.setState({data2: list})
-                                }
+                                if (this.state.data2.length !== list.length)
+                                    this.setState({data2: list});
                             })
                         }}
                     />
@@ -179,11 +174,8 @@ export default class HistoryScreen extends Component {
                         refreshing={this.refreshing}
                         onRefresh={() => {
                             Database.retrieveUserRequests((list) => {
-                                if (this.state.data.length === list.length) {
-                                }
-                                else {
-                                    this.setState({requests: list})
-                                }
+                                if (this.state.data.length !== list.length)
+                                    this.setState({requests: list});
                             })
                         }}
                     />

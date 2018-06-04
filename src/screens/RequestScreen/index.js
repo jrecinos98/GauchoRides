@@ -29,9 +29,7 @@ export default class RequestScreen extends Component{
 
     }
     componentDidMount(){
-        Database.retrieveUserRequests((list) => {
-            this.setState({data: list});
-        });
+        this._onRefresh();
     }
 
     _onRefresh(){
@@ -102,11 +100,8 @@ export default class RequestScreen extends Component{
                         refreshing={this.refreshing}
                         onRefresh={() => {
                             Database.retrieveUserRequests((list) => {
-                                if (this.state.data.length === list.length) {
-                                }
-                                else {
+                                if (this.state.data.length !== list.length)
                                     this.setState({data: list})
-                                }
                             })
                         }}
                     />
