@@ -63,12 +63,10 @@ export default class SearchArea extends Component {
             }]
         };
 
-        let persistTaps = (Platform.OS == 'ios') ? "never" : "always";
-
         return (
             <ScrollView
                 style={styles.container}
-                keyboardShouldPersistTaps={persistTaps}>
+                keyboardShouldPersistTaps={"handled"}>
 
                 <SearchBox
 

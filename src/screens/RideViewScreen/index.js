@@ -9,6 +9,7 @@ import Utility from '../../Utility';
 import WheelRating from '../../components/WheelRating';
 import OpacityButton from '../../components/OpacityButton';
 import User from '../../actors/User';
+import Spinner from '../../components/Spinner';
 
 
 export default class RideViewScreen extends Component{
@@ -23,7 +24,7 @@ export default class RideViewScreen extends Component{
         };
 
         const rideview_this = this;
-        let ride = this.props.navigation.state.params.ride;
+        this.ride = this.props.navigation.state.params.ride;
 
         Utility.getTheme(function(app_theme) {
             rideview_this.setState({
@@ -31,26 +32,38 @@ export default class RideViewScreen extends Component{
             });
         });
 
+        this.getRideUsers(this.ride);
+    }
+
+    getRideUsers(ride) {
         Database.getUser(ride.driver, (driver) => {
             this.setState({
                 driver: driver
             });
         });
-
         Database.getUserList(ride.passengers, (riders) => {
-            console.log('ending');
             this.setState({
                 riders: riders
             });
         });
     }
 
-    registerRide(ride, user) {
+    async registerRide(ride, user) {
+        this.spinner.show(true);
         ride.passengers.push(user.id);
         user.rides[ride.id] = 'passenger';
-        Database.updateRide(FIREBASE.RIDES_PATH, ride);
-        Database.updateUser(user);
-        this.props.navigation.goBack(null);
+        let updatedRide = await Database.getRide(ride.id);
+        this.spinner.show(false);
+
+        if (updatedRide !== {} && updatedRide.passengers.length < updatedRide.seats) {
+            Database.updateRide(FIREBASE.RIDES_PATH, ride);
+            Database.updateUser(user);
+            this.props.navigation.goBack(null);
+        }
+        else {
+            this.ride = updatedRide;
+            this.getRideUsers(this.ride);
+        }
     }
 
     getConfirmButton(ride, user, customStyle) {
@@ -100,7 +113,7 @@ export default class RideViewScreen extends Component{
             }]
         };
 
-        let ride = this.props.navigation.state.params.ride;
+        let ride = this.ride;
         let driver = this.state.driver;
         let riders = this.state.riders;
 
@@ -141,6 +154,8 @@ export default class RideViewScreen extends Component{
                 <CenterText style={customStyle.titleText}> Price: {ride.price}</CenterText>
 
                 {this.getConfirmButton(ride, User.currentUser, customStyle)}
+
+                <Spinner ref={(instance) => this.spinner = instance}/>
 
             </ScrollView>
         );

@@ -33,12 +33,10 @@ export default class RequestArea extends Component {
             }]
         };
 
-        let persistTaps = (Platform.OS == 'ios') ? "never" : "always";
-
         return (
             <ScrollView
                 style={styles.container}
-                keyboardShouldPersistTaps={persistTaps}>
+                keyboardShouldPersistTaps={"handled"}>
 
                 <SearchBox
                     originTag={this.props.originTag}
