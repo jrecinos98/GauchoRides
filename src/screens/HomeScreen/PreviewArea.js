@@ -54,6 +54,7 @@ export default class PreviewArea extends Component {
         return startPos - sidePos;
     }
 
+
     render() {
 
         if (!this.state.toDisplay)

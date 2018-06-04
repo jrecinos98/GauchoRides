@@ -45,15 +45,6 @@ export default class HistoryScreen extends Component {
 
     }
 
- //   findFutureRides(){
-  //      for(int i=0; i<data.length; i++){
-  //          if(data[i].){
-
- //           }
- //       }
-
- //   }
-
 
     static navigationOptions = {
         tabBarIcon: ({ tintColor}) => (
@@ -76,6 +67,8 @@ export default class HistoryScreen extends Component {
                 item={item}
                 itemBgColor={"#e9e9e9"}
                 filePath={require("../../../public/assets/car_unchecked.png")}
+                filePath2={require("../../../public/assets/home_icon.png")}
+                filePath3={require("../../../public/assets/hitchHiker.png")}
                 imageStyle={styles.upcomingStyle}
                 onPress={() => {
                     this.props.screenProps.rootNavigation.navigate("RideViewScreen", {ride: item});
