@@ -11,6 +11,9 @@ import Spinner from '../../components/Spinner';
 var i = 0;
 
 //Main component for driver screen
+/**
+ * Used to create a ride.
+ */
 export default class CreateRequestScreen extends Component {
 
     static driver_this = null;

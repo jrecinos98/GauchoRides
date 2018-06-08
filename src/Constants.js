@@ -1,6 +1,10 @@
 
 export const TRANSPORT_MODE = 'driving'; // 'walking';
 export const GOOG_APIKEY = 'AIzaSyCvi0ipnVAsDJU8A7Aizzwj9P3DHE1eTxw';
+
+/**
+ * Wrapper class for our Constant values.
+ */
 export default class Constants {
     /**
      * String constants
