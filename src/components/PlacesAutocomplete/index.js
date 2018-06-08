@@ -5,7 +5,9 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import {GOOG_APIKEY} from '../../Constants'
 
 
-
+/**
+ * Component used to Provide auto complete options for a user when searching for a location.
+ */
 export default class PlacesAutocomplete extends Component {
 	constructor(props) {
 		super(props);

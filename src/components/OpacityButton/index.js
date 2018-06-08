@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
-import { COLOR } from "../../Constants";
+import Constants from "../../Constants";
 
 /**
  * Component used as buttons in the Login screen
@@ -33,9 +33,9 @@ const styles = StyleSheet.create({
         marginRight: 15,
         marginTop: 3,
         marginBottom: 3,
-        backgroundColor: COLOR.THEME_DARK.BUTTON_LOGIN,
+        backgroundColor: Constants.COLOR.THEME_DARK.BUTTON_LOGIN,
         borderRadius: 10,
-        shadowColor: COLOR.THEME_DARK.APP_FOCUS,
+        shadowColor: Constants.COLOR.THEME_DARK.APP_FOCUS,
         shadowOffset: {
             width: 0,
             height: 3

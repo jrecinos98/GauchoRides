@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Text, TextInput } from "react-native";
 import { View, InputGroup, Input } from "native-base";
 
-
+/**
+ * A component that allows a user to input text. Up to 250 characters allowed.
+ */
 export default class DescriptionBox extends Component {
 
     constructor(props) {

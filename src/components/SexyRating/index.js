@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {  View, StyleSheet } from "react-native";
 import ChiliComponent from './ChiliComponent'
 import User from '../../actors/User'
-import { COLOR, RATING_COLOR } from "../../Constants";
+import Constants from "../../Constants";
 import Utility from "../../Utility";
 
 /**
@@ -14,7 +14,7 @@ export default class SexyRating extends Component{
         super(props);
         chili_this=this;
         chili_this.state = {
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: Constants.COLOR.THEME_LIGHT
         };
         //this.getRating= this.getRating.bind(this);
         Utility.getTheme(function (theme) {
@@ -43,10 +43,10 @@ export default class SexyRating extends Component{
                 tintColor: chili_this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             backgroundRight: [styles.backgroundRight,{
-                backgroundColor: RATING_COLOR.UNSELECTED
+                backgroundColor: Constants.RATING_COLOR.UNSELECTED
             }],
             backgroundLeft: [styles.backgroundLeft,{
-                backgroundColor: RATING_COLOR.CHILI_COLOR
+                backgroundColor: Constants.RATING_COLOR.CHILI_COLOR
             }]
 
 

@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ImageBackground, Button , TextInput, Image, KeyboardAvoidingView, Alert, YellowBox } from "react-native";
-import { COLOR } from "../Constants";
+import Constants from "../Constants";
 import { NavigationActions } from 'react-navigation';
 import _ from 'lodash';
-import User from '../actors/User';
-import Ride from '../actors/Ride';
-import Area from '../actors/Area';
 import LoginForm from "../components/LoginForm";
 import LoginBackground from "../components/LoginBackground";
 import OpacityButton from "../components/OpacityButton";
@@ -19,6 +16,9 @@ console.warn = message => {
     }
 };
 
+/**
+ * New or un-authenticated users are greeted with this screen. It allows users to log-in with facebook or with a .edu email.
+ */
 export default class LogInScreen extends Component {
 
     constructor(props){
@@ -68,10 +68,10 @@ export default class LogInScreen extends Component {
     static navigationOptions = {
         title:"Welcome",
         headerStyle: {
-            backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND
+            backgroundColor: Constants.COLOR.THEME_DARK.APP_BACKGROUND
         },
         headerTitleStyle: {
-            color: COLOR.THEME_DARK.APP_TITLE_LOGIN,
+            color: Constants.COLOR.THEME_DARK.APP_TITLE_LOGIN,
             textAlign: 'center',
             alignSelf: 'center',
             flex: 1,

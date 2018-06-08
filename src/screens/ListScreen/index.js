@@ -1,12 +1,13 @@
 
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, StatusBar } from 'react-native'
-import {COLOR, DIMENSION} from "../../Constants";
+import Constants from "../../Constants";
 
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { Ionicons } from '@expo/vector-icons';
 import {getStatusBarHeight} from "react-native-status-bar-height";
 import Utility from "../../Utility";
+
 
 export default class ListScreen extends Component {
     menu = null;
@@ -32,7 +33,7 @@ export default class ListScreen extends Component {
 
         rider_this = this;
         rider_this.state = {
-            color_theme: COLOR.THEME_LIGHT,
+            color_theme: Constants.COLOR.THEME_LIGHT,
             rides: [],
             names: [
                 {
@@ -67,21 +68,21 @@ export default class ListScreen extends Component {
 
         const customStyle = {
             topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: rider_this.state.color_theme.APP_BACKGROUND
             }],
             title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                fontSize: Constants.DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: rider_this.state.color_theme.APP_FOCUS
             }],
             options: [styles.options, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                fontSize: Constants.DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
                 color: rider_this.state.color_theme.APP_FOCUS
             }],
             menu: [styles.menu, { flex: 1, alignItems: 'center', justifyContent: 'center', position: 'absolute',
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
 
             }],
             buttonContainer: [styles.buttonContainer, {
@@ -90,7 +91,7 @@ export default class ListScreen extends Component {
             }]
         };
 
-        let statusTheme = (rider_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (rider_this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content": "light-content";
         return (
             <View>
                 <StatusBar barStyle={statusTheme}/>
@@ -110,7 +111,7 @@ export default class ListScreen extends Component {
                             ref={this.setMenuRef}
                             button={<Ionicons name='ios-menu'
                                               style={{
-                                                  fontSize: DIMENSION.ICON.SIZE,
+                                                  fontSize: Constants.DIMENSION.ICON.SIZE,
                                                   color: rider_this.state.color_theme.APP_FOCUS
                                               }}
                                               onPress={this.showMenu}/>}

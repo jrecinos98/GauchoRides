@@ -3,7 +3,9 @@ import { Text } from "react-native";
 import { View, InputGroup, Input } from "native-base";
 import { Switch } from 'react-native-switch';
 
-
+/**
+ * A switch component that shows up as green if the state is equal to true and gray otherwise.
+ */
 export default class CustomSwitch extends Component {
 
 	constructor(props) {

@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Button, ScrollView, Platform } from "react-native";
 import SearchBox from '../../components/SearchBox';
-import { COLOR } from "../../Constants"
+import Constants from "../../Constants"
 import CreateButton from '../../components/ActionButton';
 import CustomSwitch from '../../components/CustomSwitch';
 import SeatPicker from '../../components/SeatPicker';
 import DatePicker from '../../components/DatePicker';
 import PriceInput from '../../components/PriceInput';
 import DescriptionBox from '../../components/DescriptionBox';
+
 
 export default class CreateArea extends Component {
 

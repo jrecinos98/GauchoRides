@@ -3,7 +3,9 @@ import { Text,TextInput } from "react-native";
 import { View, InputGroup, Input } from "native-base";
 
 
-
+/**
+ * Allows the user to input an integer or a float. Checks input to allow only valid symbols.
+ */
 export default class PriceInput extends Component {
 
 	constructor(props) {
@@ -18,15 +20,15 @@ export default class PriceInput extends Component {
 
 
     updateText(amount) {
-        var lastNum= "0";
-        var splitNum= undefined
+        let lastNum= "0";
+        let splitNum= undefined;
 	    if (amount.length> 0) {
             splitNum = amount.split("");
             lastNum= splitNum[amount.length - 1];
         }
         let numbers="0123456789.";
        // console.log(lastNum)
-        for (var i=0; i< numbers.length; i++){
+        for (let i=0; i< numbers.length; i++){
             //if the first decimal has been placed don't place another one
             if((this.decimalPlaced && lastNum === "." && this.decimalIndex !== amount.length-1)
                 //If lastNum isn't a number
@@ -37,7 +39,7 @@ export default class PriceInput extends Component {
             }
         }
         if (lastNum !== "-" && lastNum !== ",") {
-            var newAmount=amount;
+            let newAmount=amount;
             if (lastNum === "." && !this.decimalPlaced) {
                 if(amount.length===1 || (splitNum[0]=== "0" && amount.length === 1)){
                     newAmount="00"+".";

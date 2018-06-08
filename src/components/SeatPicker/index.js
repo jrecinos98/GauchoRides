@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, TouchableOpacity } from "react-native
 
 
 /**
- * Returns the action button component displayed in the home screen.
+ * Component that allows users to specify the number of seats they have available.
  */
 export default class SeatPicker extends Component{
 

@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { View, StyleSheet, DatePickerIOS, DatePickerAndroid, TimePickerAndroid, Platform, Button } from "react-native";
-import { COLOR } from "../../Constants";
+import Constants from "../../Constants";
 
+/**
+ * Component that utilizes the native date picker and time picker depending on the OS. Allows user to select a time and a date.
+ */
 export default class DatePicker extends Component {
 
 	constructor(props) {

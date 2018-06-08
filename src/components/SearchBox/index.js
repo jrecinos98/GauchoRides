@@ -3,7 +3,7 @@ import { View, InputGroup, Input } from "native-base";
 import styles from "./SearchBoxStyles.js";
 import PlacesAutocomplete from '../PlacesAutocomplete'
 /**
- * Component containing the components needed to create a search query. Two GooglePlacesAutoComplete components are used to complete user origin and destination.
+ * Component containing the components needed to create a search query. Two PlacesAutocomplete components are used to complete user origin and destination.
  */
 export default class SearchBox extends Component {
 

@@ -3,7 +3,7 @@ import { Text, Platform } from "react-native";
 import { View } from "native-base";
 import { Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
-import { STRING } from '../../Constants';
+import Constants from '../../Constants';
 
 /**
  * A component used to indicate the location of the User in the map. The color is animated by using a timer.

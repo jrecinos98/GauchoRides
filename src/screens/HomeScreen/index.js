@@ -6,7 +6,7 @@ import SearchArea from './SearchArea';
 import PreviewArea from './PreviewArea';
 import { StackNavigator } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import Utility from '../../Utility';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 
@@ -15,6 +15,9 @@ import ActionButton from '../../components/ActionButton';
 import Controller from './Controller';
 import Spinner from '../../components/Spinner';
 
+/**
+ * This screen is where a user can search for a ride and also enter the create ride or create request screen.
+ */
 export default class HomeScreen extends Component {
 
     menu = null;
@@ -23,7 +26,7 @@ export default class HomeScreen extends Component {
         super(props);
 
         this.state = {
-            color_theme: COLOR.THEME_CLASSIC,
+            color_theme: Constants.COLOR.THEME_CLASSIC,
             rides: [],
         };
 
@@ -62,21 +65,21 @@ export default class HomeScreen extends Component {
 
         const customStyle = {
             topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: this.state.color_theme.APP_BACKGROUND
             }],
             title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                fontSize: Constants.DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: this.state.color_theme.APP_FOCUS
             }],
             options: [styles.options, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                fontSize: Constants.DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
                 color: this.state.color_theme.APP_FOCUS
             }],
             menu: [styles.menu, { flex: 1, alignItems: 'center', justifyContent: 'center', position: 'absolute',
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
 
             }],
             buttonContainer: [styles.buttonContainer, {
@@ -86,7 +89,7 @@ export default class HomeScreen extends Component {
         };
 
 
-        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content": "light-content";
         const { navigateToRoot } = this.props.screenProps.rootNavigation.navigate;
         return (
 
@@ -111,7 +114,7 @@ export default class HomeScreen extends Component {
                                 <Ionicons
                                     name='ios-menu'
                                     style={{
-                                      fontSize: DIMENSION.ICON.SIZE,
+                                      fontSize: Constants.DIMENSION.ICON.SIZE,
                                       color: this.state.color_theme.APP_FOCUS
                                     }}
                                     onPress={() => Controller.showMenu(true)}/>

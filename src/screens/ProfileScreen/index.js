@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import User from "../../../src/actors/User";
 import Utility from '../../Utility';
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import TagView from '../../components/TagView';
 
+/**
+ * This screen contians the User's personal information and the ratings that people have given them.
+ */
 export default class ProfileScreen extends Component {
     static profile_this = null;
 
@@ -19,7 +21,7 @@ export default class ProfileScreen extends Component {
         profile_this = this;
         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         profile_this.state = {
-            color_theme: COLOR.THEME_CLASSIC,
+            color_theme: Constants.COLOR.THEME_CLASSIC,
         };
 
         Utility.getTheme(function (theme) {
@@ -58,24 +60,24 @@ export default class ProfileScreen extends Component {
 
         const customStyle = {
             topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: profile_this.state.color_theme.APP_BACKGROUND,
                 borderBottomColor: profile_this.state.color_theme.APP_FOCUS
             }],
             settings: [styles.settings, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                fontSize: Constants.DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
                 color: profile_this.state.color_theme.APP_FOCUS
             }],
             messages: [styles.message,{ 
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                fontSize: Constants.DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
                 color: profile_this.state.color_theme.APP_FOCUS
             }],
 
             title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                fontSize: Constants.DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: profile_this.state.color_theme.APP_FOCUS
             }],
             userName: [styles.userName, {
@@ -88,11 +90,11 @@ export default class ProfileScreen extends Component {
                 backgroundColor: profile_this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             imageWrapper: [styles.imageWrapper, {
-                marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
+                marginTop: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT
             }]
         };
 
-        let statusTheme = (profile_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+        let statusTheme = (profile_this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
 

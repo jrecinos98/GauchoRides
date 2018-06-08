@@ -1,4 +1,6 @@
-
+/**
+ * Represents a geological area with latitude and longitude
+ */
 export default class Area {
 	latitude: 0.0;
 	longitude: 0.0;

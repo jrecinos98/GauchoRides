@@ -7,6 +7,9 @@ import DatePicker from '../../components/DatePicker';
 import Utility from "../../Utility";
 import Database from "../../Database";
 
+/**
+ * Area where a user can search for a rde. Includes the Inputs for origin and destination and the date and time picker.
+ */
 export default class SearchArea extends Component {
 
 	constructor(props) {

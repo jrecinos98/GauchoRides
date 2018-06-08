@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
-import { COLOR, STRING } from '../../Constants';
+import Constants from '../../Constants';
 import OpacityButton from "../../components/OpacityButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
@@ -21,7 +21,7 @@ export default class MessagesScreen extends Component {
 
         settings_this.state = {
             tabIndex: 0,
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: Constants.COLOR.THEME_LIGHT
         };
 
         Utility.getTheme(function(app_theme) {
@@ -31,12 +31,12 @@ export default class MessagesScreen extends Component {
         });
     }
     changeAppTheme(appTheme) {
-        AsyncStorage.setItem(STRING.KEY.APP_THEME, appTheme);
+        AsyncStorage.setItem(Constants.STRING.KEY.APP_THEME, appTheme);
         MainScreenInstance.updateTheme();
     }
 
     changeMapTheme(mapTheme) {
-        AsyncStorage.setItem(STRING.KEY.MAP_THEME, mapTheme);
+        AsyncStorage.setItem(Constants.STRING.KEY.MAP_THEME, mapTheme);
         MainScreenInstance.updateTheme();
     }
 

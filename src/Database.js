@@ -1,12 +1,8 @@
 import{ AsyncStorage } from "react-native";
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { FIREBASE } from './Constants';
-import {TEST_CONSTANTS} from "./Constants";
+import Constants from './Constants';
 import User from './actors/User';
-import Ride from './actors/User';
-import Utility from "./Utility"
-
 var firestore = null;
 
 /*
@@ -118,7 +114,7 @@ export default class Database {
      * @param user
      */
 	static createUser(user) {
-		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((ref) => {
+		firestore.collection(Constants.FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((ref) => {
 			//console.log(ref);
 		});
 	}
@@ -128,7 +124,7 @@ export default class Database {
      * @param user
      */
 	static updateUser(user) {
-		firestore.collection(FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((status) => {
+		firestore.collection(Constants.FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((status) => {
 			//console.log(status);
 		});
 	}
@@ -139,7 +135,7 @@ export default class Database {
      * @param callback
      */
 	static getUser(id, callback) {
-		firestore.collection(FIREBASE.USERS_PATH).doc(id).get()
+		firestore.collection(Constants.FIREBASE.USERS_PATH).doc(id).get()
 		.then(function(doc) {
 			callback(doc.data());
 		})
@@ -199,7 +195,7 @@ export default class Database {
 	}
     static getRequest(id) {
         return new Promise(resolve => {
-            firestore.collection(FIREBASE.REQUESTS_PATH).doc(id).get()
+            firestore.collection(Constants.FIREBASE.REQUESTS_PATH).doc(id).get()
                 .then(function (doc) {
                     if (doc.exists) {
                         resolve(doc.data());
@@ -246,7 +242,7 @@ export default class Database {
 			Database.updateRide(path, ride);
 
 			//Update driver information on firebase
-			if(path === FIREBASE.RIDES_PATH) {
+			if(path === Constants.FIREBASE.RIDES_PATH) {
                 User.currentUser.rides[ride.id] = 'driver';
             }
             else{
@@ -289,7 +285,7 @@ export default class Database {
      */
 	static getRide(id) {
 		return new Promise(resolve => {
-            firestore.collection(FIREBASE.RIDES_PATH).doc(id).get()
+            firestore.collection(Constants.FIREBASE.RIDES_PATH).doc(id).get()
                 .then(function(doc) {
                     if (doc.exists) {
                         resolve(doc.data());
@@ -307,7 +303,7 @@ export default class Database {
 
 	static getAllRequests(callback){
 		let requestList=[];
-		firestore.collection(FIREBASE.REQUESTS_PATH).get()
+		firestore.collection(Constants.FIREBASE.REQUESTS_PATH).get()
             .then(snapshot => {
             	//console.log(snapshot)
                 snapshot.forEach(doc => {
@@ -325,7 +321,7 @@ export default class Database {
 	}
 
     static retrieveRideList(origin, destination, callBack){
-        var ride = firestore.collection(FIREBASE.RIDES_PATH).doc(origin).collection(destination);
+        var ride = firestore.collection(Constants.FIREBASE.RIDES_PATH).doc(origin).collection(destination);
         let rideList=[];
         ride.get()
             .then(snapshot => {

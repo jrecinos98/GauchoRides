@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, TouchableHighlight,
         ScrollView, Dimensions, Modal, AsyncStorage, Image } from "react-native";
-import { COLOR, STRING, FIREBASE } from '../../Constants';
+import Constants from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import CenterText from "../../components/CenterText";
 import Database from '../../Database';
@@ -11,14 +11,16 @@ import OpacityButton from '../../components/OpacityButton';
 import User from '../../actors/User';
 import Spinner from '../../components/Spinner';
 
-
+/**
+ * This screen displays additional information about a ride and allows you to see the driver profile.
+ */
 export default class RideViewScreen extends Component{
 
     constructor(props) {
         super(props);
 
         this.state = {
-            color_theme: COLOR.THEME_LIGHT,
+            color_theme: Constants.COLOR.THEME_LIGHT,
             driver: {},
             riders: []
         };
@@ -56,7 +58,7 @@ export default class RideViewScreen extends Component{
         this.spinner.show(false);
 
         if (updatedRide !== {} && updatedRide.passengers.length < updatedRide.seats) {
-            Database.updateRide(FIREBASE.RIDES_PATH, ride);
+            Database.updateRide(Constants.FIREBASE.RIDES_PATH, ride);
             Database.updateUser(user);
             this.props.navigation.goBack(null);
         }

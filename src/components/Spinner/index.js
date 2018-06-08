@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 
 /**
- *  Component used to center a text view.
+ *  Component used to inform the user that a background task is being performed. It will be displayed until the task is completed.
  */
 export default class Spinner extends Component{
 

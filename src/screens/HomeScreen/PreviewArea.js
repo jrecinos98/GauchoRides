@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import { DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import Controller from './Controller';
 import Utility from '../../Utility';
 import Database from '../../Database';
 import Ride from '../../actors/Ride';
 
-
+/**
+ * When a user searches for a ride they are shown a preview of each ride at the bottom and the option to expand a ride for more specific details.
+ */
 export default class PreviewArea extends Component {
 
 	constructor(props) {
@@ -49,8 +51,8 @@ export default class PreviewArea extends Component {
     }
 
     getSnapPosition(index) {
-        let startPos = index * (DIMENSION.PREVIEW.WIDTH + 2 * DIMENSION.PREVIEW.MARGIN);
-        let sidePos = (Dimensions.get("window").width - DIMENSION.PREVIEW.WIDTH - 4 * DIMENSION.PREVIEW.MARGIN) / 2;
+        let startPos = index * (Constants.DIMENSION.PREVIEW.WIDTH + 2 * Constants.DIMENSION.PREVIEW.MARGIN);
+        let sidePos = (Dimensions.get("window").width - Constants.DIMENSION.PREVIEW.WIDTH - 4 * Constants.DIMENSION.PREVIEW.MARGIN) / 2;
         return startPos - sidePos;
     }
 
@@ -170,7 +172,7 @@ export default class PreviewArea extends Component {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 decelerationRate={0}
-                snapToInterval={DIMENSION.PREVIEW.WIDTH + 2 * DIMENSION.PREVIEW.MARGIN}
+                snapToInterval={Constants.DIMENSION.PREVIEW.WIDTH + 2 * Constants.DIMENSION.PREVIEW.MARGIN}
                 snapToAlignment={"center"}>
 
                 {preview_items}
@@ -193,8 +195,8 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 10,
         shadowOpacity: 0.25,
-        width: DIMENSION.PREVIEW.WIDTH,
-        height: DIMENSION.PREVIEW.HEIGHT,
+        width: Constants.DIMENSION.PREVIEW.WIDTH,
+        height: Constants.DIMENSION.PREVIEW.HEIGHT,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
@@ -219,8 +221,8 @@ const styles = StyleSheet.create({
         marginLeft:5,
         marginRight:5,
         marginBottom:0,
-        width: DIMENSION.PREVIEW.WIDTH,
-        height: DIMENSION.PREVIEW.HEIGHT + 22
+        width: Constants.DIMENSION.PREVIEW.WIDTH,
+        height: Constants.DIMENSION.PREVIEW.HEIGHT + 22
     },
     expandButton: {
         height: 20,

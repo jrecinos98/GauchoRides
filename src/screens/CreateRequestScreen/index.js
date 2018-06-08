@@ -2,17 +2,11 @@ import React, { Component } from "react";
 import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
-import User from '../../actors/User';
-import Ride from '../../actors/Ride';
-import Area from '../../actors/Area';
-import { StackNavigator, NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import {COLOR, DIMENSION, FIREBASE} from '../../Constants';
+import Constants from '../../Constants';
 import RequestArea from './RequestArea';
 import Utility from '../../Utility';
-import Database from '../../Database';
 import Spinner from '../../components/Spinner';
-import {extractCity} from "../../Utility";
 
 var i = 0;
 
@@ -26,7 +20,7 @@ export default class CreateRequestScreen extends Component {
         driver_this = this;
 
         driver_this.state = {
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: Constants.COLOR.THEME_LIGHT
         };
 
         Utility.getTheme(function(theme) {
@@ -49,24 +43,24 @@ export default class CreateRequestScreen extends Component {
         const customStyle = {
 
             topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
             }],
 
             title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                fontSize: Constants.DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: driver_this.state.color_theme.APP_FOCUS
             }],
             backArrow: [styles.backArrow, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                fontSize: Constants.DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
                 color: driver_this.state.color_theme.APP_FOCUS
             }],
 
         };
 
-        let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content": "light-content";
+        let statusTheme = (driver_this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content": "light-content";
 
         return (
             <View style = {styles.container}>
@@ -95,7 +89,7 @@ export default class CreateRequestScreen extends Component {
                     color_theme={driver_this.state.color_theme}
                     onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
-                        Utility.createRide(FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, (successful) => {
+                        Utility.createRide(Constants.FIREBASE.REQUESTS_PATH, searchInputs,chosenDate, chosenSeats, description, price, (successful) => {
                             if(successful) {
                                 this.props.navigation.goBack(null);
                                 this.spinner.show(false);

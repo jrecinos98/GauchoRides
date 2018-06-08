@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {  View, StyleSheet } from "react-native";
 import WheelComponent from './WheelComponent'
-import { COLOR, RATING_COLOR } from "../../Constants";
+import Constants from "../../Constants";
 import Utility from "../../Utility";
 import User from '../../actors/User';
 
@@ -13,7 +13,7 @@ export default class WheelRating extends Component{
         super(props);
         wheel_this=this;
         wheel_this.state = {
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: Constants.COLOR.THEME_LIGHT
         };
         //this.getRating= this.getRating.bind(this);
         Utility.getTheme(function (theme) {
@@ -45,10 +45,10 @@ export default class WheelRating extends Component{
                 tintColor: wheel_this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             backgroundRight: [styles.backgroundRight,{
-                backgroundColor: RATING_COLOR.UNSELECTED
+                backgroundColor: Constants.RATING_COLOR.UNSELECTED
             }],
             backgroundLeft: [styles.backgroundLeft,{
-                backgroundColor: RATING_COLOR.WHEEL_COLOR
+                backgroundColor: Constants.RATING_COLOR.WHEEL_COLOR
 
             }]
         };

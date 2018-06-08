@@ -3,14 +3,15 @@ import {StatusBar, View, Text, StyleSheet, Button, Platform} from "react-native"
 import { Ionicons } from '@expo/vector-icons';
 import { RideMap } from '../../components/RideMap'; //adding map
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import CreateArea from './CreateArea';
 import Utility from '../../Utility';
 import Spinner from '../../components/Spinner';
-import {FIREBASE} from "../../Constants";
 
 
-//Main component for driver screen
+/**
+ * A user can specify the details of a ride in this screen and then create a ride in firestore.
+ */
 export default class CreateScreen extends Component {
 	static driver_this = null;
 
@@ -19,7 +20,7 @@ export default class CreateScreen extends Component {
 		driver_this = this;
 
 		driver_this.state = {
-			color_theme: COLOR.THEME_LIGHT
+			color_theme: Constants.COLOR.THEME_LIGHT
 		};
 
 		Utility.getTheme(function(theme) {
@@ -32,22 +33,22 @@ export default class CreateScreen extends Component {
 	render() {
 		const customStyle = {
 			topBar: [styles.topBar, {
-				height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+				height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
 				backgroundColor: driver_this.state.color_theme.APP_BACKGROUND
 			}],
 			title: [styles.title, {
-				fontSize: DIMENSION.TITLE.SIZE,
-				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+				fontSize: Constants.DIMENSION.TITLE.SIZE,
+				paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
 				color: driver_this.state.color_theme.APP_FOCUS
 			}],
 			backArrow: [styles.backArrow, {
-				fontSize: DIMENSION.ICON.SIZE,
-				paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+				fontSize: Constants.DIMENSION.ICON.SIZE,
+				paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
 				color: driver_this.state.color_theme.APP_FOCUS
 			}],
 		};
 
-		let statusTheme = (driver_this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+		let statusTheme = (driver_this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 		return (
 			<View style={styles.container}>
 				<StatusBar barStyle={statusTheme}/>
@@ -70,7 +71,7 @@ export default class CreateScreen extends Component {
                     destinationTag={'Set Drop-Off Location'}
 					onSubmit={(searchInputs, chosenDate, chosenSeats, description, price) => {
                         this.spinner.show(true);
-						Utility.createRide(FIREBASE.RIDES_PATH, searchInputs, chosenDate, chosenSeats, description, price, (successful) => {
+						Utility.createRide(Constants.FIREBASE.RIDES_PATH, searchInputs, chosenDate, chosenSeats, description, price, (successful) => {
                             if (successful) {
                                 this.props.navigation.goBack(null);
                                 this.spinner.show(false);

@@ -1,22 +1,24 @@
 import React, { Component } from "react";
 import { StatusBar, LayoutAnimation, UIManager, View, Image, Linking, Text, StyleSheet, Button, TouchableOpacity, Platform } from "react-native";
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 import User from "../../../src/actors/User";
 import Utility from '../../Utility';
 import WheelRating from '../../components/WheelRating'
 import SexyRating from '../../components/SexyRating'
 import {BounceProfileImage} from "../../components/BounceProfileImage";
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import TagView from '../../components/TagView';
 
+/**
+ * This screen displays other user's profiles and their ratings.
+ */
 export default class UserViewScreen extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            color_theme: COLOR.THEME_LIGHT,
+            color_theme: Constants.COLOR.THEME_LIGHT,
         };
 
         const userview_this = this;
@@ -43,13 +45,13 @@ export default class UserViewScreen extends Component {
 
         const customStyle = {
             topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: this.state.color_theme.APP_BACKGROUND,
                 borderBottomColor: this.state.color_theme.APP_FOCUS
             }],
             title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                fontSize: Constants.DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: this.state.color_theme.APP_FOCUS
             }],
             userName: [styles.userName, {
@@ -62,16 +64,16 @@ export default class UserViewScreen extends Component {
                 backgroundColor: this.state.color_theme.APP_BACKGROUND_PROFILE
             }],
             imageWrapper: [styles.imageWrapper, {
-                marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
+                marginTop: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT
             }],
             buttonClose: [styles.buttonClose, {
-                fontSize: DIMENSION.ICON.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.ICON.SIZE) / 2,
+                fontSize: Constants.DIMENSION.ICON.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.ICON.SIZE) / 2,
                 color: this.state.color_theme.APP_FOCUS
             }]
         };
 
-        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+        let statusTheme = (this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
 

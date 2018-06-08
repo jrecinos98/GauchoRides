@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import{ View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity, ScrollView, Dimensions, Modal, AsyncStorage } from "react-native";
-import { COLOR, STRING } from '../../Constants';
+import Constants from '../../Constants';
 import OpacityButton from "../../components/OpacityButton";
 import CenterText from "../../components/CenterText";
 import { Ionicons } from '@expo/vector-icons';
@@ -8,7 +8,9 @@ import { MainScreenInstance } from "../Main";
 import Utility from '../../Utility';
 import Database from '../../Database';
 
-
+/**
+ * This screen allows a user to set different themes for the app and different themes for the map. It also allows a user to logout.
+ */
 export default class SettingScreen extends Component{
 
     static settings_this = null;
@@ -19,7 +21,7 @@ export default class SettingScreen extends Component{
 
         settings_this.state = {
             tabIndex: 0,
-            color_theme: COLOR.THEME_LIGHT
+            color_theme: Constants.COLOR.THEME_LIGHT
         };
 
         Utility.getTheme(function(app_theme) {
@@ -29,12 +31,12 @@ export default class SettingScreen extends Component{
         });
     }
     changeAppTheme(appTheme) {
-        AsyncStorage.setItem(STRING.KEY.APP_THEME, appTheme);
+        AsyncStorage.setItem(Constants.STRING.KEY.APP_THEME, appTheme);
         MainScreenInstance.updateTheme();
     }
 
     changeMapTheme(mapTheme) {
-        AsyncStorage.setItem(STRING.KEY.MAP_THEME, mapTheme);
+        AsyncStorage.setItem(Constants.STRING.KEY.MAP_THEME, mapTheme);
         MainScreenInstance.updateTheme();
     }
 
@@ -88,19 +90,19 @@ export default class SettingScreen extends Component{
 
                         <TouchableOpacity
                             style={customStyle.themeTab}
-                            onPress={() => this.changeAppTheme(STRING.THEME.DARK)}>
+                            onPress={() => this.changeAppTheme(Constants.STRING.THEME.DARK)}>
                             <Text style={styles.buttonText}> Dark </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={customStyle.themeTab}
-                            onPress={() => this.changeAppTheme(STRING.THEME.LIGHT)}>
+                            onPress={() => this.changeAppTheme(Constants.STRING.THEME.LIGHT)}>
                             <Text style={styles.buttonText}> Light </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={customStyle.themeTab}
-                            onPress={() => this.changeAppTheme(STRING.THEME.CLASSIC)}>
+                            onPress={() => this.changeAppTheme(Constants.STRING.THEME.CLASSIC)}>
                             <Text style={styles.buttonText}> Classic </Text>
                         </TouchableOpacity>
 
@@ -113,19 +115,19 @@ export default class SettingScreen extends Component{
 
                         <TouchableOpacity
                             style={customStyle.themeTab}
-                            onPress={() => this.changeMapTheme(STRING.THEME.DARK)}>
+                            onPress={() => this.changeMapTheme(Constants.STRING.THEME.DARK)}>
                             <Text style={styles.buttonText}> Dark </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={customStyle.themeTab}
-                            onPress={() => this.changeMapTheme(STRING.THEME.LIGHT)}>
+                            onPress={() => this.changeMapTheme(Constants.STRING.THEME.LIGHT)}>
                             <Text style={styles.buttonText}> Light </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={customStyle.themeTab}
-                            onPress={() => this.changeMapTheme(STRING.THEME.CLASSIC)}>
+                            onPress={() => this.changeMapTheme(Constants.STRING.THEME.CLASSIC)}>
                             <Text style={styles.buttonText}> Classic </Text>
                         </TouchableOpacity>
 

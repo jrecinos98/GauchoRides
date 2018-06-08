@@ -4,12 +4,14 @@ import { Ionicons } from '@expo/vector-icons';
 
 import ListView from '../../components/ListView';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import Utility from '../../Utility';
 import Database from "../../Database";
 import ListItem from "../../components/ListItem"
 
-
+/**
+ * Screen where past and upcoming ride information is shown. The requests that a user has made are also shown in this screen.
+ */
 export default class HistoryScreen extends Component {
 
     constructor(props) {
@@ -18,7 +20,7 @@ export default class HistoryScreen extends Component {
             data: [],
             data2: [],
             requests: [],
-            color_theme: COLOR.THEME_CLASSIC,
+            color_theme: Constants.COLOR.THEME_CLASSIC,
             refreshing: false
         };
         Utility.getTheme((theme) => {
@@ -103,23 +105,23 @@ export default class HistoryScreen extends Component {
         const customStyle = {
 
             topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: this.state.color_theme.APP_BACKGROUND
             }],
 
             title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                fontSize: Constants.DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: this.state.color_theme.APP_FOCUS
             }],
 
             historyContainer: [styles.historyContainer, {
-                marginTop: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT
+                marginTop: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT
             }]
 
         };
 
-        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+        let statusTheme = (this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
             <View style={styles.container}>

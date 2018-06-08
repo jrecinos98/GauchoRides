@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import LightTheme from './LightTheme.json';
 import DarkTheme from './DarkTheme.json';
 import OldTheme from './OldTheme.json';
-import { STRING } from '../../Constants';
+import Constants from '../../Constants';
 import CurLocMarker from './CurLocMarker';
 import Utility from '../../Utility';
 
@@ -31,8 +31,8 @@ export default class RideMap extends Component {
      */
     getMapStyle(map_theme) {
         switch(map_theme) {
-            case STRING.THEME.DARK: return DarkTheme;
-            case STRING.THEME.LIGHT: return LightTheme;
+            case Constants.STRING.THEME.DARK: return DarkTheme;
+            case Constants.STRING.THEME.LIGHT: return LightTheme;
             default: return OldTheme;
         }
     }

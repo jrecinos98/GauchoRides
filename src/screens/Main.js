@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import{ AsyncStorage, View, Test, StyleSheet, Platform, StatusBar, Text} from "react-native";
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
-import { COLOR, STRING } from '../Constants';
+import Constants from '../Constants';
 import Utility from '../Utility';
 
 import CreateScreen from './CreateScreen';
@@ -37,7 +37,7 @@ export default class Main extends Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			color_theme: COLOR.THEME_DARK
+			color_theme: Constants.COLOR.THEME_DARK
 		};
 
 		MainScreenInstance = this;

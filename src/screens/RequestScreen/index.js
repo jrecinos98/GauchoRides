@@ -4,17 +4,20 @@ import { Ionicons } from '@expo/vector-icons';
 
 import ListView from '../../components/ListView';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { COLOR, DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import Utility from '../../Utility';
 import Database from "../../Database";
 import ListItem from "../../components/ListItem";
 
+/**
+ * This screen allows a user to request a ride.
+ */
 export default class RequestScreen extends Component{
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            color_theme: COLOR.THEME_CLASSIC,
+            color_theme: Constants.COLOR.THEME_CLASSIC,
             refreshing: false
         };
         Utility.getTheme((theme) => {
@@ -68,16 +71,16 @@ export default class RequestScreen extends Component{
     render(){
         const customStyle = {
             topBar: [styles.topBar, {
-                height: getStatusBarHeight() + DIMENSION.TOPBAR.HEIGHT,
+                height: getStatusBarHeight() + Constants.DIMENSION.TOPBAR.HEIGHT,
                 backgroundColor: this.state.color_theme.APP_BACKGROUND
             }],
             title: [styles.title, {
-                fontSize: DIMENSION.TITLE.SIZE,
-                paddingTop: getStatusBarHeight() + (DIMENSION.TOPBAR.HEIGHT - DIMENSION.TITLE.SIZE) / 2 - 3,
+                fontSize: Constants.DIMENSION.TITLE.SIZE,
+                paddingTop: getStatusBarHeight() + (Constants.DIMENSION.TOPBAR.HEIGHT - Constants.DIMENSION.TITLE.SIZE) / 2 - 3,
                 color: this.state.color_theme.APP_FOCUS
             }],
         };
-        let statusTheme = (this.state.color_theme === COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
+        let statusTheme = (this.state.color_theme === Constants.COLOR.THEME_LIGHT) ? "dark-content" : "light-content";
 
         return (
             <View style={styles.container}>
@@ -110,7 +113,7 @@ export default class RequestScreen extends Component{
         );
     }
 }
-//var width=Dimensions.get("window").width;
+//var width=Constants.DIMENSIONs.get("window").width;
 const styles = StyleSheet.create({
     container: {
         flex: 1,

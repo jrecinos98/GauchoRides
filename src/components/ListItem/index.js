@@ -8,12 +8,15 @@ import {
 import User from "../../actors/User";
 import Utility from "../../Utility"
 
+/**
+ * A component used to display ride information in the ListView component.
+ */
 export default class ListItem extends Component {
     constructor(props) {
         super(props)
     }
     test(){
-        if(this.props.item.driver == User.currentUser.id){
+        if(this.props.item.driver === User.currentUser.id){
             return this.props.filePath;
           
         }

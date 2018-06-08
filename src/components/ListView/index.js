@@ -7,7 +7,7 @@ import {
 import styles from "./ListViewStyles.js";
 
 /**
- * Container component that displays a ride from the user history.
+ * Container component that displays items pass to it as a data prop.
  */
 export default class ListView extends Component {
     /**
@@ -17,16 +17,6 @@ export default class ListView extends Component {
     constructor(props) {
         super(props);
     }
-    /*
-    riderOrDriverImage(){
-      if(this.gotData()=="driver"){
-        
-      }
-      else{
-
-      }
-    }
-    */
 
     renderSeparator = () => {
         return (

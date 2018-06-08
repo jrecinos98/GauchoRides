@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import RideMap from '../../components/RideMap';
 import Utility from '../../Utility';
-import { STRING } from '../../Constants';
+import Constants  from '../../Constants';
 import Location from '../../actors/Location';
 import Controller from './Controller';
 
 
+/**
+ * Area in the HomeScreen where the map is shown.
+ */
 export default class MapArea extends Component {
 
     static mapArea_this;
@@ -18,7 +21,7 @@ export default class MapArea extends Component {
             userLoc: null,
             error: null,
             ride_list: [],
-            map_theme: STRING.THEME.DARK
+            map_theme: Constants.STRING.THEME.DARK
         }
 
         //Get map theme

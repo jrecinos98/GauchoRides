@@ -17,6 +17,6 @@ test('Test: Database.initialize()', () => {
 
 test('Test: Database.signupWithEmail(email, password)', () => {
    Database.initialize();
-   console.log(TEST_CONSTANTS.DATABASE.TEST_EMAIL);
-   expect(Database.signupWithEmail(TEST_CONSTANTS.DATABASE.TEST_EMAIL, TEST_CONSTANTS.DATABASE.TEST_PASSWORD)).toBe(false)
+   console.log(Constants.TEST_CONSTANTS.DATABASE.TEST_EMAIL);
+   expect(Database.signupWithEmail(Constants.TEST_CONSTANTS.DATABASE.TEST_EMAIL, Constants.TEST_CONSTANTS.DATABASE.TEST_PASSWORD)).toBe(false)
 });

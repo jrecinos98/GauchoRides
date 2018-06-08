@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ActionButton from 'react-native-action-button';
-import { COLOR, STRING, DIMENSION } from '../../Constants';
+import Constants from '../../Constants';
 import { Ionicons } from '@expo/vector-icons';
 //import ActionButton from 'react-native-circular-action-menu';
 
@@ -12,7 +12,7 @@ export default class CreateButton extends Component{
     render(){
         return(
             <ActionButton
-                size={DIMENSION.ICON.ACTION_BUTTON}
+                size={Constants.DIMENSION.ICON.ACTION_BUTTON}
                 position={"right"}
                 verticalOrientation={"up"}
                 style={styles.actionButtonStyle}

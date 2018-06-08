@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from "react-native";
-import { COLOR } from "../../Constants";
+import { View,  StyleSheet, TextInput} from "react-native";
+import Constants from "../../Constants";
 
 /**
  * Returns a component that contains two text inputs to collect email and password in Login screen.
@@ -16,7 +16,6 @@ export default class LoginForm extends Component {
     render() {
         return (
             <View style={styles.textContainer}>
-
                 <TextInput style={styles.input}
                     keyboardType="email-address"
                     placeholderTextColor='white'
@@ -60,7 +59,7 @@ export default class LoginForm extends Component {
 
 const styles = StyleSheet.create({
     textContainer: {
-        backgroundColor: COLOR.THEME_DARK.APP_BACKGROUND_OPAQUE,
+        backgroundColor: Constants.COLOR.THEME_DARK.APP_BACKGROUND_OPAQUE,
         //alignItems: 'center',
         //justifyContent: 'center',
         //justifyContent: 'space-between'
