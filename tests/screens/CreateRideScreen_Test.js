@@ -1,10 +1,7 @@
 import React from 'react';
 import CreateScreen from '../../src/screens/CreateScreen';
 import renderer from 'react-test-renderer';
-import Database from '../../src/Database';
-import User from '../../src/actors/User';
-import Ride from '../../src/actors/Ride';
-import { COLOR } from '../../src/Constants';
+import Constants from '../../src/Constants';
 
 var object;
 
@@ -15,19 +12,10 @@ test('Test: constructor(props)', () => {
 
 // Test color theme
 test('Test: color theme', () => {
-	let theme_light_test = (object.state.color_theme === COLOR.THEME_LIGHT);
-	let theme_dark_test = (object.state.color_theme === COLOR.THEME_DARK);
-	let theme_classic_test = (object.state.color_theme === COLOR.THEME_CLASSIC);
+	let theme_light_test = (object.state.color_theme === Constants.COLOR.THEME_LIGHT);
+	let theme_dark_test = (object.state.color_theme === Constants.COLOR.THEME_DARK);
+	let theme_classic_test = (object.state.color_theme === Constants.COLOR.THEME_CLASSIC);
 	expect(theme_light_test || theme_dark_test || theme_classic_test).toBe(true);
-});
-
-// Test extractCity function
-test('Test: extractCity(text)', () => {
-	expect(object.extractCity('12345 Some Road, Isla Vista, CA, USA')).toBe('Isla Vista, CA');
-	expect(object.extractCity('Austin, TX, USA')).toBe('Austin, TX');
-	expect(object.extractCity('Los Angeles, CA')).toBe('Los Angeles, CA');
-	expect(object.extractCity('CA, USA')).toBe('CA');
-	expect(object.extractCity('CA')).toBe('CA');
 });
 
 // Create a sample test ride on Database.

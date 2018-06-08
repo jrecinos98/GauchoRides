@@ -14,7 +14,9 @@ test('Test: constructor', () => {
 		drive_rating: 1.2,
 		tags: {},
 		rides: {},
-		follows: {}
+		requests: {},
+		follows: {},
+		messages: {}
 	},false);
 	expect(user.toObject()).toEqual({
 		id: 0,
@@ -23,9 +25,11 @@ test('Test: constructor', () => {
 		email: "Email",
 		description: "something",
 		sexy_rating: 4.5,
-		drive_rating: 1.2,
-		tags: {},
-		rides: {},
-		follows: {}
+        drive_rating: 1.2,
+        tags: {},
+        rides: {},
+        requests: {},
+        follows: {},
+        messages: {}
 	});
 });

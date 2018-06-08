@@ -51,6 +51,7 @@ export default class SearchBox extends Component {
 			<View style={styles.container}>
 
 				<PlacesAutocomplete tag= {this.props.originTag} onPress={ (input) => {
+					console.log(input.inputArray)
 					this.onPickupPress(input);
 				}}/>
 				<PlacesAutocomplete tag={this.props.destinationTag} onPress={ (input) => {

@@ -1,10 +1,7 @@
 import React from 'react';
 import HomeScreen from '../../src/screens/HomeScreen';
 import renderer from 'react-test-renderer';
-import Database from '../../src/Database';
-import User from '../../src/actors/User';
-import Ride from '../../src/actors/Ride';
-import { COLOR } from '../../src/Constants';
+import Constants from '../../src/Constants';
 
 var object;
 
@@ -19,15 +16,16 @@ test('Test: constructor(props)', () => {
 
 // Test color theme
 test('Test: color theme', () => {
-	let theme_light_test = (object.state.color_theme === COLOR.THEME_LIGHT);
-	let theme_dark_test = (object.state.color_theme === COLOR.THEME_DARK);
-	let theme_classic_test = (object.state.color_theme === COLOR.THEME_CLASSIC);
+	let theme_light_test = (object.state.color_theme === Constants.COLOR.THEME_LIGHT);
+	let theme_dark_test = (object.state.color_theme === Constants.COLOR.THEME_DARK);
+	let theme_classic_test = (object.state.color_theme === Constants.COLOR.THEME_CLASSIC);
 	expect(theme_light_test || theme_dark_test || theme_classic_test).toBe(true);
 });
 
+/*
 // Test child references
 test('Test: child references', () => {
-	expect(object.menu).toBeDefined()
-	expect(object.searchArea).toBeDefined()
-	expect(object.previewArea).toBeDefined()
+	expect(object.menu).toBeDefined();
+	expect(object.searchArea).toBeDefined();
+	expect(object.previewArea).toBeDefined();
 });
