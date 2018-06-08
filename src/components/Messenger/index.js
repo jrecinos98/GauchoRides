@@ -5,7 +5,7 @@ import User from "../../../src/actors/User";
 export class Messenger extends React.Component {
   state = {
     messages: [],
-  }
+  };
 
   componentWillMount() {
     this.setState({
@@ -16,11 +16,10 @@ export class Messenger extends React.Component {
           createdAt: new Date(),
           user: {
             _id: 2,
-            name: {User.currentUser.name},
+            name: User.currentUser.name,
             avatar: {uri: 'https://graph.facebook.com/' + User.currentUser.fbID + '/picture?type=large'},
           },
-        },
-      ],
+        }]
     })
   }
 
