@@ -35,15 +35,15 @@ export default class LogInScreen extends Component {
     signUpUser= (email, password) => {
         try {
             if (!email.includes('.edu')){
-                alert("A .edu mail is required for this app.")
+                window.alert("A .edu mail is required for this app.")
                 return
             }
             if (email === "" || password === "") {
-                alert("Enter valid email and password.")
+                window.alert("Enter valid email and password.")
                 return
             }
             else if (this.state.password.length < 6) {
-                alert("Please enter at least 6 characters");
+                window.alert("Please enter at least 6 characters");
                 return;
             }
             if(email !== "" && password !== "") {
@@ -61,7 +61,7 @@ export default class LogInScreen extends Component {
             Database.loginWithEmail(email, password);
         }
         else{
-            alert("Please enter a registered emailed and password.")
+            window.alert("Please enter a registered emailed and password.")
         }
     };
 

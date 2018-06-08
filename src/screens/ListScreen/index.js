@@ -62,7 +62,7 @@ export default class ListScreen extends Component {
         });
     }
     alertItemName = (item) => {
-        alert(item.name)
+        window.alert(item.name)
     }
     render() {
 

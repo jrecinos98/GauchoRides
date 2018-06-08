@@ -54,17 +54,15 @@ export default class Database {
      * @param password The user password
      */
 	static signupWithEmail(email, password) {
-        var created = false;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        return new Promise(resolve => {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(function (fbUser) {
-                created = true;
-                alert("Account created.");
+                resolve(true);
             })
             .catch(function (error) {
-                alert("Account already existed.");
+                resolve(false);
             });
-        return created;
-
+        });
     }
 
     /**
@@ -76,10 +74,10 @@ export default class Database {
 		firebase.auth().signInWithEmailAndPassword(email, password)
 		.then(function (user) {
 		    console.log(user);
-		    alert("Login successful.")
+		    window.alert("Login successful.")
 		})
 		.catch(function(error) {
-		    alert("An error occurred please try again. Make sure you use a verified email and password.")
+		    window.alert("An error occurred please try again. Make sure you use a verified email and password.")
 		})
 	}
 
@@ -96,7 +94,7 @@ export default class Database {
 		if (type === 'success') {
 		    const credential = firebase.auth.FacebookAuthProvider.credential(token);
 		    firebase.auth().signInWithCredential(credential).catch((error) => {
-		        alert(error);
+		        window.alert(error);
 		    });
 		}
 	}

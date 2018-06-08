@@ -31,11 +31,11 @@ export default class SearchArea extends Component {
     async submit() {
         if (this.searchInputs !== undefined && this.searchInputs.pickupInput !== "" && this.searchInputs.dropoffInput !== "") {
             if (this.searchInputs.pickupArray.length < 3){
-                alert("Please be more specific on your starting location.");
+                window.alert("Please be more specific on your starting location.");
                 return;
             }
             if (this.searchInputs.dropoffArray.length < 3){
-                alert("Please be more specific on your destination.");
+                window.alert("Please be more specific on your destination.");
                 return;
             }
             Controller.toggleDisplay();

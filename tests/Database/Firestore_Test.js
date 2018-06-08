@@ -4,8 +4,7 @@ import Database from '../../src/Database';
 
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { FIREBASE } from '../../src/Constants';
-import {TEST_CONSTANTS} from "../../src/Constants";
+import Constants from "../../src/Constants";
 
 var object;
 
@@ -15,8 +14,8 @@ test('Test: Database.initialize()', () => {
 
 });
 
-test('Test: Database.signupWithEmail(email, password)', () => {
-   Database.initialize();
+test('Test: Database.signupWithEmail(email, password)', async () => {
    console.log(Constants.TEST_CONSTANTS.DATABASE.TEST_EMAIL);
-   expect(Database.signupWithEmail(Constants.TEST_CONSTANTS.DATABASE.TEST_EMAIL, Constants.TEST_CONSTANTS.DATABASE.TEST_PASSWORD)).toBe(false)
+   expect(await Database.signupWithEmail(Constants.TEST_CONSTANTS.DATABASE.TEST_EMAIL, Constants.TEST_CONSTANTS.DATABASE.TEST_PASSWORD)).toBe(false)
 });
+

@@ -92,17 +92,17 @@ export default class Utility {
             return;
         }
         if (searchInputs.pickupArray.length < 3) {
-            alert("Please be more specific on your starting location.");
+            window.alert("Please be more specific on your starting location.");
             callback(false);
             return;
         }
         if (searchInputs.dropoffArray.length < 3) {
-            alert("Please be more specific on your destination.");
+            window.alert("Please be more specific on your destination.");
             callback(false);
             return;
         }
         if (isNaN(price)) {
-            alert("please enter a valid price");
+            window.alert("please enter a valid price");
             callback(false);
             return;
         }
