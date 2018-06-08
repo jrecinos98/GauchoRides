@@ -10,7 +10,9 @@
 * [Project Structure](#project-structure)
   * [Login Screen](#login-screen)
   * [Home Screen](#home-screen)
-  * [Create Ride Screen](#create-ride-screen)
+   * [Create Ride Screen](#create-ride-screen)
+   * [Create Request Screen](#create-request-screen)
+  * [Request Screen](#request-screen)
   * [History Tab](#history-tab)
   * [Profile Tab](#profile-tab)
   * [Settings Screen](#settings-screen)
@@ -123,13 +125,21 @@ Once you are authenticated you will be sent to the Home screen. Here you will fi
 - **Menu options**:
   Pressing the icon on the upper left hand corner will give the option to view the rides as a list or in the map. (Not functional yet)
   
-### Create Ride Screen
+#### Create Ride Screen
 If 'Create Ride' is selected in floating button in homescreen you will be sent to this screen.
 In this screen you can create a ride and store it in our database by filling in the fields and clicking on create ride.
-After creating a ride it will be displayed in the History tab (May need to restart app to trigger a refresh)
+After creating a ride it will be displayed in the History tab (May need to pull to refresh)
+
+#### Create Request Screen
+If 'request a ride' is selected in floating button in homeswcreen you will open up this screen.
+In this screen you can request a ride by setting your desired origin and destination and set the amount that you'd be willing to pay. When a ride is requested it will show on the requested screen and will be listed in your ride history under the requests tab.
+
+### Request Screen
+This screen will display all the rides that have been requested by other users and also the ones you have created. Here you will be able to see the requester profile if the profile image is tapped. If you are interested in adding this passenger to a ride that matches your origin and destination you can do it from this screen.
+
 
 ### History Tab
-A list view of all the rides that have been created by the user and all the rides they have taken as passengers.
+A list view of all the rides that have been created by the user, all the rides they have taken as passengers and all the rides that they have requested.
 It contains all the information relating to that ride.
 
 ### Profile Tab
