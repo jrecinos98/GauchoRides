@@ -9,11 +9,11 @@ var firestore = null;
  * Firebase configuration for our project
  */
 const firebaseConfig = {
-    apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
-    authDomain: "ucsb-rideshare-app.firebaseapp.com",
-    databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
-    projectId: "ucsb-rideshare-app",
-    storageBucket: "ucsb-rideshare-app.appspot.com",
+	apiKey: "AIzaSyCcNzQOQ33CCO3dDEDfoKWweeWVfsZ8uWo",
+	authDomain: "ucsb-rideshare-app.firebaseapp.com",
+	databaseURL: "https://ucsb-rideshare-app.firebaseio.com",
+	projectId: "ucsb-rideshare-app",
+	storageBucket: "ucsb-rideshare-app.appspot.com",
 };
 
 /**
@@ -21,15 +21,15 @@ const firebaseConfig = {
  */
 export default class Database {
 
-    /**
+	/**
 	 * Initialize Firestore.
-     */
+	 */
 	static initialize() {
 		if (!firebase.apps.length) {
-		    firebase.initializeApp(firebaseConfig);
-		    firestore = firebase.firestore();
+		  firebase.initializeApp(firebaseConfig);
+		  firestore = firebase.firestore();
 
-		    try {
+		  try {
 				firestore.settings({timestampsInSnapshots: true});
 			}
 			catch(err) {
@@ -38,100 +38,136 @@ export default class Database {
 		}
 	}
 	//timestampsInSnapshots: true
-    /**
+	/**
 	 * On authentication pass the User info to callback method
-     * @param callback
-     */
+	 * @param callback
+	 */
 	static onAuthChanged(callback) {
 		firebase.auth().onAuthStateChanged((user) => {
 			callback(user);
 		});
 	}
 
-    /**
+	/**
 	 * Signs up an user on firebase and authenticates the user
-     * @param email The user email
-     * @param password The user password
-     */
+	 * @param email The user email
+	 * @param password The user password
+	 */
 	static signupWithEmail(email, password) {
-        return new Promise(resolve => {
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then(function (fbUser) {
-                resolve(true);
-            })
-            .catch(function (error) {
-                resolve(false);
-            });
-        });
-    }
-
-    /**
-	 * Signs in an already registere user using email and password
-     * @param email
-     * @param password
-     */
-	static loginWithEmail(email, password) {
-		firebase.auth().signInWithEmailAndPassword(email, password)
-		.then(function (user) {
-		    console.log(user);
-		    window.alert("Login successful.")
-		})
-		.catch(function(error) {
-		    window.alert("An error occurred please try again. Make sure you use a verified email and password.")
-		})
+		return new Promise(resolve => {
+			firebase.auth().createUserWithEmailAndPassword(email, password)
+			.then(function (fbUser) {
+				console.log("Account created.");
+				resolve(true);
+			})
+			.catch(function (error) {
+				console.log("Account already existed.");
+				resolve(false);
+			});
+		});
 	}
 
-    /**
+	/**
+	 * Signs in an already registere user using email and password
+	 * @param email
+	 * @param password
+	 */
+	static loginWithEmail(email, password) {
+
+
+		return new Promise(resolve => {
+			firebase.auth().signInWithEmailAndPassword(email, password)
+			.then(function (user) {
+			  // console.log(user);
+			  console.log("Login successful.")
+				resolve(true);
+			})
+			.catch(function(error) {
+			  console.log("An error occurred please try again. Make sure you use a verified email and password.")
+				resolve(false);
+			})
+		});
+	}
+
+	/**
 	 * Authenticates the user by using the Facebook API
-     * @returns {Promise<void>}
-     */
+	 * @returns {Promise<void>}
+	 */
 	static async loginWithFacebook() {
 		const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync
 		('615345508804840', {
-		    permissions: ['public_profile', 'email'],
+		  permissions: ['public_profile', 'email'],
 		});
 
 		if (type === 'success') {
-		    const credential = firebase.auth.FacebookAuthProvider.credential(token);
-		    firebase.auth().signInWithCredential(credential).catch((error) => {
-		        window.alert(error);
-		    });
+		  const credential = firebase.auth.FacebookAuthProvider.credential(token);
+		  firebase.auth().signInWithCredential(credential).catch((error) => {
+			console.log(error);
+		  });
 		}
 	}
 
-    /**
+	/**
 	 * Logs out a user. Forces user to log in again.
-     * @returns {Promise<void>}
-     */
+	 * @returns {Promise<void>}
+	 */
 	static async logout() {
 		await firebase.auth().signOut();
 	}
 
-    /**
+	/**
 	 * Creates user on Firebase.
-     * @param user
-     */
+	 * @param user
+	 */
 	static createUser(user) {
-		firestore.collection(Constants.FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((ref) => {
-			//console.log(ref);
+		return new Promise(resolve => {
+			firestore.collection(Constants.FIREBASE.USERS_PATH).doc(user.id).set(user.toObject())
+			.then((ref) => {
+				resolve(true);
+			})
+			.catch(function(error) {
+				resolve(false);
+			});
 		});
 	}
 
-    /**
+	/**
 	 * Updates a user information on firebase
-     * @param user
-     */
+	 * @param user
+	 */
 	static updateUser(user) {
-		firestore.collection(Constants.FIREBASE.USERS_PATH).doc(user.id).set(user.toObject()).then((status) => {
-			//console.log(status);
+		return new Promise(resolve => {
+			firestore.collection(Constants.FIREBASE.USERS_PATH).doc(user.id).set(user.toObject())
+			.then((ref) => {
+				resolve(true);
+			})
+			.catch(function(error) {
+				resolve(false);
+			});
 		});
 	}
 
-    /**
+	/**
+	 * Deletes user on Firebase.
+	 * @param user
+	 */
+	static removeUser(userID) {
+		return new Promise(resolve => {
+			firestore.collection(Constants.FIREBASE.USERS_PATH).doc(userID).delete()
+			.then((ref) => {
+				resolve(true);
+			})
+			.catch(function(error) {
+				resolve(false);
+			});
+		});
+	}
+
+	/**
 	 * Retrieves a User from Firebase
-     * @param id
-     * @param callback
-     */
+	 * @param id
+	 * @param callback
+	 */
 	static getUser(id, callback) {
 		firestore.collection(Constants.FIREBASE.USERS_PATH).doc(id).get()
 		.then(function(doc) {
@@ -160,10 +196,10 @@ export default class Database {
 	}
 
 
-    /**
+	/**
 	 * Retrieves rides that the user has taken a part in
-     * @param callback
-     */
+	 * @param callback
+	 */
 	static async getUserHistory(callback){
 		if (User.currentUser.rides === undefined || Object.keys(User.currentUser.rides).length === 0) {
 			callback([], []);
@@ -178,47 +214,47 @@ export default class Database {
 		});
 
 		var d= new Date().getTime()/1000;
-        for (var id in User.currentUser.rides){
-            let ride = await Database.getRide(id);
-            if (Object.keys(ride).length !== 0) {
-                if(ride.time >= d) {
-                    futureRideList.push(ride);
-                }
-                else{
-                    completedRideList.push(ride);
-                }
-            }
-        }
-        callback(futureRideList, completedRideList, rideRequestList);
+		for (var id in User.currentUser.rides){
+			let ride = await Database.getRide(id);
+			if (Object.keys(ride).length !== 0) {
+				if(ride.time >= d) {
+					futureRideList.push(ride);
+				}
+				else{
+					completedRideList.push(ride);
+				}
+			}
+		}
+		callback(futureRideList, completedRideList, rideRequestList);
 	}
-    static getRequest(id) {
-        return new Promise(resolve => {
-            firestore.collection(Constants.FIREBASE.REQUESTS_PATH).doc(id).get()
-                .then(function (doc) {
-                    if (doc.exists) {
-                        resolve(doc.data());
-                    }
-                    else {
-                        resolve({});
-                    }
-                })
-                .catch(function (error) {
-                    console.log("Error getting document:", error);
-                });
-        });
-    }
-    static async retrieveUserRequests(callback){
-        if (User.currentUser.requests === undefined || Object.keys(User.currentUser.requests).length === 0) {
-            callback([], []);
-            return;
-        }
-        let requestList = [];
-        for (let id in User.currentUser.requests){
-            let request= await Database.getRequest(id);
-            requestList.push(request);
-        }
-        callback(requestList)
-    }
+	static getRequest(id) {
+		return new Promise(resolve => {
+			firestore.collection(Constants.FIREBASE.REQUESTS_PATH).doc(id).get()
+				.then(function (doc) {
+					if (doc.exists) {
+						resolve(doc.data());
+					}
+					else {
+						resolve({});
+					}
+				})
+				.catch(function (error) {
+					console.log("Error getting document:", error);
+				});
+		});
+	}
+	static async retrieveUserRequests(callback){
+		if (User.currentUser.requests === undefined || Object.keys(User.currentUser.requests).length === 0) {
+			callback([], []);
+			return;
+		}
+		let requestList = [];
+		for (let id in User.currentUser.requests){
+			let request= await Database.getRequest(id);
+			requestList.push(request);
+		}
+		callback(requestList)
+	}
 
 
 
@@ -226,13 +262,13 @@ export default class Database {
 
 //rideList[i].origin.name
 
-    /**
+	/**
 	 * Creates a ride on Firestore.
 	 * @param path
-     * @param ride
-     * @param originCity
-     * @param destinCity
-     */
+	 * @param ride
+	 * @param originCity
+	 * @param destinCity
+	 */
 	static createRide(path, ride, originCity, destinCity) {
 		firestore.collection(path).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
 			//Update ride information on firebase
@@ -241,9 +277,9 @@ export default class Database {
 
 			//Update driver information on firebase
 			if(path === Constants.FIREBASE.RIDES_PATH) {
-                User.currentUser.rides[ride.id] = 'driver';
-            }
-            else{
+				User.currentUser.rides[ride.id] = 'driver';
+			}
+			else{
 				User.currentUser.requests[ride.id]= "creator";
 			}
 			Database.updateUser(User.currentUser);
@@ -252,49 +288,49 @@ export default class Database {
 
 /*
 	static createRequest(ride, originCity, destinCity){
-        firestore.collection(FIREBASE.REQUESTS_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
+		firestore.collection(FIREBASE.REQUESTS_PATH).doc(originCity).collection(destinCity).add(ride.toObject()).then((ref) => {
 
-            //Update ride information on firebase
-            ride.id = ref.id;
-            Database.updateRide(path, originCity, destinCity, ride);
+			//Update ride information on firebase
+			ride.id = ref.id;
+			Database.updateRide(path, originCity, destinCity, ride);
 
-            //Update driver information on firebase
-            User.currentUser.rides[originCity + '/' + destinCity + '/' + ride.id] = 'passenger';
-            Database.updateUser(User.currentUser);
-        });
+			//Update driver information on firebase
+			User.currentUser.rides[originCity + '/' + destinCity + '/' + ride.id] = 'passenger';
+			Database.updateUser(User.currentUser);
+		});
 	}
 	*/
 
-    /**
+	/**
 	 * Updates a previously created ride.
 	 * @param path
-     * @param originCity
-     * @param destinCity
-     * @param ride
-     */
+	 * @param originCity
+	 * @param destinCity
+	 * @param ride
+	 */
 	static updateRide(path, ride) {
 		firestore.collection(path).doc(ride.id).set(ride.toObject())
 	}
 
-    /**
+	/**
 	 * Retrieves a previously created ride using the ID
-     * @param id The id specifies the path of the ride.
-     * @param callback
-     */
+	 * @param id The id specifies the path of the ride.
+	 * @param callback
+	 */
 	static getRide(id) {
 		return new Promise(resolve => {
-            firestore.collection(Constants.FIREBASE.RIDES_PATH).doc(id).get()
-                .then(function(doc) {
-                    if (doc.exists) {
-                        resolve(doc.data());
-                    }
-                    else {
-                    	resolve({});
+			firestore.collection(Constants.FIREBASE.RIDES_PATH).doc(id).get()
+				.then(function(doc) {
+					if (doc.exists) {
+						resolve(doc.data());
 					}
-                })
-                .catch(function(error) {
-                    console.log("Error getting document:", error);
-                });
+					else {
+						resolve({});
+					}
+				})
+				.catch(function(error) {
+					console.log("Error getting document:", error);
+				});
 		});
 	}
 
@@ -302,37 +338,37 @@ export default class Database {
 	static getAllRequests(callback){
 		let requestList=[];
 		firestore.collection(Constants.FIREBASE.REQUESTS_PATH).get()
-            .then(snapshot => {
-            	//console.log(snapshot)
-                snapshot.forEach(doc => {
-                	console.log(doc.data());
-                    requestList.push(doc.data());
-                    // console.log(doc.data())
-                });
-                callback(requestList);
-            })
-            .catch(err => {
-                console.log("Error getting documents", err)
-            });
+			.then(snapshot => {
+				//console.log(snapshot)
+				snapshot.forEach(doc => {
+					console.log(doc.data());
+					requestList.push(doc.data());
+					// console.log(doc.data())
+				});
+				callback(requestList);
+			})
+			.catch(err => {
+				console.log("Error getting documents", err)
+			});
 
 
 	}
 
-    static retrieveRideList(origin, destination, callBack){
-        var ride = firestore.collection(Constants.FIREBASE.RIDES_PATH).doc(origin).collection(destination);
-        let rideList=[];
-        ride.get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    rideList.push(doc.data());
-                   // console.log(doc.data())
-                });
-                callBack(rideList);
-            })
-            .catch(err => {
-                console.log("Error getting documents", err)
-            });
-    }
+	static retrieveRideList(origin, destination, callBack){
+		var ride = firestore.collection(Constants.FIREBASE.RIDES_PATH).doc(origin).collection(destination);
+		let rideList=[];
+		ride.get()
+			.then(snapshot => {
+				snapshot.forEach(doc => {
+					rideList.push(doc.data());
+				   // console.log(doc.data())
+				});
+				callBack(rideList);
+			})
+			.catch(err => {
+				console.log("Error getting documents", err)
+			});
+	}
 
 
 }
