@@ -61,9 +61,13 @@ test('Test: extractCity(text)', () => {
 });
 
 test('Test: formatDate(date)', () => {
-    const CHRISTMAS= new Date(1545696000000);
-    const NEW_YEARS= new Date(1546214400000)
-    expect(Utility.formatDate(CHRISTMAS)).toBe('Dec 24, 04:00 PM');
-    expect(Utility.formatDate(NEW_YEARS)).toBe('Dec 30, 04:00 PM');
+    let CHRISTMAS= new Date(1545696000000);
+    let NEW_YEARS= new Date(1546214400000);
+
+    CHRISTMAS= new Date(CHRISTMAS.valueOf() + CHRISTMAS.getTimezoneOffset() * 60000);
+    NEW_YEARS= new Date(NEW_YEARS.valueOf() + NEW_YEARS.getTimezoneOffset() * 60000);
+
+    expect(Utility.formatDate(CHRISTMAS)).toBe('Dec 25, 12:00 AM');
+    expect(Utility.formatDate(NEW_YEARS)).toBe('Dec 31, 12:00 AM');
 });
 

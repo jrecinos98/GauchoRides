@@ -29,3 +29,4 @@ test('Test: child references', () => {
 	expect(object.searchArea).toBeDefined();
 	expect(object.previewArea).toBeDefined();
 });
+*/
