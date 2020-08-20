@@ -1,4 +1,4 @@
-React Native Ridesharing Application
+# React Native Ridesharing Application
 
 ## Table of Contents
 * [About Gaucho Rides](#about-gaucho-rides)
