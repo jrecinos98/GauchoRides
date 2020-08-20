@@ -1,3 +1,5 @@
+# GauchoRides
+
 ## Table of Contents
 * [About Gaucho Rides](#about-gaucho-rides)
 * [Setup Project](#setup-project)
